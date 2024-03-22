@@ -1,0 +1,18 @@
+/*!
+ * Brickfolio - A jQuery plugin for equally spaced grid layouts
+ * @version 0.0.5
+ * @link https://github.com/fooplugins/brickfolio
+ * @copyright Steven Usher & Brad Vincent 2014
+ * @license Released under the GPL license.
+ * You are free to use Brickfolio in personal projects as long as this copyright header is left intact.
+ */
+/* The below is the default styling for brickfolio */
+
+.a-options { margin:5px 0; display:-webkit-box; display:-webkit-flex; display:-ms-flexbox; display:flex; -webkit-flex-wrap:wrap; -ms-flex-wrap:wrap; flex-wrap:wrap; -webkit-box-pack:center; -webkit-justify-content:center; -ms-flex-pack:center; justify-content:center }
+
+.brickfolio { -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; margin:0 auto; background:transparent; padding:40px; overflow:hidden; width:100%;}
+.brickfolio.bf-loaded { background:transparent;}
+
+.bf-item { display:none; background-color:#fff; padding:10px; margin:0 auto; -webkit-box-shadow:0 3px 8px rgba(50, 50, 50, 0.50); -moz-box-shadow:0 3px 8px rgba(50, 50, 50, 0.50); box-shadow:0 3px 8px rgba(50, 50, 50, 0.50); width:200px; max-width:100%;}
+.bf-item.bf-loaded { display:inline-block;}
+.bf-item.bf-error {}
