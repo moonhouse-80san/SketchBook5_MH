@@ -1,0 +1,10 @@
+<load target="js/panel.js" />
+
+<style type="text/css">
+	.sk_panel { background-color:{$mi->top_panel_bcolor}; color:{$mi->top_panel_color}; margin-top:10px; font-size:{$mi->top_panel_size}; line-height:20px; }
+	.sk_flip { <!--@if($li->Menu_Position=='Y')-->margin-top:-35px;<!--@else-->margin:10px 0;<!--@end--> }
+	.sk_panel { <!--@if($mi->panel_auto=='')-->display:none;<!--@end--> }
+</style>
+
+<div cond="$mi->top_panel_btn" class="sk_flip"><span class="btn"><i class="fa fa-plus-square fa-lg" style="margin-right:5px; color:#ff6600;"></i>{$mi->top_panel_btn}</span></div>
+<div class="sk_panel">{$mi->top_panel_text}</div>

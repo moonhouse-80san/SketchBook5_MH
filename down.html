@@ -1,0 +1,39 @@
+<style>
+#toggleExtraVars { border:1px dotted #fff; padding:5px; border-radius:5px; }
+#toggleExtraVars i { color:#fff; margin-right:2px; }
+#toggleExtraVars .et { color:#d2d2d2; }
+#toggleExtraVars .et span { font-size:12px; }
+.sty { cursor:pointer; background-color:#000; width:218px; }
+</style>
+
+<a href="#toggleExtraVars" class="downimg"></a>
+
+<div cond="$val->name==$mi->et_logon_name" id="toggleExtraVars" style="background-color:#747474"><i class="fas fa-download"></i>
+{$val->getValueHTML()}<b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
+</div>
+
+<div cond="$val->name==$mi->t_logon_name" id="toggleExtraVars" class="sty" onclick="<!--@if($mi->down_loca == '')-->location.href='{$val->getValueHTML()}'<!--@else-->window.open('{$val->getValueHTML()}')<!--@end-->"><i class="fas fa-download"></i>
+<b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
+</div>
+
+<div cond="$val->name==$mi->g_logon_name" id="toggleExtraVars" class="sty" onclick="<!--@if($mi->down_loca == '')-->location.href='https://docs.google.com/uc?export=download&id={$val->getValueHTML()}'<!--@else-->window.open('https://docs.google.com/uc?export=download&id={$val->getValueHTML()}')<!--@end-->"><i class="fas fa-download"></i>
+<b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
+</div>
+
+<div cond="$val->name==$mi->d_logon_name" id="toggleExtraVars" class="sty" onclick="<!--@if($mi->down_loca == '')-->location.href='https://www.dropbox.com/s/{$val->getValueHTML()}?dl=1'<!--@else-->window.open('https://www.dropbox.com/s/{$val->getValueHTML()}?dl=1')<!--@end-->"><i class="fas fa-download"></i>
+<b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
+</div>
+
+<script>
+	jQuery(function($){ 
+		$('#toggleExtraVars').hide();
+		$('a[href=#toggleExtraVars]').hover(function(){
+			if ($('#toggleExtraVars').is(":hidden")) {
+				$('#toggleExtraVars').slideDown("slow");
+			} else {
+				$('#toggleExtraVars').addClass('show');
+			}
+			return false;
+		});
+	});
+</script>

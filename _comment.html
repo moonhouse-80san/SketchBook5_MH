@@ -1,0 +1,224 @@
+<include target="__setting.html" cond="$comment_head" />
+
+<block cond="!$mi->pname == '' && $mi->pname_img == ''">
+	{@
+	$nickBgPath = "$tpl_path/nick_bg_img.php";
+	include_once($nickBgPath);
+	$oNickBgUtil = new nickBgUtil();
+	}
+</block>
+<block cond="!$mi->pname == '' && $mi->pname_img == 'C'">
+	{@
+	$nickBgPath = "$tpl_path/nick_bg_color.php";
+	include_once($nickBgPath);
+	$oNickBgUtil = new nickBgUtil();
+	}
+</block>
+
+<!--// 댓글 줄수 설정 -->
+<block cond="!$mi->cmt_line_no">{@ $mi->cmt_line_no = '1'}</block>
+<block cond="!$mi->cmt_line_h">{@ $mi->cmt_line_h = '1.5'}</block>
+<style cond="$mi->cmt_line_use=='Y'">
+	.commentbox{ overflow:hidden; }
+	.commentbox .xe_content{ margin-top:0px; }
+	.commentbox .xe_content.hiddenComment p,
+	.commentbox .xe_content.hiddenComment{ float:left; width:80%; overflow:hidden; text-overflow: ellipsis; -webkit-line-clamp:{$mi->cmt_line_no}; line-height:{$mi->cmt_line_h}em; height: {$mi->cmt_line_h*$mi->cmt_line_no}em; }
+	.commentbox .xe_content.hiddenComment p{ width:100%; }
+	.btn-moreComment{ display:none; white-space:nowrap; float:right; margin-top:0px; }
+	.btn-moreComment.hidden {display:none !important;}
+	.btn-closeComment{ display:none; white-space:nowrap; float:right; margin-top:0px; }
+	.btn-closeComment.active{ display:inline-block; }
+	@media screen and (max-width: 533px){
+		.commentbox .xe_content.hiddenComment{ width:60%; }
+	}
+</style>
+<script cond="$mi->cmt_line_use=='Y'">
+   jQuery(function ($) {
+      var commentbox = $('.commentbox .xe_content');
+      commentbox.each( function() {
+         $( this ).outerHeight();
+         if( $(this).outerHeight() > 22*{$mi->cmt_line_no} ){
+            $(this).addClass('hiddenComment');
+            var btnMoreCmt = $(this).siblings('.btn-moreComment');
+            btnMoreCmt.show();
+            btnMoreCmt.on("click",function(){
+               $(this).siblings('.xe_content').removeClass('hiddenComment');
+               $(this).siblings(".btn-closeComment").addClass("active");
+               $(this).addClass("hidden");
+            });
+            //코멘트 닫기
+            var btnCloseCmt = $(this).siblings('.btn-closeComment');
+            btnCloseCmt.on("click",function(){
+               $(this).removeClass("active");
+               $(this).siblings('.xe_content').addClass('hiddenComment');
+               btnMoreCmt.removeClass("hidden");
+               
+            });
+         }
+      } );
+   });
+</script>
+
+<!--// Comment v2 -->
+<a cond="$mi->fdb_style=='fdb_v2' && $mi->default_style!='guest'" class="nametag ui_font bubble" href="#" onclick="jQuery(this).nextAll('ul,.bd_pg').slideToggle();return false" title="Click! {$lang->comment} {$lang->cmd_view}~"><strong class="bg_color bx_shadow">Comment <b>'{$oDocument->getCommentcount()}'</b></strong></a>
+
+<!--// Comment v1 -->
+<block cond="$oDocument->getCommentcount()">
+	<div cond="!$mi->fdb_style" class="fdb_tag<!--@if($mi->cmt_wrt_position=='cmt_wrt_btm')--> bg_f_f9 css3pie<!--@end-->">
+		<a class="ui_font bubble" href="#" onclick="jQuery(this).parent().nextAll('ul,.bd_pg').slideToggle();return false" title="{$lang->comment} {$lang->cmd_view}">Comments <b>'{$oDocument->getCommentcount()}'</b></a>
+	</div>
+
+	<ul id="ajax_comment" class="fdb_lst_ul {$mi->fdb_hide}">
+		<block loop="$oDocument->getComments()=>$key,$comment">
+			<!--@if($comment->get('depth'))-->
+			<li id="comment_{$comment->comment_srl}" class="fdb_itm clear re bg{($comment->get('depth'))%2}" style="margin-left:{(($comment->get('depth')-1)%10+1)*2}%"><i class="fa fa-share fa-flip-vertical re"></i><i cond="$comment->get('depth')>10" class="fa fa-share fa-flip-vertical re rere"></i>
+			<!--@else-->
+			<li id="comment_{$comment->comment_srl}" class="fdb_itm clear">
+			<!--@end-->
+				<!--// 프로필 -->
+				<block cond="!$mi->profile_img">
+					{@ $fisrt_nick_str = mb_substr($comment->getNickName(),0,0)}
+					{@ $second_nick_str = mb_substr($comment->getNickName(),0,1)}
+					<img cond="$comment->getProfileImage()" class="profile img" src="{$comment->getProfileImage()}" alt="profile" />
+					<!--@if(!$mi->pname_img == 'C')-->
+						<span cond="!$comment->getProfileImage() && $mi->pname == 'Y'" class="profile img no_img" 
+						style="background:url('{$tpl_path}img/{$oNickBgUtil->getNickBgColor($comment->getNickName())}') 2px 2px no-repeat; width:50px; height:50px; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold; border:1px solid #ddd; padding:2px;">{$fisrt_nick_str}</span>
+					<!--@else-->
+						<span cond="!$comment->getProfileImage() && $mi->pname == 'Y'" class="profile img no_img" 
+						style="background-color:{$oNickBgUtil->getNickBgColor($comment->getNickName())}; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold; border:1px solid #ddd; padding:2px;">{$second_nick_str}</span>
+					<!--@end-->
+				</block>
+				<!--// 댓글 정보 -->
+				<div class="meta">
+					<a cond="$comment->member_srl" href="#popup_menu_area" class="member_{$comment->member_srl}" onclick="return false">{$comment->getNickName()}</a>
+					<a cond="!$comment->member_srl && $comment->homepage" href="{$comment->getHomepageUrl()}" target="_blank">{$comment->getNickName()}</a>
+					<b cond="!$comment->member_srl && !$comment->homepage">{$comment->getNickName()}</b>
+					<span class="date">{getTimeGap($comment->get('regdate'), "Y.m.d H:i")}</span>
+					<small cond="$grant->manager || $mi->display_ip_address" class="m_no"><!--@if($grant->is_admin)--><a href="https://ko.infobyip.com/ip-{$comment->getIpaddress()}.html" target="_blank">({$comment->getIpaddress()})</a><!--@else-->({$comment->getIpaddress()})<!--@end--> </small>
+					<span cond="$comment->isSecret()" class="ico_secret">SECRET</span>
+
+					<!--// 댓글 작성자가 원글 작성자인 경우 표시-->
+					{@ if(!$mi->comment_write_view) $mi->comment_write_view = 글쓴이; }
+					<!--@if( abs($oDocument->get('member_srl')) >0 || abs($comment->member_srl ) > 0 )-->
+						<!--@if( abs($comment->get('member_srl')) === abs($oDocument->get('member_srl')) )-->
+							<span class="cw">{$mi->comment_write_view}</span>
+						<!--@end-->
+					<!--@else-->
+						<!--@if( ($comment->getIpaddress() == $oDocument->get('ipaddress') ))-->
+							<span class="cw">{$mi->comment_write_view}</span>
+						<!--@end-->
+					<!--@end-->
+
+					<!--// 첨부파일 -->
+					<block cond="$comment->hasUploadedFiles()">
+					<a class="tg_btn2" href="#files_{$comment->comment_srl}"><b class="ui-icon ui-icon-disk">Files</b>{$lang->uploaded_file} <small>({$comment->get('uploaded_count')})</small></a>
+					<div id="files_{$comment->comment_srl}" class="cmt_files tg_cnt2" style="display:none;">
+						<button type="button" class="tg_blur2"></button><button type="button" class="tg_close2" title="{$lang->cmd_close}"><b class="ui-icon ui-icon-closethick">X</b></button>
+						<ul class="wrp">
+							<li loop="$comment->getUploadedFiles()=>$key,$file"><em>&bull;</em> <a class="bubble" href="{getUrl('')}{$file->download_url}" title="[File Size:{FileHandler::filesize($file->file_size)}/Download:{number_format($file->download_count)}]" onClick="alert('{$lang->msg_not_permitted} $module_info->down_permitted_msg}'); return false"|cond="!$logged_info->member_srl && $mid==$module_info->down_mid">{$file->source_filename}</a></li>
+						</ul>
+						<button type="button" class="tg_blur2"></button>
+					</div>
+					</block>
+
+					<div style="margin-top:5px">
+						<!--댓글 주소 복사-->
+						<load target="./js/clipboard.min.js" />
+						<a class="copycomLink" style="font-size:12px; color:#aaa" href="{getUrl('', 'mid', $mid, 'document_srl', $comment->document_srl, 'comment_srl', $comment->comment_srl)}#comment_{$comment->comment_srl}" data-clipboard-text="{getFullUrl('', 'mid', $mid, 'document_srl', $comment->document_srl, 'comment_srl', $comment->comment_srl)}#comment_{$comment->comment_srl}" onclick="return false;">#comment_{$comment->comment_srl}</a>
+					</div>
+				</div>
+
+				<!--// 댓글 본문 -->
+				<!-- 댓글 삭제 자리남김 -->
+				<!--@if($comment->status == RX_STATUS_DELETED)-->
+					<div class="xe_content deleted">{$lang->msg_deleted_comment}</div>
+				<!--@elseif($comment->status == RX_STATUS_DELETED_BY_ADMIN)-->
+					<div class="xe_content deleted deleted_by_admin">{$lang->msg_admin_deleted_comment}</div>
+
+				<!--@elseif(!$comment->isAccessible())-->
+					<form action="./" method="get" onsubmit="return procFilter(this, input_password)">
+						<input type="hidden" name="mid" value="{$mid}" />
+						<input type="hidden" name="page" value="{$page}" />
+						<input type="hidden" name="document_srl" value="{$comment->get('document_srl')}" />
+						<input type="hidden" name="comment_srl" value="{$comment->get('comment_srl')}" />
+						<p>&quot;{$lang->msg_is_secret}&quot;</p>
+						<span class="itx_wrp">
+							<label for="cpw_{$comment->comment_srl}">{$lang->password}</label>
+							<input type="password" id="cpw_{$comment->comment_srl}" name="password" class="itx" />
+							<input type="submit" value="{$lang->cmd_input}" class="bd_btn" />
+						</span>
+					</form>
+				<!--@else-->
+					<!--@if($comment->parent_srl)-->
+						{@
+						$oComment = &getModel('comment');
+						$comment_parent = $oComment->getComment($comment->parent_srl);
+						}
+						<p style="margin-bottom:10px"><i class="fa fa-eye" aria-hidden="true"></i> <span style="color:red; font-weight: bold;">{$comment_parent->getNickName()}</span> {$lang->comment_on}</p>
+						<div class="commentbox cont">
+							{$comment->getContent(false)}
+							<div cond="$mi->cmt_line_use=='Y'" class="btn-moreComment sbtn_small sbtn-gray"><i class="fas fa-angle-double-down"></i> 펼치기</div>
+							<div cond="$mi->cmt_line_use=='Y'" class="btn-closeComment sbtn_small sbtn-yellow"><i class="fas fa-angle-double-up"></i> 접기</div>
+						</div>
+					<!--@else-->
+						<div class="commentbox cont">
+							{$comment->getContent(false)}
+							<div cond="$mi->cmt_line_use=='Y'" class="btn-moreComment sbtn_small sbtn-gray"><i class="fas fa-angle-double-down"></i> 펼치기</div>
+							<div cond="$mi->cmt_line_use=='Y'" class="btn-closeComment sbtn_small sbtn-yellow"><i class="fas fa-angle-double-up"></i> 접기</div>
+						</div>
+					<!--@end-->
+				<!--@end-->
+
+				<!--// 편집 등 -->
+				<div class="fdb_nav img_tx">
+					<block cond="$mi->cmt_this_btn=='2' && $is_logged">
+					<a href="#" onclick="doCallModuleAction('comment','procCommentDeclare','{$comment->comment_srl}');return false"><i class="fa fa-phone"></i>{$lang->cmd_declare}</a>
+					<a href="#" onclick="doCallModuleAction('comment','procCommentVoteUp','{$comment->comment_srl}');return false"><i class="fa fa-heart color"></i>{$lang->cmd_vote}</a>
+					<a cond="!$mi->cmt_vote_down" href="#" onclick="doCallModuleAction('comment','procCommentVoteDown','{$comment->comment_srl}');return false"><i class="fa fa-heart"></i>{$lang->cmd_vote_down}</a>
+					</block>
+					<a cond="(!$mi->cmt_this_btn && $is_logged) || $grant->manager" class="comment_{$comment->comment_srl} m_no" href="#popup_menu_area" onclick="return false"><i class="fa fa-ellipsis-h"></i>{$lang->cmd_comment_do}</a>
+					<block cond="$comment->isGranted() || !$comment->get('member_srl')">
+					<a href="{getUrl('act','dispBoardModifyComment','comment_srl',$comment->comment_srl)}"><i class="fa fa-edit"></i>{$lang->cmd_modify}</a>
+					<a href="{getUrl('act','dispBoardDeleteComment','comment_srl',$comment->comment_srl)}"><i class="fa fa-eraser"></i>{$lang->cmd_delete}</a>
+					</block>
+					<a cond="$oDocument->allowComment()" class="re_comment" href="{getUrl('act','dispBoardReplyComment','comment_srl',$comment->comment_srl)}" onclick="<!--@if(!$grant->write_comment || !$oDocument->isEnableComment())-->alert('{$lang->msg_not_permitted}')<!--@else-->reComment({$comment->get('document_srl')},{$comment->get('comment_srl')},'{getUrl('act','dispBoardReplyComment','comment_srl',$comment->comment_srl)}')<!--@end-->;return false;"><i class="fa fa-comment"></i> {$lang->cmd_reply}</a>
+					<!--// 추천-비추천 -->
+					<span cond="$mi->cmt_vote!='N' && ($mi->cmt_vote=='2' || $comment->get('voted_count')!=0 || $comment->get('blamed_count')!=0)" class="vote ui_font">
+						<a class="bd_login" href="#" onclick="doCallModuleAction('comment','procCommentVoteUp','{$comment->comment_srl}');return false"|cond="$is_logged" title="{$lang->cmd_vote}"><em><i class="fa fa-heart color"></i> {$comment->get('voted_count')?$comment->get('voted_count'):0}</em></a>
+						<a cond="!$mi->cmt_vote_down" class="bd_login" href="#" onclick="doCallModuleAction('comment','procCommentVoteDown','{$comment->comment_srl}');return false"|cond="$is_logged" title="{$lang->cmd_vote_down}"><i class="fa fa-heart"></i> {abs($comment->get('blamed_count')?$comment->get('blamed_count'):0)}</a>
+					</span>
+				</div>
+
+				<!--원댓글만 리스트를 출력했다가, 대댓글은 ajax로 따로 로드-->
+				<div style="float:right; margin:10px 0 0 0">
+					<a cond="$comment->recomment_count > 0" class="ico_secret sbtn_mini sbtn-green pr_tooltip" href="#" onclick="getRecommentList(this, {$comment->comment_srl}); return false;" style="text-decoration:none; color:white" pr_color="dark" pr_position="top_right" title="대댓글 펼치기 / 접기"><i class="ri-question-answer-line"></i> 대댓글 <span style="font-weight:bold">({$comment->recomment_count})</span></a>
+				</div>
+			</li>
+		</block>
+		<div cond="$mi->comment_ads" style="text-align:center">{$mi->comment_ads}</div>
+	</ul>
+
+	<!--// 댓글 페이지네이션 -->
+	<block cond="$oDocument->comment_page_navigation">
+		<div class="bd_pg clear {$mi->fdb_hide}">
+			<a href="{getUrl('comment_srl', '', 'cpage',1)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->first_page}"><i class="fa fa-angle-double-left"></i> <span>First</span></a>
+			<block loop="$page_no=$oDocument->comment_page_navigation->getNextPage()">
+				<strong cond="$cpage==$page_no" class="this">{$page_no}</strong> 
+				<a cond="$cpage!=$page_no" href="{getUrl('comment_srl', '', 'cpage',$page_no)}#{$oDocument->get('document_srl')}_comment">{$page_no}</a>
+			</block>
+			<a href="{getUrl('comment_srl', '', 'cpage',$oDocument->comment_page_navigation->last_page)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->last_page}"><span>Last</span> <i class="fa fa-angle-double-right"></i></a>
+		</div>
+	</block>
+</block>
+
+<!--댓글 주소 복사-->
+<script>
+	var clipboard = new Clipboard('.copycomLink');
+		 clipboard.on('success', function(e) {
+		alert('{$lang->comment_copy}');
+		});
+		
+		clipboard.on('error', function(e) {
+		prompt("이 댓글의 주소입니다. Ctrl+C를 눌러 클립보드로 복사하세요", e.text);
+	});
+</script>

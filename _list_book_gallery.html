@@ -1,0 +1,176 @@
+{@
+	if(!$mi->deco_img_w) $mi->deco_img_w = 250;
+	if(!$mi->deco_img_h) $mi->deco_img_h = 25;
+	if(!$mi->deco_img_h1) $mi->deco_img_h1 = 3;
+}
+
+<style>
+	.bd_booktmb_lst li{float:{$mi->gall_align};width:{$mi->thumbnail_width+40}px;height:{$mi->thumbnail_height+150}px;width:{$mi->li_width}px;height:{$mi->li_height}px}
+	.bd_booktmb_lst .deco{ bottom:-{$mi->deco_img_h/2+$mi->deco_img_h1}px; left:50%; width:{$mi->deco_img_w}px; height:{$mi->deco_img_h}px; margin-left:-{$mi->deco_img_w/2}px; }
+	.bd_booktmb_lst .tmb_wrp .tmb{ border:{$mi->book_img_b}px solid #000; border-right:{$mi->book_img_bl}px double #c0c0c0; }
+</style>
+
+<block cond="!$mi->gall_tl_font">
+	{@ $mi->gall_tl_font = 'np';}
+</block>
+
+<include cond="$notice_list && $mi->notice_style=='2'" target="_notice.html" />
+<ol class="bd_lst bd_booktmb_lst gall_style{$mi->gall_style} img_load{$mi->tmb_effect} tmb_bg{$mi->tmb_hover_bg} clear" data-gall_deg="{$mi->gall_deg}"|cond="$mi->gall_deg">
+	<!--// 공지 시작 -->
+	<li cond="$notice_list && !$mi->notice_style" loop="$notice_list=>$no,$document" class="notice">
+		<div class="tmb_wrp ribbon_v{$mi->ribbon_style}">
+			<!--// 그림자 -->
+			<block cond="$mi->gall_shadow!='N'">
+			<i class="bg fixed"></i><i class="bg2 fixed"></i>
+			</block>
+			<!--// 썸네일 -->
+			<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
+			<block cond="$document->thumbnailExists()"><span cond="$mi->tmb_effect=='2'" class="no_img loading"></span><img class="tmb" src="{$document->getThumbnail($mi->thumbnail_width, $mi->thumbnail_height, $mi->thumbnail_type)}" alt=""/></block>
+			<!--// 제목 : 액자 스타일 -->
+			<p cond="!$mi->gallery_tl && $mi->gall_style=='2'" class="frame_tl {$mi->gall_tl_font}">
+				<!--// 종료 확장변수 설정 -->
+				<include target="title.html" />
+			</p>
+			<!--// 좌측 상단 리본 -->
+			<span class="ribbon nnu notice"><i>notice</i></span>
+			<!--// 우측 하단 투명창 -->
+			<span cond="$mi->trans_window!='N'" class="trans_window fixed">
+				<block cond="$mi->trans_window!='date'">by {$document->getNickName()}</block>
+				<b cond="$mi->trans_window=='date'">{$document->getRegdate("Y.m.d")}</b>
+			</span>
+
+			<!--// 데코레이션 -->
+			<block cond="!$mi->deco"><i class="ico_32px deco1 fixed"></i><i class="ico_32px deco2 fixed"></i></block>
+			<i cond="$mi->deco=='2'" class="deco deco3 fixed"></i>
+			<i cond="$mi->deco_img" class="deco deco_img fixed"></i>
+		</div>
+		<!--// 제목(기본) -->
+		<p cond="!$mi->gallery_tl && !$mi->gall_style" style="margin-top:{$mi->thumbnail_height-170}px;">
+			<!--// 종료 확장변수 설정 -->
+			<include target="title.html" />
+			<a cond="@in_array('gall',$mi->cmt_count)" class="replyNum" href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}#comment">{$document->getCommentCount()}</a>
+			<span cond="@in_array('gall',$mi->ext_img)" class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+			<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check this" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
+		</p>
+	</li>
+
+	<!--// 일반 목록 시작 -->
+	<li loop="$document_list=>$no,$document" class="select"|cond="$document_srl==$document->document_srl">
+		<div class="tmb_wrp ribbon_v{$mi->ribbon_style}">
+			<!--// 그림자 -->
+			<block cond="$mi->gall_shadow!='N'">
+			<i class="bg fixed"></i><i class="bg2 fixed"></i>
+			</block>
+			<!--// 썸네일 -->
+
+			<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
+			<block cond="$document->thumbnailExists()"><span cond="$mi->tmb_effect=='2'" class="no_img loading"></span><img class="tmb" src="{$document->getThumbnail($mi->thumbnail_width, $mi->thumbnail_height, $mi->thumbnail_type)}" alt="" /></block>
+			<!--// 제목 : 액자 스타일 -->
+			<p cond="!$mi->gallery_tl && $mi->gall_style=='2'" class="frame_tl {$mi->gall_tl_font}">
+				<!--// 종료 확장변수 설정 -->
+				<include target="title.html" />
+			</p>
+			<!--// 리본 -->
+			<span><img cond="$document->getExtraEidValueHTML('new') == 'Y'" src="img/ribbon/new1.png" class="bg_new"></span>
+			<span><img cond="$document->getExtraEidValueHTML('soldout') == 'Y'" src="img/ribbon/soldout_black.png" class="bg_soldout"></span>
+			<span><img cond="$document->getExtraEidValueHTML('best') == 'Y'" src="img/ribbon/best.png" class="bg_best"></span>
+			<span cond="$mi->best_under"><img cond="$document->getExtraEidValueHTML('best') == 'Y'" src="img/ribbon/best1.png" class="bg_best1"></span>
+			<block cond="$mi->gall_ribbon!='N'">
+			<block cond="!$mi->gall_ribbon || $mi->gall_ribbon=='new_update'">
+			<!--@if((int)($document->getRegdate('YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
+			<span class="ribbon nnu new" style="background:url({$tpl_path}/img/ribbon/new1.png); top:-7px; left:-7px;"><i></i></span>
+			<!--@end-->
+			</block>
+			<span cond="$mi->gall_ribbon && $mi->gall_ribbon!='new_update'" class="ribbon">
+				<i cond="$mi->gall_ribbon=='cate' && $document->get('category_srl')" class="cate">{$category_list[$document->get('category_srl')]->title}</i>
+				<i cond="$mi->gall_ribbon=='date'" class="date"><b>{$document->getRegdate("d")}</b><small>{$document->getRegdate("M")}</small></i>
+				<i cond="$mi->gall_ribbon=='read'"><b>{$document->get('readed_count')}</b><small>Views</small></i>
+				<i cond="$mi->gall_ribbon=='vote'"><b>{$document->get('voted_count')}</b><small>Likes</small></i>
+				<i cond="$mi->gall_ribbon=='cmt'"><b>{$document->getCommentCount()}</b><small>Replies</small></i>
+				<i cond="$mi->gall_ribbon=='extra'">{$document->getExtraValueHTML($mi->extra_num)}<!--<small>{@$extravar_list = $document->getExtraVars()}{$extravar_list[$mi->extra_num]->name}</small>--></i>
+			</span>
+			</block>
+			<!--// 우측 하단 투명창 -->
+			<div cond="$mi->trans_window!='N'" class="trans_window fixed">
+				<block cond="!$mi->trans_window">by {$document->getNickName()}</block>
+				<b cond="$mi->trans_window=='date'">{$document->getRegdate("Y.m.d")}</b>
+				<block cond="$mi->trans_window=='cate' && $document->get('category_srl')">Category : {$category_list[$document->get('category_srl')]->title}</block>
+				<block cond="$mi->trans_window=='read'">Views : {$document->get('readed_count')}</block>
+				<block cond="$mi->trans_window=='vote'">Likes : {$document->get('voted_count')}</block>
+				<block cond="$mi->trans_window=='cmt'">Replies : {$document->getCommentCount()}</block>
+				<block cond="$mi->trans_window=='extra'">{@$extravar_list = $document->getExtraVars()}{$extravar_list[$mi->extra_num2]->name} : {$document->getExtraValueHTML($mi->extra_num2)}</block>
+			</div>
+			<!--// 마우스 오버 시 정보 -->
+			<a class="hx fixed" style="z-index:3" <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
+				<span cond="$mi->tmb_hover!='N'" class="info_wrp">
+					<span class="info st<!--@if($mi->tmb_hover=='R')-->{rand(1,4)}<!--@else-->{$mi->tmb_hover}<!--@end-->">
+						<span class="padding">
+							<b class="tl" style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">제목&nbsp;&nbsp;:&nbsp;&nbsp;<include target="title.html" /></b>
+							<b cond="$list_config['regdate']" class="tl">날짜&nbsp;&nbsp;:&nbsp;&nbsp;{$document->getRegdate("Y년 m월 d일")}</b>
+							<block cond="$mi->use_category=='Y' && $document->get('category_srl')">분류 : <b>{$category_list[$document->get('category_srl')]->title}</b><br /></block>
+							<span><block cond="$list_config['readed_count']">Views <b>{$document->get('readed_count')}</b>&nbsp;</block> <block cond="$list_config['voted_count']">Likes <b>{$document->get('voted_count')}</b></block></span>
+							<block cond="$document->getCommentCount()">Replies <b>{$document->getCommentCount()}</b></block>
+
+							<!--// 확장변수 -->
+							<block cond="$mi->zine_extra || $mi->rating_output == 'Y'">
+							<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
+							<span cond="$val->eid=='rating'">{$val->name} : <strong class="starRating book_ext"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
+							<span cond="$val->eid!='rating' && $document->getExtraValueHTML($val->idx)" class="book_ext<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name} : <b>{$document->getExtraValueHTML($val->idx)}</b></span>
+							</block>
+							</block>
+
+						</span>
+					</span>
+				</span>
+			</a>
+			<!--// 데코레이션 -->
+			<block cond="!$mi->deco"><i class="ico_32px deco1 fixed"></i><i class="ico_32px deco2 fixed"></i></block>
+			<i cond="$mi->deco=='2'" class="deco deco3 fixed"></i>
+			<i cond="$mi->deco_img" class="deco deco_img fixed"></i>
+		</div>
+		<!--// 제목(기본) -->
+		<div cond="!$mi->gallery_tl && !$mi->gall_style" style="margin-top:{$mi->deco_img_h/2+$mi->deco_img_h1}px">
+			<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}" style="font-weight:bold !important;">
+				<include target="title.html" />
+			</a>
+			<a cond="@in_array('gall',$mi->cmt_count)" class="replyNum" href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}#comment">{$document->getCommentCount()}</a>
+			<span cond="@in_array('gall',$mi->ext_img)" class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
+			<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check this" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
+		</div>
+		<div cond="!$mi->gallery_ex && !$mi->gall_style" style="margin-top:0px">
+			<div cond="$mi->extra_num2">
+				<span cond="$mi->extra_n ==''">{@$extravar_list = $document->getExtraVars()}{$extravar_list[$mi->extra_num2]->name} : </span>
+				<!--@if($mi->extra_copy == 'Y')-->
+					<!--확장변수 복사-->
+					<span style="margin-top:5px">
+					<load target="./js/clipboard.min.js" />
+						<a href="{$document->getExtraValueHTML($mi->extra_num2)}" target="blank">{$document->getExtraValueHTML($mi->extra_num2)}</a>
+						<a class="Link sbtn_mini sbtn-dark" style="font-size:12px; margin-left:10px" href="#" data-clipboard-text="{$document->getExtraValueHTML($mi->extra_num2)}" onclick="return false;"><i class="fas fa-link"></i> 복사</a>
+					</span>
+				<!--@else-->
+					{$document->getExtraValueHTML($mi->extra_num2)}
+				<!--@end-->
+			</div>
+
+			<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
+				<div cond="$mi->gallery_rating && $val->eid=='rating'"><span cond="$mi->extra_n ==''">{$val->name} : </span><strong class="starRating book_ext"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></div>
+			</block>
+			<div style="margin-top:5px">
+				<include target="d_day.html" />
+			</div>
+		</div>
+	</li>
+	<li cond="!$document_list && !$notice_list">{$lang->no_documents}</li>
+</ol>
+
+<!--확장변수 복사-->
+<script cond="!$mi->extra_copy ==''">
+	var clipboard = new Clipboard('.Link');
+		 clipboard.on('success', function(e) {
+		alert('해당링크 주소가 복사되었습니다.');
+		});
+		
+		clipboard.on('error', function(e) {
+		prompt("이 확장변수의 주소입니다. Ctrl+C를 눌러 클립보드로 복사하세요", e.text);
+	});
+</script>

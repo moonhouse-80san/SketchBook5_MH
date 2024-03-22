@@ -1,0 +1,328 @@
+{@ if(!$mi->admin_extra) $mi->admin_extra = admin_select; }
+
+<block cond="!$mi->nname == '' && !$is_logged">
+	{@
+	$rndNickDataPath = "$tpl_path/rndNickData.php";
+	include($rndNickDataPath);
+	$rnd_nick_path = getTmpAfRandNick();
+	}
+	<script>
+		jQuery(function() {
+			jQuery('[name=nick_name]').each(function( index ) {
+				if(jQuery(this).val() == "")    {
+					jQuery(".edit_opt label").each(function( index ) {
+						if(jQuery(this).html() == "글쓴이") jQuery(this).html("");
+					});
+					jQuery(this).attr("placeholder", "");
+					jQuery(this).val('{$rnd_nick_path}');
+				}
+			});
+		});
+	</script>
+</block>
+
+<include target="_header.html" />
+
+<load target="js/editor.js" type="body" />
+
+<include cond="$mo && $mi->m_editor!=3" target="_write_form_mobile.html" />
+
+<include cond="!$mi->write_head_area==''" target="_writeheadarea.html" />
+
+<form cond="!$mo || $mi->m_editor==3" action="./" method="post" onsubmit="return procFilter(this, window.insert)" class="bd_wrt bd_wrt_main clear">
+	<input type="hidden" name="mid" value="{$mid}" />
+	<!--@if(!$oDocument->getContentText() && $mi->content_default)-->
+	<input type="hidden" name="content" value="{htmlspecialchars($mi->content_default)}" />
+	<!--@else-->
+		<!--@if($mi->display_content_writer!="N")-->
+			<input type="hidden" name="content" value="{$oDocument->getContentText()?$oDocument->getContentText():nl2br($mi->content_default)}" />
+			<!--@else-->
+			<input type="hidden" name="content" value="." />
+		<!--@end-->
+	<!--@end-->
+	<input type="hidden" name="document_srl" value="{$document_srl}" />
+	<input cond="$mo" type="hidden" name="use_html" value="Y" />
+
+	<!--// 상단 : 카테고리, 제목 -->
+	<table class="bd_wrt_hd bd_tb">
+		<tr>
+			<td>
+				<select cond="$mi->use_category=='Y' && $category_list" name="category_srl" class="category">
+					<option value="">{$lang->category}</option>
+					<option loop="$category_list => $val" disabled="disabled"|cond="!$val->grant" value="{$val->category_srl}" selected="selected"|cond="$val->grant&&$val->selected||$val->category_srl==$oDocument->get('category_srl')">
+						{str_repeat("&nbsp;&nbsp;",$val->depth)} {$val->title} ({$val->document_count})
+					</option>
+				</select>
+			</td>
+			<td width="100%">
+				<span class="itx_wrp">
+					<label for="postTitle">{$lang->title}</label>
+					<input type="text" name="title" class="itx" id="postTitle" title="{$lang->title}" value="{(!$oDocument->isExists()&&$mi->title_default_text)?htmlspecialchars($mi->title_default_text):$oDocument->getTitleText()}"/>
+				</span>
+			</td>
+			<td cond="$is_logged && !$oDocument->isExists() || $oDocument->get('status')=='TEMP'" class="m_no"><button type="button" class="bd_btn" onclick="doDocumentLoad(this);">{$lang->cmd_load}</button></td>
+		</tr>
+	</table>
+
+	<div class="edit_opt" cond="$mi->extar_var_helper">
+		<span style="font-size: 16px;">유튜브 주소 입력 기본 형식</span>
+		<br>
+		<br>
+		<b>※ 시간 설정과 자동 재생은 선택적 사항이며 꼭 입력할 필요가 없습니다.</b>
+		<br>
+		<b><span style="font-size: 14px;">짧은 주소</span></b>
+		<br>
+		<div style="border:1px solid #E0E0E0; border-radius:10px; padding:8px; background:#FFF;" align="center">
+			//youtu.be/vRQpOdlyAoQ<b><span style="color: rgb(255, 0, 0);">?</span></b>autoplay<b><span style="color: rgb(255, 0, 0);">&amp;</span></b>t=30s
+		</div>
+		짧은 주소인 경우 먼저 온 옵션 앞에는 물음표를, 뒤에는 AND표시를 이용해 구분해 주면 됩니다.<br>
+		(먼저 입력하거나 나중에 입력하는 것에 구분은 없습니다.)<br>
+		<br>
+		<b><span style="font-size: 14px;">긴 주소</span></b><br>
+		<div style="border:1px solid #E0E0E0; border-radius:10px; padding:8px; background:#FFF;" align="center">
+			//www.youtube.com/watch<b><span style="color: rgb(255, 0, 0);">?</span></b>v=63EpBXKKAtU<b><span style="color: rgb(255, 0, 0);">&amp;</span></b>t=1m27s<b><span style="color: rgb(255, 0, 0);">&amp;</span></b>autoplay
+		</div>
+		긴 주소인 경우 이미 영상 ID가 맨 앞에 와있기 때문에 선언 시에는 &amp;으로만 구분해 주어야 합니다.<br>
+		<br>
+		<b><span style="font-size: 14px;">크기 설정</span></b><br>
+		<div style="border:1px solid #E0E0E0; border-radius:10px; padding:8px; background:#FFF;" align="center">
+			//www.youtube.com/watch?v=63EpBXKKAtU<b><span style="color: rgb(255, 0, 0);">,640,30</span></b>
+		</div>
+		설정한 주소 뒤에 가로크기,세로크기를 입력해 주면 됩니다.<br>
+		선택적 옵션이며 세로만 입력하는 것은 불가능합니다.<br>
+		위와 같이 입력할 수 있습니다.
+	</div>
+
+	<table cond="count($extra_keys)" class="et_vars exForm bd_tb">
+		<caption><strong><em>*</em></strong> <small>: {$lang->is_required}</small></caption>
+		<caption cond="$mi->extra_map =='Y'"><strong><em>*</em></strong> 주소 직접 입력시 지도 클릭은 하지 마세요. 둘 다 선택시 [주소 칸 입력]이 우선합니다.</caption>
+		<tr loop="$extra_keys=>$key,$val">
+			<!--// admin_select로 확장 변수ID 생성시 관리자에게만 출력  -->
+			<!--@if($val->eid!==$mi->admin_extra)-->
+				<th cond="" scope="row"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
+					<td cond="$val->eid!==$mi->etc_name">{$val->getFormHTML()}</td>
+					<td cond="$mid==$mi->etc_mid && $val->eid==$mi->etc_name">
+						<style>
+							.exForm li{display:inline-block;line-height:26px;cursor:pointer}
+							#donation_etc{display:none;margin-top:10px;vertical-align:middle;}
+							#donation_etc input{width:83px;height:26px;font-size:12px;}
+						</style>
+						<ul>
+						{@
+							$val_array = explode(', ',$val->default);
+							$val_value = implode('',$oDocument->getExtraEidValue($val->eid));
+						}
+							<li loop="$n=0;$n<count($val_array);$n++">
+							<!--@if($n+1!=count($val_array))-->
+								<input name="extra_vars{$val->idx}" class="radio" id="extra_vars{$val->idx}-100{$n+1}" type="radio" value="{$val_array[$n]}">
+								<label for="extra_vars{$val->idx}-100{$n+1}">{$mi->f_name} {number_format($val_array[$n])}{$mi->b_name}</label>
+							<!--@else-->
+								<input name="extra_vars{$val->idx}" class="radio" id="extra_vars{$val->idx}-100{$n+1}" type="radio" value="">
+								<label for="extra_vars{$val->idx}-100{$n+1}">{$lang->direct_input}</label>
+								<span id="donation_etc">
+									{$mi->f_name} <input type="tel" id="etc_val" class="itx" value="<!--@if(!in_array($val_value,$val_array))-->{number_format($val_value)}<!--@end-->" />{$mi->b_name}
+								</span>
+							<!--@end-->
+							</li>
+						</ul>
+						<p>{$val->desc}</p>
+					</td>
+			<!--@else-->
+				<!--@if($grant->is_admin && $val->eid==$mi->admin_extra)-->
+					<th scope="row"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
+					<td>{$val->getFormHTML()}</td>
+				<!--@end-->
+			<!--@end-->
+		</tr>
+	</table>
+
+	<include cond="$mi->extra_map =='Y'" target="write_map.html" />
+
+	<div class="editor" cond="$mi->display_content_writer!=='N'">{$oDocument->getEditor()}</div>
+
+	<!--// 태그 -->
+	<div class="tag itx_wrp" cond="$mi->tag_view!=='N'">
+		<span class="itx_wrp">
+			<label for="tags">{$lang->tag} : {$lang->about_tag}</label>
+            <input type="text" name="tags" id="tags" value="{escape($oDocument->get('tags') ?? '', false)}" class="itx" />
+		</span>
+	</div>
+
+	<!--// 비로그인 입력 -->
+	<div class="edit_opt" cond="!$is_logged">
+		<span class="itx_wrp">
+			<label for="nick_name">{$lang->writer}</label>
+            <input type="text" name="nick_name" id="nick_name" value="{$oDocument->getNickName()}" class="itx n_p" />
+		</span>
+		<span class="itx_wrp">
+			<label for="password">{$lang->password}</label>
+            <input type="password" name="password" id="password" class="itx n_p" />
+		</span>
+		<span class="itx_wrp" cond="!$mi->email_view==''">
+			<label for="email_address">{$lang->email_address}</label>
+            <input type="text" name="email_address" id="email_address" value="{htmlspecialchars($oDocument->get('email_address'))}" class="itx m_h" />
+		</span>
+		<span class="itx_wrp" cond="!$mi->homepage_view==''">
+			<label for="homepage">{$lang->homepage}</label>
+            <input type="text" name="homepage" id="homepage" value="{escape($oDocument->get('homepage'), false)}" class="itx m_h" />
+		</span>
+	</div>
+
+	<!--// 글쓰기 옵션 체크 -->
+	<div class="opt_chk clear">
+		<div cond="$grant->manager || $mi->tl_color=='2'" class="sk_section">
+			<!--%load_js_plugin("ui.colorpicker")-->
+			<span class="itx_wrp color_wrp" title="{$lang->title_color}">
+				<label for="title_color">{$lang->title_color}</label>
+				<input type="text" name="title_color" id="title_color" class="itx color-indicator" value="{$oDocument->get('title_color')}"|cond="$oDocument->get('title_color')!='N'" />
+			</span>
+			<input type="checkbox" name="title_bold" id="title_bold" value="Y" checked="checked"|cond="$oDocument->get('title_bold')=='Y'" />
+			<label for="title_bold">{$lang->title_bold}</label>
+			<block cond="$grant->manager">
+			<input type="checkbox" name="is_notice" value="Y" checked="checked"|cond="$oDocument->isNotice()" id="is_notice" />
+			<label for="is_notice">{$lang->notice}</label>
+			</block>
+		</div>
+		<div class="sk_section">
+			<input type="checkbox" name="comment_status" value="ALLOW" checked="checked"|cond="$oDocument->allowComment()" id="comment_status" />
+			<label for="comment_status">{$lang->allow_comment}</label>
+			<input type="checkbox" name="allow_trackback" value="Y" checked="checked"|cond="$oDocument->allowTrackback()" id="allow_trackback" />
+			<label for="allow_trackback">{$lang->allow_trackback}</label>
+		</div>
+		<div cond="$is_logged" class="sk_section">
+			<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify() || (!$oDocument->useNotify() && @in_array('notify',$mi->wrt_opt))" id="notify_message" />
+			<label for="notify_message">{$lang->notify}</label>
+		</div>
+		<div cond="is_array($status_list)" class="sk_section">
+			<!--@foreach($status_list AS $key=>$value)-->
+			<input cond="@!in_array('secret',$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='PUBLIC' && !$document_srl)" />
+			<input cond="@in_array('secret',$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='SECRET' && !$document_srl)" />
+			<label for="{$key}">{$value}</label>
+			<!--@end-->
+		</div>
+		<div cond="$mi->use_anonymous == 'Y'" class="sk_section">
+			<input type="checkbox" name="use_anonymous" class="iCheck" value="Y" id="use_anonymous" checked="checked"<!--@if(!$is_logged)--> style="display: none;" onclick="return false;"<!--@end--> />
+			<label for="use_anonymous"<!--@if(!$is_logged)--> style="display: none;" onclick="return false;"<!--@end-->><b>익명</b></label>
+		</div>
+	</div>
+
+	<!--// Buttons -->
+	<div class="regist">
+		<button cond="$is_logged && !$oDocument->isExists() || $oDocument->get('status')=='TEMP'" type="button" onclick="doDocumentSave(this);" class="bd_btn temp">{$lang->cmd_temp_save}</button>
+		<input type="button" value="{$lang->cmd_preview}" onclick="doDocumentPreview(this);return false" class="bd_btn m_no" />
+		<input type="submit" value="{$lang->cmd_submit}" class="bd_btn blue" />
+		<button type="button" onclick="history.back()" class="bd_btn cancle">{$lang->cmd_back}</button>
+	</div>
+</form>
+
+</div>
+
+<!--@if($grant->manager && count($extra_keys))-->
+	<script>
+		(function() {
+			var validator = xe.getApp("validator")[0];
+			if(!validator) return false;
+	<!--@foreach($extra_keys as $idx => $val)--><!--@if($val->is_required == 'Y')-->
+			validator.cast('DEL_EXTRA_FIELD', ['extra_vars{$idx}']);
+	<!--@endif--><!--@endforeach-->
+		})();
+	</script>
+<!--@endif-->
+ 
+
+<script>
+jQuery(document).ready(function(){
+	var etc = jQuery('#donation_etc'),
+		li_last = etc.parent('li'),
+		para = li_last.parent('ul').next('p'),
+		pText = li_last.parent('ul').next('p').text(),
+		li_rest = li_last.parent('ul').children('li').not(li_last),
+		first_val = Number(li_last.parent('ul').children('li:first').children('input.radio').val()),
+		etc_btn = li_last.children('input'),
+		etc_val = jQuery('#etc_val'),
+		donated = '{$val_value}',
+		msg1 = '{$mi->msg_1}',
+		msg2 = ' {$mi->msg_2}';
+
+	if(donated==0) etc_val.val('');
+	if(donated!=''&&donated!=0){
+		etc_btn.val(donated.replace(/[^0-9]/g,''));
+		etc_btn.prop('checked',true);
+		etc.show();
+		li_rest.children('input').each(function(){
+			if(jQuery(this).val()==donated){
+				jQuery(this).prop('checked',true);
+				etc_val.val('');
+				etc.hide();
+			}
+		});
+	}
+
+	etc_val.on({
+		input: function(){
+			etc_val.val(etc_val.val().replace(/[^0-9,]/g,'').replace(/(^0+)/,''));
+			etc_btn.val(etc_val.val().replace(/[^0-9]/g,''));
+			if(etc_btn.val()!=0&&etc_btn.val()<first_val) {
+				etc_btn.val('');
+				para.text(msg1);
+			} else {
+				etc_btn.val(etc_val.val().replace(/[^0-9]/g,''));
+				para.text(pText);
+			}
+		},
+		blur: function(){
+			if(li_rest.data('mouseDown')!=true){
+				etc_btn.val(etc_val.val().replace(/[^0-9]/g,''));
+				etc_val.val(etc_val.val().replace(/[^0-9]/g,'').replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'));
+				if(etc_btn.val()!=0&&etc_btn.val()<first_val) {
+					etc_val.select();
+					etc_btn.val('');
+					para.text(msg1+msg2).hide().fadeIn(1000);
+					etc_val.focus();
+				}
+			}
+		}
+	});
+
+	li_last.on('click',function(){
+		etc_btn.prop('checked',true);
+		etc.show();
+		etc_val.focus();
+		etc_val.val(etc_val.val().replace(/[^0-9]/g,'').replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,'));
+		if(etc_val.val().replace(/[^0-9]/g,'')!=0&&etc_val.val().replace(/[^0-9]/g,'')<first_val) {
+			etc_val.select();
+			etc_btn.val('');
+			para.text(msg1+msg2).hide().fadeIn(1000);
+		}
+		return false;
+	});
+	etc_btn.on('focus',function(){
+		etc_btn.prop('checked',true);
+		etc_val.focus();
+	});
+
+	li_rest.on('mousedown',function(e){
+		li_rest.data('mouseDown',true);
+	});
+	li_rest.on('mouseup',function(e){
+		li_rest.data('mouseDown',false);
+	});
+	li_rest.on('click',function(){
+		jQuery(this).children('input').prop('checked',true);
+		etc.hide();
+		para.text(pText);
+	});
+});
+</script>
+
+<script cond="$mi->title_no">
+	jQuery(function($) {
+		var $title = $('input[name=title]');
+		var $extraVar{$mi->title_no} = $('input[name=extra_vars{$mi->title_no}]');
+		
+		$extraVar{$mi->title_no}.on('input', function() {
+		var val{$mi->title_no} = $extraVar{$mi->title_no}.val();
+		$title.val(val{$mi->title_no});
+		});
+	});
+</script>

@@ -1,0 +1,18 @@
+<details <!--@if(!$mi->panel_auto =='')-->open<!--@end-->>
+	<summary><span style="background:{$mi->top_panel_bcolor}; color:{$mi->top_panel_color}; border:1px solid {$mi->top_panel_color}; border-radius:5px; padding:5px 10px">{$mi->top_panel_btn}</span></summary>
+	<div class="tpt">{$mi->top_panel_text}</div>
+</details>
+
+<style>
+	details { position:absolute; top:180px; left:10px; margin:5px 0 10px; z-index:1}
+	details > summary { cursor:pointer; transition:background 0.5s; border:10px solid {$mi->top_panel_color}; width:190px; }
+	details > summary::-webkit-details-marker { color:#ff6600; transform:rotate3d(0, 0, 1, 90deg); transition:transform 0.25s;}
+	details[open] > summary::-webkit-details-marker { transform:rotate3d(0, 0, 1, 180deg);}
+	details[open] > summary ~ * { animation:reveal 0.5s;}
+	div .tpt { background:{$mi->top_panel_bcolor}; color:{$mi->top_panel_color}; margin:5px 0 10px; padding:5px 10px; line-height:25px; border-radius:5px; box-shadow: 1px 1px 2px gray;}
+
+	@keyframes reveal {
+		from { opacity:0; transform:translate3d(0, -10px, 0); }
+		to { opacity:1; transform:translate3d(0, 0, 0); }
+	}
+</style>

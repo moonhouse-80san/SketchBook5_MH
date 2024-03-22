@@ -1,0 +1,240 @@
+<load target="js/sticker.js" type="body" />
+<load target="css/sticker.css" />
+
+<block cond="!$mi->nname == ''">
+	<!--@if(!$is_logged)-->
+		{@
+		$rndNickDataPath = "$tpl_path/rndNickData.php";
+		include($rndNickDataPath);
+		$rnd_nick_path = getTmpAfRandNick();
+		}
+		<script>
+			jQuery(function() {
+				jQuery('[name=nick_name]').each(function( index ) {
+					if(jQuery(this).val() == "")    {
+						jQuery(".edit_opt label").each(function( index ) {
+							if(jQuery(this).html() == "글쓴이") jQuery(this).html("");
+						});
+						jQuery(this).attr("placeholder", "");
+						jQuery(this).val('{$rnd_nick_path}');
+					}
+				});
+			});
+		</script>
+	<!--@end-->
+</block>
+
+<div class="cmt_editor" style="margin-top:30px"|cond="$mi->cmt_wrt_position=='cmt_wrt_btm' && $oDocument->getCommentcount()">
+
+	<label for="editor_{$oDocument->document_srl}" class="cmt_editor_tl fl"><em>✔</em><strong>{$lang->write_comment}</strong></label>
+
+	<!--// 모바일 스티커모듈 -->
+	<div cond="$mi->stick=='Y' && $mi->cmt_wrt=='simple' && $mo" class="sbtn_mini sbtn-orange" style="margin-right:8px; float:right">
+		<a class="tg_btn2" href="javascript:;" onclick="loadStickerList();"><i class="fas fa-stamp"></i> {$lang->stick}</a>
+	</div>
+
+	<!--// Editor Select -->
+	<div cond="$mi->select_editor!='N'" class="editor_select bubble fr m_no" title="{$lang->noti_rfsh}">
+		<a class="tg_btn2" href="#" data-href="#editor_select"><em class="fa fa-info-circle bd_info_icon"></em> {$lang->select_editor}</a>
+		<div cond="$rd_idx==0" id="editor_select" class="tg_cnt2 wrp m_no"><button type="button" class="tg_blur2"></button>
+			<a class="on"|cond="$mi->cmt_wrt=='simple'" href="#" onclick="jQuery.cookie('bd_editor','simple');location.reload();return false"><em>✔ </em>{$lang->textarea}</a>
+			<a class="on"|cond="$mi->cmt_wrt=='editor'" href="#" onclick="jQuery.cookie('bd_editor','editor');location.reload();return false"><em>✔ </em>{$lang->wysiwyg}</a>
+			<a cond="$mi->select_editor=='2' || $mi->cmt_wrt=='sns'" class="on"|cond="$mi->cmt_wrt=='sns'" href="#" onclick="jQuery.cookie('bd_editor','sns');location.reload();return false"><em>✔ </em>{$lang->sxc_editor}</a>
+			<span class="bubble_edge"></span><button type="button" class="tg_blur2"></button>
+			<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
+		</div>
+	</div>
+
+	<!--// 댓글 스티커모듈 * 자동 댓글 애드온 사용 안함-->
+	<div cond="$mi->stick=='Y' && $mi->cmt_wrt=='simple' && $mi->auto_comment==''" class="editor_select bubble fr m_no sbtn_mini sbtn-orange" style="margin-right:8px">
+		<a class="tg_btn2" href="javascript:;" onclick="loadStickerList();"><i class="fas fa-stamp"></i> {$lang->stick}</a>
+	</div>
+
+	<!--@if($grant->write_comment && $oDocument->isEnableComment())-->
+		<form action="./" method="post" onsubmit="return procFilter(this, insert_comment)" class="bd_wrt cmt_wrt clear">
+			<input type="hidden" name="mid" value="{$mid}" />
+			<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
+			<input type="hidden" name="comment_srl" value="" />
+			<input type="hidden" name="content" value="" />
+			<div cond="$mi->cmt_wrt=='editor'" class="wysiwyg">{$oDocument->getCommentEditor()}</div>
+
+			<div cond="$mi->cmt_wrt=='simple'" class="simple_wrt">
+				<block cond="!$mi->profile_img">
+				<img cond="$logged_info->profile_image->src" class="profile img" src="{$logged_info->profile_image->src}" alt="profile" />
+				<span cond="!$logged_info->profile_image->src" class="profile img no_img">?</span>
+				</block>
+
+				<div class="text">
+					<input type="hidden" name="use_html" value="Y" />
+					<input type="hidden" id="htm_{$oDocument->document_srl}" value="n" />
+					<textarea id="editor_{$oDocument->document_srl}" cols="50" rows="4"></textarea>
+				</div>
+				<input cond="!$mo" type="submit" value="{$lang->cmd_submit}" class="bd_btn" <!--@if($mi->vote_cmd == 'Y')-->style="height:25px; line-height:25px; padding:0; margin-left:10px;"<!--@end-->/>
+				<!--추천버튼 추가-->
+				<input cond="$is_logged && !$mo && $mi->vote_cmd == 'Y'" onclick="doCallModuleAction('document','procDocumentVoteUp',{$oDocument->document_srl});" type="submit" value="❤️+{$lang->cmd_submit}" class="bd_btn" style="height:25px; line-height:25px; padding:0; margin:30px 0 0 10px;"/>
+			</div>
+
+			<div class="edit_opt clear" style="display:none"|cond="$mi->cmt_wrt!='editor'">
+				<block cond="!$is_logged">
+				<div>
+					<span class="itx_wrp">
+						<label for="nick_name_{$oDocument->document_srl}">{$lang->writer}</label>
+						<input type="text" name="nick_name" id="nick_name_{$oDocument->document_srl}" class="itx n_p" 
+						style="	<!--@if($mi->email_view=='' || $mi->homepage_view=='')-->width:49%<!--@end-->"/>
+					</span>
+					<span class="itx_wrp">
+						<label for="password_{$oDocument->document_srl}">{$lang->password}</label>
+						<input type="password" name="password" id="password_{$oDocument->document_srl}" class="itx n_p" 
+						style="	<!--@if($mi->email_view=='' || $mi->homepage_view=='')-->width:49%<!--@end-->"/>
+					</span>
+					<!--@if($mi->email_view=='' || $mi->homepage_view=='')--></div><div><!--@end-->
+					<span class="itx_wrp" cond="$mi->email_view=='Y'">
+						<label for="email_address_{$oDocument->document_srl}">{$lang->email_address}</label>
+						<input type="text" name="email_address" id="email_address_{$oDocument->document_srl}" class="itx m_h"/>
+					</span>
+					<span class="itx_wrp" cond="$mi->homepage_view=='Y'">
+						<label for="homepage_{$oDocument->document_srl}">{$lang->homepage}</label>
+						<input type="text" name="homepage" id="homepage_{$oDocument->document_srl}" class="itx m_h"/>
+					</span>
+				</div>
+				</block>
+				<input cond="$mi->cmt_wrt=='editor'" type="submit" value="{$lang->cmd_submit}" class="bd_btn" />
+				<!--모바일 추천버튼 추가-->
+				<div><input cond="$is_logged && $mo && $mi->vote_cmd == 'Y'" onclick="doCallModuleAction('document','procDocumentVoteUp',{$oDocument->document_srl});" type="submit" value="{$lang->cmd_vote}❤️ + {$lang->cmd_submit}" class="bd_btn" style="width:49%; margin-top:10px"/>
+				<input cond="$mo" type="submit" value="{$lang->cmd_submit}" class="bd_btn" style="<!--@if($is_logged && $mi->vote_cmd == 'Y')-->float:right; width:49%;<!--@else-->width:100%;<!--@end--> margin-top:10px"/></div>
+				<div class="opt_chk">
+					<block cond="$is_logged">
+					<input type="checkbox" name="notify_message" value="Y" id="notify_message_{$oDocument->document_srl}" checked="checked"|cond="@in_array('notify',$mi->wrt_opt)" />
+					<label for="notify_message_{$oDocument->document_srl}">{$lang->notify}</label>
+					</block>
+					<block cond="strpos($mi->use_status, 'SECRET') !== false">
+					<input type="checkbox" name="is_secret" value="Y" id="is_secret_{$oDocument->document_srl}" checked="checked"|cond="@in_array('secret',$mi->wrt_opt)" />
+					<label for="is_secret_{$oDocument->document_srl}">{$lang->secret}</label>
+					</block>
+				</div>
+			</div>
+
+			<!--// 댓글 스티커모듈 * 자동 댓글 애드온 사용 -->
+			<div cond="$mi->stick=='Y' && $mi->cmt_wrt=='simple' && !$mi->auto_comment==''" class="editor_select bubble fr m_no sbtn_mini sbtn-orange" style="margin-top:-25px">
+				<a class="tg_btn2" href="javascript:;" onclick="loadStickerList();"><i class="fas fa-stamp"></i> {$lang->stick}</a>
+			</div>
+
+			<!--// 스티커모듈 -->
+			<div cond="$mi->stick=='Y'" class="stk_cmt">
+				<div class="stk_display display-toggle">
+					<div class="stk_head">
+						<ul class="sticker_pack">
+							<li>
+							</li>
+						</ul>
+					</div>
+					<div class="stk_body">
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<!--// 대댓글 -->
+		<div cond="$rd_idx==0" id="re_cmt">
+			<label for="editor_2" class="cmt_editor_tl fl"><i class="fa fa-share fa-flip-vertical re"></i><strong>{$lang->write_comment}</strong></label>
+			<div class="editor_select fr">
+				<a class="wysiwyg m_no" href="#"><em class="fa fa-info-circle bd_info_icon"></em> {$lang->use_wysiwyg}</a>
+				<a class="close" href="#" onclick="jQuery('#re_cmt').fadeOut().parent().find('.re_comment').focus();return false"><i class="fa fa-times"></i> {$lang->cmd_close}</a>
+			</div>
+
+			<!--// 대댓글 스티커모듈 * 자동 댓글 애드온 사용 안함 -->
+			<div cond="$mi->stick=='Y' && $mi->auto_comment==''" class="editor_select bubble fr m_no sbtn_mini sbtn-orange" style="margin-right:8px">
+				<a class="tg_btn2 reply_stk" href="javascript:;" onclick="loadStickerList(1, 'reply');"><i class="fas fa-stamp"></i> {$lang->stick}</a>
+			</div>
+
+			<form action="./" method="post" onsubmit="return procFilter(this,insert_comment)" class="bd_wrt clear">
+				<input type="hidden" name="mid" value="{$mid}" />
+				<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
+				<input type="hidden" name="content" value="" />
+				<input type="hidden" name="comment_srl" value="" />
+
+				<input type="hidden" name="parent_srl" value="" />
+				<input type="hidden" name="use_html" value="Y" />
+				<div class="simple_wrt">
+					<input type="hidden" id="htm_2" value="n" />
+					<textarea id="editor_2" cols="50" rows="8"></textarea>
+				</div>
+
+			<!--// 대댓글 스티커모듈 * 자동 댓글 애드온 사용 -->
+			<div cond="$mi->stick=='Y' && !$mi->auto_comment==''" class="editor_select bubble fr m_no sbtn_mini sbtn-orange" style="margin:-25px 90px 0 0">
+				<a class="tg_btn2 reply_stk" href="javascript:;" onclick="loadStickerList(1, 'reply');"><i class="fas fa-stamp"></i> {$lang->stick}</a>
+			</div>
+
+				<div class="edit_opt">
+					<block cond="!$is_logged">
+					<div>
+						<span class="itx_wrp">
+							<label for="nick_name">{$lang->writer}</label>
+							<input type="text" name="nick_name" id="nick_name" class="itx n_p" 
+							style="	<!--@if($mi->email_view=='' || $mi->homepage_view=='')-->width:49%<!--@end-->"/>
+						</span>
+						<span class="itx_wrp">
+							<label for="password">{$lang->password}</label>
+							<input type="password" name="password" id="password" class="itx n_p" 
+							style="	<!--@if($mi->email_view=='' || $mi->homepage_view=='')-->width:49%<!--@end-->"/>
+						</span>
+						<!--@if($mi->email_view=='' || $mi->homepage_view=='')--></div><div><!--@end-->
+						<span class="itx_wrp" cond="$mi->email_view=='Y'">
+							<label for="email_address">{$lang->email_address}</label>
+							<input type="text" name="email_address" id="email_address" class="itx m_h" />
+						</span>
+						<span class="itx_wrp" cond="$mi->homepage_view=='Y'">
+							<label for="homepage">{$lang->homepage}</label>
+							<input type="text" name="homepage" id="homepage" class="itx m_h" />
+						</span>
+					</div>
+					</block>
+					<input type="submit" value="{$lang->cmd_submit}" class="bd_btn fr" />
+				</div>
+				<span class="opt_chk">
+					<block cond="$is_logged">
+						<input type="checkbox" name="notify_message" value="Y" id="notify_message" checked="checked"|cond="@in_array('notify',$mi->wrt_opt)" />
+						<label for="notify_message">{$lang->notify}</label>
+					</block>
+					<block cond="strpos($mi->use_status, 'SECRET') !== false">
+						<input type="checkbox" name="is_secret" value="Y" id="is_secret" checked="checked"|cond="@in_array('secret',$mi->wrt_opt)" />
+						<label for="is_secret">{$lang->secret}</label>
+					</block>
+				</span>
+			</form>
+
+			<!--// 대댓글 스티커모듈 -->
+			<div cond="$mi->stick=='Y'" class="stk_cmt_reply">
+				<div class="stk_display display-toggle" style="width:100%">
+					<div class="stk_head">
+						<ul class="sticker_pack">
+							<li>
+							</li>
+						</ul>
+					</div>
+					<div class="stk_body">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--@else-->
+		<div class="bd_wrt clear">
+			<div class="simple_wrt">
+				<span cond="!$mi->profile_img" class="profile img no_img">?</span>
+				<div class="text">
+					<a cond="!$is_logged" class="cmt_disable bd_login" href="#">{$lang->write_comment} {$lang->msg_not_permitted} {$lang->bd_login}</a>
+					<div cond="$is_logged" class="cmt_disable bd_login">{$lang->write_comment} {$lang->msg_not_permitted}</div>
+				</div>
+				<input type="button" value="{$lang->cmd_submit}" disabled="disabled" class="bd_btn" />
+			</div>
+		</div>
+	<!--@end-->
+</div>
+
+<script cond="$mi->comment_auto == 'true'">
+	var doc = document.querySelector('#editor_{$oDocument->document_srl}');window.onload = function(){ setTimeout("doc.value='{$mi->comment_auto_content}';",500);};
+</script>
+<script cond="$mi->comment_auto_del == 'true'">
+	var countDocAuto = 0;doc.onclick = function(){ if(countDocAuto == 0) { doc.value='';countDocAuto = 1;}}
+</script>

@@ -1,0 +1,55 @@
+<tr class="replylist">
+	{@$i++}
+	<td scope="col" cond="$mi->display_number!='N'" class="num">&nbsp;</td>
+	<td scope="col" cond="$timeline_info && $mi->timeline_bview=='Y'">&nbsp;</td>
+	<td scope="col" cond="!$timeline_info && $module_info->include_modules">&nbsp;</td>
+	<td scope="col" cond="!$mi->show_cate && $mi->use_category=='Y'" class="m_no">&nbsp;</td>
+
+	<td class="replyContent" >
+		<div <!--@if($val->depth < 11 && $mi->comment_order == '')-->style="margin-left:{($val->depth)*1.3}em"<!--@end--> >
+			<div class="replyIndent">
+				<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}" class="pr_tooltip" pr_color="dark" pr_position="b_right" title="{cut_str(strip_tags($val->content),0,'...')}">
+					<!--@if(!$mi->comment_cut_size) -->
+					{cut_str(strip_tags($val->content),60,'...')}
+					<!--@else-->
+					{cut_str(strip_tags($val->content),$mi->comment_cut_size,'...')}
+					<!--@end-->
+				</a>
+			</div>
+		</div>
+	</td>
+
+	<td cond="$mi->display_author!='N'" class="author">{($val->nick_name)}</td>
+
+	<!--// 시간대별 댓글 -->
+	{@
+	$x_date = strtotime($val->regdate);
+	$time_calc = time() - $x_date;
+	}
+	<td cond="$mi->display_regdate!='N'" class="date">
+		<!--@if($time_calc < 600)-->
+			<span class="cnew">NEW</span>
+		<!--@elseif($time_calc >= 600 && $time_calc < 3600)-->
+			<span style="color:orange">{floor($time_calc/60).' 분전'}</span>
+		<!--@elseif($time_calc >= 3600 && $time_calc < 86400)-->
+			<span style="color:orange">{floor($time_calc/3660).' 시간전'}</span>
+		<!--@elseif($time_calc >= 86400 && $time_calc < 172800)-->
+			<span style="color:black">하루전</span>
+		<!--@elseif($time_calc >= 172800 && $time_calc < 259200)-->
+			<span style="color:#777">2 일전</span>
+		<!--@elseif($time_calc >= 259200)-->
+			{zdate($val->regdate, 'm.d/H.i')}
+		<!--@end-->
+	</td>
+
+	<td scope="col" cond="$val->type=='nick_name' && $val->idx==-1">&nbsp;</td>
+	<td scope="col" cond="$val->type=='user_id' && $val->idx==-1">&nbsp;</td>
+	<td scope="col" cond="$val->type=='user_name' && $val->idx==-1">&nbsp;</td>
+	<td scope="col" cond="$val->type=='regdate' && $val->idx==-1">&nbsp;</td>
+	<td scope="col" cond="$val->type=='last_update' && $val->idx==-1" class="m_no">&nbsp;</td>
+	<td scope="col" cond="$val->type=='last_post' && $val->idx==-1" class="m_no">&nbsp;</td>
+	<td scope="col" cond="$val->type=='readed_count' && $val->idx==-1" class="m_no">&nbsp;</td>
+	<td scope="col" cond="$val->type=='voted_count' && $val->idx==-1" class="m_no">&nbsp;</td>
+	<td scope="col" cond="$val->idx!=-1" class="m_no"|cond="$val->eid!='link_url'">&nbsp;</td>
+	<td scope="col" cond="$grant->manager" class="m_no">&nbsp;</td>
+</tr>

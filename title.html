@@ -1,0 +1,18 @@
+<!--@if($document->isSecret() && !$document->isGranted())-->
+	비밀글 입니다.
+<!--@else-->
+	<!--// 확장변수 제목 대처 -->
+	<!--@if($mi->extra_title =='')-->
+		<!--@if($document->getTitle() !== '.')-->
+			{$document->getTitle($mi->subject_cut_size)}
+		<!--@else-->
+			{$mi->title_default_text}&nbsp;
+		<!--@end-->
+	<!--@else-->
+		<!--@if($document->getExtraEidValueHTML($mi->title_name))-->
+			{$document->getExtraEidValueHTML($mi->title_name)}
+		<!--@else-->
+			{$mi->title_default_text}&nbsp;
+		<!--@end-->
+	<!--@end-->
+<!--@end-->
