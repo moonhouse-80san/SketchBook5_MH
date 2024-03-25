@@ -3,3 +3,5 @@
  - /modules/board/skins/sketchbook5 에 모든 파일을 덮어 쓰기 하면 됩니다.
 
 •  XE 사용자의 경우 [ 본문 일반 설정 > 추천/비추천 기능 XE사용 ] 에서 XE사용을 선택하면 됩니다.
+
+•  기능 및 사용 설명 https://moonhouse.co.kr/xemy/530374
