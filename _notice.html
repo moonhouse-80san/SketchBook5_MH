@@ -56,25 +56,44 @@
 	</tr>
 </table>
 
+<!--// 한개의 공지내용만 Open -->
 <script>
-    const $_details = $(".accordion");
-    const $_summary = $_details.find(".notice_fold");
+	const detailsList = document.querySelectorAll('.accordion');
 
-    $_summary.on("click", function(e) {
-        e.preventDefault();
+	for (const details of detailsList) {
+	  details.addEventListener('click', () => {
+		if (details.open) {
+		  // 현재 열려 있는 details가 아닌 다른 details를 찾아 닫습니다.
+		  for (const otherDetails of detailsList) {
+			if (otherDetails !== details && otherDetails.open) {
+			  otherDetails.open = false;
+			}
+		  }
+		}
+	  });
+	}
+</script>
 
-        const $_this = $(this);
-        const $_this_details = $_this.parent("details");
-        const $_this_details_p = $_this_details.find("p");
-        const $_this_details_open = $_this_details.attr("open");
+<!--// 내용글 Open시 슬라이딩 효과 -->
+<script>
+	const $_details = $(".accordion");
+	const $_summary = $_details.find(".notice_fold");
 
-        if (! $_this_details_open) {
-            $_this_details.prop("open", true);
-            $_this_details_p.stop().slideDown(1000);
-        } else {
-            $_this_details_p.stop().slideUp(500, function() {
-                $_this_details.prop("open", false);
-            });
-        }
-    });
+	$_summary.on("click", function(e) {
+		e.preventDefault();
+
+		const $_this = $(this);
+		const $_this_details = $_this.parent("details");
+		const $_this_details_p = $_this_details.find("p");
+		const $_this_details_open = $_this_details.attr("open");
+
+		if (! $_this_details_open) {
+			$_this_details.prop("open", true);
+			$_this_details_p.stop().slideDown(1000);
+		} else {
+			$_this_details_p.stop().slideUp(500, function() {
+				$_this_details.prop("open", false);
+			});
+		}
+	});
 </script>
