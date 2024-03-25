@@ -34,7 +34,7 @@
 		</thead>
 		<tbody>
 			<!--// Notice -->
-			<include cond="$notice_list && $mi->notice_style=='2'" target="_notice1.html" />
+			<include cond="$notice_list && $mi->notice_style=='2'" target="_notice.html" />
 			<tr cond="$notice_list && !$mi->notice_style" class="notice" loop="$notice_list=>$no,$document">
 				<block loop="$list_config=>$key,$val">
 					<td cond="$val->type=='no' && $val->idx==-1" class="no">

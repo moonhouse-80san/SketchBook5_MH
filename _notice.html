@@ -1,4 +1,4 @@
-<table class="bd_lst bd_tb_lst bd_tb common_notice">
+<!--@if(!$mi->list_notice == 'Y')--><table class="bd_lst bd_tb_lst bd_tb common_notice"><!--@end-->
 	<tr loop="$notice_list=>$no,$document" class="notice">
 		<td $list_config['no']">{$lang->notice}</td>
 		<td class="title">
@@ -54,10 +54,10 @@
 		<td cond="$list_config['regdate']">{$document->getRegdate('Y.m.d')}</td>
 		<td cond="$list_config['last_update']">{getTimeGap($document->get('last_update'), "y.m.d")}</td>
 	</tr>
-</table>
+<!--@if(!$mi->list_notice == 'Y')--></table><!--@end-->
 
-<!--// 한개의 공지내용만 Open -->
-<script>
+<script cond="!$mi->notice_view_slide ==''" >
+	<!--// 한개의 공지내용만 Open -->
 	const detailsList = document.querySelectorAll('.accordion');
 
 	for (const details of detailsList) {
@@ -69,13 +69,23 @@
 			  otherDetails.open = false;
 			}
 		  }
+
+		  // 화면 최상단으로 스크롤
+		  // window.scrollTo({ top: 0, behavior: 'smooth' });
+
+		  // 현재 열려 있는 details의 상단 위치를 계산합니다.
+		  const detailsTop = details.getBoundingClientRect().top;
+
+		  // 스크롤 위치를 details 상단에서 30px 위로 이동합니다.
+		  window.scrollTo({
+			top: detailsTop - 30,
+			behavior: 'smooth',
+		  });
 		}
 	  });
 	}
-</script>
 
-<!--// 내용글 Open시 슬라이딩 효과 -->
-<script>
+	<!--// 내용글 Open시 슬라이딩 효과 -->
 	const $_details = $(".accordion");
 	const $_summary = $_details.find(".notice_fold");
 
@@ -97,3 +107,5 @@
 		}
 	});
 </script>
+
+
