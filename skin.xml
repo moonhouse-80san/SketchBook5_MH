@@ -522,16 +522,6 @@
 				</options>
 				<description xml:lang="ko">공지글 클릭시 폴딩 형식 출력을 선택합니다.</description>
 			</var>
-			<var name="list_notice" type="radio">
-				<title xml:lang="ko">공지글 List 게시판 형식일때 선택</title>
-				<options value="">
-					<title xml:lang="ko">일반출력(기본)</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">List 형식</title>
-				</options>
-				<description xml:lang="ko">공지글 클릭시 폴딩 형식 출력을 선택합니다.</description>
-			</var>
 			<var name="subject_cut_size" type="text">
 				<title>제목 글자 수</title>
 				<description>입력하지 않으면 기본 설정은 설정은 자르지 않습니다. *갤러리형은 별도 항목이 존재합니다.</description>
