@@ -288,28 +288,3 @@ jQuery(function($){
 		<include target="_footer.html" />
 	</div>
 </block>
-
-<script cond="$mo">
-	jQuery(function($){
-	if(getCookie('donotdragpage') == 'true'){
-	$('.dragoff').hide();
-	$('.dragon').show();
-	}
-	else {
-	$('.dragon').hide();
-	$('.dragoff').show();
-	}
-	$('.dragoff').click(function(){
-	setCookie('donotdragpage', 'true', new Date(Date.now() + 1000000000000));
-	$('.dragoff').remove();
-	$('.dragon').show();
-	location.reload();
-	});
-	$('.dragon').click(function(){
-	setCookie('donotdragpage', 'true', new Date(Date.now() - 1));
-	$('.dragon').remove();
-	$('.dragoff').show();
-	location.reload();
-	});
-	});
-</script>
