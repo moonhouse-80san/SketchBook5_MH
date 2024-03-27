@@ -31,12 +31,6 @@
 <!--// 게시판 본문글 상단에 풀립 판넬 -->
 <include cond="$mi->top_panel_text && !$mi->panel_read == 'N'" target="top_toggle.html" />
 
-<div cond="$mo && !$mi->drag_use=='N'" style="text-align:center; margin:10px 0; color:orange">
-	<img src="img/drag.gif" />
-	<p style="display:none;" class="dragoff"> 좌우 스크롤로 이전/다음 글 이동이 가능합니다. 끄기 <i class="fa fa-toggle-on dragoff" aria-hidden="true"></i></p>
-	<p style="display:none;" class="dragon"> 좌우 스크롤로 이전/다음 글 이동이 불가능합니다. 켜기 <i class="fa fa-toggle-off dragon" aria-hidden="true"></i></p>
-</div>
-
 <div class="rd<!--@if(!$mi->rd_nav_style)--> rd_nav_style2<!--@end--><!--@if($mi->default_style=='blog')--> rd_blog {$mi->blog_style}<!--@end--> clear" style="padding:{$mi->rd_padding};" data-docSrl="{$oDocument->document_srl}">
 	<!--// Header -->
 	<div class="rd_hd clear" style="<!--@if(!$mi->rd_style)-->margin:0 -15px 20px<!--@end--><!--@if($mi->rd_padding)-->;margin-left:0;margin-right:0<!--@end-->">

@@ -107,12 +107,6 @@ jQuery(function($){
 
 			<center><div cond="$grant->manager && $mi->write_top == 'Y'" class="sbtn_small sbtn-orange" style="margin-bottom:10px"><a href="{getUrl('act','dispBoardWrite','document_srl','')}"><i class="fas fa-user-edit"></i> {$mi->write_buten}</a></div></center>
 
-			<div cond="$mo && $mi->drag_use=='Y'" style="text-align:center; margin:10px 0; color:orange">
-				<img src="img/drag.gif" />
-				<p style="display:none;" class="dragoff"> 좌우 스크롤로 페이지 이동이 가능합니다. 끄기 <i class="fa fa-toggle-on dragoff" aria-hidden="true"></i></p>
-				<p style="display:none;" class="dragon"> 좌우 스크롤로 페이지 이동이 불가능합니다. 켜기 <i class="fa fa-toggle-off dragon" aria-hidden="true"></i></p>
-			</div>
-
 			<!--// 카테고리 -->
 			<div class="cnb_n_list">
 				<div cond="$mi->use_category=='Y' && $mi->cnb!='N'" class="if_lst_btn"|cond="$mi->select_lst=='N'" style="margin-bottom:30px"|cond="$mi->default_style=='blog'">
