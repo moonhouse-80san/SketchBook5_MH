@@ -21,18 +21,18 @@
 								<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}" class="btn"><span>공지글 보기</span></a>
 
 								<!--@if($grant->write_comment && $oDocument->isEnableComment() )-->
-								  <a href="{getUrl('act','dispBoardWriteComment','document_srl',$document->document_srl)}" class="btn"><span>{$lang->cmd_comment_registration}</span></a>
+								<a href="{getUrl('act','dispBoardWriteComment','document_srl',$document->document_srl)}" class="btn"><span>{$lang->cmd_comment_registration}</span></a>
 								<!--@end-->
 								
 								<!--@if($document->isEditable())-->
 									<!--@if(!( !$grant->manager && $document->getCommentCount()))-->	
-									  <a href="{getUrl('act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}" class="btn"><span>{$lang->cmd_modify}</span></a>
+									<a href="{getUrl('act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}" class="btn"><span>{$lang->cmd_modify}</span></a>
 									<!--@end-->
 									<!--@if(!( !$grant->manager && $oDocument->getCommentCount()))-->	
-									  <a href="{getUrl('act','dispBoardDelete','document_srl',$document->document_srl,'comment_srl','')}" class="btn"><span>{$lang->cmd_delete}</span></a>
+									<a href="{getUrl('act','dispBoardDelete','document_srl',$document->document_srl,'comment_srl','')}" class="btn"><span>{$lang->cmd_delete}</span></a>
 									<!--@end-->
-							  <!--@end-->
-							  </div>
+							<!--@end-->
+							</div>
 						</div>
 					</p>
 
@@ -63,28 +63,28 @@
 	const detailsList = document.querySelectorAll('.accordion');
 
 	for (const details of detailsList) {
-	  details.addEventListener('click', () => {
+	details.addEventListener('click', () => {
 		if (details.open) {
-		  // 현재 열려 있는 details가 아닌 다른 details를 찾아 닫습니다.
-		  for (const otherDetails of detailsList) {
+			// 현재 열려 있는 details가 아닌 다른 details를 찾아 닫습니다.
+			for (const otherDetails of detailsList) {
 			if (otherDetails !== details && otherDetails.open) {
-			  otherDetails.open = false;
+				otherDetails.open = false;
 			}
-		  }
+		}
 
-		  // 화면 최상단으로 스크롤
-		  // window.scrollTo({ top: 0, behavior: 'smooth' });
+		// 화면 최상단으로 스크롤
+		// window.scrollTo({ top: 0, behavior: 'smooth' });
 
-		  // 현재 열려 있는 details의 상단 위치를 계산합니다.
-		  const detailsTop = details.getBoundingClientRect().top;
+		// 현재 열려 있는 details의 상단 위치를 계산합니다.
+		const detailsTop = details.getBoundingClientRect().top;
 
-		  // 스크롤 위치를 details 상단에서 30px 위로 이동합니다.
-		  window.scrollTo({
+		// 스크롤 위치를 details 상단에서 30px 위로 이동합니다.
+		window.scrollTo({
 			top: detailsTop - 30,
 			behavior: 'smooth',
-		  });
+		});
 		}
-	  });
+	});
 	}
 
 	<!--// 내용글 Open시 슬라이딩 효과 -->
