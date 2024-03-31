@@ -43,30 +43,64 @@
 	<!--@end-->
 </tr>
 
-<tr loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML() && $val->eid==$mi->work_start">
+<tr loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML() && ($val->eid==$mi->work_start || $val->eid==$mi->work_stop)">
 	<!--@if(($match1 != 1 && $match2 != 1) || $grant->is_admin || $oDocument->isEditable())-->
 		<th valign="center">{$mi->work_total}</th>
 			<td valign="center" colspan="3">
 				<div loop="$oDocument->getExtraVars() => $key,$val" cond="$val->eid==$mi->work_start" style="float:left">
-					{@$startDate = new DateTime($val->getValueHTML())}
+					{@ $startDate = new DateTime($val->getValueHTML())}
 					{$val->name} : <span onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()}</span>
 				</div>
 				<div loop="$oDocument->getExtraVars() => $key,$val" cond="$val->eid==$mi->work_stop" style="float:left">
-					{@$stopDate = new DateTime($val->getValueHTML())}
-					{@$today = date('Y-m-d')}
-					<!--// {@$today = date('Y-m-d H:i:s')} // 시간 분 초 단위까지-->
+					{@ $stopDate = new DateTime($val->getValueHTML())}
+					{@ $today = date("Y-m-d H:i:s", time())}
 					<span style="margin:0 10px; color:#f60; font-weight:bold">|</span>
 					<!--@if($val->getValueHTML())-->
 						{$val->name} : <span onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()}</span>
 					<!--@else-->
-						현재일 : {$today}
+						현재시간 : <span id="clock">{$today}</span>
 					<!--@end-->
 				</div>
 				<div style="font-weight:bold; float:left">
-					{@$interval = $startDate->diff($stopDate);}
+					{@ $interval = $startDate->diff($stopDate);}
 					<span style="margin:0 10px; color:#f60; font-weight:bold">|</span>
 					{$mi->work_total} : <!--@if($interval->y)-->{$interval->y}년<!--@end--> <!--@if($interval->m)-->{$interval->m}개월<!--@end--> {$interval->d}일 {$mi->end_text}
 				</div>
 			</td>
 	<!--@end-->
 </tr>
+
+<!--// 현재 시간 실시간 카운트 -->
+<script> 
+	var srv_time = "{date("F d, Y H:i:s", time())}";
+	var now = new Date(srv_time);
+	setInterval("server_time()", 1000);
+
+	function server_time()
+	{
+		now.setSeconds(now.getSeconds()+1);
+		var year = now.getFullYear();
+		var month = now.getMonth() + 1;
+		var date = now.getDate();
+		var hours = now.getHours();
+		var minutes = now.getMinutes();
+		var seconds = now.getSeconds();
+
+		if (month < 10){
+			month = "0" + month;
+		}
+		if (date < 10){
+			date = "0" + date;
+		}
+		if (hours < 10){
+			hours = "0" + hours;
+		}
+		if (minutes < 10){
+			minutes = "0" + minutes;
+		}
+		if (seconds < 10){
+			seconds = "0" + seconds;
+		}
+		document.getElementById("clock").innerHTML = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
+	}
+</script> 
