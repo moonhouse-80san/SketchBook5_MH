@@ -30,7 +30,8 @@ jQuery(function($){
 		<include cond="$mi->extra_map =='Y'" target="map.html" />
 
 		<!--// 게시판상단에 풀립 판넬 -->
-		<include cond="$mi->top_panel_text && !$document_srl" target="top_toggle.html" />
+		<include cond="$mi->top_panel_text && !$document_srl && $mi->panel_select =='J'" target="top_toggle.html" />
+		<include cond="$mi->top_panel_text && !$document_srl && $mi->panel_select =='H'" target="top_toggle2.html" />
 
 		<!--// 게시판상단에 이미지출력 -->
 		<div cond="$mi->top_image" style="text-align:{$mi->top_image_align}"><img src="{$mi->top_image}" alt="" /></div>
@@ -288,3 +289,28 @@ jQuery(function($){
 		<include target="_footer.html" />
 	</div>
 </block>
+
+<script cond="$mo">
+	jQuery(function($){
+	if(getCookie('donotdragpage') == 'true'){
+	$('.dragoff').hide();
+	$('.dragon').show();
+	}
+	else {
+	$('.dragon').hide();
+	$('.dragoff').show();
+	}
+	$('.dragoff').click(function(){
+	setCookie('donotdragpage', 'true', new Date(Date.now() + 1000000000000));
+	$('.dragoff').remove();
+	$('.dragon').show();
+	location.reload();
+	});
+	$('.dragon').click(function(){
+	setCookie('donotdragpage', 'true', new Date(Date.now() - 1));
+	$('.dragon').remove();
+	$('.dragoff').show();
+	location.reload();
+	});
+	});
+</script>

@@ -221,6 +221,16 @@
 				https://moonhouse.co.kr/xetip/504341
 				</description>
 			</var>
+			<var name="panel_select" type="radio">
+				<title>　┖ 판넬 형태</title>
+				<description>판넬의 형태 선택</description>
+				<options value="J">
+					<title>자바 스크립트</title>
+				</options>
+				<options value="H">
+					<title>Html</title>
+				</options>
+			</var>
 			<var name="panel_auto" type="radio">
 				<title>　┖ 판넬 자동 접기 / 펼치기</title>
 				<description>판넬을 처음부터 접기 / 펼치기</description>
