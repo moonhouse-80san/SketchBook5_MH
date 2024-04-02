@@ -29,8 +29,8 @@
 </script>
 
 <!--// 게시판 본문글 상단에 풀립 판넬 -->
-<include cond="$mi->top_panel_text && !$mi->panel_read == 'N' && $mi->panel_select =='J'" target="top_toggle.html" />
-<include cond="$mi->top_panel_text && !$mi->panel_read == 'N' && $mi->panel_select =='H'" target="top_toggle2.html" />
+<include cond="$mi->top_panel_text && $mi->panel_read == '' && $mi->panel_select =='J'" target="top_toggleJ.html" />
+<include cond="$mi->top_panel_text && $mi->panel_read == '' && $mi->panel_select =='H'" target="top_toggleH.html" />
 
 <div class="rd<!--@if(!$mi->rd_nav_style)--> rd_nav_style2<!--@end--><!--@if($mi->default_style=='blog')--> rd_blog {$mi->blog_style}<!--@end--> clear" style="padding:{$mi->rd_padding};" data-docSrl="{$oDocument->document_srl}">
 	<!--// Header -->
