@@ -13,7 +13,7 @@
 					<strong><include target="title.html" /></strong>
 				</summary>
 
-					<p style="margin-top:10px;">
+					<p style="margin-top:10px">
 						<span>{$document->getContent(false)}</span>
 
 						<div style="text-align:right; float:left; padding-bottom:5px; width:100%">
@@ -40,8 +40,16 @@
 						summary.notice_fold::-webkit-details-marker { display: none; }
 						summary.notice_fold { display: block; }
 						summary.notice_fold { position: relative; padding-left: 1.2em; cursor: pointer; }
-						summary.notice_fold::before { content: ""; position: absolute;	 border-top: 0.5em solid transparent; border-bottom: 0.5em solid transparent; border-left: 0.75em solid yellowgreen;	 top: 0.2em; left: 0; transition: .25s transform; }
+
+						summary.notice_fold::before { content: ""; position: absolute;	 border-top: 0.5em solid transparent; border-bottom: 0.5em solid transparent; border-left: 0.75em solid yellowgreen; top: 0.2em; left: 0; transition: .25s transform; }
 						details[open] summary:before { transform: rotateZ(90deg); }
+
+						details[open] > summary::-webkit-details-marker { transform:rotate3d(0, 0, 1, 180deg);}
+						details[open] > summary ~ * { animation:reveal 2s;}
+						@keyframes reveal {
+							from { opacity:0; transform:translate3d(0, -20px, 0); }
+							to { opacity:1; transform:translate3d(0, 0, 0); }
+						}
 					</style>
 			</details>
 		</td>
