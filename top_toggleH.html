@@ -22,26 +22,4 @@
 		from { opacity:0; transform:translate3d(0, -20px, 0); }
 		to { opacity:1; transform:translate3d(0, 0, 0); }
 	}
-=======
-<details <!--@if(!$mi->panel_auto =='')-->open<!--@end-->>
-	<summary class="tb"><span style="background:{$mi->top_panel_bcolor}; color:{$mi->top_panel_color}; border:0px solid {$mi->top_panel_color}; border-radius:5px; padding:5px 10px;">{$mi->top_panel_btn}</span></summary>
-	<div class="tpt">{$mi->top_panel_text}</div>
-</details>
-
-<style>
-	details { margin:5px 0 10px; z-index:1 }
-	details > summary { cursor:pointer; margin-left:30px; }
-	details > summary.tb { position:relative; padding-left:1.2em; transition:background 0.5s; }
-	details > summary.tb { display:block; }
-	details > summary.tb::before { content:""; position:absolute; border-top:0.5em solid transparent; border-bottom:0.5em solid transparent; border-left:0.75em solid #ff6600; top:0.5em; left:0; transition:.25s transform; }
-	details[open] > summary:before { transform:rotateZ(450deg); }
-	details[open] > summary::-webkit-details-marker { transform:rotate3d(0, 0, 1, 180deg);}
-	details[open] > summary ~ * { animation:reveal 2s;}
-	div .tpt { background:{$mi->top_panel_bcolor}; color:{$mi->top_panel_color}; margin:5px Auto 10px; padding:5px 10px; line-height:25px; border-radius:5px; width:94%; }
-
-	@keyframes reveal {
-		from { opacity:0; transform:translate3d(0, -20px, 0); }
-		to { opacity:1; transform:translate3d(0, 0, 0); }
-	}
->>>>>>> 3a17bdb3dc75c4634d7103b1f0036b17e918d7d7
 </style>
