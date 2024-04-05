@@ -113,7 +113,7 @@
 					
 					// 인포윈도우를 생성합니다
 					var infowindow = new kakao.maps.InfoWindow({
-						content: '<a href="'+addr[2]+'"><div style="width:150px;text-align:center;padding:6px 15px 6px 0">' + <!--@if($document->getExtraEidValue('shop'))-->addr[3]<!--@else-->addr[1]<!--@end--> + '</div></a>',
+						content: '<a href="'+addr[2]+'"><div style="width:150px;text-align:center;padding:6px 15px; 6px 6px"><!--@if($document->getExtraEidValue('shop'))-->' + addr[3] + '<!--@else-->' + addr[1] + '<!--@end--></div></a>',
 						removable : true // 마우스드래그(false), 닫기버튼노출(true)
 					});
 

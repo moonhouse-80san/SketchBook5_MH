@@ -49,7 +49,7 @@
 				}
 				<label cond="$tag_list->data">
 					<block loop="$tag_list->data=>$k,$v">
-						<a href="{getUrl('search_target','tag','search_keyword',$v->tag,'document_srl','')}" rel="tag" class="tag"># {$v->tag}</a>
+						<a href="{getUrl('search_target','tag','search_keyword',$v->tag,'document_srl','')}" rel="tag" class="tag" style="margin-left:2px; background-color:#EAEAEA; border-radius:4px; padding:2px 5px; font-size:11px; color:#000"># {$v->tag}</a>
 					</block>
 				</label>
 			</div>
@@ -68,7 +68,7 @@
 			<!--@end-->
 
 			<!--// 글 정보 -->
-			<div class="info mt">
+			<div class="info mt" style="margin-top:5px;">
 				<div class="InfoLeft">
 					<!--// 타임라인게시판적용시 게시판명 출력 -->
 					<span class="mid line_right" cond="$timeline_info"><span>Board :</span><b><a href="{getUrl('module_srl', $document->get('module_srl'))}"><strong>{htmlspecialchars($modules_info[$document->get('module_srl')]->browser_title)}</strong></a></b>

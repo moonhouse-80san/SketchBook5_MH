@@ -1883,18 +1883,6 @@
 					<title>사용 안함</title>
 				</options>
 			</var>
-			<var name="tag_view" type="radio">
-				<title>태그입력부분출력</title>
-				<description>태그입력부분의 출력을 선택합니다.
-				https://moonhouse.co.kr/xetip/477628
-				</description>
-				<options value="Y">
-					<title>출력</title>
-				</options>
-				<options value="N">
-					<title>출력하지 않음</title>
-				</options>
-			</var>
 			<var name="write_permitted_msg" type="text">
 				<title>글쓰기 권한 미달시 문구</title>
 				<description>글쓰기 권한 미달시 출력할 문구</description>
