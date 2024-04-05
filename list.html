@@ -26,11 +26,11 @@ jQuery(function($){
 	<load target="js/jquery.masonry.min.js" type="body" />
 	<div style="background-color:{$mi->content_color}; <!--@if($mi->content_radius == '')-->-webkit-border-radius:10px;-moz-border-radius:10px; border-radius:10px;<!--@end-->">
 
-		<include cond="$mi->extra_map =='Y'" target="map.html" />
-
 		<!--// 게시판상단에 풀립 판넬 -->
 		<include cond="$mi->top_panel_text && !$document_srl && $mi->panel_select =='J'" target="top_toggleJ.html" />
 		<include cond="$mi->top_panel_text && !$document_srl && $mi->panel_select =='H'" target="top_toggleH.html" />
+
+		<include cond="$mi->extra_map =='Y'" target="map.html" />
 
 		<!--// 게시판상단에 이미지출력 -->
 		<div cond="$mi->top_image" style="text-align:{$mi->top_image_align}"><img src="{$mi->top_image}" alt="" /></div>
