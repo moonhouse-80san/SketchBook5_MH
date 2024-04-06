@@ -1255,3 +1255,9 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 .bd_ft td { border:0; line-height:1.5; white-space:nowrap; padding:1px 5px; }
 .bd_ft .replyIndent { margin: 3px; border-top: 0 dotted #ddd; overflow: hidden; white-space: normal; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; word-wrap:break-word; }
 .bd_ft .replyIndent a { font-size:0.9em ; }
+
+/* 게시판 최상단에 빵조각 */
+.Menu_Position { margin-left:10px; }
+.Menu_Position a { float:left; margin-left:5px; font-size:1.1em; color:#444; text-decoration:none; }
+.Menu_Position a:hover { color:#ff6600; }
+.Menu_Position i { color:444; }
