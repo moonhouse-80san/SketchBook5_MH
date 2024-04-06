@@ -324,6 +324,15 @@
 		</group>
 		<group>
 		<title>게시판 상단 설정</title>
+			<var name="top_loca" type="radio">
+				<title>게시판 최상단에 빵조각 ans 글작성</title>
+				<options value="">
+					<title>표시 안함(기본)</title>
+				</options>
+				<options value="Y">
+					<title>표시</title>
+				</options>
+			</var>
 			<var name="breadcrumb" type="radio" default="N">
 				<title>좌측 상단 빵조각 메뉴</title>
 				<options value="">

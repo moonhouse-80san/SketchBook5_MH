@@ -2,6 +2,7 @@
 <include target="__setting.html" />
 <load target="js/imagesloaded.pkgd.min.js" type="body" />
 <load target="js/jquery.cookie.js" type="body" />
+<load target="../../../editor/skins/xpresseditor/js/xe_textarea.min.js" type="body" />
 <load target="js/jquery.autogrowtextarea.min.js" type="body" />
 <load target="js/board.js" type="body" />
 
@@ -25,6 +26,47 @@ jQuery(function($){
 <block cond="$mi->default_style!='viewer'">
 	<load target="js/jquery.masonry.min.js" type="body" />
 	<div style="background-color:{$mi->content_color}; <!--@if($mi->content_radius == '')-->-webkit-border-radius:10px;-moz-border-radius:10px; border-radius:10px;<!--@end-->">
+
+		<div cond="!$mi->top_loca ==''" style="display:table; width:100%;">
+			<div class="Menu_Position">
+				<ul>
+					<li class="home"><a href="{getUrl('')}" class="active"><strong>Home</strong> > </a></li>
+					<!--@foreach($GNB->list as $key => $val)--><!--@if($val['link'])-->
+					<!--@if($val['selected'])-->
+						<li><a href="{$val['href']}"><strong>{$val['text']}</strong></a></li>
+					{@ $menu_1st = $val }
+					<!--@end-->
+					<!--@endif--><!--@endforeach-->
+					<!--@if($menu_1st)-->
+					{@ $idx = 1 }
+						<!--@foreach($menu_1st['list'] as $key => $val)--><!--@if($val['link'])-->
+						<!--@if($val['selected'])-->
+							<li><strong><a href="{$val['href']}">{$val['text']}</a></strong></li>
+							<!--@if($val['list'] && ($val['expand']=='Y'||$val['selected']) )-->
+							<!--@foreach($val['list'] as $k => $v)--><!--@if($v['link'])-->
+							<!--@if($v['selected'])-->
+								<li><strong><a href="{$v['href']}">{$v['text']}</a></strong></li>
+								<!--@if($v['list'] && ($v['expand']=='Y'||$v['selected']) )-->
+								<!--@foreach($v['list'] as $k => $v4)--><!--@if($v4['link'])-->
+								<!--@if($v4['selected'])-->
+									<li><strong><a href="{$v4['href']}">{$v4['text']}</a></strong></li>
+									{@$idx++}
+								<!--@endif-->
+								<!--@endif--><!--@endforeach-->
+								<!--@endif-->
+							<!--@endif-->
+							<!--@endif--><!--@endforeach-->
+							<!--@endif-->
+						<!--@end-->
+						<!--@endif--><!--@endforeach-->
+					<!--@endif-->
+				</ul>
+			</div>
+
+			<div cond="$grant->manager" class="sbtn_small sbtn-gray" style="margin-right:10px; float:right">
+				<a href="{getUrl('act','dispBoardWrite','document_srl','')}"><i class="fas fa-user-edit"></i> {$mi->write_buten}</a>
+			</div>
+		</div>
 
 		<!--// 게시판상단에 풀립 판넬 -->
 		<include cond="$mi->top_panel_text && !$document_srl && $mi->panel_select =='J'" target="top_toggleJ.html" />
