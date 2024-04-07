@@ -226,8 +226,6 @@
 				.cont a, .urllink a { text-decoration:none; color:#{$mi->color} !important }
 				.cont a:hover, .urllink a:hover { text-decoration:none; color:#808080 !important }
 			</style>
- 
-
 
 			<!--// 지정한 게시글의 본문에서만 출력 -->
 			<span cond="$oDocument->get('document_srl')==$mi->document_no" class="documentText">{$mi->document_no_text}</span>
@@ -255,7 +253,7 @@
 			<!--// 외부링크 다운로드 출력 : content_footer -->
 			<table cond="$mi->et_var=='2' && $oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())" class="et_vars bd_tb">
 				<caption class="blind">Extra Form</caption>
-				<tr loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML() && $val->eid!='rd_preview' && ($val->name==$mi->t_logon_name || $val->name==$mi->g_logon_name || $val->name==$mi->d_logon_name || $val->name==$mi->et_logon_name)">
+				<tr loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML() && $val->eid!='rd_preview' && ($val->name==$mi->t_logon_name || $val->name==$mi->g_logon_name || $val->name==$mi->git_logon_name || $val->name==$mi->d_logon_name || $val->name==$mi->et_logon_name)">
 					<!--// 외부 Url 파일 다운로드 -->
 					<!--@if($mid==$mi->extra_mid)-->
 						<!--@if($is_logged)-->

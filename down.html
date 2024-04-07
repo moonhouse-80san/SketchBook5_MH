@@ -16,6 +16,10 @@
 <b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
 </div>
 
+<div cond="$val->name==$mi->git_logon_name" id="toggleExtraVars" class="sty" onclick="<!--@if($mi->down_loca == '')-->location.href='{$val->getValueHTML()}?raw=true'<!--@else-->window.open('{$val->getValueHTML()}?raw=true}')<!--@end-->"><i class="fas fa-download"></i>
+<b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
+</div>
+
 <div cond="$val->name==$mi->g_logon_name" id="toggleExtraVars" class="sty" onclick="<!--@if($mi->down_loca == '')-->location.href='https://docs.google.com/uc?export=download&id={$val->getValueHTML()}'<!--@else-->window.open('https://docs.google.com/uc?export=download&id={$val->getValueHTML()}')<!--@end-->"><i class="fas fa-download"></i>
 <b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
 </div>
