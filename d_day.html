@@ -1,25 +1,38 @@
+<!--// 종료 확장변수 설정 -->
 {@
 	$now = date("Y-m-d"); // 지금시간
-	$date = $document->getExtraEidValueHTML($mi->end_name); // 설정시간
+	$date_before = $document->getExtraEidValueHTML($mi->start_name); // 시작시간
+	$date = $document->getExtraEidValueHTML($mi->end_name); // 종료시간
 	$this_day = date_create($document->getExtraEidValueHTML($mi->end_name));
 	$date1 = date("Y-m-d",strtotime($this_day->format("Y-m-d").($mi->i_d))); // 진행중 시작 날수
 	$datetime = new DateTime($now);
 	$date2 = $datetime->modify($mi->a_d); // 종료임박 날수
+	$w_today = time();// 오늘 날짜 설정
+
+	$w_b_day_text = str_replace('.', '-', $date_before);// 시작 날짜 설정
+	$w_b_day = strtotime($w_b_day_text);
+	$w_b_diff = $w_b_day - $w_today;// 시작날짜와 오늘 날짜 차이 계산
+	$w_b_days = floor($w_b_diff / (60 * 60 * 24))+1;// 초를 일 수로 변환
 
 	$w_d_day_text = str_replace('.', '-', $date); // D-day 날짜 설정
 	$w_d_day = strtotime($w_d_day_text);
-	$w_today = time();// 오늘 날짜 설정
 	$w_diff = $w_d_day - $w_today; // D-day와 오늘 날짜 차이 계산
 	$w_days = floor($w_diff / (60 * 60 * 24))+1; // 초를 일 수로 변환
 }
 
-<!--@if(!$date)-->
-<!--@elseif($now > $date)-->
-	<span style="color:#a6a6a6; text-decoration:line-through !important;"><span class="sbtn_mini sbtn-dark" style="margin-right:5px">{$mi->end_title}</span>
-<!--@elseif($now == $date)-->
-	<span style="color:red"><span class="sbtn_mini sbtn-red" style="margin-right:5px">{$mi->today_title} <span cond="$mi->d_day">[{$mi->d_day_title} - 0 오늘종료]</span></span>
-<!--@elseif($now < $date1)-->
-	<span><span class="sbtn_mini sbtn-yellow" style="margin-right:5px">{$mi->ing_title} <span cond="$mi->d_day">[{$mi->d_day_title} - <!--@if($months > 0)-->${months}개월<!--@end--> {$w_days}]일 남음</span></span>
-<!--@elseif($date2)-->
-	<span><span class="sbtn_mini sbtn-blue" style="margin-right:5px">{$mi->approach_title} <span cond="$mi->d_day">[{$mi->d_day_title} - {$w_days}]일 남음</span></span>
+<!--@if($date || $date_before)-->
+	<!--@if($now >= $date_before)-->
+		<!--@if($now > $date)-->
+			<span style="color:#a6a6a6; text-decoration:line-through !important;"><span class="sbtn_mini sbtn-dark" style="margin-right:5px">{$mi->end_title}</span></span>
+		<!--@elseif($now == $date)-->
+			<span style="color:red"><span class="sbtn_mini sbtn-red" style="margin-right:5px">{$mi->today_title} <span cond="$mi->d_day">[{$mi->d_day_title} - 0 오늘종료]</span></span>
+		<!--@elseif($now < $date1)-->
+			<span><span class="sbtn_mini sbtn-yellow" style="margin-right:5px">{$mi->ing_title} <span cond="$mi->d_day">[{$mi->d_day_title} - <!--@if($months > 0)-->${months}개월<!--@end--> {$w_days}]일 남음</span></span>
+		<!--@elseif($date2)-->
+			<span><span class="sbtn_mini sbtn-blue" style="margin-right:5px">{$mi->approach_title} <span cond="$mi->d_day">[{$mi->d_day_title} - {$w_days}]일 남음</span></span>
+		<!--@end-->
+	<!--@else-->
+		<span class="sbtn_mini sbtn-gray" style="margin-right:5px">{$mi->before_title} {$w_b_days}일전</span>
+	<!--@end-->
+<!--@else-->
 <!--@end-->

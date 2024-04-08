@@ -27,9 +27,11 @@
 	if(!$mi->work_stop) $mi->work_stop = work_stop;
 
 	<!--// 종료 확장변수 -->
+	if(!$mi->start_name) $mi->start_name = start;
 	if(!$mi->end_name) $mi->end_name = end;
 	if(!$mi->end_title) $mi->end_title = 종료;
 	if(!$mi->d_day_title) $mi->d_day_title = '';
+	if(!$mi->before_title) $mi->before_title = '';
 	if(!$mi->ing_title) $mi->ing_title = '';
 	if(!$mi->approach_title) $mi->approach_title = 종료임박;
 	if(!$mi->today_title) $mi->today_title = 종료급박;

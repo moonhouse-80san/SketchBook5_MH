@@ -30,7 +30,7 @@ jQuery(function($){
 		<div cond="!$mi->top_loca ==''" style="display:table; width:100%;">
 			<div class="Menu_Position">
 				<ul>
-					<li class="home"><a href="{getUrl('')}" class="active"><strong>Home</strong> > </a></li>
+					<li class="home"><a href="{getUrl('')}" class="active"><strong>Home > </strong></a></li>
 					<!--@foreach($GNB->list as $key => $val)--><!--@if($val['link'])-->
 					<!--@if($val['selected'])-->
 						<li><a href="{$val['href']}"><strong>{$val['text']}</strong></a></li>
@@ -63,7 +63,7 @@ jQuery(function($){
 				</ul>
 			</div>
 
-			<div cond="$grant->manager" class="sbtn_small sbtn-gray" style="margin-right:10px; float:right">
+			<div cond="$grant->write_document" class="sbtn_small sbtn-gray" style="margin-right:10px; float:right">
 				<a href="{getUrl('act','dispBoardWrite','document_srl','')}"><i class="fas fa-user-edit"></i> {$mi->write_buten}</a>
 			</div>
 		</div>

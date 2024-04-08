@@ -657,11 +657,20 @@
 					<title>출력 안함</title>
 				</options>
 			</var>
-			<var name="end_name" type="text">
-				<title>★종료출력 확장 변수 ID</title>
-				<description>종료 출력을 원하는 확장 변수 ID 이름을 적어주세요(기본 end)
+			<var name="start_name" type="text">
+				<title>★날짜시작 사용자정의 이름</title>
+				<description>날짜시작 확장변수 사용자정의 이름을 기재하세요.(기본 start)
 				https://moonhouse.co.kr/xetip/577872
 				</description>
+			</var>
+			<var name="end_name" type="text">
+				<title>날짜종료 사용자정의 이름</title>
+				<description>날짜종료 확장변수 사용자정의 이름을 기재하세요.(기본 end)
+				</description>
+			</var>
+			<var name="before_title" type="text">
+				<title>　┖ 시작</title>
+				<description>시작전 제목을 적어주세요</description>
 			</var>
 			<var name="end_title" type="text">
 				<title>　┖ 종료</title>
