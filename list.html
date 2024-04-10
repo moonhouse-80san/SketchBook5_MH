@@ -298,12 +298,13 @@ jQuery(function($){
 						<a cond="isset($last_division) && $last_division" class="btn_img bg_f_f9" href="{getUrl('page',1,'document_srl','','division',$last_division,'last_division','')}">{$lang->cmd_search_next}</a>
 					</form>
 				</div>
+
 				<div class="fr">
-					<a cond="@in_array('tag',$mi->btm_mn)" class="btn_img m_no" href="{getUrl('', 'mid', $mid, 'act','dispBoardTagList')}"><i class="fa fa-tag"></i> {$lang->tag}</a>
-					<a cond="!$mi->write_btm_btn || ($mi->write_btm_btn!='N' && $grant->write_document)" class="btn_img" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl','')}"><i class="ico_16px write"></i> {$mi->write_buten}</a>
+					<a cond="@in_array('tag',$mi->btm_mn)" class="btn_img m_no" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardTagList')}"><i class="fa fa-tag"></i> {$lang->tag}</a>
+					<a cond="!$mi->write_btm_btn || ($mi->write_btm_btn!='N' && $grant->write_document)" class="btn_img" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardWrite')}"><i class="ico_16px write"></i> {$mi->write_buten}</a>
 					<block cond="$grant->manager">
-					<a class="btn_img" href="{getUrl('', 'mid', $mid, 'act','dispBoardAdminBoardInfo')}"><i class="ico_16px setup"></i> {$lang->cmd_setup}</a>
-					<a class="btn_img" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" onclick="popopen(this.href,'manageDocument');return false"><i class="tx_ico_chk">✔</i> {$lang->cmd_manage_document}</a>
+					<a class="btn_img" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardAdminBoardInfo')}"><i class="ico_16px setup"></i> {$lang->cmd_setup}</a>
+					<a class="btn_img" href="{getUrl('', 'mid', $mid, 'act', 'dispDocumentManageDocument')}" onclick="popopen(this.href,'manageDocument'); return false;"><i class="tx_ico_chk">✔</i> {$lang->cmd_manage_document}</a>
 					<!--// 엑셀버턴 출력 -->
 					{@
 						$excel_enable = getModel('excel') && !ExcelModel::getExcelGrantMessage('document', 'dispExcelGenerateBoard', $module_info->module_srl);
