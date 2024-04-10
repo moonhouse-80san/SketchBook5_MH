@@ -158,7 +158,7 @@
 								}
 								<label cond="$tag_list->data">
 									<block loop="$tag_list->data=>$k,$v">
-										<font style="margin-left:2px;background-color:#EAEAEA;border-radius:4px;padding:2px 5px;font-size:10px;font-weight:color:#000000"><a href="{getUrl('search_target','tag','search_keyword',$v->tag,'document_srl','')}" rel="tag" class="tag">#{$v->tag}</a></font> 
+										<font style="margin-left:2px;background-color:#EAEAEA;border-radius:4px;padding:2px 5px;font-size:10px;font-weight:color:#000000"><a href="{getUrl('', 'mid', $mid, 'search_target','tag','search_keyword',$v->tag,'document_srl')}" rel="tag" class="tag" style="margin-left:2px; background-color:#EAEAEA; border-radius:4px; padding:2px 5px; font-size:11px; color:#000"># {$v->tag}</a></font> 
 									</block>
 								</label>
 							</div>
