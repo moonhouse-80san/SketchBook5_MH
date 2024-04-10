@@ -190,7 +190,7 @@
 				</block>
 				<block cond="@in_array('zine',$mi->ext_img)"><span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span></block>
 				<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
-				<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}">{$lang->cmd_modify}</a>
+				<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}">{$lang->cmd_modify}</a>
 			</div>
 		</div>
 		<a class="hx" <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}"><span class="blind">Read More</span></a>

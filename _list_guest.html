@@ -53,7 +53,7 @@ $mi->fdb_style='fdb_v2';
 				<!--@end-->
 			</div>
 		</div>
-		<a cond="$mi->cmt_wrt!='editor'" class="fl" href="{getUrl('act','dispBoardWrite','document_srl','')}" style="margin-top:12px;font-size:11px"><em class="fa fa-info-circle bd_info_icon"></em> {$lang->use_wysiwyg}</a>
+		<a cond="$mi->cmt_wrt!='editor'" class="fl" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl','')}" style="margin-top:12px;font-size:11px"><em class="fa fa-info-circle bd_info_icon"></em> {$lang->use_wysiwyg}</a>
 		<div cond="$mi->cmt_wrt=='sns'" class="sns_wrt clear">
 			<p><em class="fa fa-info-circle bd_info_icon"></em> {$lang->sns_wrt}.</p>
 			<img class="zbxe_widget_output" widget="socialxe_info" colorset="{$mi->colorset}" skin="default" />
@@ -101,8 +101,8 @@ $mi->fdb_style='fdb_v2';
 		<!--// 편집 -->
 		<div class="guest_itm_nav fdb_nav">
 			<block cond="$oDocument->isEditable()">
-			<a href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}">{$lang->cmd_modify}</a>
-			<a href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}">{$lang->cmd_delete}</a>
+			<a href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}">{$lang->cmd_modify}</a>
+			<a href="{getUrl('', 'mid', $mid, 'act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}">{$lang->cmd_delete}</a>
 			</block>
 			<a href="#" onclick="jQuery(this).parent().next().slideToggle().find('.fdb_lst_ul,.bd_pg').show();return false">{$lang->comment}<em>{$oDocument->getCommentcount()}</em></a>
 		</div>

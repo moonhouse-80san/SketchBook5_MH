@@ -75,7 +75,7 @@
 				</block>
 				<strong cond="@in_array('list_m',$mi->ext_img)" class="attached_image" title="Image"></strong>
 				<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
-				<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}">{$lang->cmd_modify}</a>
+				<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}">{$lang->cmd_modify}</a>
 			</div>
 		</div>
 

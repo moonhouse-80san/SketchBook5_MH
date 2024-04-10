@@ -35,8 +35,8 @@
 			<div class="editArea">
 				<a class="url" href="{$document->getPermanentUrl()}">{$document->getPermanentUrl()}</a>
 				<block cond="$document->isEditable()">
-				<a class="edit" href="{getUrl('act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}"><span class="ico_16px write"></span>{$lang->cmd_modify}</a>
-				<a class="edit" href="{getUrl('act','dispBoardDelete','document_srl',$document->document_srl,'comment_srl','')}"><span class="ico_16px delete"></span>{$lang->cmd_delete}</a>
+				<a class="edit" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}"><span class="ico_16px write"></span>{$lang->cmd_modify}</a>
+				<a class="edit" href="{getUrl('', 'mid', $mid, 'act','dispBoardDelete','document_srl',$document->document_srl,'comment_srl','')}"><span class="ico_16px delete"></span>{$lang->cmd_delete}</a>
 				</block>
 			</div>
 			{$document->getContent(false)}

@@ -21,15 +21,15 @@
 								<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}" class="btn"><span>공지글 보기</span></a>
 
 								<!--@if($grant->write_comment && $oDocument->isEnableComment() )-->
-								<a href="{getUrl('act','dispBoardWriteComment','document_srl',$document->document_srl)}" class="btn"><span>{$lang->cmd_comment_registration}</span></a>
+								<a href="{getUrl('', 'mid', $mid, 'act','dispBoardWriteComment','document_srl',$document->document_srl)}" class="btn"><span>{$lang->cmd_comment_registration}</span></a>
 								<!--@end-->
 								
 								<!--@if($document->isEditable())-->
 									<!--@if(!( !$grant->manager && $document->getCommentCount()))-->	
-									<a href="{getUrl('act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}" class="btn"><span>{$lang->cmd_modify}</span></a>
+									<a href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}" class="btn"><span>{$lang->cmd_modify}</span></a>
 									<!--@end-->
 									<!--@if(!( !$grant->manager && $oDocument->getCommentCount()))-->	
-									<a href="{getUrl('act','dispBoardDelete','document_srl',$document->document_srl,'comment_srl','')}" class="btn"><span>{$lang->cmd_delete}</span></a>
+									<a href="{getUrl('', 'mid', $mid, 'act','dispBoardDelete','document_srl',$document->document_srl,'comment_srl','')}" class="btn"><span>{$lang->cmd_delete}</span></a>
 									<!--@end-->
 							<!--@end-->
 							</div>

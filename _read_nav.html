@@ -26,9 +26,9 @@
 	<a cond="(!$mi->show_files || $mi->show_files=='2') && $oDocument->hasUploadedFiles()" class="file back_to bubble m_no" href="#files_{$oDocument->document_srl}" onclick="jQuery('#files_{$oDocument->document_srl}').show();return false" title="{$lang->uploaded_file}"><i class="fa fa-paperclip"></i><b class="tx">{$lang->uploaded_file}</b></a>
 	<a cond="$is_logged" class="document_{$oDocument->document_srl} action bubble m_no" href="#popup_menu_area" onclick="return false;" title="{$lang->cmd_document_do}"><i class="fa fa-ellipsis-h"></i><b class="tx">{$lang->cmd_document_do}</b></a>
 	<block cond="$oDocument->isEditable()">
-	<a class="edit" href="{getUrl('act','dispBoardWrite','document_srl','')}"><i class="fas fa-pencil-alt"></i> {$mi->write_buten}</a>
+	<a class="edit" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl','')}"><i class="fas fa-pencil-alt"></i> {$mi->write_buten}</a>
 	<a class="edit" href="{getUrl('document_srl','')}"><i class="fa fa-list"></i> {$lang->cmd_list}</a>
-	<a class="edit" href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px write"></i>{$lang->cmd_modify}</a>
-	<a class="edit" href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px delete"></i>{$lang->cmd_delete} </a>
+	<a class="edit" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px write"></i>{$lang->cmd_modify}</a>
+	<a class="edit" href="{getUrl('', 'mid', $mid, 'act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px delete"></i>{$lang->cmd_delete} </a>
 	</block>
 </div>

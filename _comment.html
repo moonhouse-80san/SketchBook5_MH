@@ -124,7 +124,7 @@
 					<div style="margin-top:5px">
 						<!--댓글 주소 복사-->
 						<load target="./js/clipboard.min.js" />
-						<a class="copycomLink" style="font-size:12px; color:#aaa" href="{getUrl('', 'mid', $mid, 'document_srl', $comment->document_srl, 'comment_srl', $comment->comment_srl)}#comment_{$comment->comment_srl}" data-clipboard-text="{getFullUrl('', 'mid', $mid, 'document_srl', $comment->document_srl, 'comment_srl', $comment->comment_srl)}#comment_{$comment->comment_srl}" onclick="return false;">#comment_{$comment->comment_srl}</a>
+						<a class="copycomLink" style="font-size:12px; color:#aaa" href="{getUrl('', 'mid', $mid, 'act', 'document_srl', $comment->document_srl, 'comment_srl', $comment->comment_srl)}#comment_{$comment->comment_srl}" data-clipboard-text="{getFullUrl('', 'mid', $mid, 'act', 'document_srl', $comment->document_srl, 'comment_srl', $comment->comment_srl)}#comment_{$comment->comment_srl}" onclick="return false;">#comment_{$comment->comment_srl}</a>
 					</div>
 				</div>
 
@@ -178,10 +178,10 @@
 					</block>
 					<a cond="(!$mi->cmt_this_btn && $is_logged) || $grant->manager" class="comment_{$comment->comment_srl} m_no" href="#popup_menu_area" onclick="return false"><i class="fa fa-ellipsis-h"></i>{$lang->cmd_comment_do}</a>
 					<block cond="$comment->isGranted() || !$comment->get('member_srl')">
-					<a href="{getUrl('act','dispBoardModifyComment','comment_srl',$comment->comment_srl)}"><i class="fa fa-edit"></i>{$lang->cmd_modify}</a>
-					<a href="{getUrl('act','dispBoardDeleteComment','comment_srl',$comment->comment_srl)}"><i class="fa fa-eraser"></i>{$lang->cmd_delete}</a>
+					<a href="{getUrl('', 'mid', $mid, 'act','dispBoardModifyComment','comment_srl',$comment->comment_srl)}"><i class="fa fa-edit"></i>{$lang->cmd_modify}</a>
+					<a href="{getUrl('', 'mid', $mid, 'act','dispBoardDeleteComment','comment_srl',$comment->comment_srl)}"><i class="fa fa-eraser"></i>{$lang->cmd_delete}</a>
 					</block>
-					<a cond="$oDocument->allowComment()" class="re_comment" href="{getUrl('act','dispBoardReplyComment','comment_srl',$comment->comment_srl)}" onclick="<!--@if(!$grant->write_comment || !$oDocument->isEnableComment())-->alert('{$lang->msg_not_permitted}')<!--@else-->reComment({$comment->get('document_srl')},{$comment->get('comment_srl')},'{getUrl('act','dispBoardReplyComment','comment_srl',$comment->comment_srl)}')<!--@end-->;return false;"><i class="fa fa-comment"></i> {$lang->cmd_reply}</a>
+					<a cond="$oDocument->allowComment()" class="re_comment" href="{getUrl('', 'mid', $mid, 'act','dispBoardReplyComment','comment_srl',$comment->comment_srl)}" onclick="<!--@if(!$grant->write_comment || !$oDocument->isEnableComment())-->alert('{$lang->msg_not_permitted}')<!--@else-->reComment({$comment->get('document_srl')},{$comment->get('comment_srl')},'{getUrl('', 'mid', $mid, 'act','dispBoardReplyComment','comment_srl',$comment->comment_srl)}')<!--@end-->;return false;"><i class="fa fa-comment"></i> {$lang->cmd_reply}</a>
 					<!--// 추천-비추천 -->
 					<span cond="$mi->cmt_vote!='N' && ($mi->cmt_vote=='2' || $comment->get('voted_count')!=0 || $comment->get('blamed_count')!=0)" class="vote ui_font">
 						<a class="bd_login" href="#" onclick="doCallModuleAction('comment','procCommentVoteUp','{$comment->comment_srl}');return false"|cond="$is_logged" title="{$lang->cmd_vote}"><em><i class="fa fa-heart color"></i> {$comment->get('voted_count')?$comment->get('voted_count'):0}</em></a>
@@ -201,12 +201,12 @@
 	<!--// 댓글 페이지네이션 -->
 	<block cond="$oDocument->comment_page_navigation">
 		<div class="bd_pg clear {$mi->fdb_hide}">
-			<a href="{getUrl('comment_srl', '', 'cpage',1)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->first_page}"><i class="fa fa-angle-double-left"></i> <span>First</span></a>
+			<a href="{getUrl('', 'mid', $mid, 'comment_srl', '', 'cpage',1)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->first_page}"><i class="fa fa-angle-double-left"></i> <span>First</span></a>
 			<block loop="$page_no=$oDocument->comment_page_navigation->getNextPage()">
 				<strong cond="$cpage==$page_no" class="this">{$page_no}</strong> 
-				<a cond="$cpage!=$page_no" href="{getUrl('comment_srl', '', 'cpage',$page_no)}#{$oDocument->get('document_srl')}_comment">{$page_no}</a>
+				<a cond="$cpage!=$page_no" href="{getUrl('', 'mid', $mid, 'comment_srl', '', 'cpage',$page_no)}#{$oDocument->get('document_srl')}_comment">{$page_no}</a>
 			</block>
-			<a href="{getUrl('comment_srl', '', 'cpage',$oDocument->comment_page_navigation->last_page)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->last_page}"><span>Last</span> <i class="fa fa-angle-double-right"></i></a>
+			<a href="{getUrl('', 'mid', $mid, 'comment_srl', '', 'cpage',$oDocument->comment_page_navigation->last_page)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->last_page}"><span>Last</span> <i class="fa fa-angle-double-right"></i></a>
 		</div>
 	</block>
 </block>

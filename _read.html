@@ -43,9 +43,9 @@
 				<strong cond="!$mi->rd_cate && $mi->use_category=='Y' && $oDocument->get('category_srl')" class="cate fl" title="Category">
 				<a cond="!$mi->rd_cate_mid==''" href="{getUrl('', 'mid', $mid)}">{$oDocument->get('module_title')}</strong></a>
 				<span cond="!$mi->rd_cate_mid=='' && $category_list[$oDocument->get('category_srl')]->title"> > </span>
-				<a href="{getUrl('category',$category_list[$oDocument->get('category_srl')]->parent_srl, 'document_srl', '')}">{$category_list[$category_list[$oDocument->get('category_srl')]->parent_srl]->title}</a>
+				<a href="{getUrl('', 'mid', $mid, 'category', $category_list[$oDocument->get('category_srl')]->parent_srl, 'document_srl', '')}">{$category_list[$category_list[$oDocument->get('category_srl')]->parent_srl]->title}</a>
 				<span cond="$category_list[$category_list[$oDocument->get('category_srl')]->parent_srl]->title"> > </span>
-				<a href="{getUrl('category',$oDocument->get('category_srl'), 'document_srl', '')}" >{$category_list[$oDocument->get('category_srl')]->title}</a></strong>
+				<a href="{getUrl('', 'mid', $mid, 'category', $oDocument->get('category_srl'), 'document_srl', '')}" >{$category_list[$oDocument->get('category_srl')]->title}</a></strong>
 				<strong cond="$timeline_info" class="cate fl">[ {htmlspecialchars($modules_info[$oDocument->get('module_srl')]->browser_title)} ]</strong>
 				<div class="fr">
 					<a cond="$mi->rd_nick=='2'" href="#popup_menu_area" class="nick member_{$oDocument->get('member_srl')}" onclick="return false">{$oDocument->getNickName()}</a>
@@ -263,7 +263,7 @@
 						<!--@elseif($oDocument->get('document_srl')==$mi->down_no)-->
 							<include target="down.html" />
 						<!--@else-->
-							<p><a href="{getUrl('act', 'dispMemberLoginForm')}" onclick='javascript:alert("회원가입 로그인후 다운로드가 가능합니다.");'><img src="./img/down01.png" alt="" class="pr_tooltip" pr_color="dark" pr_position="bottom" title="회원가입 로그인후 다운로드가 가능합니다" /></a></p>
+							<p><a href="{getUrl('', 'mid', $mid, 'act', 'dispMemberLoginForm')}" onclick='javascript:alert("회원가입 로그인후 다운로드가 가능합니다.");'><img src="./img/down01.png" alt="" class="pr_tooltip" pr_color="dark" pr_position="bottom" title="회원가입 로그인후 다운로드가 가능합니다" /></a></p>
 						<!--@end-->
 					<!--@else-->
 					<!--@end-->
@@ -278,9 +278,8 @@
 			<div cond="count($tag_list)" class="rd_t_f rd_tag css3pie clear">
 				<div class="bg_f_color border_color">TAG &bull;</div>
 				<ul>
-					<!--@for($i=0;$i<count($tag_list);$i++)-->
-						{@ $tag=$tag_list[$i]; }
-						<li><a href="{getUrl('search_target','tag','search_keyword',$tag,'document_srl','')}">{htmlspecialchars($tag)}</a><span class="comma">,</span></li>
+					<!--@foreach($tag_list as $tag)-->
+						<a href="{getUrl('search_target','tag','search_keyword',$tag,'document_srl','')}" class="tag" rel="tag">{escape($tag, false)}</a><span>,</span>
 					<!--@end-->
 				</ul>
 			</div>
@@ -536,7 +535,7 @@
 		<a class="btn_img no rd_prev bubble no_bubble" href="#">{$lang->cmd_prev}</a>
 		<a class="btn_img no rd_next bubble no_bubble" href="#">{$lang->cmd_next}</a>
 		</block>
-		<a cond="!$mi->write_btm_btn || ($mi->write_btm_btn!='N' && $grant->write_document)" class="btn_img" href="{getUrl('act','dispBoardWrite','document_srl','')}"><b class="ico_16px write"></b> {$mi->write_buten}</a>
+		<a cond="!$mi->write_btm_btn || ($mi->write_btm_btn!='N' && $grant->write_document)" class="btn_img" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl','')}"><b class="ico_16px write"></b> {$mi->write_buten}</a>
 	</div>
 </div>
 

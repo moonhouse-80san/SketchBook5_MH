@@ -63,8 +63,8 @@ jQuery(function($){
 				</ul>
 			</div>
 
-			<div cond="$grant->write_document" class="sbtn_small sbtn-gray" style="margin-right:10px; float:right">
-				<a href="{getUrl('act','dispBoardWrite','document_srl','')}"><i class="fas fa-user-edit"></i> {$mi->write_buten}</a>
+			<div style="margin-right:10px; float:right">
+				<a  cond="$grant->write_document" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl','')}" class="btn"><i class="fas fa-user-edit"></i> {$mi->write_buten}</a>
 			</div>
 		</div>
 
@@ -117,10 +117,10 @@ jQuery(function($){
 				<!--@end-->
 				</block>
 				<block cond="!$oDocument->isExists()">
-				<a cond="!$mi->write_btn || ($mi->write_btn!='N' && $grant->write_document)" href="{getUrl('act','dispBoardWrite','document_srl','')}"><b class="ico_16px write"></b>{$mi->write_buten}</a>
+				<a cond="!$mi->write_btn || ($mi->write_btn!='N' && $grant->write_document)" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl','')}"><b class="ico_16px write"></b>{$mi->write_buten}</a>
 				<span cond="$mi->font_btn=='2'" class="font_select"><a class="select tg_btn2" href="#" data-href=".bd_font_select"><b class="tx_ico_chk">T</b>{$lang->font}<i class="arrow down"></i></a></span>
 				<block cond="$grant->manager && !$mi->guest_view == ''">
-				<a href="{getUrl('act','dispBoardAdminBoardInfo')}"><b class="ico_16px setup"></b>{$lang->cmd_setup}</a>
+				<a href="{getUrl('', 'mid', $mid, 'act','dispBoardAdminBoardInfo')}"><b class="ico_16px setup"></b>{$lang->cmd_setup}</a>
 				<a class="m_no" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" onclick="popopen(this.href,'manageDocument');return false"><b class="tx_ico_chk">✔</b>{$lang->cmd_manage_document}</a>
 				<input cond="$mi->default_style!='list'" type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true });" class="iCheck" title="Check All" />
 				</block>
@@ -147,7 +147,7 @@ jQuery(function($){
 				<div cond="$mi->title_img" class="fl"><img src="{$mi->title_img}" alt="Title" /></div>
 			</div>
 
-			<center><div cond="$grant->manager && $mi->write_top == 'Y'" class="sbtn_small sbtn-orange" style="margin-bottom:10px"><a href="{getUrl('act','dispBoardWrite','document_srl','')}"><i class="fas fa-user-edit"></i> {$mi->write_buten}</a></div></center>
+			<center><div cond="$grant->manager && $mi->write_top == 'Y'" class="sbtn_small sbtn-orange" style="margin-bottom:10px"><a href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl','')}"><i class="fas fa-user-edit"></i> {$mi->write_buten}</a></div></center>
 
 			<!--// 카테고리 -->
 			<div class="cnb_n_list">
@@ -165,7 +165,7 @@ jQuery(function($){
 						<!--@end-->
 					<!--@end-->
 					<div cond="!$mi->cnb" class="bd_cnb clear css3pie<!--@if($mi->cnb_open)--> open<!--@end-->">
-						<a class="home" href="{getUrl('category','','page','','document_srl','')}" title="{$lang->document_count} '{number_format($total_count)}'"><i class="home ico_16px">Category</i></a>
+						<a class="home" href="{getUrl('', 'mid', $mid, 'category', '','page','','document_srl','')}" title="{$lang->document_count} '{number_format($total_count)}'"><i class="home ico_16px">Category</i></a>
 						<div class="dummy_ie fr"></div>
 						<ul class="bubble bg_f_f9 css3pie">
 							<li class="cnbMore"><a href="#" class="bubble" title="{$lang->category} {$lang->more}"><i class="fa<!--@if($mi->cnb_open)--> fa-caret-up<!--@else--> fa-caret-down<!--@end-->"></i></a></li>
@@ -178,7 +178,7 @@ jQuery(function($){
 						</ul>
 					</div>
 					<ul cond="$mi->cnb=='cTab'" class="cTab clear">
-						<li class="home<!--@if(!$category)--> on<!--@end-->"><a href="{getUrl('category','','page','','document_srl','')}" title="{$lang->document_count} {number_format($total_count)}">{$lang->total}<small cond="$mi->cnb_count">({number_format($total_count)})</small></a></li>
+						<li class="home<!--@if(!$category)--> on<!--@end-->"><a href="{getUrl('', 'mid', $mid, 'category', '','page','','document_srl','')}" title="{$lang->document_count} {number_format($total_count)}">{$lang->total}<small cond="$mi->cnb_count">({number_format($total_count)})</small></a></li>
 						<li loop="$cate_list=>$key,$val" class="on"|cond="$category==$val->category_srl">
 							<a href="{getUrl(category,$val->category_srl,'document_srl','','page','')}" style="color:{$val->color}"|cond="$val->color!='transparent'">{$val->title}<small cond="$mi->cnb_count">({$val->document_count})</small></a>
 							<ul cond="count($val->children)">
@@ -188,7 +188,7 @@ jQuery(function($){
 					</ul>
 					<ul cond="$mi->cnb=='cnb3' || $mi->cnb=='cnb4'" class="cnb3 {$mi->cnb} {$mi->cnb3_align} clear">
 						<li class="home<!--@if(!$category)--> on<!--@end-->">
-							<a href="{getUrl('category','','page','','document_srl','')}" title="{$lang->document_count} {number_format($total_count)}">{$lang->total}<small cond="$mi->cnb_count">({number_format($total_count)})</small></a></li><li loop="$cate_list=>$key,$val" class="on"|cond="$category==$val->category_srl"><a href="{getUrl(category,$val->category_srl,'document_srl','','page','')}" style="color:{$val->color}"|cond="$val->color!='transparent'">{$val->title}<small cond="$mi->cnb_count">({$val->document_count})</small></a>
+							<a href="{getUrl('', 'mid', $mid, 'category', '','page','','document_srl','')}" title="{$lang->document_count} {number_format($total_count)}">{$lang->total}<small cond="$mi->cnb_count">({number_format($total_count)})</small></a></li><li loop="$cate_list=>$key,$val" class="on"|cond="$category==$val->category_srl"><a href="{getUrl(category,$val->category_srl,'document_srl','','page','')}" style="color:{$val->color}"|cond="$val->color!='transparent'">{$val->title}<small cond="$mi->cnb_count">({$val->document_count})</small></a>
 						</li>
 					</ul>
 				</div>
@@ -202,6 +202,32 @@ jQuery(function($){
 						<li cond="$mi->select_lst_more" class="cloud<!--@if($mi->default_style=='cloud_gall')--> on<!--@end-->"><a class="bubble" href="{getUrl('listStyle','cloud_gall','act','','document_srl','')}" title="Photo Cloud"><b>Cloud</b></a></li>
 					</ul>
 				</div>
+			</div>
+
+			<!--// 상단 TAG 버튼 -->
+			<div cond="$mi->top_tag_btn =='Y'">
+				<details class="atag">
+					<summary class="tag btn"><i class="fa fa-tag"></i> {$mi->tag_total}</summary>
+						<img class="zbxe_widget_output" widget="tag_list_adv" skin="default" widget_cache="0m" module_srls="{$mi->tag_module_srls}" zero_tag_display="display" display_method="distinction" display_browser_title="display" display_style="inline-block" list_style="disc" text_decoration="underline" />
+				</details>
+
+				<details cond="$mi->tag_cate1n" class="atag">
+					<summary class="tag btn"><i class="fa fa-tag"></i> {$mi->tag_cate1}</summary>
+						<img class="zbxe_widget_output" widget="tag_list_adv" skin="default" widget_cache="0m" array_list="{$mi->tag_cate1n}" module_srls="{$mi->tag_module_srls}" zero_tag_display="display" display_method="distinction" display_browser_title="display" display_style="inline-block" list_style="disc" text_decoration="underline" />
+				</details>
+
+				<details  cond="$mi->tag_cate2n" class="atag">
+					<summary class="tag btn"><i class="fa fa-tag"></i> {$mi->tag_cate2}</summary>
+						<img class="zbxe_widget_output" widget="tag_list_adv" skin="default" widget_cache="0m" array_list="{$mi->tag_cate2n}" module_srls="{$mi->tag_module_srls}" zero_tag_display="display" display_method="distinction" display_browser_title="display" display_style="inline-block" list_style="disc" text_decoration="underline" />
+				</details>
+
+				<style>
+					details.atag { float:left; margin:10px 5px }
+					summary.tag::-webkit-details-marker { display: none; }
+					summary.tag { display: block; }
+					summary.tag { position: relative; padding-left: 1.2em; cursor: pointer; }
+					summary.tag::before { content: "";  }
+				</style>
 			</div>
 
 			<div id="board_list">
@@ -273,10 +299,10 @@ jQuery(function($){
 					</form>
 				</div>
 				<div class="fr">
-					<a cond="@in_array('tag',$mi->btm_mn)" class="btn_img m_no" href="{getUrl('act','dispBoardTagList')}"><i class="fa fa-tag"></i> {$lang->tag}</a>
-					<a cond="!$mi->write_btm_btn || ($mi->write_btm_btn!='N' && $grant->write_document)" class="btn_img" href="{getUrl('act','dispBoardWrite','document_srl','')}"><i class="ico_16px write"></i> {$mi->write_buten}</a>
+					<a cond="@in_array('tag',$mi->btm_mn)" class="btn_img m_no" href="{getUrl('', 'mid', $mid, 'act','dispBoardTagList')}"><i class="fa fa-tag"></i> {$lang->tag}</a>
+					<a cond="!$mi->write_btm_btn || ($mi->write_btm_btn!='N' && $grant->write_document)" class="btn_img" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl','')}"><i class="ico_16px write"></i> {$mi->write_buten}</a>
 					<block cond="$grant->manager">
-					<a class="btn_img" href="{getUrl('act','dispBoardAdminBoardInfo')}"><i class="ico_16px setup"></i> {$lang->cmd_setup}</a>
+					<a class="btn_img" href="{getUrl('', 'mid', $mid, 'act','dispBoardAdminBoardInfo')}"><i class="ico_16px setup"></i> {$lang->cmd_setup}</a>
 					<a class="btn_img" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" onclick="popopen(this.href,'manageDocument');return false"><i class="tx_ico_chk">✔</i> {$lang->cmd_manage_document}</a>
 					<!--// 엑셀버턴 출력 -->
 					{@
