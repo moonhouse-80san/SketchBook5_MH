@@ -2,8 +2,8 @@
 <skin version="0.2">
 	<title>sketchbook5 MH V2.7</title>
 	<description>sketchbook5 MH Board Skin. 한국형 게시판 스타일, 여러 목록 유형 제공, 사용자 편의를 고려한 다양한 기능, 모바일까지 대응.(문하우스에서 일부 수정함)</description>
-	<version>2.7 - MH</version>
-	<date>2024-03-22</date>
+	<version>3.0 - MH</version>
+	<date>2024-043-10</date>
 	<author email_address="contact@sketchbooks.co.kr" link="http://xe.sketchbook.kr/">
 		<name>sketchbook MH</name>
 	</author>
@@ -452,6 +452,42 @@
 				<options value="center">
 					<title>가운데</title>
 				</options>
+			</var>
+			<var name="top_tag_btn" type="radio">
+				<title>★상단 TAG 버튼</title>
+				<description>★TAG 버튼 표시 선택시 게시판 상단에 Tag 분류 버턴 출력
+				tag_list_adv 위젯이 설치 되어 있어야 함. https://xetown.com/download/299989
+				</description>
+				<options value="">
+					<title>표시 안함(기본)</title>
+				</options>
+				<options value="Y">
+					<title>표시</title>
+				</options>
+			</var>
+			<var name="tag_module_srls" type="text">
+				<title>　┖ 모듈 번호</title>
+				<description>TAG 를 출력할 모듈번호</description>
+			</var>
+			<var name="tag_total" type="text">
+				<title>　┖ 전체 출력 이름</title>
+				<description>★TAG 버튼 표시 선택시 게시판 상단에 Tag 분류 버턴 출력중 전체 출력버턴 이름(기본 Total)</description>
+			</var>
+			<var name="tag_cate1" type="text">
+				<title>　┖ 분류1 출력 이름</title>
+				<description>TAG 버튼 표시 선택시 게시판 상단에 Tag 분류 버턴 출력중 분류1 출력 이름</description>
+			</var>
+			<var name="tag_cate1n" type="text">
+				<title>　┖ 분류1 테그 이름</title>
+				<description>분류1 출력될 태그 이름들</description>
+			</var>
+			<var name="tag_cate2" type="text">
+				<title>　┖ 분류2 출력 이름</title>
+				<description>TAG 버튼 표시 선택시 게시판 상단에 Tag 분류 버턴 출력중 분류2 출력버턴 이름</description>
+			</var>
+			<var name="tag_cate2n" type="text">
+				<title>　┖ 분류2 테그 이름</title>
+				<description>분류2 출력될 태그 이름들</description>
 			</var>
 		</group>
 		<group>
