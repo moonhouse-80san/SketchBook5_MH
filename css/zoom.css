@@ -1,0 +1,5 @@
+.webzine .zoom-section{clear:both;margin-top:0px;}
+.webzine .zoom-small-image{border:1px solid #CCC;float:left;margin:5px; padding:2px;}
+.webzine .cloud-zoom-lens {border: 0px solid #888;margin:-1px;background-color:#fff;cursor:move;}
+.webzine .cloud-zoom-big {border:0px solid #ccc;overflow:hidden;}
+.webzine .cloud-zoom-loading {color:white;background:#222;padding:3px;border:1px solid #000;}

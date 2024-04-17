@@ -1,0 +1,28 @@
+<!--// 제목앞에 분류 아이콘 출력 -->
+<!--@if($document->getExtraEidValueHTML($mi->select_icons))-->
+	<!--@if($document->getExtraEidValueHTML($mi->select_icons) == $mi->select_icon_1)-->
+		<span class="sicon sbtn_mini sbtn-{$mi->icon_color1}">{$mi->select_icon_1}</span>
+	<!--@elseif($document->getExtraEidValueHTML($mi->select_icons) == $mi->select_icon_2)-->
+		<span class="sicon sbtn_mini sbtn-{$mi->icon_color2}">{$mi->select_icon_2}</span>
+	<!--@elseif($document->getExtraEidValueHTML($mi->select_icons) == $mi->select_icon_3)-->
+		<span class="sicon sbtn_mini sbtn-{$mi->icon_color3}">{$mi->select_icon_3}</span>
+	<!--@elseif($document->getExtraEidValueHTML($mi->select_icons) == $mi->select_icon_4)-->
+		<span class="sicon sbtn_mini sbtn-{$mi->icon_color4}">{$mi->select_icon_4}</span>
+	<!--@elseif($document->getExtraEidValueHTML($mi->select_icons) == $mi->select_icon_5)-->
+		<span class="sicon sbtn_mini sbtn-{$mi->icon_color5}">{$mi->select_icon_5}</span>
+	<!--@elseif($document->getExtraEidValueHTML($mi->select_icons) == $mi->select_icon_6)-->
+		<span class="sicon sbtn_mini sbtn-{$mi->icon_color6}">{$mi->select_icon_6}</span>
+	<!--@elseif($document->getExtraEidValueHTML($mi->select_icons) == $mi->select_icon_7)-->
+		<span class="sicon sbtn_mini sbtn-{$mi->icon_color7}">{$mi->select_icon_7}</span>
+	<!--@elseif($document->getExtraEidValueHTML($mi->select_icons) == $mi->select_icon_8)-->
+		<span class="sicon sbtn_mini sbtn-{$mi->icon_color8}">{$mi->select_icon_8}</span>
+	<!--@elseif($document->getExtraEidValueHTML($mi->select_icons) == $mi->select_icon_9)-->
+		<span class="sicon sbtn_mini sbtn-{$mi->icon_color9}">{$mi->select_icon_9}</span>
+	<!--@elseif($document->getExtraEidValueHTML($mi->select_icons) == $mi->select_icon_10)-->
+		<span class="sicon sbtn_mini sbtn-{$mi->icon_color10}">{$mi->select_icon_10}</span>
+	<!--@end-->
+<!--@end-->
+
+<style>
+	.sicon { margin-right:5px }
+</style>

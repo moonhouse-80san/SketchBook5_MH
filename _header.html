@@ -1,0 +1,8 @@
+<include target="__setting.html" />
+<!--// 상단 html 출력 -->
+
+<div id="bd" class="bd">
+	<div cond="!$act=='dispBoardWrite'" class="bd_hd clear">
+		<!--// 빵조각 메뉴 -->
+		<include cond="!$mi->breadcrumb" target="_breadcrumb.html" />
+	</div>

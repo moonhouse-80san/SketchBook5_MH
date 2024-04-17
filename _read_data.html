@@ -1,0 +1,64 @@
+<style>
+	.bd_tb .tc { text-align:center }
+	.bd_tb .tb { background-color:#f9f9f9 }
+</style>
+
+<div id="files_{$oDocument->document_srl}" class="rd_fnt rd_file">
+	<table class="et_vars bd_tb cont">
+		<thead>
+			<tr cond="$oDocument->hasUploadedFiles()" class="tb">
+				<th>{$lang->uploaded_files}</th>
+				<th cond="!$mo" class="tc">　　{$lang->regdate}　　</th>
+				<th cond="!$mo" class="tc">　{$lang->files}　</th>
+				<th class="tc"> {$lang->down_no} </th>
+			</tr>
+		</thead>
+
+		{@ $re_files = $oDocument->getUploadedFiles(); }
+		<!--@if($mi->files_reverse == '')-->{@ $re_files = array_reverse($re_files)}<!--@end-->
+		<tbody cond="!$mi->files_type">
+			<tr loop="$re_files=>$key,$file">
+				<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
+				<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
+				<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
+				<td class="tc">{number_format($file->download_count)}</td>
+			</tr>
+		</tbody>
+
+		<tbody cond="$mi->files_type">
+			<tr loop="$re_files=>$key,$file">
+				{@
+					$ext = substr($file->source_filename, -4);
+					$ext = strtolower($ext);
+					$ext_img = in_array($ext,array('.jpg','jpeg','.gif','.png'));
+					$ext_video = in_array($ext,array('.mpg','mpeg','.avi','.wmv','.mp4','.mov','.mkv','.swf','.flv','.ogv','webm'));
+					$ext_audio = in_array($ext,array('.mp3','.ogg','.wma','.wav','.ape','flac','.mid'));
+				}
+				<block cond="!$mi->files_img && $ext_img">
+					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
+					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
+					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
+					<td class="tc">{number_format($file->download_count)}</td>
+				</block>
+				<block cond="!$mi->files_video && $ext_video">
+					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
+					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
+					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
+					<td class="tc">{number_format($file->download_count)}</td>
+				</block>
+				<block cond="!$mi->files_audio && $ext_audio">
+					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
+					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
+					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
+					<td class="tc">{number_format($file->download_count)}</td>
+				</block>
+				<block cond="!$mi->files_etc && (!$ext_img && !$ext_video && !$ext_audio)">
+					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
+					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
+					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
+					<td class="tc">{number_format($file->download_count)}</td>
+				</block>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,170 @@
+<include target="_notice.html" />
+<div class="bd_ft">
+	{@$i=0}
+	<li loop="$document_list=>$no,$document" class="<!--@if($document_srl==$document->document_srl)-->select <!--@end-->clear">
+
+		<!--@if($mi->first_thumb_user =='' && ($total_count - $no) % $module_info->list_count === 0 && $list_config['thumbnail'] && $document->thumbnailExists())-->
+			<include target="list_ft.html" />
+		<!--@end-->
+
+		<!--@if($mi->first_thumb_user =='all')-->
+			<include target="list_ft.html" />
+		<!--@end-->
+
+		<!--// 프로필 -->
+		<div cond="!$mi->profile_img" class="pf">
+			{@
+			$nickBgPath = "$tpl_path/nick_bg_img.php";
+			include_once($nickBgPath);
+			$oNickBgUtil = new nickBgUtil();
+			}
+			<img cond="$document->getProfileImage()" class="profile img" src="{$document->getProfileImage()}" alt="profile" style="width:45px; border-radius:50px; border:1px solid #fff"/>
+			<span cond="!$document->getProfileImage() && !$mi->pname == ''" class="profile img no_img" style="background:url('{$tpl_path}img/{$oNickBgUtil->getNickBgColor($document->getNickName())}') 2px 2px no-repeat; width:45px; height:45px; border-radius:50px; border:1px solid #fff; font-size:12px; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold;"></span>
+		</div>
+
+		<div class="NameDate">
+			<span cond="$list_config['nick_name']"><a href="#popup_menu_area" class="member_{$document->get('member_srl')}" onclick="return false;">{$document->getNickName()}</a></span></br>
+			<span cond="$list_config['regdate']" class="color"><b>{$document->getRegdate("M d Y")}</b></span>
+		</div>
+
+		<!--// 종료버턴 / D-Day 확장변수 설정 -->
+		<div cond="!$mi->profile_img || $list_config['nick_name'] || $list_config['regdate']" class="EndButton">
+			<include target="d_day.html" />
+		</div>
+
+		<div class="Area">
+			<!--// 제목 -->
+			<div class="title">
+				<a class="title" href="{getUrl('document_srl', $document->document_srl)}" target="_blank"|cond="$module_info->new_window" style="font-size:{$mi->ft_fontsize}">
+					<include target="title.html" />
+					<span cond="$mi->profile_img && !$list_config['nick_name'] && !$list_config['regdate']" class="EndButton" style="text-align:right; margin-top:-5px">
+						<include target="d_day.html" />
+					</span>
+				</a>
+			</div>
+
+			<!--// 태그 -->
+			<div cond="!$mi->Tag_view==''" class="tag">
+				{@
+				$tagModel = &getModel('tag');
+				$args->document_srl = $document->document_srl;
+				$tag_list = $tagModel->getDocumentsTagList($args);
+				}
+				<label cond="$tag_list->data">
+					<block loop="$tag_list->data=>$k,$v">
+						<a href="{getUrl('', 'mid', $mid, 'search_target','tag','search_keyword',$v->tag,'document_srl')}" rel="tag" class="tag" style="margin-left:2px; background-color:#EAEAEA; border-radius:4px; padding:2px 5px; font-size:11px; color:#000"># {$v->tag}</a>
+					</block>
+				</label>
+			</div>
+
+			<!--// 내용 글 -->
+			<!--@if($mi->extra_title =='')-->
+				<div class="cnt mt" cond="$list_config['summary']">
+					<a href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}">
+						<!--@if($document->getSummary() !== '.')-->
+							{$document->getSummary($mi->content_cut_size)}
+						<!--@else-->
+							{$mi->content_default}
+						<!--@end-->
+					</a>
+				</div>
+			<!--@end-->
+
+			<!--// 글 정보 -->
+			<div class="info mt" style="margin-top:5px;">
+				<div class="InfoLeft">
+					<!--// 타임라인게시판적용시 게시판명 출력 -->
+					<span class="mid line_right" cond="$timeline_info"><span>Board :</span><b><a href="{getUrl('module_srl', $document->get('module_srl'))}"><strong>{htmlspecialchars($modules_info[$document->get('module_srl')]->browser_title)}</strong></a></b>
+					</span>
+					<span class="mid line_right" cond="!$timeline_info && $mi->include_modules">
+						<span>Board :</span><b><a href="{getUrl('', 'mid', $document->get('mid'))}"><strong style="color:#444">{$document->get('module_title')}</strong></a></b>
+					</span>
+					<span class="line_right" cond="!$mi->show_cate && $document->get('category_srl')" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')" style="cursor:pointer"|cond="$document->isGranted() && $use_category_update"><span>Category :</span><b style="text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_category_update"> {$category_list[$document->get('category_srl')]->title}</b></span>
+					<block cond="@in_array('zine',$mi->ext_img)"><span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span></block>
+					<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
+					<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}"> {$lang->cmd_modify}</a>
+				</div>
+
+				<div class="InfoRight">
+					<a cond="$document->getCommentCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment" class="color line_right" title="{$lang->comment}"><img src="img/chat-1-line.svg"> {$document->getCommentCount()}<span class="irt">Replies</span></a>
+					<span cond="$document->get('voted_count')!=0" class="color line_right"><img src="img/heart-2-line.svg"> {$document->get('voted_count')!=0?$document->get('voted_count'):'0'}<span class="irt">Likes</span></span>
+					<span cond="$document->get('readed_count')>0" class="color"><img src="img/registered-line.svg"> {$document->get('readed_count')>0?$document->get('readed_count'):'0'}<span class="irt">Views</span></span>
+				</div>
+			</div>
+
+			<!--// 확장변수 -->
+			<div class="mt" style="display:table; width:100%">
+				<!--// 버턴 출력-->
+				<div loop="$list_config=>$key,$val" cond="$val->eid==$mi->select_icons && $val->idx!=-1" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid" style="float:left">
+					<include target="list_iconsort.html" />
+				</div>
+
+				<block loop="$list_config=>$key,$val" cond="$val->eid!==$mi->select_icons && $val->idx!=-1">
+					<span cond="$val->eid!='rating' && $val->eid!==$mi->icon_url && $document->getExtraValueHTML($val->idx)" class="line_right itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->name} : <span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
+					<span cond="$val->eid==$mi->icon_url && $document->getExtraValueHTML($val->idx)" style="cursor:pointer">
+						<a href="{$document->getExtraEidValue($mi->icon_url)}" target="_blank">{$mi->icon_urlt}<img src="img/link.png" style="margin-left:5px"></a>
+					</span>
+				</block>
+
+				<!--// 평가 출력-->
+				<div loop="$list_config=>$key,$val" cond="$mi->rating_output == 'Y' && $val->idx!=-1" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="float:right; cursor:pointer">
+					<span cond="$val->eid=='rating'">{$val->name} : <strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
+				</div>
+			</div>
+
+			<!--// 코멘트 리스트 시작 -->
+			<!--@if($mi->list_replyContent!='')-->
+				<!--@if(!($oDocument->isExists() && $grant->view))-->
+					{@if(!$mi->comment_lineno) $mi->comment_lineno = 5;}
+					{@$comments_list = $document->getComments();}
+					<!--@if(!$mi->comment_order == '')-->{@$comments_list = array_reverse($comments_list );}<!--@end-->
+					{@$i = 0}
+					<!--@if($document->getCommentCount())-->
+						<!--@if($mi->ftu_cvb!='')-->
+							<details open>
+								<summary class="cvb">[{$document->getCommentCount()}]</summary>
+							<!--@else-->
+							<details>
+								<summary class="cvb">[{$document->getCommentCount()}]</summary>
+							<!--@end-->
+								<table class="CommArea">
+									<!--@foreach($comments_list as $key => $val)-->
+										<!--@if(!$mi->comment_line == '')-->
+											<include target="list_webzin_comment.html" cond="$i < $mi->comment_lineno"/>
+										<!--@else-->
+											<include target="list_webzin_comment.html" />
+										<!--@end-->
+									<!--@end-->
+								</table>
+							</details>
+							<style>
+								summary::marker{ content: "{$mi->comment_open}"; }
+								details[open] summary::marker { content: "️{$mi->comment_close}"; }
+							</style>
+					<!--@end-->
+				<!--@end-->
+			<!--@end-->
+			<!--// 코멘트 리스트 끝 -->
+		</div>
+
+		<!--// 목록에 에드센스 출력 -->
+		<!--@if(!$mo && $i==$mi->ads_number1)-->
+			<li cond="$mi->list_ads=='Y'" class="ads">
+				{$mi->ads_code}
+			</li>
+		<!--@end-->
+		<!--@if($mo && $i==$mi->ads_number1)-->
+			<div cond="$mi->list_ads=='Y'" class="adsm">
+				{$mi->ads_mcode}
+			</div>
+		<!--@end-->
+			<style>
+				.bd_ft .ads { margin:0 !important; padding:0px; border-top:0px solid #f60}
+
+				@media all and (max-width:480px) {
+					.bd_ft .adsm { margin:25px 0 0 0 !important; border-top:1px solid #f1f1f1}
+				}
+			</style>
+		{@$i++}
+	</li>
+</div>

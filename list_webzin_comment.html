@@ -1,0 +1,47 @@
+<tbody>
+	<tr class="replylist">
+	{@$i++}
+		<td class="replyIndent" <!--@if($val->depth < 11 && $mi->comment_order == '')-->style="margin-left:{($val->depth)*1.3}em"<!--@end-->>
+			<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}">
+				<!--@if(!$mo) -->
+					<!--@if(!$mi->comment_cut_size) -->
+						{cut_str(strip_tags($val->content),90,'...')}
+					<!--@else-->
+						{cut_str(strip_tags($val->content),$mi->comment_cut_size,'...')}
+					<!--@end-->
+				<!--@else-->
+					<!--@if(!$mi->comment_cut_size_m) -->
+						{cut_str(strip_tags($val->content),30,'...')}
+					<!--@else-->
+						{cut_str(strip_tags($val->content),$mi->comment_cut_size_m,'...')}
+					<!--@end-->
+				<!--@end-->
+			</a>
+		</td>
+
+		<td cond="!$mo" class="author">
+			<span cond="$mi->display_author!='N'" class="member_{$val->get('member_srl')}">{($val->nick_name)}</span>
+		</td>
+
+		<td cond="$mi->display_regdate!='N'" class="date">
+			<!--// 시간대별 댓글 -->
+			{@
+			$x_date = strtotime($val->regdate);
+			$time_calc = time() - $x_date;
+			}
+			<!--@if($time_calc < 600)-->
+				<span class="cnew">NEW</span>
+			<!--@elseif($time_calc >= 600 && $time_calc < 3600)-->
+				<span style="color:orange">{floor($time_calc/60).' 분전'}</span>
+			<!--@elseif($time_calc >= 3600 && $time_calc < 86400)-->
+				<span style="color:orange">{floor($time_calc/3660).' 시간전'}</span>
+			<!--@elseif($time_calc >= 86400 && $time_calc < 172800)-->
+				<span style="color:black">하루전</span>
+			<!--@elseif($time_calc >= 172800 && $time_calc < 259200)-->
+				<span style="color:#777">2 일전</span>
+			<!--@elseif($time_calc >= 259200)-->
+				{zdate($val->regdate, 'm.d/H.i')}
+			<!--@end-->
+		</td>
+	</tr>
+</tbody>

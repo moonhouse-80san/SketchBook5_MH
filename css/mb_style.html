@@ -1,0 +1,67 @@
+<style>
+.mf-area { background:url({$wi->b_img}) repeat center center; background-color:{$wi->background_color}; width:{$wi->w_width}}
+.mf-area .mf_close { margin:{$wi->c_lo}}
+.mf-area .mb_name { margin:{$wi->bn_lo}; color:{$wi->b_name_color}; font-size:1.2em}
+
+.mf_accordion .mf_title { font-size:{$wi->title_size}em; color:{$wi->title_color}}
+.mf_accordion .mf_title a { color:{$wi->title_color}}
+.mf_accordion .mf_sum { font-size:{$wi->sum_font_size}em; line-height:{$wi->content_l_h}em; color:{$wi->sum_font_color}}
+.mf_accordion .mf_box { border:{$wi->border_size}px solid {$wi->border_color}; <!--@if($wi->boxshadow == '')-->box-shadow:0px 5px 15px gray;<!--@end--> height:{$wi->box_height}px; margin-left:-{$wi->m_left}px; width:{$wi->box_width}px}
+.mf_accordion .mf_box img {<!--@if($wi->thumb_gray == 'Y')--> -webkit-filter:grayscale(100%); filter:grayscale(100%)<!--@end-->}
+.mf_accordion .mf_box img:hover { -webkit-filter:grayscale(0%); filter:grayscale(0%)}
+.mf_accordion .mf_etc { color:{$wi->sum_font_color}}
+.mf_accordion .mf_etc a { color:{$wi->sum_font_color}}
+
+.mf_accordion .mf_box:first-of-type { background-color:{$wi->back_color1}}
+.mf_accordion .mf_box:nth-of-type(2) { background-color:{$wi->back_color2}}
+.mf_accordion .mf_box:nth-of-type(3) { background-color:{$wi->back_color3}}
+.mf_accordion .mf_box:nth-of-type(4) { background-color:{$wi->back_color4}}
+.mf_accordion .mf_box:nth-of-type(5) { background-color:{$wi->back_color5}}
+.mf_accordion .mf_box:nth-of-type(6) { background-color:{$wi->back_color1}}
+.mf_accordion .mf_box:nth-of-type(7) { background-color:{$wi->back_color2}}
+.mf_accordion .mf_box:nth-of-type(8) { background-color:{$wi->back_color3}}
+.mf_accordion .mf_box:nth-of-type(9) { background-color:{$wi->back_color4}}
+.mf_accordion .mf_box:nth-of-type(10) { background-color:{$wi->back_color5}}
+
+<block cond="$wi->animate_use == 'Y'" >
+.mf_accordion .mf_sum { display:none }
+.mf_accordion:hover .mf_sum { display:block; -webkit-animation-duration:2s; animation-duration:2s; -webkit-animation-name:fadeInRight; animation-name:fadeInRight }
+</block>
+
+@media all and (max-width:479px) {
+.mf-area { width:100%; max-height:{$wi->cols_list_count*($wi->box_height+70)}px}
+.mf-area .mf_close { left:-100px; top:50px; z-index:1}
+.mf_accordion { margin-left:{$wi->m_leftmargin}px}
+.mf_accordion .mf_box { height:200px; width:250px; margin:0 100px 100px 0}
+.mf_accordion .mhthumb img { max-height:150px}
+.mf_accordion .mf_box:hover { margin-bottom:100px}
+}
+</style>
+
+<script src="js/jquery.brickfolio.js"></script>
+<script>
+	jQuery(function($){
+		var $container = $('.brickfolio'),
+				$load_delay = $('#load_delay'),
+				$filter = $('input[name="filter"]'),
+				$animation = $('#animation'),
+				$mixed_delay = $('#mixed_delay'),
+				getAnimation = function(){
+					return $animation.val() + ($mixed_delay.is(':checked') ? ' ' + $mixed_delay.val() : '');
+				},
+				getLoadTime = function(){
+					return $load_delay.is(':checked') ? $load_delay.val() : 0;
+				},
+				getFilter = function(){
+					return $filter.filter(':checked').val();
+				};
+
+		$filter.on('change', function(){
+			$container.brickfolio('filter', getFilter());
+		});
+		$load_delay.add($animation).add($mixed_delay).on('change', function(){
+			$container.brickfolio({animation: getAnimation(), filter: getFilter(), loadTime: getLoadTime()});
+		});
+		$container.brickfolio({animation: getAnimation(), filter: getFilter(), loadTime: getLoadTime()});
+	});
+</script>

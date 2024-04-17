@@ -1,0 +1,145 @@
+/* for bootstrap */
+.bd_font .select,.bd_cnb *,.bd .cTab *,.bd_zine.card,.bd_zine.card li,.bd_pg *,.bd .profile,.bd .rd_vote a,.tmb_wrp .ribbon *,.tmb_wrp,.bd_faq .mrk,.guest_itm_nav{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+
+.display-toggle{
+	display: none;
+}
+
+.stk_display{
+	padding: 0;
+	min-height: 200px;
+	width: 100%;
+	margin: 15px auto 0 auto;
+	line-height: 0;
+	background:#FCFCFC;border:1px solid #DDD;border-bottom-color:#CCC;border-radius:8px;box-shadow:0 1px 3px -1px rgba(0,0,0,.1);*zoom:1
+}
+
+.stk_display .stk_body{
+	border-top:1px solid #DDD;
+	/*width: 100%;*/
+}
+
+.stk_display .stk_head{
+    box-sizing: border-box;
+	text-align: center;
+}
+
+.stk_display .stk_head>ul>li{
+	float: left;
+	position: static;
+	background: #fff;
+}
+
+.stk_display>.stk_head>ul>li.sticker_icon1 {
+	display:inline-block;
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	margin-top:15px;
+	background-color: #EEE;
+	line-height: 20px;
+	color: #A0A0A0;
+}
+
+.stk_display>.stk_head>ul>li.sticker_icon {
+	display:inline-block;
+	font-size: 20px;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	background-color: #444;
+	line-height: 40px;
+	color: #A0A0A0;
+}
+
+.stk_display>.stk_head>ul>li:nth-child(n+2){
+}
+
+.stk_display>.stk_head>ul>li.sticker_icon a{
+	text-decoration: none;
+	color: #A0A0A0;
+}
+
+.stk_cmt .sticker_pack, .stk_cmt_reply .sticker_pack{
+	padding: 0;
+	margin: 0;
+	display: inline-block;
+	display:-webkit-box; display:-webkit-flex; display:-ms-flexbox; display:flex; -webkit-flex-wrap:wrap; -ms-flex-wrap:wrap;flex-wrap:wrap; -webkit-box-pack:center; -webkit-justify-content:center; -ms-flex-pack:center;justify-content:center
+}
+
+.sticker_pack>li{
+	display: inline;
+}
+
+.sticker_pack div>img{
+	width:40px;
+	height:40px;
+	object-fit: cover;
+}
+
+.stk_display>.stk_body{
+	padding: 3px;
+}
+
+.stk_display>.stk_body>ul{
+	overflow-y:auto;
+	text-align: center;
+	min-height: 210px;
+	max-height: 210px;
+}
+
+.stk_display>.stk_body>ul>li{
+	display: inline;
+}
+
+.stk_display>.stk_body>ul>li>a{
+	display: inline-block;
+	background-size: cover;
+	background-position: 50% 50%;
+	width: 90px;
+	height: 90px;
+	margin: 5px;
+	border-radius:3px;
+}
+
+.stk_display>.stk_body>ul>li>a:hover { 
+	-webkit-transform: scale(1.1)
+}
+
+.srl, .srl1 { 
+	margin:3px; 
+	padding:3px; 
+	border:1px solid #DDD; 
+	border-bottom-color:#CCC; 
+	border-radius:8px;
+	box-shadow:0 1px 3px -1px rgba(0,0,0,.1);*zoom:1 
+}
+
+.srl1 .svg { 
+	padding-top:8px
+}
+
+.srl:hover { 
+	border:1px solid #f60; 
+	-webkit-transform: scale(1.3)
+}
+
+@media screen and (max-width:479px) {
+	.stk_display>.stk_head>ul>li.sticker_icon {
+		display:inline-block;
+		font-size: 20px;
+		width: 35px;
+		height: 35px;
+		text-align: center;
+		background-color: #444;
+		line-height: 35px;
+		color: #A0A0A0;
+	}
+
+	.sticker_pack div>img{
+		width:35px;
+		height:35px;
+		object-fit: cover;
+	}
+}

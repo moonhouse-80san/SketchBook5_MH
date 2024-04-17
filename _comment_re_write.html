@@ -1,0 +1,66 @@
+<!--@if($grant->write_comment && $oDocument->isEnableComment())-->
+	<!--// 대댓글 -->
+	<div cond="$rd_idx==0" id="re_cmt">
+		<label for="editor_2" class="cmt_editor_tl fl"><i class="fa fa-share fa-flip-vertical re"></i><strong>{$lang->write_comment}</strong></label>
+		<div class="editor_select fr">
+			<a class="close" href="#" onclick="jQuery('#re_cmt').fadeOut(); jQuery('#comment_'+jQuery('#re_cmt').find('[name=parent_srl]').val()).find('.dummy_for_re_cmt').fadeOut(); jQuery('#comment_'+jQuery('#re_cmt').find('[name=parent_srl]').val()).find('.re_comment').focus();return false"><i class="fa fa-times"></i> {$lang->cmd_close}</a>
+		</div>
+
+		<form action="/" method="post" onsubmit="return procFilter(this,insert_comment)" class="bd_wrt clear">
+			<input type="hidden" name="mid" value="{$mid}" />
+			<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
+			<input type="hidden" name="comment_srl" value="" />
+			<input type="hidden" name="parent_srl" value="" />
+			<input type="hidden" name="use_html" value="Y" />
+			<div class="simple_wrt">
+				<input type="hidden" id="htm_2" value="n" />
+				<textarea id="editor_2" cols="50" rows="8" name="content" style="display: none;"></textarea>
+				{$oDocument->getCommentEditor()}
+			</div>
+
+					<div class="edit_opt" cond="!$is_logged">
+						<span class="itx_wrp">
+							<label for="nick_name">{$lang->writer}</label>
+							<input type="text" name="nick_name" id="nick_name" class="itx n_p" />
+						</span>
+						<span class="itx_wrp">
+							<label for="password">{$lang->password}</label>
+							<input type="password" name="password" id="password" class="itx n_p" />
+						</span>	
+						<span class="itx_wrp" cond="!$mi->email_view==''">
+							<label for="email_address">{$lang->email_address}</label>
+							<input type="text" name="email_address" id="email_address" class="itx m_h" />
+						</span>	
+						<span class="itx_wrp" cond="!$mi->homepage_view==''">
+							<label for="homepage">{$lang->homepage}</label>
+							<input type="text" name="homepage" id="homepage" class="itx m_h" />
+						</span>
+						<input type="submit" value="{$lang->cmd_submit}" class="bd_btn fr" />
+					</div>
+					<span class="opt_chk">
+						<block cond="$is_logged">
+							<input type="checkbox" name="notify_message" value="Y" id="notify_message" checked="checked"|cond="@in_array('notify',$mi->wrt_opt)" />
+							<label for="notify_message">{$lang->notify}</label>
+						</block>
+						<block cond="strpos($mi->use_status, 'SECRET') !== false">
+							<input type="checkbox" name="is_secret" value="Y" id="is_secret" checked="checked"|cond="@in_array('secret',$mi->wrt_opt)" />
+							<label for="is_secret">{$lang->secret}</label>
+						</block>
+					</span>
+				</form>
+
+				<!--// 대댓글 스티커모듈 -->
+				<div cond="$mi->stick=='Y'" class="stk_cmt_reply">
+					<div class="stk_display display-toggle" style="width:100%">
+						<div class="stk_head">
+							<ul class="sticker_pack">
+								<li>
+								</li>
+							</ul>
+						</div>
+						<div class="stk_body">
+						</div>
+					</div>
+				</div>
+	</div>
+<!--@end-->
