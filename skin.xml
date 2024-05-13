@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
-	<title>sketchbook5 MH V2.7</title>
+	<title>sketchbook5 MH V3.0</title>
 	<description>sketchbook5 MH Board Skin. 한국형 게시판 스타일, 여러 목록 유형 제공, 사용자 편의를 고려한 다양한 기능, 모바일까지 대응.(문하우스에서 일부 수정함)</description>
 	<version>3.0 - MH</version>
-	<date>2024-043-10</date>
+	<date>2024-04-10</date>
 	<author email_address="contact@sketchbooks.co.kr" link="http://xe.sketchbook.kr/">
 		<name>sketchbook MH</name>
 	</author>

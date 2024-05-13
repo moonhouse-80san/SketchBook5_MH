@@ -5,9 +5,7 @@
 
 		<!--@if($mi->first_thumb_user =='' && ($total_count - $no) % $module_info->list_count === 0 && $list_config['thumbnail'] && $document->thumbnailExists())-->
 			<include target="list_ft.html" />
-		<!--@end-->
-
-		<!--@if($mi->first_thumb_user =='all')-->
+		<!--@elseif($mi->first_thumb_user =='all')-->
 			<include target="list_ft.html" />
 		<!--@end-->
 
@@ -37,6 +35,7 @@
 			<div class="title">
 				<a class="title" href="{getUrl('document_srl', $document->document_srl)}" target="_blank"|cond="$module_info->new_window" style="font-size:{$mi->ft_fontsize}">
 					<include target="title.html" />
+					<span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
 					<span cond="$mi->profile_img && !$list_config['nick_name'] && !$list_config['regdate']" class="EndButton" style="text-align:right; margin-top:-5px">
 						<include target="d_day.html" />
 					</span>
@@ -79,8 +78,7 @@
 					<span class="mid line_right" cond="!$timeline_info && $mi->include_modules">
 						<span>Board :</span><b><a href="{getUrl('', 'mid', $document->get('mid'))}"><strong style="color:#444">{$document->get('module_title')}</strong></a></b>
 					</span>
-					<span class="line_right" cond="!$mi->show_cate && $document->get('category_srl')" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')" style="cursor:pointer"|cond="$document->isGranted() && $use_category_update"><span>Category :</span><b style="text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_category_update"> {$category_list[$document->get('category_srl')]->title}</b></span>
-					<block cond="@in_array('zine',$mi->ext_img)"><span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span></block>
+					<span class="line_right" cond="!$mi->show_cate && $document->get('category_srl')" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')" style="cursor:pointer"|cond="$document->isGranted() && $use_category_update"><span>Category :</span><span style="text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_category_update"> {$category_list[$document->get('category_srl')]->title}</span></span>
 					<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
 					<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}"> {$lang->cmd_modify}</a>
 				</div>
@@ -88,7 +86,7 @@
 				<div class="InfoRight">
 					<a cond="$document->getCommentCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment" class="color line_right" title="{$lang->comment}"><img src="img/chat-1-line.svg"> {$document->getCommentCount()}<span class="irt">Replies</span></a>
 					<span cond="$document->get('voted_count')!=0" class="color line_right"><img src="img/heart-2-line.svg"> {$document->get('voted_count')!=0?$document->get('voted_count'):'0'}<span class="irt">Likes</span></span>
-					<span cond="$document->get('readed_count')>0" class="color"><img src="img/registered-line.svg"> {$document->get('readed_count')>0?$document->get('readed_count'):'0'}<span class="irt">Views</span></span>
+					<span cond="$document->get('readed_count')>0" class="color"><img src="img/registered-line.svg"> {number_format($document->get('readed_count')>0?$document->get('readed_count'):'0')}<span class="irt">Views</span></span>
 				</div>
 			</div>
 
@@ -100,9 +98,12 @@
 				</div>
 
 				<block loop="$list_config=>$key,$val" cond="$val->eid!==$mi->select_icons && $val->idx!=-1">
-					<span cond="$val->eid!='rating' && $val->eid!==$mi->icon_url && $document->getExtraValueHTML($val->idx)" class="line_right itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->name} : <span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
+					<span cond="$val->eid!='rating' && $val->eid!==$mi->icon_url && $val->eid!==$mi->e_url && $document->getExtraValueHTML($val->idx)" class="line_right itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->name} : <span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
 					<span cond="$val->eid==$mi->icon_url && $document->getExtraValueHTML($val->idx)" style="cursor:pointer">
 						<a href="{$document->getExtraEidValue($mi->icon_url)}" target="_blank">{$mi->icon_urlt}<img src="img/link.png" style="margin-left:5px"></a>
+					</span>
+					<span cond="$val->eid==$mi->e_url && $document->getExtraValueHTML($val->idx)" style="cursor:pointer">
+						<a href="{$document->getExtraEidValue($mi->e_url)}" target="_blank" title="{$mi->e_urlt}">{$val->name}<img src="img/link.png" style="margin-left:5px"></a>
 					</span>
 				</block>
 

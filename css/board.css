@@ -1233,11 +1233,18 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 .bd_ft .cvb:focus { color:#fff; background-color:#f58a38; background-image:linear-gradient(to bottom, #f58a38, #f57c20); border:1px solid #c25706; box-shadow:inset 0 1px 0 #ffb984, inset 0 -1px 0 #db6f1d, inset 0 0 0 1px #f59851, 0 2px 4px rgba(0, 0, 0, 0.2); color:white; text-shadow:0 1px 2px rgba(0, 0, 0, 0.3); }
 .bd_ft .cvb:active { color:#967d09; background:#fcdf5b; box-shadow:inset 0 2px 3px rgba(0, 0, 0, 0.2); }
 
+/* 첫게시글만 댓글 */
+.bd_ft .CommArea { position:relative; width:100%; border:1px solid #eee; background-color:#fafafa; padding:5px; border-radius:5px; box-shadow:0 1px 2px rgba(0,0,0,.2); }
+.bd_ft td { border:0; line-height:1.5; white-space:nowrap; padding:1px 5px; }
+.bd_ft .replyIndent { margin: 3px; border-top: 0 dotted #ddd; overflow: hidden; white-space: normal; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; word-wrap:break-word; }
+.bd_ft .replyIndent a { font-size:0.9em ; }
+
 /* 댓글 리스트 */
 .replylist .replyIndent a { background:url(../img/iconReplyArrow.gif) no-repeat left ; padding-left:35px; color:#999999; }
-.replylist .author{ width:10px; }
+.replylist .author { width:10px; }
 .replylist .author span { color:#A6A39D; font-size:0.8em; }
-.replylist .date { color:#A6A39D; font-size:0.7em; width:10px; }
+.replylist .date .day { font-size:1em; }
+.replylist .date { color:#A6A39D; font-size:0.8em; width:10px; }
 
 /* 리스트 댓글 */
 .bd_lst .replylist { background-color:transparent; }
@@ -1250,16 +1257,11 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 .bd_zine .replyIndent { margin: 2px; border-top:0 dotted #ddd; overflow: hidden; white-space: normal; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; word-wrap:break-word; }
 .bd_zine .replyIndent a { font-size:0.8em ; border:0 !important;}
 
-/* 첫게시글만 댓글 */
-.bd_ft .CommArea { position:relative; width:100%; border:1px solid #eee; background-color:#fafafa; padding:5px; border-radius:5px; box-shadow:0 1px 2px rgba(0,0,0,.2); }
-.bd_ft td { border:0; line-height:1.5; white-space:nowrap; padding:1px 5px; }
-.bd_ft .replyIndent { margin: 3px; border-top: 0 dotted #ddd; overflow: hidden; white-space: normal; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; word-wrap:break-word; }
-.bd_ft .replyIndent a { font-size:0.9em ; }
-
 /* 게시판 최상단에 빵조각 */
-.Menu_Position { margin-left:10px; line-height:25px; }
-.Menu_Position a { float:left; font-size:1.1em; color:#444; text-decoration:none;  padding:0 5px;}
-.Menu_Position a:hover { color:#ff6600; }
+.tMenu_Position { margin-left:10px; float:left; margin-top:5px; }
+.tMenu_Position a { margin-left:5px; color:#444; text-decoration:none; }
+.tMenu_Position a:hover { color:#ff6600; }
+.tWrite_Position { margin:0 10px 10px 0; float:right; }
 
 /* MP4 동영상에 프로그레스바 기능 추가 */
 .trackBar { background-color:#c00000c2; height:10px; width:0; position:relative; margin:-6px 2px 0px 0px; }

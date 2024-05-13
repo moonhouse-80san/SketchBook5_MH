@@ -43,7 +43,7 @@
 <!--@end-->
 
 <!-- 시작 날짜 ~ 끝 날짜 출력 -->
-<div cond="($document->getExtraEidValue($mi->start_name) || $document->getExtraEidValue($mi->end_name)) && $mi->period_title" class="summary" style="margin-top:5px; font-size:12px">
+<div cond="($document->getExtraEidValue($mi->start_name) || $document->getExtraEidValue($mi->end_name)) && $mi->period_title" style="margin-top:5px; font-size:12px; font-weight:normal">
 	<!--@if(!$mo)-->
 		<span cond="$mi->period_title">{$mi->period_title} </span><span cond="$document->getExtraEidValue($mi->start_name)">{$start_date} ~ </span>
 		<span cond="$document->getExtraEidValue($mi->end_name)">{$end_date}</span>

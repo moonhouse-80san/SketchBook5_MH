@@ -53,7 +53,7 @@
 				<span cond="$mi->use_category=='Y' && $document->get('category_srl')"><span>Category</span><b>{$category_list[$document->get('category_srl')]->title}</b></span>
 				<span cond="$list_config['nick_name']"><span>By</span><b><a href="#popup_menu_area" class="member_{$document->get('member_srl')}" onclick="return false;">{$document->getNickName()}</a></b></span>
 				<span cond="(int)($document->get('comment_count'))>0"><span>Reply</span><b>{$document->getCommentCount()}</b></span>
-				<span cond="$list_config['readed_count'] && $document->get('readed_count')>0"><span>Views</span><b>{$document->get('readed_count')}</b></span>
+				<span cond="$list_config['readed_count'] && $document->get('readed_count')>0"><span>Views</span><b>{number_format($document->get('readed_count'))}</b></span>
 				<span cond="$list_config['voted_count'] && $document->get('voted_count')!=0"><span>Votes</span><b>{$document->get('voted_count')}</b></span>
 				<!--// 확장변수 -->
 				<block cond="$mi->zine_extra || $mi->link_board">
@@ -171,15 +171,18 @@
 				<span cond="$mi->use_category=='Y' && $document->get('category_srl')" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')" style="cursor:pointer"|cond="$document->isGranted() && $use_category_update"><span>Category :</span><b style="text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_category_update">{$category_list[$document->get('category_srl')]->title}</b></span>
 				<span cond="$list_config['nick_name']"><i class="far fa-user"></i><b><a href="#popup_menu_area" class="member_{$document->get('member_srl')}" onclick="return false;">{$document->getNickName()}</a></b></span>
 				<span cond="(int)($document->get('comment_count'))>0"><span>Reply</span><b>{$document->getCommentCount()}</b></span>
-				<span cond="$list_config['readed_count'] && $document->get('readed_count')>0"><span>Views</span><b>{$document->get('readed_count')}</b></span>
+				<span cond="$list_config['readed_count'] && $document->get('readed_count')>0"><span>Views</span><b>{number_format($document->get('readed_count'))}</b></span>
 				<span cond="$list_config['voted_count'] && $document->get('voted_count')!=0"><span>Votes</span><b>{$document->get('voted_count')}</b></span>
 				<!--// 확장변수 -->
 				<block cond="$mi->zine_extra || $mi->link_board">
 					<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
-						<span cond="$val->eid!='rating' && $val->eid!==$mi->icon_url && $document->getExtraValueHTML($val->idx)" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name} : <span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
+						<span cond="$val->eid!='rating' && $val->eid!==$mi->icon_url  && $val->eid!==$mi->e_url && $document->getExtraValueHTML($val->idx)" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name} : <span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
 						<span cond="$val->eid=='rating' && $mi->rating_output == ''"><strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
 						<span cond="$val->eid==$mi->icon_url && $document->getExtraValueHTML($val->idx)" style="cursor:pointer">
 							<a href="{$document->getExtraEidValue($mi->icon_url)}" target="_blank">{$mi->icon_urlt}<img src="img/link.png" style="margin-left:5px"></a>
+						</span>
+						<span cond="$val->eid==$mi->e_url && $document->getExtraValueHTML($val->idx)" style="cursor:pointer">
+							<a href="{$document->getExtraEidValue($mi->e_url)}" target="_blank" title="{$mi->e_urlt}">{$val->name}<img src="img/link.png" style="margin-left:5px"></a>
 						</span>
 					</block>
 				</block>
@@ -196,14 +199,14 @@
 		<a class="hx" <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}"><span class="blind">Read More</span></a>
 
 		<!-- 코멘트 리스트 시작 -->
-		<!--@if($mi->list_replyContent!='')-->
+		<!--@if(!$mi->list_replyContent =='')-->
 			<!--@if(!($oDocument->isExists() && $grant->view && $mi->cmtlist_at_boardlist == 'nolist'))-->
 				{@if(!$mi->comment_lineno) $mi->comment_lineno = 5;}
 				{@$comments_list = $document->getComments();}
-				<!--@if(!$mi->comment_order == '')-->{@$comments_list = array_reverse($comments_list );}<!--@end-->
+				<!--@if(!$mi->comment_order == '')-->{@$comments_list = array_reverse($comments_list);}<!--@else-->{@$comments_list = array_slice($comments_list, -$mi->comment_lineno, $mi->comment_lineno);}<!--@end-->
 				{@$i = 0}
 				<!--@if($document->getCommentCount())-->
-					<span cond="$document->getCommentCount() > $mi->comment_lineno" class="sbtn_mini sbtn-white" style="margin-top:-30; float:right">댓글 [{$document->getCommentCount()}]</span>
+					<a cond="$document->getCommentCount() > $mi->comment_lineno" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment"><span class="sbtn_mini sbtn-white" style="margin-top:10px; float:right">댓글 [{$document->getCommentCount()}]</span></a>
 					<table class="CommArea">
 						<!--@foreach($comments_list as $key => $val)-->
 							<!--@if(!$mi->comment_line == '')-->
@@ -213,6 +216,7 @@
 							<!--@end-->
 						<!--@end-->
 					</table>
+				{@$i++}
 				<!--@end-->
 			<!--@end-->
 		<!--@end-->

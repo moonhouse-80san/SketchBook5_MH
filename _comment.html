@@ -94,7 +94,7 @@
 					<a cond="!$comment->member_srl && $comment->homepage" href="{$comment->getHomepageUrl()}" target="_blank">{$comment->getNickName()}</a>
 					<b cond="!$comment->member_srl && !$comment->homepage">{$comment->getNickName()}</b>
 					<span class="date">{getTimeGap($comment->get('regdate'), "Y.m.d H:i")}</span>
-					<small cond="$grant->manager || $mi->display_ip_address" class="m_no"><!--@if($grant->is_admin)--><a href="https://ko.infobyip.com/ip-{$comment->getIpaddress()}.html" target="_blank">({$comment->getIpaddress()})</a><!--@else-->({$comment->getIpaddress()})<!--@end--> </small>
+					<small cond="$grant->manager || $mi->display_ip_address" class="m_no"><!--@if($grant->is_admin)--><a href="https://ko.infobyip.com/ip-{$comment->getIpaddress()}.html" target="_blank" style="font-size:10px; font-weight:300">({$comment->getIpaddress()})</a><!--@else-->({$comment->getIpaddress()})<!--@end--></small>
 					<span cond="$comment->isSecret()" class="ico_secret">SECRET</span>
 
 					<!--// 댓글 작성자가 원글 작성자인 경우 표시-->
@@ -199,16 +199,14 @@
 	</ul>
 
 	<!--// 댓글 페이지네이션 -->
-	<block cond="$oDocument->comment_page_navigation">
-		<div class="bd_pg clear {$mi->fdb_hide}">
-			<a href="{getUrl('', 'mid', $mid, 'comment_srl', '', 'cpage',1)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->first_page}"><i class="fa fa-angle-double-left"></i> <span>First</span></a>
-			<block loop="$page_no=$oDocument->comment_page_navigation->getNextPage()">
-				<strong cond="$cpage==$page_no" class="this">{$page_no}</strong> 
-				<a cond="$cpage!=$page_no" href="{getUrl('', 'mid', $mid, 'comment_srl', '', 'cpage',$page_no)}#{$oDocument->get('document_srl')}_comment">{$page_no}</a>
-			</block>
-			<a href="{getUrl('', 'mid', $mid, 'comment_srl', '', 'cpage',$oDocument->comment_page_navigation->last_page)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->last_page}"><span>Last</span> <i class="fa fa-angle-double-right"></i></a>
-		</div>
-	</block>
+	<div cond="$oDocument->comment_page_navigation" class="bd_pg clear {$mi->fdb_hide}">
+		<a href="{getUrl('cpage',1)}#comment" class="direction" title="{$lang->first_page}"><span>{$lang->first_page}</span></a>
+		<block loop="$page_no=$oDocument->comment_page_navigation->getNextPage()">
+			<strong cond="$cpage==$page_no">{$page_no}</strong>
+			<a cond="$cpage!=$page_no" href="{getUrl('cpage',$page_no)}#comment">{$page_no}</a>
+		</block>
+		<a href="{getUrl('cpage',$oDocument->comment_page_navigation->last_page)}#comment" class="direction" title="{$lang->last_page}"><span>{$lang->last_page}</span></a>
+	</div>
 </block>
 
 <!--댓글 주소 복사-->

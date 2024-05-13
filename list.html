@@ -27,44 +27,27 @@ jQuery(function($){
 	<load target="js/jquery.masonry.min.js" type="body" />
 	<div style="background-color:{$mi->content_color}; <!--@if($mi->content_radius == '')-->-webkit-border-radius:10px;-moz-border-radius:10px; border-radius:10px;<!--@end-->">
 
-		<div cond="!$mi->top_loca ==''" style="display:table; width:100%">
-			<div class="Menu_Position">
-				<ul>
-					<li class="home"><a href="{getSiteUrl()}" class="active"><strong>Home</strong></a></li>
-					<!--@foreach($GNB->list as $key => $val)--><!--@if($val['link'])-->
-					<!--@if($val['selected'])-->
-						<li><a href="{$val['href']}"><strong> > {$val['text']}</strong></a></li>
-					{@ $menu_1st = $val }
-					<!--@end-->
-					<!--@endif--><!--@endforeach-->
-					<!--@if($menu_1st)-->
-					{@ $idx = 1 }
-						<!--@foreach($menu_1st['list'] as $key => $val)--><!--@if($val['link'])-->
-						<!--@if($val['selected'])-->
-							<li><strong><a href="{$val['href']}"> > {$val['text']}</a></strong></li>
-							<!--@if($val['list'] && ($val['expand']=='Y'||$val['selected']) )-->
-							<!--@foreach($val['list'] as $k => $v)--><!--@if($v['link'])-->
-							<!--@if($v['selected'])-->
-								<li><strong><a href="{$v['href']}"> > {$v['text']}</a></strong></li>
-								<!--@if($v['list'] && ($v['expand']=='Y'||$v['selected']) )-->
-								<!--@foreach($v['list'] as $k => $v4)--><!--@if($v4['link'])-->
-								<!--@if($v4['selected'])-->
-									<li><strong><a href="{$v4['href']}"> > {$v4['text']}</a></strong></li>
-									{@$idx++}
-								<!--@endif-->
-								<!--@endif--><!--@endforeach-->
-								<!--@endif-->
-							<!--@endif-->
-							<!--@endif--><!--@endforeach-->
-							<!--@endif-->
-						<!--@end-->
-						<!--@endif--><!--@endforeach-->
-					<!--@endif-->
-				</ul>
+		<!--// 게시판상단에 메뉴 / 분류 / 글작성버턴 -->
+		<div cond="!$mi->top_loca ==''">
+			<div class="tMenu_Position">
+				<block loop="$GNB->list=>$key1,$val1" cond="$val1['selected']">
+					<a href="{geturl('')}" class="home"><i class="fa-solid fa-house"></i>&nbsp;</a>
+					<a href="{$val1['href']}"><!--@if(!$val1['list'])-->>&nbsp;&nbsp;&nbsp;{$val1['text']}<!--@else-->>&nbsp;&nbsp;&nbsp;{$val1['text']}<!--@end--></a>
+					<block loop="$val1['list']=>$key2,$val2" cond="$val2['selected']">
+						<a href="{$val2['href']}"><!--@if(!$val2['list'])-->>&nbsp;&nbsp;&nbsp;{$val2['text']}<!--@else-->>&nbsp;&nbsp;&nbsp;{$val2['text']}<!--@end--></a>
+						<block loop="$val2['list']=>$key3,$val3" cond="$val3['selected']">
+							<a href="{$val3['href']}"><!--@if(!$val3['list'])-->>&nbsp;&nbsp;&nbsp;{$val3['text']}<!--@else-->>&nbsp;&nbsp;&nbsp;{$val3['text']}<!--@end--></a>
+						</block>
+					</block>
+				</block>
+				<block cond="!$GNB->list">
+					<a href="{geturl('')}" class="gotohome"><i class='fa-solid fa-house'></i></a>
+				</block>
+					&nbsp;&nbsp;<i cond="$oDocument->get('category_srl')" class='fa-solid fa-arrow-right-from-bracket'></i>&nbsp;
+					{$category_list[$oDocument->get('category_srl')]->title}
 			</div>
-
-			<div style="margin-right:10px; float:right">
-				<a  cond="$grant->write_document" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl','')}" class="btn"><i class="fas fa-user-edit"></i> {$mi->write_buten}</a>
+			<div class="tWrite_Position">
+				<a cond="$grant->write_document" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl','')}" class="btn"><i class="fas fa-user-edit"></i> {$mi->write_buten}</a>
 			</div>
 		</div>
 
@@ -72,7 +55,6 @@ jQuery(function($){
 		<include cond="$mi->top_panel_text && !$document_srl && $mi->panel_select =='J'" target="top_toggleJ.html" />
 		<include cond="$mi->top_panel_text && !$document_srl && $mi->panel_select =='H'" target="top_toggleH.html" />
 
-		<!--// 게시판상단에 지도 출력 -->
 		<include cond="$mi->extra_map =='Y'" target="map.html" />
 
 		<!--// 게시판상단에 이미지출력 -->
@@ -100,21 +82,21 @@ jQuery(function($){
 				<a class="select tg_btn2" href="#" data-href=".bd_font_select"><b>T</b><strong><!--@if($mi->font=='ng')-->나눔고딕<!--@elseif($mi->font=='window_font')-->{$lang->window_font}<!--@elseif($mi->font=='tahoma')-->{$lang->tahoma}<!--@else-->{$lang->best_font}<!--@end--></strong><span class="arrow down"></span></a>
 				<div class="bd_font_select tg_cnt2"><button type="button" class="tg_blur2"></button>
 					<ul>
-						<li class="ui_font<!--@if(!$mi->font)--> on<!--@end-->"><a href="#" title="{$lang->best_font_dsc}">{$lang->best_font}</a><em>✔</em></li>
-						<li class="ng<!--@if($mi->font=='ng')--> on<!--@end-->"><a href="#">나눔고딕</a><em>✔</em></li>
-						<li class="window_font<!--@if($mi->font=='window_font')--> on<!--@end-->"><a href="#">{$lang->window_font}</a><em>✔</em></li>
-						<li class="tahoma<!--@if($mi->font=='tahoma')--> on<!--@end-->"><a href="#">{$lang->tahoma}</a><em>✔</em></li>
+						<li class="ui_font<!--@if(!$mi->font)--> on<!--@end-->"><a href="#" title="{$lang->best_font_dsc}">{$lang->best_font}</a>✔</li>
+						<li class="ng<!--@if($mi->font=='ng')--> on<!--@end-->"><a href="#">나눔고딕</a>✔</li>
+						<li class="window_font<!--@if($mi->font=='window_font')--> on<!--@end-->"><a href="#">{$lang->window_font}</a>✔</li>
+						<li class="tahoma<!--@if($mi->font=='tahoma')--> on<!--@end-->"><a href="#">{$lang->tahoma}</a>✔</li>
 					</ul><button type="button" class="tg_blur2"></button>
 				</div>
 			</div>
 			<!--// 우측 상단 설정 메뉴 -->
 			<div class="bd_set fr m_btn_wrp m_no">
 				<block cond="$grant->view && $mi->default_style!='guest' && $mi->default_style!='blog'">
-				<a cond="$oDocument->isExists() && !$mi->viewer" class="bg_f_f9" href="#" onclick="window.open('{getUrl('listStyle','viewer','page','')}','viewer','width=9999,height=9999,scrollbars=yes,resizable=yes,toolbars=no');return false"><em>✔</em> <strong>{$lang->viewer}</strong></a>
+				<a cond="$oDocument->isExists() && !$mi->viewer" class="bg_f_f9" href="#" onclick="window.open('{getUrl('listStyle','viewer','page','')}','viewer','width=9999,height=9999,scrollbars=yes,resizable=yes,toolbars=no');return false">✔ <strong>{$lang->viewer}</strong></a>
 				<!--@if($mi->link_board)-->
-				<a cond="$mi->viewer_with!='N'" class="viewer_with bubble<!--@if($mi->viewer_with=='2' || $_COOKIE['cookie_viewer_with']=='Y')--> on<!--@end-->" href="#" title="{$lang->with_viewer_info}."><em>✔</em> <strong>{$lang->link_site_viewer}</strong></a>
+				<a cond="$mi->viewer_with!='N'" class="viewer_with bubble<!--@if($mi->viewer_with=='2' || $_COOKIE['cookie_viewer_with']=='Y')--> on<!--@end-->" href="#" title="{$lang->with_viewer_info}.">✔ <strong>{$lang->link_site_viewer}</strong></a>
 				<!--@else-->
-				<a cond="!$oDocument->isExists() && $mi->viewer_with!='N'" class="viewer_with rd_viewer bubble<!--@if($mi->viewer_with=='2' || $_COOKIE['cookie_viewer_with']=='Y')--> on<!--@end-->" href="#" title="{$lang->with_viewer_info}."><em>✔</em> <strong>{$lang->with_viewer}</strong></a>
+				<a cond="!$oDocument->isExists() && $mi->viewer_with!='N'" class="viewer_with rd_viewer bubble<!--@if($mi->viewer_with=='2' || $_COOKIE['cookie_viewer_with']=='Y')--> on<!--@end-->" href="#" title="{$lang->with_viewer_info}.">✔ <strong>{$lang->with_viewer}</strong></a>
 				<!--@end-->
 				</block>
 				<block cond="!$oDocument->isExists()">
