@@ -200,12 +200,12 @@
 
 	<!--// 댓글 페이지네이션 -->
 	<div cond="$oDocument->comment_page_navigation" class="bd_pg clear {$mi->fdb_hide}">
-		<a href="{getUrl('cpage',1)}#comment" class="direction" title="{$lang->first_page}"><span>{$lang->first_page}</span></a>
+		<a href="{getUrl('cpage',1)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->first_page}"><span>{$lang->first_page}</span></a>
 		<block loop="$page_no=$oDocument->comment_page_navigation->getNextPage()">
-			<strong cond="$cpage==$page_no">{$page_no}</strong>
-			<a cond="$cpage!=$page_no" href="{getUrl('cpage',$page_no)}#comment">{$page_no}</a>
+			<strong cond="$cpage==$page_no" class="this">{$page_no}</strong> 
+			<a cond="$cpage!=$page_no" href="{getUrl('cpage',$page_no)}#{$oDocument->get('document_srl')}_comment">{$page_no}</a>
 		</block>
-		<a href="{getUrl('cpage',$oDocument->comment_page_navigation->last_page)}#comment" class="direction" title="{$lang->last_page}"><span>{$lang->last_page}</span></a>
+		<a href="{getUrl('cpage',$oDocument->comment_page_navigation->last_page)}#{$oDocument->get('document_srl')}_comment" class="direction" title="{$lang->last_page}"><span>{$lang->last_page}</span></a>
 	</div>
 </block>
 
