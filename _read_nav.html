@@ -22,6 +22,7 @@
 	<!--@end-->
 	<a class="back_to bubble m_no" href="#bd_{$mi->module_srl}_{$oDocument->document_srl}" title="{$lang->cmd_move_up}"><i class="fa fa-arrow-up"></i><b class="tx">{$lang->cmd_move_up}</b></a>
 	<a class="back_to bubble m_no" href="#rd_end_{$oDocument->document_srl}" title="({$lang->cmd_list}) {$lang->cmd_move_down}"><i class="fa fa-arrow-down"></i><b class="tx">{$lang->cmd_move_down}</b></a>
+	<a cond="$oDocument->getCommentCount() > 0" class="back_to bubble m_no" href="#{$oDocument->document_srl}_comment" title="{$lang->go_cmt}"><i class="fa fa-comment"></i><b class="tx">{$lang->go_cmt}</b></a>
 	<a cond="!$mi->rd_nav_item" class="print_doc bubble m_no<!--@if($mi->default_style=='viewer')--> this<!--@end-->" href="{getUrl('listStyle','viewer','act')}" title="{$lang->cmd_print}"><i class="fa fa-print"></i><b class="tx">{$lang->cmd_print}</b></a>
 	<a cond="(!$mi->show_files || $mi->show_files=='2') && $oDocument->hasUploadedFiles()" class="file back_to bubble m_no" href="#files_{$oDocument->document_srl}" onclick="jQuery('#files_{$oDocument->document_srl}').show();return false" title="{$lang->uploaded_file}"><i class="fa fa-paperclip"></i><b class="tx">{$lang->uploaded_file}</b></a>
 	<a cond="$is_logged" class="document_{$oDocument->document_srl} action bubble m_no" href="#popup_menu_area" onclick="return false;" title="{$lang->cmd_document_do}"><i class="fa fa-ellipsis-h"></i><b class="tx">{$lang->cmd_document_do}</b></a>

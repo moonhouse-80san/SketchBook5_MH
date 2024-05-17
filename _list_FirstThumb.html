@@ -33,10 +33,11 @@
 		<div class="Area">
 			<!--// 제목 -->
 			<div class="title">
+				<span class="number">{$no}</span>
 				<a class="title" href="{getUrl('document_srl', $document->document_srl)}" target="_blank"|cond="$module_info->new_window" style="font-size:{$mi->ft_fontsize}">
 					<include target="title.html" />
 					<span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
-					<span cond="$mi->profile_img && !$list_config['nick_name'] && !$list_config['regdate']" class="EndButton" style="text-align:right; margin-top:-5px">
+					<span cond="$mi->profile_img && !$list_config['nick_name'] && !$list_config['regdate']" class="EndButton">
 						<include target="d_day.html" />
 					</span>
 				</a>
