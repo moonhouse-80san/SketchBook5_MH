@@ -175,7 +175,7 @@
 						</block>
 						<block cond="(int)($document->get('comment_count'))==0">&nbsp;</block>
 					</td>
-					<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no">{number_format($document->get('readed_count')>0?$document->get('readed_count'):'0')}</td>
+					<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no" style="text-align:right">{number_format($document->get('readed_count')>0?$document->get('readed_count'):'0')}</td>
 					<td cond="$val->type=='voted_count' && $val->idx==-1" class="m_no">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</td>
 
 					<!--// 확장변수 -->

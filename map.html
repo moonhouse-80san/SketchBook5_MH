@@ -1,11 +1,11 @@
 <block cond="!$document_srl">
-	<div cond="$mi->list_map =='Y' && !$mo" id="map" style="width:100%;height:600px; margin:10px 0"></div>
+	<div cond="$mi->list_map =='Y' && !$mo" id="map" style="width:100%; height:600px; margin:10px 0"></div>
 
 	<script>
 		var listData = [
 			<!--@if($document_list)-->
 				<!--@foreach($document_list as $no => $document)-->
-				["{$document->getExtraEidValue('address')}","{$document->getTitle()}","{getUrl('document_srl', $document->document_srl)}","{$document->getExtraEidValue('shop')}"],
+					["{$document->getExtraEidValue('address')}","{$document->getTitle()}","{getUrl('document_srl', $document->document_srl)}","{$document->getExtraEidValue('shop')}"],
 				<!--@end-->
 			<!--@else-->
 				['','',''],

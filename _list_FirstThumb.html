@@ -17,7 +17,7 @@
 			$oNickBgUtil = new nickBgUtil();
 			}
 			<img cond="$document->getProfileImage()" class="profile img" src="{$document->getProfileImage()}" alt="profile" style="width:45px; border-radius:50px; border:1px solid #fff"/>
-			<span cond="!$document->getProfileImage() && !$mi->pname == ''" class="profile img no_img" style="background:url('{$tpl_path}img/{$oNickBgUtil->getNickBgColor($document->getNickName())}') 2px 2px no-repeat; width:45px; height:45px; border-radius:50px; border:1px solid #fff; font-size:12px; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold;"></span>
+			<span cond="!$document->getProfileImage() && !$mi->pname == ''" class="profile img no_img" style="background:url('{$tpl_path}img/{$oNickBgUtil->getNickBgColor($document->getNickName())}') 2px 2px no-repeat; width:45px; height:45px; border-radius:100%; border:0px solid #fff; font-size:12px; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold;"></span>
 		</div>
 
 		<div class="NameDate">

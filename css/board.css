@@ -94,10 +94,10 @@
 .bd_info_icon{margin-right:2px;font-size:14px;vertical-align:middle}
 /* Font */
 .fontcheckWrp p{float:left;font-size:72px}
-.no_img,.tx_ico_circ{font-family:'Segoe UI',Meiryo,'나눔고딕',NanumGothic,ng,'맑은 고딕','Malgun Gothic','돋움',dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
+.no_img,.tx_ico_circ{font-family:"NanumSquareNeo", 'Segoe UI',Meiryo,'나눔고딕',NanumGothic,ng,'맑은 고딕','Malgun Gothic','돋움',dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
 .bd.tahoma,.bd .tahoma{font-family:Tahoma,sans-serif}
-.bd.ng,.bd .ng{font-family:'나눔고딕',NanumGothic,ng,'돋움',dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
-.bd.window_font,.bd .window_font{font-family:'Segoe UI',Meiryo,'맑은 고딕','Malgun Gothic','돋움',dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
+.bd.ng,.bd .ng{font-family:"NanumSquareNeo", '나눔고딕',NanumGothic,ng,'돋움',dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
+.bd.window_font,.bd .window_font{font-family:"NanumSquareNeo", 'Segoe UI',Meiryo,'맑은 고딕','Malgun Gothic','돋움',dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
 .bd .nmeb{font-weight:700;font-family:'나눔명조 ExtraBold','NanumMyeongjo ExtraBold',nmeb,'나눔명조',NanumMyeongjo,nm,'Times New Roman',Times,serif}
 .bd .np{font-family:'Nanum Pen Script','나눔손글씨 펜',np,'휴먼편지체','Times New Roman',Times,serif}
 /* NanumPen */
