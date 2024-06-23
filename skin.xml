@@ -705,7 +705,7 @@
 			</var>
 			<var name="period_title" type="text">
 				<title>　┖ 기간</title>
-				<description>시작 날짜 ~ 끝 날짜 제목을 적어주세요.(미작성시 기간 출력되지 않음)</description>
+				<description>시작 날짜 ~ 끝 날짜의 항목 제목을 적어주세요.(미작성시 출력되지 않음)</description>
 			</var>
 			<var name="before_title" type="text">
 				<title>　┖ 시작</title>
@@ -3058,7 +3058,7 @@
 			</var>
 			<var name="f_name" type="text">
 				<title>　┖ 확장변수 전방 단위</title>
-				<description>확장변수값 앞에 붙는 단위를 적어주세요.(예 ; 월)</description>
+				<description>확장변수값 앞에 붙는 단위를 적어주세요.(기본 ₩ / 예 ; 월, 주, 일)</description>
 			</var>
 			<var name="b_name" type="text">
 				<title>　┖ 확장변수 후방 단위</title>

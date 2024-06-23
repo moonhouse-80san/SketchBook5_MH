@@ -115,7 +115,8 @@
 							<block cond="$mi->zine_extra || $mi->rating_output == 'Y'">
 							<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
 							<span cond="$val->eid=='rating'">{$val->name} : <strong class="starRating book_ext"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
-							<span cond="$val->eid!='rating' && $document->getExtraValueHTML($val->idx)" class="book_ext<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name} : <b>{$document->getExtraValueHTML($val->idx)}</b></span>
+							<span cond="$val->eid=='price'" class="book_ext">{$val->name} : <b>{$mi->f_name} {number_format($document->getExtraValueHTML($val->idx))}{$mi->b_name}</b></span>
+							<span cond="$val->eid!='rating' && $val->eid!=='price' && $document->getExtraValueHTML($val->idx)" class="book_ext<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name} : <b>{$document->getExtraValueHTML($val->idx)}</b></span>
 							</block>
 							</block>
 
@@ -130,7 +131,7 @@
 		</div>
 		<!--// 제목(기본) -->
 		<div cond="!$mi->gallery_tl && !$mi->gall_style" style="margin-top:{$mi->deco_img_h/2+$mi->deco_img_h1}px">
-			<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}" style="font-weight:bold !important;">
+			<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
 				<include target="title.html" />
 			</a>
 			<a cond="@in_array('gall',$mi->cmt_count)" class="replyNum" href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle, 'cpage','')}#comment">{$document->getCommentCount()}</a>
@@ -154,6 +155,7 @@
 
 			<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
 				<div cond="$mi->gallery_rating && $val->eid=='rating'"><span cond="$mi->extra_n ==''">{$val->name} : </span><strong class="starRating book_ext"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></div>
+				<div cond="$val->eid=='price'"><span cond="$mi->extra_n ==''">{$val->name} : </span>{$mi->f_name} {number_format($document->getExtraValueHTML($val->idx))}{$mi->b_name}</div>
 			</block>
 			<div style="margin-top:5px">
 				<include target="d_day.html" />

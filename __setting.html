@@ -26,6 +26,7 @@
 	if(!$mi->work_start) $mi->work_start = 'work_start';
 	if(!$mi->work_stop) $mi->work_stop = 'work_stop';
 	if(!$mi->tag_total) $mi->tag_total = 'Total';
+	if(!$mi->f_name) $mi->f_name = '₩';
 
 	<!--// 종료 확장변수 -->
 	if(!$mi->start_name) $mi->start_name = 'start';
@@ -247,11 +248,11 @@
 <style data-id="bdCss">
 	.color_scheme_dark { color:var(--color-black) !important; background-color:var(--color-white) !important;}
 	<!--@if($mi->font)-->
-	.bd,.bd input,.bd textarea,.bd select,.bd button,.bd table{font-family:<!--@if($mi->font=='ng')-->'Segoe UI',Meiryo,'나눔고딕',NanumGothic,ng,<!--@elseif($mi->font=='window_font')-->'Segoe UI',Meiryo,'맑은 고딕','Malgun Gothic',<!--@elseif($mi->font=='tahoma')-->Tahoma,'돋움',Dotum,<!--@end-->'돋움',Dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
+	.bd,.bd input,.bd textarea,.bd select,.bd button,.bd table{font-family:"NanumSquareNeo", <!--@if($mi->font=='ng')-->'Segoe UI',Meiryo,'나눔고딕',NanumGothic,ng,<!--@elseif($mi->font=='window_font')-->'Segoe UI',Meiryo,'맑은 고딕','Malgun Gothic',<!--@elseif($mi->font=='tahoma')-->Tahoma,'돋움',Dotum,<!--@end-->'돋움',Dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
 	<!--@if($mi->font=='tahoma')-->
-	.bd .ngeb{font-family:'돋움',Dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
+	.bd .ngeb{font-family:"NanumSquareNeo", '돋움',Dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
 	<!--@else-->
-	.bd .ngeb{font-weight:700;font-family:'Segoe UI',Meiryo,'나눔고딕 ExtraBold','NanumGothic ExtraBold',ngeb,'맑은 고딕','Malgun Gothic','나눔고딕',NanumGothic,ng,'Trebuchet MS','돋움',dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
+	.bd .ngeb{font-weight:700;font-family:"NanumSquareNeo", 'Segoe UI',Meiryo,'나눔고딕 ExtraBold','NanumGothic ExtraBold',ngeb,'맑은 고딕','Malgun Gothic','나눔고딕',NanumGothic,ng,'Trebuchet MS','돋움',dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
 	<!--@end-->
 	<!--@end-->
 	<!--@if($mi->color!='333333')-->
