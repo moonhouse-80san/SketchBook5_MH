@@ -73,7 +73,7 @@
 	{@$i=0}
 	<li loop="$document_list=>$no,$document" class="bf-item <!--@if($document_srl==$document->document_srl)-->select <!--@end-->clear">
 		<!--// 날짜 -->
-		<div cond="$mi->zine_style=='2'" class="big_date" onclick="location.href='{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}';" style="cursor: pointer;">
+		<div cond="$mi->zine_style=='2'" class="big_date" onclick="location.href='{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}';" style="cursor:pointer;">
 			<div class="dd bolder">{$document->getRegdate('d')}</div>
 			<div class="mmyy">
 				<span class="mm">{$document->getRegdate('M')}</span>
@@ -84,7 +84,7 @@
 		
 		<div class="rt_area<!--@if($list_config['thumbnail'] && $document->thumbnailExists())--> is_tmb<!--@end-->">
 			<!--// 다크모드형식 적용시 링크 적용 -->
-			<div onclick="location.href='{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}';" style="cursor: pointer;">
+			<div onclick="location.href='{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}';" style="cursor:pointer;">
 				<!--// 썸네일 영역 -->
 				<div cond="$list_config['thumbnail']" class="tmb_wrp ribbon_v{$mi->ribbon_style}">
 					<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
@@ -116,11 +116,11 @@
 					<!--@if(!$mi->extra_val_no1)-->{@ $mi->extra_val_no1 = 1; }<!--@end-->
 					<!--@if($oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted()) )-->
 						<!--@if($document->getExtraValue($mi->extra_val_no1))-->
-							{@$extravar_list = $document->getExtraVars()}{$extravar_list[1]->name} : {$document->getExtraValue(1)}
+							{@$extravar_list = $document->getExtraVars()}{$extravar_list[1]->name} :{$document->getExtraValue(1)}
 						<!--@else-->
 						<!--@end-->
 					<!--@end-->
-					<span style="font-size:0.8em; color:#888">내역 : 
+					<span style="font-size:0.8em; color:#888">내역 :
 						<!--// 종료 확장변수 설정 -->
 						<include target="d_day.html" />
 						<include target="title.html" />
@@ -176,9 +176,9 @@
 				<!--// 확장변수 -->
 				<block cond="$mi->zine_extra || $mi->link_board">
 					<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
-						<span cond="$val->eid!='rating' && $val->eid!='price' && $val->eid!==$mi->icon_url  && $val->eid!==$mi->e_url && $document->getExtraValueHTML($val->idx)" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name} : <span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
+						<span cond="$val->eid!='rating' && $val->eid!='price' && $val->eid!==$mi->icon_url	&& $val->eid!==$mi->e_url && $document->getExtraValueHTML($val->idx)" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name} :<span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
 						<span cond="$val->eid=='rating' && $mi->rating_output == ''"><strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
-						<span cond="$val->eid=='price' && $document->getExtraValueHTML($val->idx)">{$val->name} : {$mi->f_name} {number_format($document->getExtraValueHTML($val->idx))}{$mi->b_name}</span>
+						<span cond="$val->eid=='price' && $document->getExtraValueHTML($val->idx)">{$val->name} :{$mi->f_name} {number_format($document->getExtraValueHTML($val->idx))}{$mi->b_name}</span>
 						<span cond="$val->eid==$mi->icon_url && $document->getExtraValueHTML($val->idx)" style="cursor:pointer">
 							<a href="{$document->getExtraEidValue($mi->icon_url)}" target="_blank">{$mi->icon_urlt}<img src="img/link.png" style="margin-left:5px"></a>
 						</span>
@@ -189,7 +189,7 @@
 				</block>
 				<block cond="$mi->zine_extra || $mi->rating_output == 'Y'">
 					<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
-						<span cond="$val->eid=='rating'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="cursor:pointer"|cond="$document->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))">{$val->name} : <strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
+						<span cond="$val->eid=='rating'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="cursor:pointer"|cond="$document->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))">{$val->name} :<strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
 					</block>
 				</block>
 				<block cond="@in_array('zine',$mi->ext_img)"><span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span></block>
@@ -207,8 +207,8 @@
 				<!--@if(!$mi->comment_order == '')-->{@$comments_list = array_reverse($comments_list);}<!--@else-->{@$comments_list = array_slice($comments_list, -$mi->comment_lineno, $mi->comment_lineno);}<!--@end-->
 				{@$i = 0}
 				<!--@if($document->getCommentCount())-->
-					<a cond="$document->getCommentCount() > $mi->comment_lineno" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment"><span class="sbtn_mini sbtn-white" style="margin-top:10px; float:right">댓글 [{$document->getCommentCount()}]</span></a>
 					<table class="CommArea">
+						<a cond="$document->getCommentCount() > $mi->comment_lineno" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment"><span class="sbtn_mini sbtn-white" style="float:right; margin-top:10px;">댓글 [{$document->getCommentCount()}]</span></a>
 						<!--@foreach($comments_list as $key => $val)-->
 							<!--@if(!$mi->comment_line == '')-->
 								<include target="list_webzin_comment.html" cond="$i < $mi->comment_lineno"/>
@@ -254,10 +254,10 @@
 				$animation = $('#animation'),
 				$mixed_delay = $('#mixed_delay'),
 				getAnimation = function(){
-					return $animation.val() + ($mixed_delay.is(':checked') ? ' ' + $mixed_delay.val() : '');
+					return $animation.val() + ($mixed_delay.is(':checked') ? ' ' + $mixed_delay.val() :'');
 				},
 				getLoadTime = function(){
-					return $load_delay.is(':checked') ? $load_delay.val() : 0;
+					return $load_delay.is(':checked') ? $load_delay.val() :0;
 				},
 				getFilter = function(){
 					return $filter.filter(':checked').val();
@@ -267,8 +267,8 @@
 			$container.brickfolio('filter', getFilter());
 		});
 		$load_delay.add($animation).add($mixed_delay).on('change', function(){
-			$container.brickfolio({animation: getAnimation(), filter: getFilter(), loadTime: getLoadTime()});
+			$container.brickfolio({animation:getAnimation(), filter:getFilter(), loadTime:getLoadTime()});
 		});
-		$container.brickfolio({animation: getAnimation(), filter: getFilter(), loadTime: getLoadTime()});
+		$container.brickfolio({animation:getAnimation(), filter:getFilter(), loadTime:getLoadTime()});
 	});
 </script>

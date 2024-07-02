@@ -28,7 +28,7 @@ jQuery(function($){
 	<div style="background-color:{$mi->content_color}; <!--@if($mi->content_radius == '')-->-webkit-border-radius:10px;-moz-border-radius:10px; border-radius:10px;<!--@end-->">
 
 		<!--// 게시판상단에 메뉴 / 분류 / 글작성버턴 -->
-		<div cond="!$mi->top_loca ==''">
+		<div cond="!$mi->top_loca ==''" style="margin-top:10px">
 			<div class="tMenu_Position">
 				<block loop="$GNB->list=>$key1,$val1" cond="$val1['selected']">
 					<a href="{geturl('')}" class="home"><i class="fa-solid fa-house"></i>&nbsp;</a>

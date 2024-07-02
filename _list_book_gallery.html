@@ -130,7 +130,7 @@
 			<i cond="$mi->deco_img" class="deco deco_img fixed"></i>
 		</div>
 		<!--// 제목(기본) -->
-		<div cond="!$mi->gallery_tl && !$mi->gall_style" style="margin-top:{$mi->deco_img_h/2+$mi->deco_img_h1}px">
+		<div cond="!$mi->gallery_tl && !$mi->gall_style" style="margin-top:{$mi->deco_img_h/2+$mi->deco_img_h1+5}px">
 			<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
 				<include target="title.html" />
 			</a>
@@ -155,7 +155,7 @@
 
 			<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
 				<div cond="$mi->gallery_rating && $val->eid=='rating'"><span cond="$mi->extra_n ==''">{$val->name} : </span><strong class="starRating book_ext"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></div>
-				<div cond="$val->eid=='price'"><span cond="$mi->extra_n ==''">{$val->name} : </span>{$mi->f_name} {number_format($document->getExtraValueHTML($val->idx))}{$mi->b_name}</div>
+				<div cond="$mi->gallery_rating && $val->eid=='price'"><span cond="$mi->extra_n ==''">{$val->name} : </span>{$mi->f_name} {number_format($document->getExtraValueHTML($val->idx))}{$mi->b_name}</div>
 			</block>
 			<div style="margin-top:5px">
 				<include target="d_day.html" />
