@@ -208,7 +208,7 @@
 				{@$i = 0}
 				<!--@if($document->getCommentCount())-->
 					<table class="CommArea">
-						<a cond="$document->getCommentCount() > $mi->comment_lineno" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment"><span class="sbtn_mini sbtn-white" style="float:right; margin-top:10px;">댓글 [{$document->getCommentCount()}]</span></a>
+						<a cond="$document->getCommentCount() > $mi->comment_lineno" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment"><span  style="float:right; margin-top:10px; font-size:12px; border:2px solid #eee; border-radius:10px 10px 0 0; padding:5px 8px 0 8px">댓글 [{$document->getCommentCount()}]</span></a>
 						<!--@foreach($comments_list as $key => $val)-->
 							<!--@if(!$mi->comment_line == '')-->
 								<include target="list_webzin_comment.html" cond="$i < $mi->comment_lineno"/>
