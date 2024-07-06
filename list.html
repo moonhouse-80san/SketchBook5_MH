@@ -27,6 +27,18 @@ jQuery(function($){
 	<load target="js/jquery.masonry.min.js" type="body" />
 	<div style="background-color:{$mi->content_color}; <!--@if($mi->content_radius == '')-->-webkit-border-radius:10px;-moz-border-radius:10px; border-radius:10px;<!--@end-->">
 
+		<!--// 관리자에게 모듈번호 출력 -->
+		<div cond="$grant->manager && $mi->modul_num==''" class="m_num" onclick="copyToClipboard('{$mi->module_srl}')">{$mi->module_srl}</div>
+		<script cond="$grant->manager && $mi->modul_num==''">
+			function copyToClipboard(text) {
+				navigator.clipboard.writeText(text).then(function() {
+					alert('모듈 번호가 클립보드에 복사되었습니다: ' + text);
+				}, function(err) {
+					console.error('클립보드 복사 실패:', err);
+				});
+			}
+		</script>
+
 		<!--// 게시판상단에 메뉴 / 분류 / 글작성버턴 -->
 		<div cond="!$mi->top_loca ==''" style="margin-top:10px">
 			<div class="tMenu_Position">
@@ -69,8 +81,8 @@ jQuery(function($){
 
 		<!--// Wizard -->
 		<block cond="$grant->manager && $mi->wizard!='N' && !$mo">
-		<load target="css/wizard.css" />
-		<include target="_wizard.php" />
+			<load target="css/wizard.css" />
+			<include target="_wizard.php" />
 		</block>
 
 		<!--// 헤더 -->
@@ -115,7 +127,7 @@ jQuery(function($){
 
 		<!--// 본문 -->
 		<div id="board_read">
-		<include cond="$oDocument->isExists()" target="_read.html" />
+			<include cond="$oDocument->isExists()" target="_read.html" />
 		</div>
 
 		<!--// 본문에서 목록 감추기 -->
@@ -182,6 +194,7 @@ jQuery(function($){
 						<li class="classic<!--@if($mi->default_style=='list')--> on<!--@end-->"><a class="bubble" href="{getUrl('listStyle','list','act','','document_srl','')}" title="Text Style"><b>List</b></a></li>
 						<li class="zine<!--@if($mi->default_style=='webzine')--> on<!--@end-->"><a class="bubble" href="{getUrl('listStyle','webzine','act','','document_srl','')}" title="Text + Image Style"><b>Zine</b></a></li>
 						<li class="gall<!--@if($mi->default_style=='gallery')--> on<!--@end-->"><a class="bubble" href="{getUrl('listStyle','gallery','act','','document_srl','')}" title="Gallery Style"><b>Gallery</b></a></li>
+						<li class="ft<!--@if($mi->default_style=='firstthumb')--> on<!--@end-->"><a class="bubble" href="{getUrl('listStyle','firstthumb','act','','document_srl','')}" title="FirstThumb Style"><b>FirstThumb</b></a></li>
 						<li cond="$mi->select_lst_more" class="cloud<!--@if($mi->default_style=='cloud_gall')--> on<!--@end-->"><a class="bubble" href="{getUrl('listStyle','cloud_gall','act','','document_srl','')}" title="Photo Cloud"><b>Cloud</b></a></li>
 					</ul>
 				</div>

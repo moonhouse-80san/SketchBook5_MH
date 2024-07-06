@@ -321,6 +321,15 @@
 			<var name="comment_auto_content" type="textarea">
 				<title>자동 입력될 내용</title>
 			</var>
+			<var name="modul_num" type="radio">
+				<title>모듈번호 출력</title>
+				<options value="">
+					<title>사용</title>
+				</options>
+				<options value="N">
+					<title>사용 안함</title>
+				</options>
+			</var>
 		</group>
 		<group>
 		<title>게시판 상단 설정</title>
