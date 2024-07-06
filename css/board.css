@@ -184,6 +184,7 @@
 .lst_btn .zine b{background-position:-11px 0}
 .lst_btn .gall b{background-position:-22px 0}
 .lst_btn .cloud b{background-position:-33px 0}
+.lst_btn .ft b{background-position:-44px 0}
 
 /* Category List */
 .bd_cnb{position:relative}
@@ -1230,10 +1231,7 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 }
 
 /* 첫게시글만 폴딩버턴 */
-.bd_ft .cvb { text-decoration:none; color:#8c8c8c; font-weight:bold; float:right; text-align:right; cursor:pointer; background-color:#f2f2f2; border:1px solid #bfbfbf; box-shadow:inset 0 1px 0 white, inset 0 -1px 0 #d9d9d9, inset 0 0 0 1px #f2f2f2, 0 2px 4px rgba(0, 0, 0, 0.2); color:#8c8c8c; text-shadow:0 1px 0 rgba(255, 255, 255, 0.5); border-radius:3px; padding:2px 5px; margin:5px 0; }
-.bd_ft .cvb:hover { background-color:#e2f3fe; background-image:linear-gradient(to bottom, #e2f3fe, #ceecfd); border:1px solid #c9ae34; box-shadow:inset 0 1px 0 #fff6ce, inset 0 -1px 0 #e3c852, inset 0 0 0 1px #fce88d, 0 2px 4px rgba(0, 0, 0, 0.2); color:#967d09; text-shadow:0 1px 0 rgba(255, 255, 255, 0.5); }
-.bd_ft .cvb:focus { color:#fff; background-color:#f58a38; background-image:linear-gradient(to bottom, #f58a38, #f57c20); border:1px solid #c25706; box-shadow:inset 0 1px 0 #ffb984, inset 0 -1px 0 #db6f1d, inset 0 0 0 1px #f59851, 0 2px 4px rgba(0, 0, 0, 0.2); color:white; text-shadow:0 1px 2px rgba(0, 0, 0, 0.3); }
-.bd_ft .cvb:active { color:#967d09; background:#fcdf5b; box-shadow:inset 0 2px 3px rgba(0, 0, 0, 0.2); }
+.bd_ft .cvb { text-decoration:none; color:#8c8c8c; float:right; text-align:right; cursor:pointer; background-color:#fafafa; border:1px solid #eee; border-radius:10px 10px 0 0; padding:5px 8px 0 8px; margin-bottom:-1px }
 
 /* 첫게시글만 댓글 */
 .bd_ft .CommArea { position:relative; width:100%; border:1px solid #eee; background-color:#fafafa; padding:5px; border-radius:5px; box-shadow:0 1px 2px rgba(0,0,0,.2); }
@@ -1241,7 +1239,7 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 .bd_ft .replyIndent { margin:3px; border-top:0 dotted #ddd; overflow:hidden; white-space:normal; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; word-wrap:break-word; }
 .bd_ft .replyIndent a { font-size:0.9em ; }
 
-.bd_ft .arrow-container { position:relative; display:inline-block; top:13px; left:7px; z-index:1 }
+.bd_ft .arrow-container { position:relative; display:inline-block; top:4px; left:7px; z-index:1 }
 .bd_ft .arrow-outer {	position:absolute; width:0; height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-bottom:10px solid #eee; /* 외부 테두리 색상 */ }
 .bd_ft .arrow-inner { position:absolute; top:2px; /* 테두리 두께에 따라 조정 */ left:2px; /* 테두리 두께에 따라 조정 */ width:0; height:0; border-left:8px solid transparent; border-right:8px solid transparent;  border-bottom:8px solid #fafafa; /* 내부 색상 */ }
 
@@ -1285,3 +1283,6 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 
 /* MP4 동영상에 프로그레스바 기능 추가 */
 .trackBar { background-color:#c00000c2; height:10px; width:0; position:relative; margin:-6px 2px 0px 0px; }
+
+/* 관리자에게 모듈번호 출력 */
+.m_num { z-index:99; position:absolute; top:0px; right:0px; font-weight:700; font-size:1em; clip-path:polygon(50% 0, 100% 0, 100% 80%, 50% 100%, 0 80%, 0 0); background-color:red; padding:5px 10px 10px 10px; color:white; cursor:pointer; }
