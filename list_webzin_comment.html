@@ -1,7 +1,7 @@
 <tbody>
 	<tr class="replylist">
 	{@$i++}
-		<td class="replyIndent" <!--@if($val->depth < 11 && $mi->comment_order == '')-->style="margin-left:{($val->depth)*1}em"<!--@end-->>
+		<td class="replyIndent" style="<!--@if($val->depth < 11 && $mi->comment_order == '')-->margin-left:{($val->depth)*1}em;<!--@end-->">
 			<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}">
 				<!--@if(!$mo) -->
 					<!--@if(!$mi->comment_cut_size) -->
@@ -19,11 +19,11 @@
 			</a>
 		</td>
 
-		<td cond="!$mo" class="author">
+		<td cond="!$mo" class="author adw">
 			<span cond="$mi->display_author!='N'" class="member_{$val->get('member_srl')}">{($val->nick_name)}</span>
 		</td>
 
-		<td cond="$mi->display_regdate!='N'" class="date">
+		<td cond="$mi->display_regdate!='N' && !$mo" class="date adw">
 			<!--// 시간대별 댓글 -->
 			{@
 			$x_date = strtotime($val->regdate);

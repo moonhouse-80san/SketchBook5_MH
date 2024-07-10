@@ -84,7 +84,7 @@
 		
 		<div class="rt_area<!--@if($list_config['thumbnail'] && $document->thumbnailExists())--> is_tmb<!--@end-->">
 			<!--// 다크모드형식 적용시 링크 적용 -->
-			<div onclick="location.href='{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}';" style="cursor:pointer;">
+			<div onclick="location.href='{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}';" style="cursor:pointer; width: 100%;">
 				<!--// 썸네일 영역 -->
 				<div cond="$list_config['thumbnail']" class="tmb_wrp ribbon_v{$mi->ribbon_style}">
 					<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
@@ -157,6 +157,32 @@
 						</block>
 					</label>
 				</div>
+
+				<!-- 코멘트 리스트 시작 -->
+				<!--@if(!$mi->list_replyContent =='')-->
+					<!--@if(!($oDocument->isExists() && $grant->view && $mi->cmtlist_at_boardlist == 'nolist'))-->
+						{@if(!$mi->comment_lineno) $mi->comment_lineno = 5;}
+						{@$comments_list = $document->getComments();}
+						<!--@if(!$mi->comment_order == '')-->{@$comments_list = array_reverse($comments_list);}<!--@else-->{@$comments_list = array_slice($comments_list, -$mi->comment_lineno, $mi->comment_lineno);}<!--@end-->
+						{@$i = 0}
+						<!--@if($document->getCommentCount())-->
+							<table class="CommArea">
+								<a cond="$document->getCommentCount() > $mi->comment_lineno" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment">
+									<span class="bookmark">댓글 [{$document->getCommentCount()}]</span>
+								</a>
+								<!--@foreach($comments_list as $key => $val)-->
+									<!--@if(!$mi->comment_line == '')-->
+										<include target="list_webzin_comment.html" cond="$i < $mi->comment_lineno"/>
+									<!--@else-->
+										<include target="list_webzin_comment.html" />
+									<!--@end-->
+								<!--@end-->
+							</table>
+						{@$i++}
+						<!--@end-->
+					<!--@end-->
+				<!--@end-->
+				<!-- 코멘트 리스트 끝 -->
 			</div>
 
 			<!--// 글 정보 -->
@@ -198,30 +224,6 @@
 			</div>
 		</div>
 		<a class="hx" <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}"><span class="blind">Read More</span></a>
-
-		<!-- 코멘트 리스트 시작 -->
-		<!--@if(!$mi->list_replyContent =='')-->
-			<!--@if(!($oDocument->isExists() && $grant->view && $mi->cmtlist_at_boardlist == 'nolist'))-->
-				{@if(!$mi->comment_lineno) $mi->comment_lineno = 5;}
-				{@$comments_list = $document->getComments();}
-				<!--@if(!$mi->comment_order == '')-->{@$comments_list = array_reverse($comments_list);}<!--@else-->{@$comments_list = array_slice($comments_list, -$mi->comment_lineno, $mi->comment_lineno);}<!--@end-->
-				{@$i = 0}
-				<!--@if($document->getCommentCount())-->
-					<table class="CommArea" style="<!--@if($document->thumbnailExists())-->margin-left:{$mi->zine_thumb_width+20}px; width:calc(100% - {$mi->zine_thumb_width+20}px)<!--@end-->">
-						<a cond="$document->getCommentCount() > $mi->comment_lineno" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment"><span  style="float:right; margin-top:10px; font-size:12px; border:2px solid #eee; border-radius:10px 10px 0 0; padding:5px 8px 0 8px">댓글 [{$document->getCommentCount()}]</span></a>
-						<!--@foreach($comments_list as $key => $val)-->
-							<!--@if(!$mi->comment_line == '')-->
-								<include target="list_webzin_comment.html" cond="$i < $mi->comment_lineno"/>
-							<!--@else-->
-								<include target="list_webzin_comment.html" />
-							<!--@end-->
-						<!--@end-->
-					</table>
-				{@$i++}
-				<!--@end-->
-			<!--@end-->
-		<!--@end-->
-		<!-- 코멘트 리스트 끝 -->
 
 		<!--// 목록에 에드센스 출력 -->
 		<!--@if(!$mo && $i==$mi->ads_number1)-->
