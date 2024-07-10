@@ -207,7 +207,7 @@
 				<!--@if(!$mi->comment_order == '')-->{@$comments_list = array_reverse($comments_list);}<!--@else-->{@$comments_list = array_slice($comments_list, -$mi->comment_lineno, $mi->comment_lineno);}<!--@end-->
 				{@$i = 0}
 				<!--@if($document->getCommentCount())-->
-					<table class="CommArea">
+					<table class="CommArea" style="<!--@if($document->thumbnailExists())-->margin-left:{$mi->zine_thumb_width+20}px; width:calc(100% - {$mi->zine_thumb_width+20}px)<!--@end-->">
 						<a cond="$document->getCommentCount() > $mi->comment_lineno" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment"><span  style="float:right; margin-top:10px; font-size:12px; border:2px solid #eee; border-radius:10px 10px 0 0; padding:5px 8px 0 8px">댓글 [{$document->getCommentCount()}]</span></a>
 						<!--@foreach($comments_list as $key => $val)-->
 							<!--@if(!$mi->comment_line == '')-->
