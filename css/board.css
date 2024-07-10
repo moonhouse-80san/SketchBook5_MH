@@ -1273,7 +1273,7 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 .bd_zine td { line-height:1.5; }
 .bd_zine .replyIndent { margin:2px 15px 2px 2px; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow: hidden; text-overflow:ellipsis; }
 .bd_zine .replyIndent a { font-size:0.8em ; border:0 !important;}
-.bd_zine .adw { width:12%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.bd_zine .adw { width:80px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
 /* 게시판 최상단에 빵조각 */
 .tMenu_Position { margin-left:10px; float:left; margin-top:5px; }
