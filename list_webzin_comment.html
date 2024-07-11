@@ -19,8 +19,8 @@
 			</a>
 		</td>
 
-		<td cond="!$mo" class="author adw" style="padding-right:10px">
-			<span cond="$mi->display_author!='N'" class="member_{$val->get('member_srl')}">{($val->nick_name)}</span>
+		<td cond="$mi->display_author!='N' && !$mo" class="author adw" style="padding-right:10px">
+			<span class="member_{$val->get('member_srl')}">{($val->nick_name)}</span>
 		</td>
 
 		<td cond="$mi->display_regdate!='N' && !$mo" class="date adw">

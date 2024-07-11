@@ -217,7 +217,6 @@
 			<article class="urllink">
 				<!--@if($oDocument->get('content') !== '.')-->
 					{$oDocument->getContent(false)}
-
 					<span cond="$mi->include_modules">
 						<a href="{getUrl('','document_srl',$oDocument->document_srl)}"><strong>원 게시판 : {$oDocument->get('module_title')}로 가기</strong></a>
 					</span>

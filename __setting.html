@@ -1,5 +1,7 @@
 {@
 	$mi = $module_info;
+	$mo = Mobile::isMobileCheckByAgent();
+	$Path = "modules/board/skins/sketchbook5_MH";
 	if(!$mi->content_cut_size) $mi->content_cut_size = 240;
 	if(!$mi->duration_new) $mi->duration_new = 24;
 	if(!$mi->colorset) $mi->colorset = 'white';
@@ -244,6 +246,7 @@
 
 <!--// 커스텀 파일 넣기 -->
 <include cond="file_exists(_XE_PATH_.'modules/board/skins/sketchbook5_MH/custom/custom.php')" target="custom/custom.php" />
+<include cond="$grant->manager && $mi->ver_info==''" target="ver.html" />
 
 <style data-id="bdCss">
 	.color_scheme_dark { color:var(--color-black) !important; background-color:var(--color-white) !important;}
@@ -532,9 +535,3 @@
 
 <!--// KaKao Map Api -->
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey={$mi->kakao_key}&libraries=services,clusterer"></script>
-
-<!--// SketchBook5 스킨의 경로 설정 -->
-{@ $Path = "modules/board/skins/sketchbook5_MH"; }
-
-<!--// Mobile 설정 -->
-{@ $mo = Mobile::isMobileCheckByAgent() }

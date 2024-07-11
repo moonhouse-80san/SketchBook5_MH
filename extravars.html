@@ -4,18 +4,18 @@
 	<!--// 지정게시판 -- 지정 확장변수 히든-->
 	<!--@if($val->value && ($mid !=$mi->extra_mid || ($val->name!=$mi->extra_name1 && $val->name!=$mi->extra_name2 && $val->name!=$mi->extra_name3 && $val->name!=$mi->et_logon_name && $val->name!=$mi->t_logon_name && $val->name!=$mi->g_logon_name && $val->name!=$mi->git_logon_name && $val->name!=$mi->d_logon_name || $grant->manager)))-->
 
-	<!--// 확장변수명이 _rh, _wrh로 끝날때 숨김처리 하기(관리자는 예외) -->
-	{@
-		$match1 = preg_match('/_rh$/is', $val->eid);
-		$match2 = preg_match('/_wrh$/is', $val->eid);
-	}
-	<!--@if(($match1 != 1 && $match2 != 1) || $grant->is_admin || $oDocument->isEditable())-->
-	<th scope="row">{$val->name}</th>
-		<td cond="$val->eid!='rating'&&$val->eid!==$mi->etc_name&&$val->eid!=$mi->copy&&$val->eid!==$mi->e_url" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()}</span></td>
-	<!--@end-->
+		<!--// 확장변수명이 _rh, _wrh로 끝날때 숨김처리 하기(관리자는 예외) -->
+		{@
+			$match1 = preg_match('/_rh$/is', $val->eid);
+			$match2 = preg_match('/_wrh$/is', $val->eid);
+		}
+		<!--@if(($match1 != 1 && $match2 != 1) || $grant->is_admin || $oDocument->isEditable())-->
+		<th scope="row">{$val->name}</th>
+			<td cond="$val->eid!='rating' && $val->eid!==$mi->etc_name && $val->eid!=$mi->copy && $val->eid!==$mi->e_url" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()}</span></td>
+		<!--@end-->
 
 		<!--// 확장변수값 앞뒤에 붙는 단위-->
-		<td cond="$val->eid!='rating'&&($mid==$mi->etc_mid&&$val->eid==$mi->etc_name)" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$mi->f_name} {number_format(str_replace(',','',$val->getValueHTML()))}{$mi->b_name}</td>
+		<td cond="$val->eid!='rating' && ($mid==$mi->etc_mid && $val->eid==$mi->etc_name)" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$mi->f_name} {number_format(str_replace(',','',$val->getValueHTML()))}{$mi->b_name}</td>
 
 		<!--// 지정 확장변수 내용복사-->
 		<td cond="$val->eid==$mi->copy && $val->eid!==$mi->e_url">
@@ -37,7 +37,7 @@
 		</td>
 
 		<!--// 확장변수 별표 평점(rating)-->
-		<td cond="$val->eid=='rating'&&$val->eid!==$mi->etc_name&&$val->eid!==e_url" class="rating" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="cursor:pointer"><span class="starRating" title="{$val->getValueHTML()}{$lang->score}"><span style="width:{$val->getValueHTML()*10}%">{$val->getValueHTML()}</span></span></td>
+		<td cond="$val->eid=='rating' && $val->eid!==$mi->etc_name && $val->eid!==e_url" class="rating" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="cursor:pointer"><span class="starRating" title="{$val->getValueHTML()}{$lang->score}"><span style="width:{$val->getValueHTML()*10}%">{$val->getValueHTML()}</span></span></td>
 		{@ $etIdx++ }
 	<!--@else-->
 	<!--@end-->
