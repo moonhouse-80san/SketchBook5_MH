@@ -6,4 +6,4 @@
 
  - 사용 환경(xe버전, php버전등)에 따라서 정상 작동하지 않을수도 있습니다. XE에서는 테스트 후 적용을 검토하세요.  
 
-•  기능 및 사용 설명 https://moonhouse.co.kr/xemy/530374
+•  기능 및 사용 설명 https://moonhouse.co.kr/xemy/590994
