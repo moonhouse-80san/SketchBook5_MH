@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
-	<title>sketchbook5 MH V3.1</title>
+	<title>sketchbook5 MH V3.2 Dev</title>
 	<description>sketchbook5 MH Board Skin. 한국형 게시판 스타일, 여러 목록 유형 제공, 사용자 편의를 고려한 다양한 기능, 모바일까지 대응.(문하우스에서 일부 수정함)</description>
-	<version>3.1 - MH</version>
+	<version>3.2 - MH Dev</version>
 	<date>2024-07-11</date>
 	<author email_address="contact@sketchbooks.co.kr" link="http://xe.sketchbook.kr/">
 		<name>sketchbook MH</name>
@@ -1100,9 +1100,17 @@
 					<title>사용</title>
 				</options>
 			</var>
-			<var name="ads_number1" type="text">
-				<title>　┖ 목록 순번</title>
-				<description>광고글이 출력될 목록 번호</description>
+			<var name="ad1" type="text">
+				<title>　┖ 목록 순번1</title>
+				<description>광고글이 순번1칸 다음 리스트줄에 출력</description>
+			</var>
+			<var name="ad2" type="text">
+				<title>　┖ 목록 순번2</title>
+				<description>광고글이 순번2칸 다음 리스트줄에 출력</description>
+			</var>
+			<var name="ad3" type="text">
+				<title>　┖ 목록 순번3</title>
+				<description>광고글이 순번3칸 다음 리스트줄에 출력</description>
 			</var>
 			<var name="ads_code" type="textarea">
 				<title>　┖ 광고 코드</title>
