@@ -226,13 +226,13 @@
 		<a class="hx" <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}"><span class="blind">Read More</span></a>
 
 		<!--// 목록에 에드센스 출력 -->
-		<!--@if(!$mo && $i==$mi->ads_number1)-->
-			<li cond="$mi->list_ads=='Y'" class="ads">
+		<!--@if(in_array($i+1, array($mi->ad1, $mi->ad2, $mi->ad3)) && $mi->list_ads=='Y' && !$mo)-->
+			<li class="ads">
 				{$mi->ads_code}
 			</li>
 		<!--@end-->
-		<!--@if($mo && $i==$mi->ads_number1)-->
-			<div cond="$mi->list_ads=='Y'" class="adsm">
+		<!--@if(in_array($i+1, array($mi->ad1, $mi->ad2, $mi->ad3)) && $mi->list_ads=='Y' && $mo)-->
+			<div class="adsm">
 				{$mi->ads_mcode}
 			</div>
 		<!--@end-->

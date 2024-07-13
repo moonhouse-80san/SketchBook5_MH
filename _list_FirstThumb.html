@@ -154,13 +154,13 @@
 		</div>
 
 		<!--// 목록에 에드센스 출력 -->
-		<!--@if(!$mo && $i==$mi->ads_number1)-->
-			<li cond="$mi->list_ads=='Y'" class="ads">
+		<!--@if(in_array($i+1, array($mi->ad1, $mi->ad2, $mi->ad3)) && $mi->list_ads=='Y' && !$mo)-->
+			<li class="ads">
 				{$mi->ads_code}
 			</li>
 		<!--@end-->
-		<!--@if($mo && $i==$mi->ads_number1)-->
-			<div cond="$mi->list_ads=='Y'" class="adsm">
+		<!--@if(in_array($i+1, array($mi->ad1, $mi->ad2, $mi->ad3)) && $mi->list_ads=='Y' && $mo)-->
+			<div class="adsm">
 				{$mi->ads_mcode}
 			</div>
 		<!--@end-->
