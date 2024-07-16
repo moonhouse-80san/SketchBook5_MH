@@ -164,7 +164,7 @@
 						{@if(!$mi->comment_lineno) $mi->comment_lineno = 5;}
 						{@$comments_list = $document->getComments();}
 						<!--@if(!$mi->comment_order == '')-->{@$comments_list = array_reverse($comments_list);}<!--@else-->{@$comments_list = array_slice($comments_list, -$mi->comment_lineno, $mi->comment_lineno);}<!--@end-->
-						{@$i = j}
+						{@$j = 0}
 						<!--@if($document->getCommentCount())-->
 							<table class="CommArea">
 								<a cond="$document->getCommentCount() > $mi->comment_lineno" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment">
