@@ -164,7 +164,7 @@
 						{@if(!$mi->comment_lineno) $mi->comment_lineno = 5;}
 						{@$comments_list = $document->getComments();}
 						<!--@if(!$mi->comment_order == '')-->{@$comments_list = array_reverse($comments_list);}<!--@else-->{@$comments_list = array_slice($comments_list, -$mi->comment_lineno, $mi->comment_lineno);}<!--@end-->
-						{@$i = 0}
+						{@$i = j}
 						<!--@if($document->getCommentCount())-->
 							<table class="CommArea">
 								<a cond="$document->getCommentCount() > $mi->comment_lineno" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment">
@@ -172,13 +172,12 @@
 								</a>
 								<!--@foreach($comments_list as $key => $val)-->
 									<!--@if(!$mi->comment_line == '')-->
-										<include target="list_webzin_comment.html" cond="$i < $mi->comment_lineno"/>
+										<include target="list_webzin_comment.html" cond="$j < $mi->comment_lineno"/>
 									<!--@else-->
 										<include target="list_webzin_comment.html" />
 									<!--@end-->
 								<!--@end-->
 							</table>
-						{@$i++}
 						<!--@end-->
 					<!--@end-->
 				<!--@end-->

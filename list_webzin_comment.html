@@ -1,6 +1,6 @@
 <tbody>
 	<tr class="replylist">
-	{@$i++}
+	{@$j++}
 		<td class="replyIndent" style="<!--@if($val->depth < 11 && $mi->comment_order == '')-->margin-left:{($val->depth)*1}em;<!--@end-->">
 			<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}">
 				<!--@if(!$mo) -->
