@@ -711,6 +711,36 @@
 					<title>출력 안함</title>
 				</options>
 			</var>
+			<var name="list_ads" type="radio">
+				<title>★리스트에 광고 삽입</title>
+				<description>리스트에 광고 기능 사용하기(목록형,웹진형,FT)</description>
+				<options value="">
+					<title>사용 안함(기본)</title>
+				</options>
+				<options value="Y">
+					<title>사용</title>
+				</options>
+			</var>
+			<var name="ad1" type="text">
+				<title>　┖ 목록 순번1</title>
+				<description>광고글이 순번1칸 다음 리스트줄에 출력</description>
+			</var>
+			<var name="ad2" type="text">
+				<title>　┖ 목록 순번2</title>
+				<description>광고글이 순번2칸 다음 리스트줄에 출력</description>
+			</var>
+			<var name="ad3" type="text">
+				<title>　┖ 목록 순번3</title>
+				<description>광고글이 순번3칸 다음 리스트줄에 출력</description>
+			</var>
+			<var name="ads_code" type="textarea">
+				<title>　┖ 광고 코드</title>
+				<description>광고(에드센스) 코드를 입력</description>
+			</var>
+			<var name="ads_mcode" type="textarea">
+				<title>　┖ 모바일 광고 코드</title>
+				<description>모바일 광고(에드센스) 코드를 입력</description>
+			</var>
 			<var name="start_name" type="text">
 				<title>★날짜시작 사용자정의 이름</title>
 				<description>날짜시작 확장변수 사용자정의 이름을 기재하세요.(기본 start)
@@ -1089,36 +1119,6 @@
 				<options value="Y">
 					<title>사용</title>
 				</options>
-			</var>
-			<var name="list_ads" type="radio">
-				<title>★웹진형 리스트에 광고 삽입(FT)</title>
-				<description>웹진형 리스트에 광고 기능 사용하기</description>
-				<options value="">
-					<title>사용 안함(기본)</title>
-				</options>
-				<options value="Y">
-					<title>사용</title>
-				</options>
-			</var>
-			<var name="ad1" type="text">
-				<title>　┖ 목록 순번1</title>
-				<description>광고글이 순번1칸 다음 리스트줄에 출력</description>
-			</var>
-			<var name="ad2" type="text">
-				<title>　┖ 목록 순번2</title>
-				<description>광고글이 순번2칸 다음 리스트줄에 출력</description>
-			</var>
-			<var name="ad3" type="text">
-				<title>　┖ 목록 순번3</title>
-				<description>광고글이 순번3칸 다음 리스트줄에 출력</description>
-			</var>
-			<var name="ads_code" type="textarea">
-				<title>　┖ 광고 코드</title>
-				<description>광고(에드센스) 코드를 입력</description>
-			</var>
-			<var name="ads_mcode" type="textarea">
-				<title>　┖ 모바일 광고 코드</title>
-				<description>모바일 광고(에드센스) 코드를 입력</description>
 			</var>
 			<var name="webzine_col" type="text" default="2">
 				<title>★다단웹진형식시 가로 출력 개수</title>
