@@ -77,6 +77,7 @@
 			</tr>
 
 			<!--// Normal -->
+			{@$i = 0}
 			<tr loop="$document_list=>$no,$document" class="select"|cond="$document_srl==$document->document_srl" style="line-height:{$mi->list_line_height}em;">
 				<block loop="$list_config=>$key,$val">
 					<td class="no" cond="$val->type=='no' && $val->idx==-1">
@@ -198,11 +199,11 @@
 						{@ if(!$mi->comment_lineno) $mi->comment_lineno = 5;
 							 $comments_list = $document->getComments(); }
 						<!--@if(!$mi->comment_order == '')-->{@ $comments_list = array_reverse($comments_list); }<!--@end-->
-						{@$i = 0}
+						{@$j = 0}
 						<!--@if($document->getCommentCount())-->
 							<!--@foreach($comments_list as $key => $val)-->
 								<!--@if(!$mi->comment_line == '')-->
-									<include target="list_comment.html" cond="$i < $mi->comment_lineno"/>
+									<include target="list_comment.html" cond="$j < $mi->comment_lineno"/>
 								<!--@else-->
 									<include target="list_comment.html"/>
 								<!--@end-->
@@ -211,6 +212,14 @@
 					<!--@end-->
 				<!--@end-->
 				<!-- 코멘트 리스트 끝 -->
+
+				<!--// 목록에 에드센스 출력 -->
+				<!--@if(in_array($i+1, array($mi->ad1, $mi->ad2, $mi->ad3)) && $mi->list_ads=='Y')-->
+					<tr class="w100">
+						<td colspan="6">{$mi->ads_code}</td>
+					</tr>
+				<!--@end-->
+			{@$i++}
 			</tr>
 		</tbody>
 	</table>
