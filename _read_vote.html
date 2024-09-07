@@ -1,0 +1,34 @@
+{@
+	$args = new stdClass();
+	$args->more_point = 1;
+	$args->document_srl	= $document_srl;
+	$output = executeQueryArray('document.getVotedMemberList',$args);
+}
+<div cond="$output->data" class="voteVsTitle"><i class="fa-solid fa-heart"></i> 추천인 </div>
+<div cond="$output->data" class="voteVsList">
+	<div class="profile-container">
+		<div loop="$output->data=>$key,$val" class="profile-wrapper">
+			{@
+				$oMemberModel = getModel('member');
+				$profile_info = $oMemberModel->getProfileImage($val->member_srl);
+			}
+			<!--@if($profile_info->src)-->
+				<img src="{$profile_info->src}" title="{$val->nick_name}" class="profile profile-image pr_tooltip" pr_color="dark" pr_position="top">
+			<!--@else-->
+				<img src="img/ico_default.jpg" title="{$val->nick_name}" class="profile profile-image pr_tooltip" pr_color="dark" pr_position="top" />
+			<!--@end-->
+		</div>
+	</div>
+</div>
+
+<style>
+	.voteVsTitle { text-align:center; font-size:11px; font-weight:500; padding:10px 0 0; }
+	.voteVsTitle i { font-size:1.4em; }
+
+	.voteVsList { display:flex; justify-content:center; padding:0; }
+	.voteVsList .profile-container { display:flex; justify-content:center;	 }
+	.voteVsList .profile-wrapper { margin-right:-20px; /* 겹침 효과 */ transition:all 0.3s ease; }
+	.voteVsList .profile-wrapper:last-child	{ margin-right:0; /*	마지막	아이템의 오른쪽 마진 제거 */ }
+	.voteVsList .profile-wrapper:hover { transform:translateY(-5px) scale(1.1); z-index:10; }
+	.voteVsList .profile { width:40px; height:40px; object-fit:cover !important; display:flex; align-items:center; justify-content:center; border-radius:100%; border:2px solid #fff; box-shadow:0 2px 4px rgba(0,0,0,0.1); background-color:#fff; overflow:hidden !important;}
+</style>

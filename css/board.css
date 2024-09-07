@@ -20,10 +20,10 @@
 /* Common */
 /* Form */
 .bd_btn,.bd textarea,.bd .itx,.bd select,.btn_img{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;transition:border .4s,background .4s;*zoom:1}
-.bd_btn,.btn_img{display:inline-block;position:relative;height:28px;margin:0;padding:4px 20px;background:#F3F3F3 url(../img/ie/btn.png) repeat-x;background:-webkit-gradient(linear,0% 0%,0% 100%,from(#FFF),to(#F3F3F3));background:linear-gradient(to bottom,#FFF 0%,#F3F3F3 100%);border:1px solid;border-color:#CCC #C6C6C6 #C3C3C3 #CCC;border-radius:3px;white-space:nowrap;cursor:pointer;text-decoration:none !important;text-align:center;text-shadow:0 1px 0 #FFF;box-shadow:inset 0 0 1px 1px #FFF,0 1px 1px rgba(0,0,0,.1);*display:inline;*zoom:1}
+.bd_btn,.btn_img{display:inline-block;position:relative;height:28px;margin:0;padding:4px 20px;-webkit-gradient(linear,0% 0%,0% 100%,from(#FFF),to(#F3F3F3));background:linear-gradient(to bottom,#FFF 0%,#F3F3F3 100%);border:1px solid;border-color:#CCC #C6C6C6 #C3C3C3 #CCC;border-radius:3px;white-space:nowrap;cursor:pointer;text-decoration:none !important;text-align:center;text-shadow:0 1px 0 #FFF;box-shadow:inset 0 0 1px 1px #FFF,0 1px 1px rgba(0,0,0,.1);*display:inline;*zoom:1}
 .btn_img{padding:4px 14px 4px 10px;font-size:11px;line-height:1.6;border-color:#CCC;background:#FCFCFC;letter-spacing:-1px;box-shadow:none}
 .btn_img.no{padding:4px 18px}
-.bd_btn.blue{font-weight:700;color:#FFF;text-shadow:0 1px 0 #000;border-color:#669 !important;box-shadow:0 1px 1px rgba(0,0,0,.1);background:#55B url(../img/ie/btn_blue.gif) repeat-x;background:-webkit-gradient(linear,0% 0%,0% 100%,from(#77C),to(#55B));background:linear-gradient(to bottom,#77C 0%,#55B 100%)}
+.bd_btn.blue{font-weight:700;color:#FFF;text-shadow:0 1px 0 #000;border-color:#669 !important;box-shadow:0 1px 1px rgba(0,0,0,.1);-webkit-gradient(linear,0% 0%,0% 100%,from(#77C),to(#55B));background:linear-gradient(to bottom,#77C 0%,#55B 100%)}
 .bd_btn:hover,.bd_btn:focus,.btn_img:hover,.btn_img:focus{border-color:#AAA;box-shadow:0 1px 4px rgba(0,0,0,.2)}
 .bd_btn[disabled=disabled]{box-shadow:none !important}
 .bd .itx,.bd select{display:inline-block;margin:0;padding:3px 6px;background:#FAFAFA;border-radius:3px;border:1px solid;border-color:#BBB #DDD #DDD #BBB;*display:inline;*zoom:1}
@@ -33,7 +33,7 @@
 .bd textarea{overflow:auto;width:100%;margin:0;padding:4px 6px;border:1px solid;border-color:#CCC #DDD #DDD #CCC;border-radius:3px;box-shadow:inset 1px 1px 4px rgba(0,0,0,.06)}
 .bd .itx:hover,.bd .itx:focus,.bd textarea:hover,.bd textarea:focus{background-color:#FFF;border-color:#AAA}
 /* Bg */
-.bd .bg_f_f9{background:#F9F9F9 url(../img/ie/bg_f_f9.gif) repeat-x;background:-webkit-gradient(linear,0% 0%,0% 100%,from(#FFF),to(#F9F9F9));background:linear-gradient(to bottom,#FFF 0%,#F9F9F9 100%); background-color:var(--color-white) !important;}
+.bd .bg_f_f9{background:-webkit-gradient(linear,0% 0%,0% 100%,from(#FFF),to(#F9F9F9));background:linear-gradient(to bottom,#FFF 0%,#F9F9F9 100%); background-color:var(--color-white) !important;}
 /* Arrow */
 .bd .arrow{display:inline-block;margin:1px 3px;border-left:3px solid transparent;border-right:3px solid transparent;*height:3px;*vertical-align:middle}
 .bd .arrow.up{border-bottom:3px solid #666}
@@ -141,7 +141,7 @@
 .bd .bd_font_select a{float:none;padding:0;box-shadow:none}
 .bd_font_select em{display:none;position:absolute;top:0;left:5px;font:11px Arial}
 .bd_font_select .on em{display:block}
-#bd_font_install{display:none;position:fixed;top:0;left:0;bottom:0;right:0;z-index:999;background:url(../img/ie/blk_op5.png);background:rgba(0,0,0,.5)}
+#bd_font_install{display:none;position:fixed;top:0;left:0;bottom:0;right:0;z-index:999;background:rgba(0,0,0,.5)}
 #install_ng2{position:absolute;top:10%;left:50%;width:320px;margin-left:-160px;padding:30px 30px 40px;border-radius:8px;text-align:center;background:#FFF;box-shadow:0 0 6px rgba(0,0,0,.2);-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
 #install_ng2 .tg_close2{margin:4px 8px;font-size:16px}
 #install_ng2 h3,#install_ng2 h4{font-weight:700;font-size:18px;line-height:1.5}
@@ -567,7 +567,7 @@
 .et_vars th{min-width:60px;border-right:1px solid #DDD;white-space:nowrap}
 .et_vars tr.bg1{background:#F6F6F6}
 .et_vars td{width:100%}
-.et_vars .bg1 td{background:rgba(255,255,255,.7);background:url(../img/ie/wh_op7.png)}
+.et_vars .bg1 td{background:rgba(255,255,255,.7);}
 .rd_hd .et_vars{position:relative;margin-top:-1px;border-width:1px 0}
 /* Extra Form */
 .exForm{display:block}
@@ -629,7 +629,7 @@
 .tmb_wrp .fixed{display:block;position:absolute;color:#EEE}
 .tmb_wrp a{top:0;left:0;width:100%;height:100%;text-decoration:none !important;background-image:url(../img/blank.gif);*cursor:pointer}
 .tmb_wrp .info_wrp{display:block;position:relative;overflow:hidden;height:100%}
-.tmb_wrp .info{display:block;width:100%;height:100%;font-size:11px;line-height:1.5;background:url(../img/ie/blk_op5.png);background:rgba(0,0,0,.5)}
+.tmb_wrp .info{display:block;width:100%;height:100%;font-size:11px;line-height:1.5;background:rgba(0,0,0,.5)}
 .tmb_wrp .info.st,.tmb_wrp .info.st1{filter:alpha(opacity=0);opacity:0}
 .tmb_wrp .info.st2{top:-100%}
 .tmb_wrp .info.st3{left:-100%}
@@ -728,7 +728,7 @@
 .bd_tmb_lst .bg2{background:#FFF}
 .bd_tmb_lst .bg:before,.bd_tmb_lst .bg:after{content:"";position:absolute;bottom:15px;left:5px;width:50%;height:20%;max-width:300px;border:0;box-shadow:0 15px 10px rgba(0,0,0,.7);-ms-transform:rotate(-3deg);transform:rotate(-3deg)}
 .bd_tmb_lst .bg:after{right:5px;left:auto;-ms-transform:rotate(3deg);transform:rotate(3deg)}
-.bd_tmb_lst .tmb_wrp .trans_window{bottom:0;right:0;max-width:80%;margin:7%;padding:1px 6px;font-size:10px;background:url(../img/ie/blk_op7.png)\9;background:rgba(0,0,0,.7);border:1px solid #222;border-radius:2px}
+.bd_tmb_lst .tmb_wrp .trans_window{bottom:0;right:0;max-width:80%;margin:7%;padding:1px 6px;font-size:10px;background:rgba(0,0,0,.7);border:1px solid #222;border-radius:2px}
 .bd_tmb_lst .deco1{top:-12px;left:-12px}
 .bd_tmb_lst .deco2{bottom:-12px;right:-12px}
 .bd_tmb_lst .deco{top:-15px;left:50%;width:90px;height:30px;margin-left:-45px;background:url(../img/deco/tape.png) center no-repeat}
@@ -748,7 +748,7 @@
 .bd_booktmb_lst .bg2{background:#FFF}
 .bd_booktmb_lst .bg:before,.bd_booktmb_lst .bg:after{content:"";position:absolute;bottom:15px;left:5px;width:50%;height:20%;max-width:300px;border:0;box-shadow:0 15px 20px rgba(0,0,0,.7);-ms-transform:rotate(-3deg);transform:rotate(-3deg)}
 .bd_booktmb_lst .bg:after{right:5px;left:auto;-ms-transform:rotate(3deg);transform:rotate(3deg)}
-.bd_booktmb_lst .tmb_wrp .trans_window{bottom:0;right:0;max-width:80%;margin:7%;padding:1px 6px;font-size:10px;background:url(../img/ie/blk_op7.png)\9;background:rgba(0,0,0,.7);border:1px solid #222;border-radius:2px;z-index:2}
+.bd_booktmb_lst .tmb_wrp .trans_window{bottom:0;right:0;max-width:80%;margin:7%;padding:1px 6px;font-size:10px;background:rgba(0,0,0,.7);border:1px solid #222;border-radius:2px;z-index:2}
 .bd_booktmb_lst .deco1{top:-12px;left:-12px}
 .bd_booktmb_lst .deco2{bottom:-12px;right:-12px}
 .bd_booktmb_lst .deco{background:url(../img/deco/under.png) bottom no-repeat}
@@ -833,7 +833,7 @@
 .bd_faq>li:hover,.bd_faq .open,.bd_faq .notice{background:#FCFCFC}
 .bd_faq .q{display:block;padding-right:20px;font-size:13px;text-decoration:none !important}
 .bd_faq .open .q{font-weight:700}
-.bd_faq .mrk{display:block;position:absolute;top:-2px;left:-38px;width:22px;height:22px;border:1px solid #DDD;border-radius:5px;background:#F9F9F9 url(../img/ie/bg_f_f9.gif) repeat-x;background:-webkit-gradient(linear,0% 0%,0% 100%,from(#FFF),to(#EEE));background:linear-gradient(to bottom,#FFF 0%,#EEE 100%);text-align:center;box-shadow:0 1px 1px rgba(0,0,0,.2);color:#ff8484;text-shadow:0 1px 0 #ff3d3d}
+.bd_faq .mrk{display:block;position:absolute;top:-2px;left:-38px;width:22px;height:22px;border:1px solid #DDD;border-radius:5px;background:-webkit-gradient(linear,0% 0%,0% 100%,from(#FFF),to(#EEE));background:linear-gradient(to bottom,#FFF 0%,#EEE 100%);text-align:center;box-shadow:0 1px 1px rgba(0,0,0,.2);color:#ff8484;text-shadow:0 1px 0 #ff3d3d}
 .bd_faq .article .mrk{font:700 16px/22px Arial,Helvetica,sans-serif}
 .bd_faq .notice .mrk{white-space:nowrap}
 .bd_faq .mrkA{left:-39px;color:#78a3da;text-shadow:0 1px 0 #6990d1}

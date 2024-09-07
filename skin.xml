@@ -2366,6 +2366,15 @@
 					<title>표시 안함</title>
 				</options>
 			</var>
+			<var name="recommend" type="radio">
+				<title>추천인 표시</title>
+				<options value="">
+					<title>표시(기본)</title>
+				</options>
+				<options value="N">
+					<title>표시 안함</title>
+				</options>
+			</var>
 			<var name="declare" type="radio">
 				<title>신고 표시</title>
 				<options value="">
