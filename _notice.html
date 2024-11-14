@@ -1,6 +1,7 @@
 <!--@if($mi->default_style=='list')--><!--@else--><table class="bd_lst bd_tb_lst bd_tb common_notice"><!--@end-->
 	<tr loop="$notice_list=>$no,$document" class="notice">
-		<td $list_config['no']">{$lang->notice}</td>
+		<td $list_config['no']" class="sbtn_mini sbtn-orange">{$lang->notice}</td>
+		<td cond="!$mi->show_cate && $mi->use_category=='Y'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')"|cond="$document->isGranted() && $use_category_update" class="cate"><span style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'">{$category_list[$document->get('category_srl')]->title}</span></td>
 		<td class="title">
 			<!--// 공지사항 일반 출력 -->
 			<a cond="$mi->notice_view_slide ==''" href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">

@@ -5,7 +5,14 @@
 		<th scope="row" class="ui_font"><strong>{$lang->uploaded_file}</strong></th>
 		<td>
 			<ul cond="!$mi->files_type">
-				<li loop="$oDocument->getUploadedFiles()=>$key,$file"><a class="bubble" <!--@if(!$logged_info->member_srl && $mid==$mi->down_mid)-->href="#" title="{$lang->msg_not_permitted} {$mi->down_permitted_msg}" onClick="alert('{$lang->msg_not_permitted} {$mi->down_permitted_msg}'); return false"><!--@else-->href="{getUrl('')}{$file->download_url}" title="[File Size:{FileHandler::filesize($file->file_size)}/Download:{number_format($file->download_count)}]"><!--@end-->{$file->source_filename}</a><span class="comma">,</span></li>
+				{@
+					$sorted_file_list = json_decode(json_encode($oDocument->getUploadedFiles()), true);
+					$source_filename  = array_column($sorted_file_list, 'source_filename');
+					array_multisort($source_filename, SORT_ASC, $sorted_file_list);
+					$sorted_file_list = json_decode(json_encode($sorted_file_list), false);
+				}
+				<li cond="$mi->files_sort" loop="$sorted_file_list=>$key,$file"><a class="bubble" <!--@if(!$logged_info->member_srl && $mid==$mi->down_mid)-->href="#" title="{$lang->msg_not_permitted} {$mi->down_permitted_msg}" onClick="alert('{$lang->msg_not_permitted} {$mi->down_permitted_msg}'); return false"><!--@else-->href="{getUrl('')}{$file->download_url}" title="[File Size:{FileHandler::filesize($file->file_size)}/Download:{number_format($file->download_count)}]"><!--@end-->{$file->source_filename}</a><span class="comma">,</span></li>
+				<li cond="!$mi->files_sort" loop="$oDocument->getUploadedFiles()=>$key,$file"><a class="bubble" <!--@if(!$logged_info->member_srl && $mid==$mi->down_mid)-->href="#" title="{$lang->msg_not_permitted} {$mi->down_permitted_msg}" onClick="alert('{$lang->msg_not_permitted} {$mi->down_permitted_msg}'); return false"><!--@else-->href="{getUrl('')}{$file->download_url}" title="[File Size:{FileHandler::filesize($file->file_size)}/Download:{number_format($file->download_count)}]"><!--@end-->{$file->source_filename}</a><span class="comma">,</span></li>
 			</ul>
 			<ul cond="$mi->files_type">
 				<block loop="$oDocument->getUploadedFiles()=>$key,$file">

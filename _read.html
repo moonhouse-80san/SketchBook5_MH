@@ -438,6 +438,8 @@
 					</a>
 				<!--@end-->
 
+				<include cond="$mi->recommend=='' && ($mi->votes=='' || $mi->votes=='2')" target="_read_vote.html" />
+
 				<a cond="$mi->declare" class="blamed declare bd_login" href="#" onclick="doCallModuleAction('document','procDocumentDeclare','{$oDocument->document_srl}');return false;"|cond="$is_logged">
 					<b><i class="fa fa-phone"></i></b>
 					<span>{$lang->cmd_declare}</span>

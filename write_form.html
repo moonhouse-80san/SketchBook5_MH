@@ -124,8 +124,11 @@
 					$match2 = preg_match('/_wrh$/is', $val->eid);
 				}
 				<!--@if(($match1 != 1 && $match2 != 1) || $grant->is_admin)-->
-				<th cond="" scope="row"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
+					<th scope="row"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
 					<td cond="$val->eid!==$mi->etc_name">{$val->getFormHTML()}</td>
+				<!--@else-->
+					<th scope="row" style="display:none"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
+					<td cond="$val->eid!==$mi->etc_name" style="display:none">{$val->getFormHTML()}</td>
 				<!--@end-->
 
 					<td cond="$mid==$mi->etc_mid && $val->eid==$mi->etc_name">

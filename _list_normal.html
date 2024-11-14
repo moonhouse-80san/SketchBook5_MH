@@ -5,225 +5,224 @@
 <!--@end-->
 
 <p cond="!$document_list && !$notice_list" class="no_doc">{$lang->no_documents}</p>
-<div style="overflow-x: auto;">
-	<table cond="$document_list || $notice_list" class="bd_lst bd_tb_lst bd_tb">
-		<caption class="blind">List of Articles</caption>
-		<thead class="bg_f_f9">
-			<!--// 테이블 헤더 -->
-			<tr>
-				<block loop="$list_config=>$key,$val">
-					<th scope="col" cond="$val->type=='no' && $val->idx==-1" class="no"><span><a href="{getUrl('order_type',$order_type)}" title="<!--@if($order_type=="desc")-->{$lang->order_desc}<!--@else-->{$lang->order_asc}<!--@end-->">{$lang->no}</a></span></th>
-					<block cond="$val->type=='title' && $val->idx==-1">
-						<th scope="col" cond="$timeline_info && $mi->timeline_bview==''"><span>{$lang->board}</span></th>
-						<th scope="col" cond="!$timeline_info && $module_info->include_modules"><span>{$lang->board}</span></th>
-						<th scope="col" cond="!$mi->show_cate && $mi->use_category=='Y'" class="m_no"><span>{$lang->category}</span></th>
-						<th scope="col" class="title <!--@if($mi->sticky_select == 't')-->t_fixed<!--@end-->"><span><a href="{getUrl('sort_index','title','order_type',$order_type)}"><!--@if(!$mi->link_board)-->{$lang->title}<!--@else-->{$lang->link_site}<!--@end--><i cond="$sort_index=='title'" class="arrow {$order_icon}"></i></a></span></th>
-					</block>
-					<th scope="col" cond="$val->type=='nick_name' && $val->idx==-1"><span>{$lang->writer}</span></th>
-					<th scope="col" cond="$val->type=='user_id' && $val->idx==-1"><span>{$lang->user_id}</span></th>
-					<th scope="col" cond="$val->type=='user_name' && $val->idx==-1"><span>{$lang->user_name}</span></th>
-					<th scope="col" cond="$val->type=='regdate' && $val->idx==-1"><span><a href="{getUrl('sort_index','regdate','order_type',$order_type)}">{$lang->date}<i cond="$sort_index=='regdate'" class="arrow {$order_icon}"></i></a></span></th>
-					<th scope="col" cond="$val->type=='last_update' && $val->idx==-1" class="m_no"><span><a href="{getUrl('sort_index','last_update','order_type',$order_type)}">{$lang->last_update}<i cond="$sort_index=='last_update'" class="arrow {$order_icon}"></i></a></span></th>
-					<th scope="col" cond="$val->type=='last_post' && $val->idx==-1" class="m_no"><span>{$lang->last_post}</span></th>
-					<th scope="col" cond="$val->type=='readed_count' && $val->idx==-1" class="m_no"><span><a href="{getUrl('sort_index','readed_count','order_type',$order_type)}">{$lang->readed_count}<i cond="$sort_index=='readed_count'" class="arrow {$order_icon}"></i></a></span></th>
-					<th scope="col" cond="$val->type=='voted_count' && $val->idx==-1" class="m_no"><span><a href="{getUrl('sort_index','voted_count','order_type',$order_type)}">{$lang->voted_count}<i cond="$sort_index=='voted_count'" class="arrow {$order_icon}"></i></a></span></th>
-					<th scope="col" cond="$val->idx!=-1" <!--@if($mi->sticky_select == 'e')-->	class="fixed"|cond="$val->eid == $mi->sticky"	<!--@end--> class="m_no"|cond="$val->eid!='link_url'"><span><a href="{getUrl('sort_index',$val->eid,'order_type',$order_type)}">{$val->name}</a></span></th>
-				</block>
-				<th scope="col" cond="$grant->manager" class="m_no"><span><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true });" class="iCheck" title="Check All" /></span></th>
-			</tr>
-		</thead>
-		<tbody>
-			<!--// Notice -->
-			<include cond="$notice_list && $mi->notice_style=='2'" target="_notice.html" />
-			<tr cond="$notice_list && !$mi->notice_style" class="notice" loop="$notice_list=>$no,$document">
-				<block loop="$list_config=>$key,$val">
-					<td cond="$val->type=='no' && $val->idx==-1" class="no">
-						<block cond="$document_srl==$document->document_srl">&raquo;</block><strong cond="$document_srl!=$document->document_srl" class="sbtn_mini sbtn-orange">{$lang->notice}</strong>
-					</td>
-					<block cond="$val->type=='title' && $val->idx==-1">
-						<td cond="$timeline_info && $mi->timeline_bview==''"><a href="{getUrl('module_srl', $document->get('module_srl'))}"><strong>{htmlspecialchars($modules_info[$document->get('module_srl')]->browser_title)}</strong></a></td>
-						<td cond="!$timeline_info && $module_info->include_modules"><a href="{getUrl('module_srl', $document->get('module_srl'))}"><strong>{$document->get('module_title')}</strong></a></td>
-						<td cond="!$mi->show_cate && $mi->use_category=='Y'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')"|cond="$document->isGranted() && $use_category_update" class="cate" style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'"><strong>{$category_list[$document->get('category_srl')]->title}</strong></td>
-						<td class="title <!--@if($mi->sticky_select == 't')-->t_fixed<!--@end-->" style="min-width:{$mi->subject_w_size}px;">
-							<include target="list_iconsort.html" />
-							<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
-								<strong>
-									<include target="title.html" />
-								</strong>
-							</a>
-							<block cond="!$mi->link_board">
-								<a cond="$document->getCommentCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment" class="replyNum" title="{$lang->comment}">{$document->getCommentCount()}</a>
-								<a cond="$document->getTrackbackCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_trackback" class="trackbackNum" title="{$lang->trackback}">{$document->getTrackbackCount()}</a>
-							</block>
-							<span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
-						</td>
-					</block>
-					<td class="author" cond="$val->type=='nick_name' && $val->idx==-1"><span><a href="#popup_menu_area" class="member_{$document->get('member_srl')}" onclick="return false">{$document->getNickName()}</a></span></td>
-					<td class="author" cond="$val->type=='user_id' && $val->idx==-1"><span>{$document->getUserID()}</span></td>
-					<td class="author" cond="$val->type=='user_name' && $val->idx==-1"><span>{$document->getUserName()}</span></td>
-					<td class="time" cond="$val->type=='regdate' && $val->idx==-1">{$document->getRegdate('Y.m.d')}</td>
-					<td class="time m_no" cond="$val->type=='last_update' && $val->idx==-1">{zdate($document->get('last_update'),'Y.m.d')}</td>
-					<td class="time last_post m_no" cond="$val->type=='last_post' && $val->idx==-1">
-						<block cond="(int)($document->get('comment_count'))>0">
-							<a href="{getUrl('document_srl',$document->document_srl)}#{$document->document_srl}_comment" title="{getTimeGap($document->get('last_update'), "H:i")}">{zdate($document->get('last_update'),'Y.m.d')}<small cond="$document->getLastUpdater()">(by {$document->getLastUpdater()})</small></a>
-						</block>
-						<block cond="(int)($document->get('comment_count'))==0">&nbsp;</block>
-					</td>
-					<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no">{number_format($document->get('readed_count')>0?$document->get('readed_count'):'0')}</td>
-					<td cond="$val->type=='voted_count' && $val->idx==-1" class="m_no">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</td>
-					<td cond="$val->idx!=-1" <!--@if($mi->sticky_select == 'e')-->	class="fixed"|cond="$val->eid == $mi->sticky"	<!--@end--> onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="m_no"|cond="$val->eid!='link_url'"><!--@if($val->eid=='rating')--><span class="starRating" title="{$document->getExtraValueHTML($val->idx)}{$lang->score}"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span><!--@else-->{$document->getExtraValueHTML($val->idx)}<!--@end--></td>
-				</block>
-				<td cond="$grant->manager" class="check m_no"><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
-			</tr>
 
-			<!--// Normal -->
-			{@$i = 0}
-			<tr loop="$document_list=>$no,$document" class="select"|cond="$document_srl==$document->document_srl" style="line-height:{$mi->list_line_height}em;">
-				<block loop="$list_config=>$key,$val">
-					<td class="no" cond="$val->type=='no' && $val->idx==-1">
-						<block cond="$document_srl==$document->document_srl">&raquo;</block>
-						<block cond="$document_srl!=$document->document_srl">{$no}</block>
+<table cond="$document_list || $notice_list" class="bd_lst bd_tb_lst bd_tb">
+	<caption class="blind">List of Articles</caption>
+	<thead class="bg_f_f9">
+		<!--// 테이블 헤더 -->
+		<tr>
+			<block loop="$list_config=>$key,$val">
+				<th scope="col" cond="$val->type=='no' && $val->idx==-1" class="no"><span><a href="{getUrl('order_type',$order_type)}" title="<!--@if($order_type=="desc")-->{$lang->order_desc}<!--@else-->{$lang->order_asc}<!--@end-->">{$lang->no}</a></span></th>
+				<block cond="$val->type=='title' && $val->idx==-1">
+					<th scope="col" cond="$timeline_info && $mi->timeline_bview==''"><span>{$lang->board}</span></th>
+					<th scope="col" cond="!$timeline_info && $module_info->include_modules"><span>{$lang->board}</span></th>
+					<th scope="col" cond="!$mi->show_cate && $mi->use_category=='Y'" class="m_no"><span>{$lang->category}</span></th>
+					<th scope="col" class="title <!--@if($mi->sticky_select == 't')-->t_fixed<!--@end-->"><span><a href="{getUrl('sort_index','title','order_type',$order_type)}"><!--@if(!$mi->link_board)-->{$lang->title}<!--@else-->{$lang->link_site}<!--@end--><i cond="$sort_index=='title'" class="arrow {$order_icon}"></i></a></span></th>
+				</block>
+				<th scope="col" cond="$val->type=='nick_name' && $val->idx==-1"><span>{$lang->writer}</span></th>
+				<th scope="col" cond="$val->type=='user_id' && $val->idx==-1"><span>{$lang->user_id}</span></th>
+				<th scope="col" cond="$val->type=='user_name' && $val->idx==-1"><span>{$lang->user_name}</span></th>
+				<th scope="col" cond="$val->type=='regdate' && $val->idx==-1"><span><a href="{getUrl('sort_index','regdate','order_type',$order_type)}">{$lang->date}<i cond="$sort_index=='regdate'" class="arrow {$order_icon}"></i></a></span></th>
+				<th scope="col" cond="$val->type=='last_update' && $val->idx==-1" class="m_no"><span><a href="{getUrl('sort_index','last_update','order_type',$order_type)}">{$lang->last_update}<i cond="$sort_index=='last_update'" class="arrow {$order_icon}"></i></a></span></th>
+				<th scope="col" cond="$val->type=='last_post' && $val->idx==-1" class="m_no"><span>{$lang->last_post}</span></th>
+				<th scope="col" cond="$val->type=='readed_count' && $val->idx==-1" class="m_no"><span><a href="{getUrl('sort_index','readed_count','order_type',$order_type)}">{$lang->readed_count}<i cond="$sort_index=='readed_count'" class="arrow {$order_icon}"></i></a></span></th>
+				<th scope="col" cond="$val->type=='voted_count' && $val->idx==-1" class="m_no"><span><a href="{getUrl('sort_index','voted_count','order_type',$order_type)}">{$lang->voted_count}<i cond="$sort_index=='voted_count'" class="arrow {$order_icon}"></i></a></span></th>
+				<th scope="col" cond="$val->idx!=-1" <!--@if($mi->sticky_select == 'e')-->	class="fixed"|cond="$val->eid == $mi->sticky"	<!--@end--> class="m_no"|cond="$val->eid!='link_url'"><span><a href="{getUrl('sort_index',$val->eid,'order_type',$order_type)}">{$val->name}</a></span></th>
+			</block>
+			<th scope="col" cond="$grant->manager" class="m_no"><span><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true });" class="iCheck" title="Check All" /></span></th>
+		</tr>
+	</thead>
+	<tbody>
+		<!--// Notice -->
+		<include cond="$notice_list && $mi->notice_style=='2'" target="_notice.html" />
+		<tr cond="$notice_list && !$mi->notice_style=='2'" class="notice" loop="$notice_list=>$no,$document">
+			<block loop="$list_config=>$key,$val">
+				<td cond="$val->type=='no' && $val->idx==-1" class="no">
+					<block cond="$document_srl==$document->document_srl">&raquo;</block><strong cond="$document_srl!=$document->document_srl" class="sbtn_mini sbtn-orange">{$lang->notice}</strong>
+				</td>
+				<block cond="$val->type=='title' && $val->idx==-1">
+					<td cond="$timeline_info && $mi->timeline_bview==''"><a href="{getUrl('module_srl', $document->get('module_srl'))}"><strong>{htmlspecialchars($modules_info[$document->get('module_srl')]->browser_title)}</strong></a></td>
+					<td cond="!$timeline_info && $module_info->include_modules"><a href="{getUrl('module_srl', $document->get('module_srl'))}"><strong>{$document->get('module_title')}</strong></a></td>
+					<td cond="!$mi->show_cate && $mi->use_category=='Y'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')"|cond="$document->isGranted() && $use_category_update" class="cate" style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'"><strong>{$category_list[$document->get('category_srl')]->title}</strong></td>
+					<td class="title <!--@if($mi->sticky_select == 't')-->t_fixed<!--@end-->" style="min-width:{$mi->subject_w_size}px;">
+						<include target="list_iconsort.html" />
+						<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
+							<strong>
+								<include target="title.html" />
+							</strong>
+						</a>
+						<block cond="!$mi->link_board">
+							<a cond="$document->getCommentCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment" class="replyNum" title="{$lang->comment}">{$document->getCommentCount()}</a>
+							<a cond="$document->getTrackbackCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_trackback" class="trackbackNum" title="{$lang->trackback}">{$document->getTrackbackCount()}</a>
+						</block>
+						<span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span>
 					</td>
-					<block cond="$val->type=='title' && $val->idx==-1">
-						<td cond="$timeline_info && $mi->timeline_bview==''"><a href="{getUrl('module_srl', $document->get('module_srl'))}">{htmlspecialchars($modules_info[$document->get('module_srl')]->browser_title)}</a></td>
-						<td cond="!$timeline_info && $module_info->include_modules"><a href="{$document->get('mid')}"><strong>{$document->get('module_title')}</strong></a></td>
-						<td cond="!$mi->show_cate && $mi->use_category=='Y'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')"|cond="$document->isGranted() && $use_category_update" class="cate"><span style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'">{$category_list[$document->get('category_srl')]->title}</span></td>
-						<td class="title <!--@if($mi->sticky_select == 't')-->t_fixed<!--@end-->" style="min-width:{$mi->subject_w_size}px;">
-							<!--@if($grant->view)-->
-								<include target="list_iconsort.html" />
-								<!--// 제목 -->
-								<!--@if(!$mi->preview || (@!in_array('tx',$mi->preview) && !$document->thumbnailExists()))-->
-									<a <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> class="hx" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
-										<!--// 종료 확장변수 설정 -->
-										<include target="d_day.html" />
-										<include target="title.html" />
-									</a>
-									<!--@else-->
-									<a <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> class="hx bubble no_bubble<!--@if(@!in_array('tx',$mi->preview))--> only_img<!--@end-->" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
-										<!--// 종료 확장변수 설정 -->
-										<include target="d_day.html" />
-										<include target="title.html" />
-										<span cond="!$document->isSecret()" class="wrp">
-											<img cond="$document->thumbnailExists() && @in_array('img',$mi->preview)" src="{$document->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
-											<span class="speech">{htmlspecialchars($document->getSummary($mi->preview_tx))}</span><i class="bubble_edge"></i>
-											<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
-										</span>
-									</a>
-								<!--@end-->
-							<!--@else-->
-								<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
-									<span title="권한이 없습니다. {$mi->Level_Authority}">
-										<!--// 종료 확장변수 설정 -->
-										<include target="d_day.html" />
-										<include target="title.html" />
+				</block>
+				<td class="author" cond="$val->type=='nick_name' && $val->idx==-1"><span><a href="#popup_menu_area" class="member_{$document->get('member_srl')}" onclick="return false">{$document->getNickName()}</a></span></td>
+				<td class="author" cond="$val->type=='user_id' && $val->idx==-1"><span>{$document->getUserID()}</span></td>
+				<td class="author" cond="$val->type=='user_name' && $val->idx==-1"><span>{$document->getUserName()}</span></td>
+				<td class="time" cond="$val->type=='regdate' && $val->idx==-1">{$document->getRegdate('Y.m.d')}</td>
+				<td class="time m_no" cond="$val->type=='last_update' && $val->idx==-1">{zdate($document->get('last_update'),'Y.m.d')}</td>
+				<td class="time last_post m_no" cond="$val->type=='last_post' && $val->idx==-1">
+					<block cond="(int)($document->get('comment_count'))>0">
+						<a href="{getUrl('document_srl',$document->document_srl)}#{$document->document_srl}_comment" title="{getTimeGap($document->get('last_update'), "H:i")}">{zdate($document->get('last_update'),'Y.m.d')}<small cond="$document->getLastUpdater()">(by {$document->getLastUpdater()})</small></a>
+					</block>
+					<block cond="(int)($document->get('comment_count'))==0">&nbsp;</block>
+				</td>
+				<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no">{number_format($document->get('readed_count')>0?$document->get('readed_count'):'0')}</td>
+				<td cond="$val->type=='voted_count' && $val->idx==-1" class="m_no">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</td>
+				<td cond="$val->idx!=-1" <!--@if($mi->sticky_select == 'e')-->	class="fixed"|cond="$val->eid == $mi->sticky"	<!--@end--> onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="m_no"|cond="$val->eid!='link_url'"><!--@if($val->eid=='rating')--><span class="starRating" title="{$document->getExtraValueHTML($val->idx)}{$lang->score}"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span><!--@else-->{$document->getExtraValueHTML($val->idx)}<!--@end--></td>
+			</block>
+			<td cond="$grant->manager" class="check m_no"><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
+		</tr>
+
+		<!--// Normal -->
+		{@$i = 0}
+		<tr loop="$document_list=>$no,$document" class="select"|cond="$document_srl==$document->document_srl" style="line-height:{$mi->list_line_height}em;">
+			<block loop="$list_config=>$key,$val">
+				<td class="no" cond="$val->type=='no' && $val->idx==-1">
+					<block cond="$document_srl==$document->document_srl">&raquo;</block>
+					<block cond="$document_srl!=$document->document_srl">{$no}</block>
+				</td>
+				<block cond="$val->type=='title' && $val->idx==-1">
+					<td cond="$timeline_info && $mi->timeline_bview==''"><a href="{getUrl('module_srl', $document->get('module_srl'))}">{htmlspecialchars($modules_info[$document->get('module_srl')]->browser_title)}</a></td>
+					<td cond="!$timeline_info && $module_info->include_modules"><a href="{$document->get('mid')}"><strong>{$document->get('module_title')}</strong></a></td>
+					<td cond="!$mi->show_cate && $mi->use_category=='Y'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')"|cond="$document->isGranted() && $use_category_update" class="cate"><span style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'">{$category_list[$document->get('category_srl')]->title}</span></td>
+					<td class="title <!--@if($mi->sticky_select == 't')-->t_fixed<!--@end-->" style="min-width:{$mi->subject_w_size}px;">
+						<!--@if($grant->view)-->
+							<include target="list_iconsort.html" />
+							<!--// 제목 -->
+							<!--@if(!$mi->preview || (@!in_array('tx',$mi->preview) && !$document->thumbnailExists()))-->
+								<a <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> class="hx" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
+									<!--// 종료 확장변수 설정 -->
+									<include target="d_day.html" />
+									<include target="title.html" />
+								</a>
+								<!--@else-->
+								<a <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> class="hx bubble no_bubble<!--@if(@!in_array('tx',$mi->preview))--> only_img<!--@end-->" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
+									<!--// 종료 확장변수 설정 -->
+									<include target="d_day.html" />
+									<include target="title.html" />
+									<span cond="!$document->isSecret()" class="wrp">
+										<img cond="$document->thumbnailExists() && @in_array('img',$mi->preview)" src="{$document->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
+										<span class="speech">{htmlspecialchars($document->getSummary($mi->preview_tx))}</span><i class="bubble_edge"></i>
+										<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
 									</span>
 								</a>
 							<!--@end-->
+						<!--@else-->
+							<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
+								<span title="권한이 없습니다. {$mi->Level_Authority}">
+									<!--// 종료 확장변수 설정 -->
+									<include target="d_day.html" />
+									<include target="title.html" />
+								</span>
+							</a>
+						<!--@end-->
 
-							<!--// 조회수별 이미지출력 -->
-							<!--@if($mi->Icons_Count!='' && ($document->get('readed_count') > $mi->readed_count_hot))-->
-								<!--@if($mi->hot_image)--><img src="{$mi->hot_image}" alt="" title="hot" />
-									<!--@else-->
-									<!--// 블랙보드시 이미지변경 -->
-									<!--@if($mi->colorset == "black")-->
-										<img src="./img/icon_hot_black.gif" alt="" title="hot" />
-									<!--@else-->
-										<img src="./img/icon_hot.gif" alt="" title="hot" />
-									<!--@end-->
-								<!--@end-->
-							<!--@elseif($mi->Icons_Count!='' && ($document->get('readed_count') > $mi->readed_count_cool))-->
-								<!--@if($mi->cool_image)--><img src="{$mi->cool_image}" alt="" title="cool" />
-									<!--@else-->
-									<!--@if($mi->colorset == "black")-->
-										<img src="./img/icon_cool_black.gif" alt="" title="cool" />
-									<!--@else-->
-										<img src="./img/icon_cool.gif" alt="" title="cool" />
-									<!--@end-->
+						<!--// 조회수별 이미지출력 -->
+						<!--@if($mi->Icons_Count!='' && ($document->get('readed_count') > $mi->readed_count_hot))-->
+							<!--@if($mi->hot_image)--><img src="{$mi->hot_image}" alt="" title="hot" />
+								<!--@else-->
+								<!--// 블랙보드시 이미지변경 -->
+								<!--@if($mi->colorset == "black")-->
+									<img src="./img/icon_hot_black.gif" alt="" title="hot" />
+								<!--@else-->
+									<img src="./img/icon_hot.gif" alt="" title="hot" />
 								<!--@end-->
 							<!--@end-->
-
-							<block cond="!$mi->link_board">
-								<a cond="$document->getCommentCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment" class="replyNum" title="{$lang->comment}">{$document->getCommentCount()}</a>
-								<a cond="$document->getTrackbackCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_trackback" class="trackbackNum" title="{$lang->trackback}">{$document->getTrackbackCount()}</a>
-							</block>
-							<span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}<i cond="$document->thumbnailExists() && $mi->image_icon == ''" class="attached_image" title="Image"></i></span>
-							<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('document_srl',$document->document_srl)}">{$lang->cmd_modify}</a>
-
-							<span cond="!$timeline_info && $module_info->include_modules && $mi->timeline_dlink!=''" style="margin-left:20px"><a href="{getUrl('','document_srl',$document->document_srl)}" class="pr_tooltip" pr_color="orange" pr_position="right" title=" Direct Link"><i class="fa-solid fa-up-right-from-square"></i></a></span>
-
-							<div cond="!$mi->Tag_view==''">
-								{@
-								$tagModel = &getModel('tag');
-								$args->document_srl = $document->document_srl;
-								$tag_list = $tagModel->getDocumentsTagList($args);
-								}
-								<label cond="$tag_list->data">
-									<block loop="$tag_list->data=>$k,$v">
-										<font style="margin-left:2px;background-color:#EAEAEA;border-radius:4px;padding:2px 5px;font-size:10px;font-weight:color:#000000"><a href="{getUrl('', 'mid', $mid, 'search_target','tag','search_keyword',$v->tag,'document_srl')}" rel="tag" class="tag" style="margin-left:2px; background-color:#EAEAEA; border-radius:4px; padding:2px 5px; font-size:11px; color:#000"># {$v->tag}</a></font> 
-									</block>
-								</label>
-							</div>
-						</td>
-					</block>
-					<td class="author" cond="$val->type=='nick_name' && $val->idx==-1"><span><a href="#popup_menu_area" class="member_{$document->get('member_srl')}" onclick="return false">{$document->getNickName()}</a></span></td>
-					<td class="author" cond="$val->type=='user_id' && $val->idx==-1"><span>{$document->getUserID()}</span></td>
-					<td class="author" cond="$val->type=='user_name' && $val->idx==-1"><span>{$document->getUserName()}</span></td>
-					<td class="time" cond="$val->type=='regdate' && $val->idx==-1" title="{getTimeGap($document->get('regdate'), "H:i")}">{$document->getRegdate('Y.m.d')}</td>
-					<td class="time last_update m_no" cond="$val->type=='last_update' && $val->idx==-1">{zdate($document->get('last_update'),'Y.m.d')}</td>
-					<td class="time last_post m_no" cond="$val->type=='last_post' && $val->idx==-1">
-						<block cond="(int)($document->get('comment_count'))>0">
-							<a href="{getUrl('document_srl',$document->document_srl)}#{$document->document_srl}_comment" title="{getTimeGap($document->get('last_update'), "H:i")}">{zdate($document->get('last_update'),'Y.m.d')}<small cond="$document->getLastUpdater()">(by {$document->getLastUpdater()})</small></a>
-						</block>
-						<block cond="(int)($document->get('comment_count'))==0">&nbsp;</block>
-					</td>
-					<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no" style="text-align:right">{number_format($document->get('readed_count')>0?$document->get('readed_count'):'0')}</td>
-					<td cond="$val->type=='voted_count' && $val->idx==-1" class="m_no">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</td>
-
-					<!--// 확장변수 -->
-					<td cond="$val->idx!=-1" <!--@if($mi->sticky_select == 'e')-->	class="fixed"|cond="$val->eid == $mi->sticky"	<!--@end--> onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="<!--@if($val->eid=='link_url')-->link_url<!--@else-->m_no<!--@end-->">
-						<!--@if($val->eid=='rating')-->
-							<span class="starRating" title="{$document->getExtraValueHTML($val->idx)}{$lang->score}"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span>
-						<!--@elseif($document->cover_extra_info[$val->idx]->cover_extra=='Y')-->
-							<img width="{$document->cover_extra_info[$val->idx]->cover_size_width}" height="{$document->cover_extra_info[$val->idx]->cover_size_height}" src="{$document->cover_extra_info[$val->idx]->cover_extra_url}">
-						<!--@elseif($document->cover_extra_info[$val->idx]->cover_extra=='N')-->
-						<!--@else-->
-							<span<!--@if($mid==$mi->color_mid)--><!--@if($document->getExtraValueHTML($val->idx)==$mi->blue_n)--> class="blue"<!--@elseif($document->getExtraValueHTML($val->idx)==$mi->orange_n)--> class="orange"<!--@elseif($document->getExtraValueHTML($val->idx)==$mi->gray_n)--> class="gray"<!--@end--><!--@else--><!--@end-->><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
+						<!--@elseif($mi->Icons_Count!='' && ($document->get('readed_count') > $mi->readed_count_cool))-->
+							<!--@if($mi->cool_image)--><img src="{$mi->cool_image}" alt="" title="cool" />
+								<!--@else-->
+								<!--@if($mi->colorset == "black")-->
+									<img src="./img/icon_cool_black.gif" alt="" title="cool" />
+								<!--@else-->
+									<img src="./img/icon_cool.gif" alt="" title="cool" />
+								<!--@end-->
+							<!--@end-->
 						<!--@end-->
+
+						<block cond="!$mi->link_board">
+							<a cond="$document->getCommentCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment" class="replyNum" title="{$lang->comment}">{$document->getCommentCount()}</a>
+							<a cond="$document->getTrackbackCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_trackback" class="trackbackNum" title="{$lang->trackback}">{$document->getTrackbackCount()}</a>
+						</block>
+						<span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}<i cond="$document->thumbnailExists() && $mi->image_icon == ''" class="attached_image" title="Image"></i></span>
+						<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('document_srl',$document->document_srl)}">{$lang->cmd_modify}</a>
+
+						<span cond="!$timeline_info && $module_info->include_modules && $mi->timeline_dlink!=''" style="margin-left:20px"><a href="{getUrl('','document_srl',$document->document_srl)}" class="pr_tooltip" pr_color="orange" pr_position="right" title=" Direct Link"><i class="fa-solid fa-up-right-from-square"></i></a></span>
+
+						<div cond="!$mi->Tag_view==''">
+							{@
+							$tagModel = &getModel('tag');
+							$args->document_srl = $document->document_srl;
+							$tag_list = $tagModel->getDocumentsTagList($args);
+							}
+							<label cond="$tag_list->data">
+								<block loop="$tag_list->data=>$k,$v">
+									<font style="margin-left:2px;background-color:#EAEAEA;border-radius:4px;padding:2px 5px;font-size:10px;font-weight:color:#000000"><a href="{getUrl('', 'mid', $mid, 'search_target','tag','search_keyword',$v->tag,'document_srl')}" rel="tag" class="tag" style="margin-left:2px; background-color:#EAEAEA; border-radius:4px; padding:2px 5px; font-size:11px; color:#000"># {$v->tag}</a></font> 
+								</block>
+							</label>
+						</div>
 					</td>
 				</block>
-				<td cond="$grant->manager" class="check m_no"><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
+				<td class="author" cond="$val->type=='nick_name' && $val->idx==-1"><span><a href="#popup_menu_area" class="member_{$document->get('member_srl')}" onclick="return false">{$document->getNickName()}</a></span></td>
+				<td class="author" cond="$val->type=='user_id' && $val->idx==-1"><span>{$document->getUserID()}</span></td>
+				<td class="author" cond="$val->type=='user_name' && $val->idx==-1"><span>{$document->getUserName()}</span></td>
+				<td class="time" cond="$val->type=='regdate' && $val->idx==-1" title="{getTimeGap($document->get('regdate'), "H:i")}">{$document->getRegdate('Y.m.d')}</td>
+				<td class="time last_update m_no" cond="$val->type=='last_update' && $val->idx==-1">{zdate($document->get('last_update'),'Y.m.d')}</td>
+				<td class="time last_post m_no" cond="$val->type=='last_post' && $val->idx==-1">
+					<block cond="(int)($document->get('comment_count'))>0">
+						<a href="{getUrl('document_srl',$document->document_srl)}#{$document->document_srl}_comment" title="{getTimeGap($document->get('last_update'), "H:i")}">{zdate($document->get('last_update'),'Y.m.d')}<small cond="$document->getLastUpdater()">(by {$document->getLastUpdater()})</small></a>
+					</block>
+					<block cond="(int)($document->get('comment_count'))==0">&nbsp;</block>
+				</td>
+				<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no" style="text-align:right">{number_format($document->get('readed_count')>0?$document->get('readed_count'):'0')}</td>
+				<td cond="$val->type=='voted_count' && $val->idx==-1" class="m_no">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</td>
 
-				<!-- 코멘트 리스트 시작 -->
-				<!--@if($mi->list_replyContent!='')-->
-					<!--@if(!($oDocument->isExists() && $grant->view && $mi->cmtlist_at_boardlist == 'nolist'))-->
-						{@ if(!$mi->comment_lineno) $mi->comment_lineno = 5;
-							 $comments_list = $document->getComments(); }
-						<!--@if(!$mi->comment_order == '')-->{@ $comments_list = array_reverse($comments_list); }<!--@end-->
-						{@$j = 0}
-						<!--@if($document->getCommentCount())-->
-							<!--@foreach($comments_list as $key => $val)-->
-								<!--@if(!$mi->comment_line == '')-->
-									<include target="list_comment.html" cond="$j < $mi->comment_lineno"/>
-								<!--@else-->
-									<include target="list_comment.html"/>
-								<!--@end-->
+				<!--// 확장변수 -->
+				<td cond="$val->idx!=-1" <!--@if($mi->sticky_select == 'e')-->	class="fixed"|cond="$val->eid == $mi->sticky"	<!--@end--> onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="<!--@if($val->eid=='link_url')-->link_url<!--@else-->m_no<!--@end-->">
+					<!--@if($val->eid=='rating')-->
+						<span class="starRating" title="{$document->getExtraValueHTML($val->idx)}{$lang->score}"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span>
+					<!--@elseif($document->cover_extra_info[$val->idx]->cover_extra=='Y')-->
+						<img width="{$document->cover_extra_info[$val->idx]->cover_size_width}" height="{$document->cover_extra_info[$val->idx]->cover_size_height}" src="{$document->cover_extra_info[$val->idx]->cover_extra_url}">
+					<!--@elseif($document->cover_extra_info[$val->idx]->cover_extra=='N')-->
+					<!--@else-->
+						<span<!--@if($mid==$mi->color_mid)--><!--@if($document->getExtraValueHTML($val->idx)==$mi->blue_n)--> class="blue"<!--@elseif($document->getExtraValueHTML($val->idx)==$mi->orange_n)--> class="orange"<!--@elseif($document->getExtraValueHTML($val->idx)==$mi->gray_n)--> class="gray"<!--@end--><!--@else--><!--@end-->><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
+					<!--@end-->
+				</td>
+			</block>
+			<td cond="$grant->manager" class="check m_no"><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
+
+			<!-- 코멘트 리스트 시작 -->
+			<!--@if($mi->list_replyContent!='')-->
+				<!--@if(!($oDocument->isExists() && $grant->view && $mi->cmtlist_at_boardlist == 'nolist'))-->
+					{@ if(!$mi->comment_lineno) $mi->comment_lineno = 5;
+						 $comments_list = $document->getComments(); }
+					<!--@if(!$mi->comment_order == '')-->{@ $comments_list = array_reverse($comments_list); }<!--@end-->
+					{@$j = 0}
+					<!--@if($document->getCommentCount())-->
+						<!--@foreach($comments_list as $key => $val)-->
+							<!--@if(!$mi->comment_line == '')-->
+								<include target="list_comment.html" cond="$j < $mi->comment_lineno"/>
+							<!--@else-->
+								<include target="list_comment.html"/>
 							<!--@end-->
 						<!--@end-->
 					<!--@end-->
 				<!--@end-->
-				<!-- 코멘트 리스트 끝 -->
+			<!--@end-->
+			<!-- 코멘트 리스트 끝 -->
 
-				<!--// 목록에 에드센스 출력 -->
-				<!--@if(in_array($i+1, array($mi->ad1, $mi->ad2, $mi->ad3)) && $mi->list_ads=='Y')-->
-					<tr class="w100">
-						<td colspan="6">{$mi->ads_code}</td>
-					</tr>
-				<!--@end-->
-			{@$i++}
-			</tr>
-		</tbody>
-	</table>
-</div>
+			<!--// 목록에 에드센스 출력 -->
+			<!--@if(in_array($i+1, array($mi->ad1, $mi->ad2, $mi->ad3)) && $mi->list_ads=='Y')-->
+				<tr class="w100">
+					<td colspan="10">{$mi->ads_code}</td>
+				</tr>
+			<!--@end-->
+		{@$i++}
+		</tr>
+	</tbody>
+</table>
 
 <style>
 	.bd_lst th.fixed, .bd_lst td.fixed, 

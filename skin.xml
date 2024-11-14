@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
-	<title>sketchbook5 MH V3.2 Dev</title>
+	<title>sketchbook5 MH V3.2</title>
 	<description>sketchbook5 MH Board Skin. 한국형 게시판 스타일, 여러 목록 유형 제공, 사용자 편의를 고려한 다양한 기능, 모바일까지 대응.(문하우스에서 일부 수정함)</description>
 	<version>3.2 - MH Dev</version>
 	<date>2024-07-11</date>
@@ -321,6 +321,16 @@
 			<var name="comment_auto_content" type="textarea">
 				<title>자동 입력될 내용</title>
 			</var>
+			<var name="board_table" type="radio">
+				<title>table 가로 overflow-x: auto 적용</title>
+				<description>게시판 전체영역(List, 본문등) table 가로 overflow-x: auto 적용</description>
+				<options value="">
+					<title>적용</title>
+				</options>
+				<options value="N">
+					<title>적용 안함</title>
+				</options>
+			</var>
 			<var name="modul_num" type="radio">
 				<title>모듈번호 출력</title>
 				<options value="">
@@ -575,7 +585,7 @@
 					<title>출력 안함</title>
 				</options>
 			</var>
-			<var name="notice_style" type="radio" default="2">
+			<var name="notice_style" type="radio">
 				<title>공지 출력 형식</title>
 				<description>공지의 출력형식을 결정합니다. 모든 목록형태에서 동일한 공지의 출력이 필요한 경우 사용됩니다.</description>
 				<options value="">
@@ -586,14 +596,14 @@
 				</options>
 			</var>
 			<var name="notice_view_slide" type="radio">
-				<title xml:lang="ko">공지글 폴딩 출력</title>
+				<title xml:lang="ko">　┖ 한줄 공지글 폴딩 출력</title>
 				<options value="">
 					<title xml:lang="ko">일반출력(기본)</title>
 				</options>
 				<options value="Y">
 					<title xml:lang="ko">폴딩출력</title>
 				</options>
-				<description xml:lang="ko">공지글 클릭시 폴딩 형식 출력을 선택합니다.</description>
+				<description xml:lang="ko">"모든 목록 유형에서 동일한 한 줄 공지 형식" 선택시 적용됨</description>
 			</var>
 			<var name="subject_cut_size" type="text">
 				<title>제목 글자 수</title>
@@ -2099,6 +2109,16 @@
 			<var name="files_type" type="radio">
 				<title>★확장자 필터 기능</title>
 				<description>첨부파일에서 이미지, 동영상, 음악 파일을 제외하는 기능을 사용합니다. 아래의 옵션에서 출력할 파일 타입을 선택하세요.</description>
+				<options value="Y">
+					<title>사용</title>
+				</options>
+				<options value="">
+					<title>사용 안함(기본)</title>
+				</options>
+			</var>
+			<var name="files_sort" type="radio">
+				<title>　┖ 파일이름명 순서대로 출력</title>
+				<description>"확장자 필터 기능 사용 안함" 선택시 업로드된 파일이름명 순서대로 출력</description>
 				<options value="Y">
 					<title>사용</title>
 				</options>
