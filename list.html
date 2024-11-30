@@ -362,126 +362,109 @@ jQuery(function($){
 </block>
 
 <!--// Table의 폭이 디바이스 및 화면 가로 사이즈보다 더 넓을 때 마우스 휠 좌우 스코롤 -->
+<block cond="!$mi->horizontal_time">{@ $mi->horizontal_time = '1000'}</block>
 <script cond="!$mi->horizontal_scroll==''">
 	$(function() {
-	  // 첫 번째 테이블 (bd_lst) 처리
-	  const firstTableWrapper = $('.bd_lst').parent();
-	  let isOverFirstTable = false;
-	  let touchStartX1 = 0;
-	  let scrollStartX1 = 0;
+	  // 각 테이블에 대해 개별적으로 타임아웃 처리
+	  $('.bd_lst, .tg').each(function() {
+		const $table = $(this);
+		const $tableWrapper = $table.parent();
+		let hoverTimer = null;
+		let isScrollEnabled = false;
 
-	  function canScroll(wrapper) {
-		return wrapper[0].scrollWidth > wrapper.width();
-	  }
-
-	  // 스타일 초기 설정 함수
-	  function updateTableStyles(wrapper) {
-		if (canScroll(wrapper)) {
-		  wrapper.css({
-			'overflow-x': 'auto',
-			'-webkit-overflow-scrolling': 'touch',
-			'overflow-y': 'hidden'
-		  });
-		  wrapper.find('.scroll-indicator').show();
-		} else {
-		  wrapper.css({
-			'overflow-x': 'visible',
-			'overflow-y': 'visible'
-		  });
-		  wrapper.find('.scroll-indicator').hide();
+		function canScroll(wrapper) {
+		  return wrapper[0].scrollWidth > wrapper.width();
 		}
-	  }
 
-	  $('.bd_lst').on('mouseenter', function() {
-		if (canScroll(firstTableWrapper)) {
-		  isOverFirstTable = true;
-		}
-	  }).on('mouseleave', function() {
-		isOverFirstTable = false;
-	  });
-
-	  firstTableWrapper.on('wheel', function(event) {
-		if (isOverFirstTable && canScroll($(this))) {
-		  event.preventDefault();
-		  const delta = event.originalEvent.deltaY;
-		  $(this).scrollLeft($(this).scrollLeft() + delta);
-		}
-	  });
-
-	  // 두 번째 테이블 (tg) 처리
-	  const secondTableWrapper = $('.tg').parent();
-	  let isOverSecondTable = false;
-	  let touchStartX2 = 0;
-	  let scrollStartX2 = 0;
-
-	  $('.tg').on('mouseenter', function() {
-		if (canScroll(secondTableWrapper)) {
-		  isOverSecondTable = true;
-		}
-	  }).on('mouseleave', function() {
-		isOverSecondTable = false;
-	  });
-
-	  secondTableWrapper.on('wheel', function(event) {
-		if (isOverSecondTable && canScroll($(this))) {
-		  event.preventDefault();
-		  const delta = event.originalEvent.deltaY;
-		  $(this).scrollLeft($(this).scrollLeft() + delta);
-		}
-	  });
-
-	  // PC 커서 스타일
-	  $('.bd_lst, .tg').hover(
-		function() {
-		  if (canScroll($(this).parent())) {
-			$(this).parent().css('cursor', 'grab');
-		  } else {
-			$(this).parent().css('cursor', 'default');
+		$table.on('mouseenter', function() {
+		  // 이전 타이머 초기화
+		  if (hoverTimer) {
+			clearTimeout(hoverTimer);
 		  }
-		},
-		function() {
-		  $(this).parent().css('cursor', 'default');
-		}
-	  );
 
-	  // 스크롤 인디케이터 설정 함수
-	  function setupScrollIndicator(wrapper) {
-		let scrollIndicator = $('<div class="scroll-indicator">').css({
-		  'position': 'absolute',
-		  'bottom': '0',
-		  'left': '0',
-		  'width': '0',
-		  'height': '3px',
-		  'background': 'rgba(0,0,0,0.3)',
-		  'transition': 'width 0.2s',
-		  'pointer-events': 'none'
+		  // 1초 후 스크롤 기능 활성화
+		  hoverTimer = setTimeout(function() {
+			if (canScroll($tableWrapper)) {
+			  isScrollEnabled = true;
+			  $tableWrapper.css('cursor', 'grab');
+			}
+		  }, {$mi->horizontal_time});
 		});
 
-		wrapper.css('position', 'relative').append(scrollIndicator);
-
-		function updateScrollIndicator() {
-		  if (canScroll(wrapper)) {
-			const scrollPercentage = (wrapper.scrollLeft() / 
-			  (wrapper[0].scrollWidth - wrapper.width())) * 100;
-			scrollIndicator.css('width', scrollPercentage + '%').show();
-		  } else {
-			scrollIndicator.hide();
+		$table.on('mouseleave', function() {
+		  // 마우스를 벗어나면 타이머 초기화
+		  if (hoverTimer) {
+			clearTimeout(hoverTimer);
 		  }
+		  
+		  // 스크롤 기능 비활성화
+		  isScrollEnabled = false;
+		  $tableWrapper.css('cursor', 'default');
+		});
+
+		// 휠 이벤트 처리
+		$tableWrapper.on('wheel', function(event) {
+		  if (isScrollEnabled && canScroll($(this))) {
+			event.preventDefault();
+			const delta = event.originalEvent.deltaY;
+			$(this).scrollLeft($(this).scrollLeft() + delta);
+		  }
+		});
+
+		// 터치 이벤트 처리
+		let touchStartX = 0;
+		let scrollStartX = 0;
+
+		$tableWrapper.on('touchstart', function(event) {
+		  if (!isScrollEnabled || !canScroll($(this))) return;
+		  
+		  touchStartX = event.originalEvent.touches[0].clientX;
+		  scrollStartX = $(this).scrollLeft();
+		});
+
+		$tableWrapper.on('touchmove', function(event) {
+		  if (!isScrollEnabled || !canScroll($(this))) return;
+		  
+		  event.preventDefault();
+		  const touchCurrentX = event.originalEvent.touches[0].clientX;
+		  const touchDeltaX = touchStartX - touchCurrentX;
+		  $(this).scrollLeft(scrollStartX + touchDeltaX);
+		});
+
+		// 스크롤 인디케이터 설정
+		function setupScrollIndicator() {
+		  const $scrollIndicator = $('<div class="scroll-indicator">').css({
+			'position': 'absolute',
+			'bottom': '0',
+			'left': '0',
+			'width': '0',
+			'height': '3px',
+			'background': 'rgba(0,0,0,0.3)',
+			'transition': 'width 0.2s',
+			'pointer-events': 'none',
+			'display': 'none'
+		  });
+
+		  $tableWrapper.css('position', 'relative').append($scrollIndicator);
+
+		  function updateScrollIndicator() {
+			if (isScrollEnabled && canScroll($tableWrapper)) {
+			  const scrollPercentage = ($tableWrapper.scrollLeft() / 
+				($tableWrapper[0].scrollWidth - $tableWrapper.width())) * 100;
+			  $scrollIndicator.css({
+				'width': scrollPercentage + '%',
+				'display': 'block'
+			  });
+			} else {
+			  $scrollIndicator.hide();
+			}
+		  }
+
+		  $tableWrapper.on('scroll', updateScrollIndicator);
+		  $(window).on('resize', updateScrollIndicator);
 		}
 
-		wrapper.on('scroll', updateScrollIndicator);
-		$(window).on('resize', function() {
-		  updateTableStyles(wrapper);
-		  updateScrollIndicator();
-		});
-		
-		// 초기 설정
-		updateTableStyles(wrapper);
-		updateScrollIndicator();
-	  }
-
-	  // 각 테이블에 스크롤 인디케이터 적용
-	  setupScrollIndicator(firstTableWrapper);
-	  setupScrollIndicator(secondTableWrapper);
+		setupScrollIndicator();
+	  });
 	});
 </script>

@@ -341,6 +341,10 @@
 					<title>적용</title>
 				</options>
 			</var>
+			<var name="horizontal_time" type="text">
+				<title>　┖ 마우스 머무는 시간</title>
+				<description>테이블에 마우스가 일정시간 머물러야 좌우 스코롤 작동(기본 1000 / 1초)</description>
+			</var>
 			<var name="modul_num" type="radio">
 				<title>모듈번호 출력</title>
 				<options value="">
