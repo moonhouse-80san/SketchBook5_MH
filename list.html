@@ -21,10 +21,9 @@ jQuery(function($){
 });
 //]]></script>
 
-<!--// 게시판 전체영역(List, 본문등) table 가로 overflow-x: auto 적용-->
 <script cond="$mi->board_table==''">
 	$(function() {
-	  $('.board_content table').wrap('<div style="overflow-x:auto"></div>');
+		$('.rhymix_content table').wrap('<div style="overflow-x:auto"></div>');
 	});
 </script>
 
@@ -306,14 +305,15 @@ jQuery(function($){
 					<a cond="@in_array('tag',$mi->btm_mn)" class="btn_img m_no" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardTagList')}"><i class="fa fa-tag"></i> {$lang->tag}</a>
 					<a cond="!$mi->write_btm_btn || ($mi->write_btm_btn!='N' && $grant->write_document)" class="btn_img" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardWrite')}"><i class="ico_16px write"></i> {$mi->write_buten}</a>
 					<block cond="$grant->manager">
-					<a class="btn_img" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardAdminBoardInfo')}"><i class="ico_16px setup"></i> {$lang->cmd_setup}</a>
-					<a class="btn_img" href="{getUrl('', 'mid', $mid, 'act', 'dispDocumentManageDocument')}" onclick="popopen(this.href,'manageDocument'); return false;"><i class="tx_ico_chk">✔</i> {$lang->cmd_manage_document}</a>
-					<!--// 엑셀버턴 출력 -->
-					{@
-						$excel_enable = getModel('excel') && !ExcelModel::getExcelGrantMessage('document', 'dispExcelGenerateBoard', $module_info->module_srl);
-						$excel_url = getFullUrl('', 'module', 'excel', 'act', 'dispExcelGenerateBoard');
-					}
-					<a cond="$excel_enable" class="btn_img" href="#" onclick="popopen('{$excel_url}'.setQuery('target_url', current_url), 'excelGenerate'); return false;">엑셀 저장</a>
+						<a class="btn_img" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardAdminBoardInfo')}"><i class="ico_16px setup"></i> {$lang->cmd_setup}</a>
+						<a class="btn_img" href="{getUrl('', 'mid', $mid, 'act', 'dispDocumentManageDocument')}" onclick="popopen(this.href,'manageDocument'); return false;"><i class="tx_ico_chk">✔</i> {$lang->cmd_manage_document}</a>
+
+						<!--// 엑셀버턴 출력 https://xetown.com/download/1713367 모듈 설치 필수-->
+						{@
+							$excel_enable = getModel('excel') && !ExcelModel::getExcelGrantMessage('document', 'dispExcelGenerateBoard', $module_info->module_srl);
+							$excel_url = getFullUrl('', 'module', 'excel', 'act', 'dispExcelGenerateBoard');
+						}
+						<a cond="$excel_enable" class="btn_img" href="#" onclick="popopen('{$excel_url}'.setQuery('target_url', current_url), 'excelGenerate'); return false;">엑셀 저장</a>
 					</block>
 				</div>
 			</div>
@@ -362,7 +362,7 @@ jQuery(function($){
 </block>
 
 <!--// Table의 폭이 디바이스 및 화면 가로 사이즈보다 더 넓을 때 마우스 휠 좌우 스코롤 -->
-<script>
+<script cond="!$mi->horizontal_scroll==''">
 	$(function() {
 	  // 첫 번째 테이블 (bd_lst) 처리
 	  const firstTableWrapper = $('.bd_lst').parent();
@@ -428,40 +428,6 @@ jQuery(function($){
 		  const delta = event.originalEvent.deltaY;
 		  $(this).scrollLeft($(this).scrollLeft() + delta);
 		}
-	  });
-
-	  // 터치 이벤트 처리 - 첫 번째 테이블
-	  firstTableWrapper.on('touchstart', function(event) {
-		if (!canScroll($(this))) return;
-		
-		touchStartX1 = event.originalEvent.touches[0].clientX;
-		scrollStartX1 = $(this).scrollLeft();
-	  });
-
-	  firstTableWrapper.on('touchmove', function(event) {
-		if (!canScroll($(this))) return;
-		
-		event.preventDefault();
-		const touchCurrentX = event.originalEvent.touches[0].clientX;
-		const touchDeltaX = touchStartX1 - touchCurrentX;
-		$(this).scrollLeft(scrollStartX1 + touchDeltaX);
-	  });
-
-	  // 터치 이벤트 처리 - 두 번째 테이블
-	  secondTableWrapper.on('touchstart', function(event) {
-		if (!canScroll($(this))) return;
-		
-		touchStartX2 = event.originalEvent.touches[0].clientX;
-		scrollStartX2 = $(this).scrollLeft();
-	  });
-
-	  secondTableWrapper.on('touchmove', function(event) {
-		if (!canScroll($(this))) return;
-		
-		event.preventDefault();
-		const touchCurrentX = event.originalEvent.touches[0].clientX;
-		const touchDeltaX = touchStartX2 - touchCurrentX;
-		$(this).scrollLeft(scrollStartX2 + touchDeltaX);
 	  });
 
 	  // PC 커서 스타일

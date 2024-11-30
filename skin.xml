@@ -331,6 +331,16 @@
 					<title>적용 안함</title>
 				</options>
 			</var>
+			<var name="horizontal_scroll" type="radio">
+				<title>　┖ 마우스 휠 좌우 스코롤</title>
+				<description>Table의 폭이 디바이스 및 화면 가로 사이즈보다 더 넓을 때 마우스 휠 좌우 스코롤 적용</description>
+				<options value="">
+					<title>적용 안함</title>
+				</options>
+				<options value="Y">
+					<title>적용</title>
+				</options>
+			</var>
 			<var name="modul_num" type="radio">
 				<title>모듈번호 출력</title>
 				<options value="">
