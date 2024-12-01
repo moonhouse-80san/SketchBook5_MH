@@ -1219,8 +1219,9 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 .bd_ft .mr5 { margin-right:5px; }
 .bd_ft .InfoLeft { float:left; text-align:left; }
 .bd_ft .InfoRight { text-align:right; }
-.bd_ft .InfoRight .irt { margin-left:5px; }
+.bd_ft .InfoRight .irt { margin-left:5px;  }
 .bd_ft img.tmb:hover { transform:scale(1.05); }
+.align-middle, .align-middle img, .align-middle span { vertical-align:middle; }
 
 @media only screen and (max-width:420px){
 	.bd_ft .InfoRight .irt { display:none !important; }

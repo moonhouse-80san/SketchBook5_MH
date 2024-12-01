@@ -143,7 +143,7 @@
 						<!--@end-->
 
 						<block cond="!$mi->link_board">
-							<a cond="$document->getCommentCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment" class="replyNum" title="{$lang->comment}">{$document->getCommentCount()}</a>
+							<a cond="$document->getCommentCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_comment" class="replyNum" title="{$lang->comment}"><img cond="$mi->fdb_count==''" src="img/iconReply.gif"/>{$document->getCommentCount()}</a>
 							<a cond="$document->getTrackbackCount()" href="{getUrl('document_srl', $document->document_srl)}#{$document->document_srl}_trackback" class="trackbackNum" title="{$lang->trackback}">{$document->getTrackbackCount()}</a>
 						</block>
 						<span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}<i cond="$document->thumbnailExists() && $mi->image_icon == ''" class="attached_image" title="Image"></i></span>
