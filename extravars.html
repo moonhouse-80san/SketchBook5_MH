@@ -1,6 +1,6 @@
 <caption class="blind">Extra Form</caption>
 {@ $etIdx=1 }
-<tr loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML() && $val->eid!='rd_preview' && $val->eid!=$mi->work_start && $val->eid!=$mi->work_stop" class="bg{$etIdx%2}">
+<tr loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML() && $val->eid!='rd_preview' && $val->eid!=$mi->work_start && $val->eid!=$mi->work_stop && ($val->eid!='fphoto'&& $val->eid!='fname'&& $val->eid!='fshop'&& $val->eid!='fhome')" class="bg{$etIdx%2}">
 	<!--// 지정게시판 -- 지정 확장변수 히든-->
 	<!--@if($val->value && ($mid !=$mi->extra_mid || ($val->name!=$mi->extra_name1 && $val->name!=$mi->extra_name2 && $val->name!=$mi->extra_name3 && $val->name!=$mi->et_logon_name && $val->name!=$mi->t_logon_name && $val->name!=$mi->g_logon_name && $val->name!=$mi->git_logon_name && $val->name!=$mi->d_logon_name || $grant->manager)))-->
 
