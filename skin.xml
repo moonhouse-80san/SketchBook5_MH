@@ -2130,16 +2130,6 @@
 					<title>사용 안함(기본)</title>
 				</options>
 			</var>
-			<var name="files_sort" type="radio">
-				<title>　┖ 파일이름명 순서대로 출력</title>
-				<description>"확장자 필터 기능 사용 안함" 선택시 업로드된 파일이름명 순서대로 출력</description>
-				<options value="Y">
-					<title>사용</title>
-				</options>
-				<options value="">
-					<title>사용 안함(기본)</title>
-				</options>
-			</var>
 			<var name="files_img" type="radio">
 				<title>　┖ 이미지 파일</title>
 				<description>첨부파일에서 이미지 파일(jpg, jpeg, gif, png)의 출력 여부를 선택합니다.</description>
@@ -2178,6 +2168,16 @@
 				</options>
 				<options value="N">
 					<title>출력 안함</title>
+				</options>
+			</var>
+			<var name="files_sort" type="radio">
+				<title>　┖ 파일이름명 순서대로 출력</title>
+				<description>"확장자 필터 기능 사용 안함" 선택시 업로드된 파일이름명 순서대로 출력</description>
+				<options value="Y">
+					<title>사용</title>
+				</options>
+				<options value="">
+					<title>사용 안함(기본)</title>
 				</options>
 			</var>
 			<var name="data_files" type="radio">
@@ -3300,6 +3300,17 @@
 			<var name="end_text" type="text">
 				<title>　┖ 끝 문구</title>
 				<description>남은 날짜 뒤에 붙는 문구</description>
+			</var>
+			<var name="data_form" type="radio">
+				<title>★폼 형태</title>
+				<description>확장변수를 폼형태로 출력합니다.
+				https://moonhouse.co.kr/xetip/578018</description>
+				<options value="">
+					<title>출력 안함(기본)</title>
+				</options>
+				<options value="Y">
+					<title>출력</title>
+				</options>
 			</var>
 		</group>
 		<group>

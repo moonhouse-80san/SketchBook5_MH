@@ -1,0 +1,40 @@
+<div class="form_box">
+	<table class="tg" loop="$oDocument->getExtraVars() => $key,$val">
+		<thead cond="$val->getValueHTML()">
+			<tr cond="$val->eid=='fphoto'">
+				<td  class="tg-21kx">
+					{$val->getValueHTML()}
+				</td>
+			</tr>
+		</thead>
+	</table>
+
+	<div style="overflow-x: auto;">
+		<table class="tg">
+			<thead loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML()">
+				<tr cond="$val->eid=='fname'">
+					<td class="tg-yfhh form_n">{$val->name}</td>
+					<td class="tg-yfhh form_v">{$val->getValueHTML()}</td>
+				</tr>
+				<tr cond="$val->eid=='fshop'">
+					<td class="tg-yfhh form_n">{$val->name}</td>
+					<td class="tg-yfhh form_v">{$val->getValueHTML()}</td>
+				</tr>
+				<tr cond="$val->eid=='fhome'">
+					<td class="tg-yfhh form_n">{$val->name}</td>
+					<td class="tg-yfhh form_v">{$val->getValueHTML()}</td>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</div>
+
+<style type="text/css">
+	.form_box { display:flex; justify-content:center; align-items:center; margin-bottom:10px; }
+	.tg { border-collapse:collapse; border-spacing:0; }
+	.tg td { border:1px solid #eee; background-color:#fafafa; padding:5px; box-shadow:0 1px 2px rgba(0,0,0,.2); overflow:hidden; word-break:normal; }
+	.tg .tg-21kx { display:table-cell; vertical-align:middle; text-align:center; min-width:100px; }
+	.tg .tg-yfhh { vertical-align:middle; line-height:30px;  }
+	.tg .form_n { text-align:left; min-width:50px; font-weight:bold; }
+	.tg .form_v { padding-left:10px; width:300px; }
+</style>
