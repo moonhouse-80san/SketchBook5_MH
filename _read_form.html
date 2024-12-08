@@ -1,9 +1,10 @@
 <div class="form_box">
 	<table class="tg" loop="$oDocument->getExtraVars() => $key,$val">
-		<thead cond="$val->getValueHTML()">
-			<tr cond="$val->eid=='fphoto'">
-				<td  class="tg-21kx">
-					{$val->getValueHTML()}
+		<thead cond="$oDocument->cover_extra_info[$val->eid]->cover_extra=='Y'">
+			<tr cond="$val->eid=='f0'">
+				<td class="tg-21kx">
+					<img cond="$mi->form_photo==''" src="{$oDocument->cover_extra_info[$val->eid]->cover_extra_url}" width="90" height="90">
+					<span cond="!$mi->form_photo==''">{$val->getValueHTML()}</span>
 				</td>
 			</tr>
 		</thead>
@@ -12,17 +13,17 @@
 	<div style="overflow-x: auto;">
 		<table class="tg">
 			<thead loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML()">
-				<tr cond="$val->eid=='fname'">
+				{@ 
+					$bg1=$val->eid=='f1' || $val->eid=='f3' || $val->eid=='f5';
+					$bg2=$val->eid=='f2' || $val->eid=='f4' || $val->eid=='f6';
+				}
+				<tr cond="$bg1">
 					<td class="tg-yfhh form_n">{$val->name}</td>
 					<td class="tg-yfhh form_v">{$val->getValueHTML()}</td>
 				</tr>
-				<tr cond="$val->eid=='fshop'">
-					<td class="tg-yfhh form_n">{$val->name}</td>
-					<td class="tg-yfhh form_v">{$val->getValueHTML()}</td>
-				</tr>
-				<tr cond="$val->eid=='fhome'">
-					<td class="tg-yfhh form_n">{$val->name}</td>
-					<td class="tg-yfhh form_v">{$val->getValueHTML()}</td>
+				<tr cond="$bg2">
+					<td class="tg-yfhh form_n bg">{$val->name}</td>
+					<td class="tg-yfhh form_v bg">{$val->getValueHTML()}</td>
 				</tr>
 			</thead>
 		</table>
@@ -32,9 +33,10 @@
 <style type="text/css">
 	.form_box { display:flex; justify-content:center; align-items:center; margin-bottom:10px; }
 	.tg { border-collapse:collapse; border-spacing:0; }
-	.tg td { border:1px solid #eee; background-color:#fafafa; padding:5px; box-shadow:0 1px 2px rgba(0,0,0,.2); overflow:hidden; word-break:normal; }
+	.tg td { border:1px solid #ddd; padding:5px; box-shadow:0 1px 2px rgba(0,0,0,.2); overflow:hidden; word-break:normal; }
 	.tg .tg-21kx { display:table-cell; vertical-align:middle; text-align:center; min-width:100px; }
-	.tg .tg-yfhh { vertical-align:middle; line-height:30px;  }
-	.tg .form_n { text-align:left; min-width:50px; font-weight:bold; }
-	.tg .form_v { padding-left:10px; width:300px; }
+	.tg .tg-yfhh { vertical-align:middle; line-height:30px; }
+	.tg .form_n { padding:0 10px; text-align:left; min-width:50px; font-weight:bold; background-color:#f6f6f6; }
+	.tg .form_v { padding-left:10px; width:300px; background-color:#fcfcfc; }
+	.tg .bg { background-color:#fff; }
 </style>
