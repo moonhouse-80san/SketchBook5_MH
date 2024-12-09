@@ -3,8 +3,8 @@
 		<thead cond="$oDocument->cover_extra_info[$val->eid]->cover_extra=='Y'">
 			<tr cond="$val->eid=='f0'">
 				<td class="tg-21kx">
-					<img cond="$mi->form_photo==''" src="{$oDocument->cover_extra_info[$val->eid]->cover_extra_url}" width="90" height="90">
-					<span cond="!$mi->form_photo==''">{$val->getValueHTML()}</span>
+					<img class="f_thumbs" cond="$mi->form_thumbs==''" src="{$oDocument->cover_extra_info[$val->eid]->cover_extra_url}">
+					<span class="f_thumbs" cond="!$mi->form_thumbs==''">{$val->getValueHTML()}</span>
 				</td>
 			</tr>
 		</thead>
@@ -32,11 +32,12 @@
 
 <style type="text/css">
 	.form_box { display:flex; justify-content:center; align-items:center; margin-bottom:10px; }
-	.tg { border-collapse:collapse; border-spacing:0; }
-	.tg td { border:1px solid #ddd; padding:5px; box-shadow:0 1px 2px rgba(0,0,0,.2); overflow:hidden; word-break:normal; }
-	.tg .tg-21kx { display:table-cell; vertical-align:middle; text-align:center; min-width:100px; }
-	.tg .tg-yfhh { vertical-align:middle; line-height:30px; }
-	.tg .form_n { padding:0 10px; text-align:left; min-width:50px; font-weight:bold; background-color:#f6f6f6; }
-	.tg .form_v { padding-left:10px; width:300px; background-color:#fcfcfc; }
-	.tg .bg { background-color:#fff; }
+	.form_box .tg { border-collapse:collapse; border-spacing:0; }
+	.form_box .tg td { box-sizing:border-box; border:1px solid #ddd; padding:5px; box-shadow:0 1px 2px rgba(0,0,0,.2); overflow:hidden; word-break:normal; }
+	.form_box .tg .f_thumbs { max-height:100px; }
+	.form_box .tg .tg-21kx { display:table-cell; vertical-align:middle; text-align:center; min-width:100px; }
+	.form_box .tg .tg-yfhh { vertical-align:middle; line-height:28px; }
+	.form_box .tg .form_n { padding:0 10px; text-align:left; min-width:50px; font-weight:bold; background-color:#f6f6f6; }
+	.form_box .tg .form_v { padding-left:10px; width:300px; background-color:#fcfcfc; }
+	.form_box .tg .bg { background-color:#fff; }
 </style>

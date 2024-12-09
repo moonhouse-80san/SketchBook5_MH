@@ -138,7 +138,7 @@
 		<!--// Files : Header -->
 		<include cond="$oDocument->hasUploadedFiles() && $mi->show_files=='3'" target="_read_files.html" />
 		<!--// Extra Var : Header -->
-		<table cond="$mi->et_var=='1' && $oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())" class="et_vars bd_tb">
+		<table cond="$mi->et_var=='1' && $mi->extra_form=='' && $oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())" class="et_vars bd_tb">
 			<include target="extravars.html" />
 		</table>
 		<!--// SNS small -->
@@ -174,16 +174,22 @@
 			<!--// 자료실형태 -->
 			<include cond="$oDocument->hasUploadedFiles() && $mi->data_files=='Y'" target="_read_data.html" />
 
-			<!--// 폼형태 -->
-			<include cond="$mi->data_form=='Y' && $oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())"  target="_read_form.html" />
-
 			<!--// Extra Var -->
-			<table cond="!$mi->et_var && $oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())" class="et_vars bd_tb cont">
-				<include target="extravars.html" />
-			</table>
+			<!--@if($mi->extra_form=='form')-->
+				<include cond="$oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())"  target="_read_form.html" />
+			<!--@elseif($mi->extra_form=='')-->
+				<table cond="!$mi->et_var && $oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())" class="et_vars bd_tb cont">
+					<include target="extravars.html" />
+				</table>
+			<!--@elseif($mi->extra_form=='combine')-->
+				<include cond="$oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())"  target="_read_form.html" />
+				<table cond="!$mi->et_var && $oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())" class="et_vars bd_tb cont">
+					<include target="extravars.html" />
+				</table>
+			<!--@end-->
 
 			<!--// 외부링크 다운로드 출력시 다른 확장변수 출력가능 -->
-			<table cond="$mi->et_var=='2' && $oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())" class="et_vars bd_tb cont">
+			<table cond="$mi->et_var=='2' && $mi->extra_form=='' && $oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())" class="et_vars bd_tb cont">
 				<include target="extravars.html" />
 			</table>
 
