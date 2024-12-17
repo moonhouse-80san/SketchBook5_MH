@@ -112,13 +112,13 @@ jQuery(function($){
 				<block cond="$grant->view && $mi->default_style!='guest' && $mi->default_style!='blog'">
 				<a cond="$oDocument->isExists() && !$mi->viewer" class="bg_f_f9" href="#" onclick="window.open('{getUrl('listStyle','viewer','page','')}','viewer','width=9999,height=9999,scrollbars=yes,resizable=yes,toolbars=no');return false">✔ <strong>{$lang->viewer}</strong></a>
 				<!--@if($mi->link_board)-->
-				<a cond="$mi->viewer_with!='N'" class="viewer_with bubble<!--@if($mi->viewer_with=='2' || $_COOKIE['cookie_viewer_with']=='Y')--> on<!--@end-->" href="#" title="{$lang->with_viewer_info}.">✔ <strong>{$lang->link_site_viewer}</strong></a>
+				<a cond="$mi->viewer_with!=='N'" class="viewer_with bubble<!--@if($mi->viewer_with=='2' || $_COOKIE['cookie_viewer_with']=='Y')--> on<!--@end-->" href="#" title="{$lang->with_viewer_info}.">✔ <strong>{$lang->link_site_viewer}</strong></a>
 				<!--@else-->
-				<a cond="!$oDocument->isExists() && $mi->viewer_with!='N'" class="viewer_with rd_viewer bubble<!--@if($mi->viewer_with=='2' || $_COOKIE['cookie_viewer_with']=='Y')--> on<!--@end-->" href="#" title="{$lang->with_viewer_info}.">✔ <strong>{$lang->with_viewer}</strong></a>
+				<a cond="!$oDocument->isExists() && $mi->viewer_with!=='N'" class="viewer_with rd_viewer bubble<!--@if($mi->viewer_with=='2' || $_COOKIE['cookie_viewer_with']=='Y')--> on<!--@end-->" href="#" title="{$lang->with_viewer_info}.">✔ <strong>{$lang->with_viewer}</strong></a>
 				<!--@end-->
 				</block>
 				<block cond="!$oDocument->isExists()">
-				<a cond="!$mi->write_btn || ($mi->write_btn!='N' && $grant->write_document)" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardWrite', 'category', $category ?? null)}"><b class="ico_16px write"></b>{$mi->write_buten}</a>
+				<a cond="!$mi->write_btn || ($mi->write_btn!=='N' && $grant->write_document)" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardWrite', 'category', $category ?? null)}"><b class="ico_16px write"></b>{$mi->write_buten}</a>
 				<span cond="$mi->font_btn=='2'" class="font_select"><a class="select tg_btn2" href="#" data-href=".bd_font_select"><b class="tx_ico_chk">T</b>{$lang->font}<i class="arrow down"></i></a></span>
 				<block cond="$grant->manager && !$mi->guest_view == ''">
 				<a href="{getUrl('', 'mid', $mid, 'act','dispBoardAdminBoardInfo')}"><b class="ico_16px setup"></b>{$lang->cmd_setup}</a>
