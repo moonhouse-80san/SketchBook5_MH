@@ -17,20 +17,20 @@
 <!--@else-->
 <div class="context_data">
 	<h3 class="title">&quot;{$lang->cmd_reply} {$lang->cmd_modify}&quot;</h3>
-	<p cond="$mo">※ {$lang->m_editor_notice}.</p>
+	<p cond="Mobile::isMobileCheckByAgent()">※ {$lang->m_editor_notice}.</p>
 </div>
 <div class="context_message" style="margin-bottom:40px"></div>
 <!--@end-->
 
 <!--// 댓글 수정화면 -->
-<form action="./" method="post" onsubmit="<!--@if($mo && !$mi->m_editor)-->jQuery(this).find('input[name=content]').val(jQuery('#editor').html());<!--@end-->return procFilter(this, insert_comment)" class="bd_wrt bd_wrt_main clear">
+<form action="./" method="post" onsubmit="<!--@if(Mobile::isMobileCheckByAgent() && !$mi->m_editor)-->jQuery(this).find('input[name=content]').val(jQuery('#editor').html());<!--@end-->return procFilter(this, insert_comment)" class="bd_wrt bd_wrt_main clear">
 	<input type="hidden" name="mid" value="{$mid}" />
 	<input type="hidden" name="document_srl" value="{$oComment->get('document_srl')}" />
 	<input type="hidden" name="comment_srl" value="{$oComment->get('comment_srl')}" />
 	<input type="hidden" name="content" value="{htmlspecialchars($oComment->get('content'))}" />
 	<input type="hidden" name="parent_srl" value="{$oComment->get('parent_srl')}" />
-	<div cond="!$mo || $mi->m_editor==3" class="get_editor">{$oComment->getEditor()}</div>
-	<div cond="$mo && $mi->m_editor!=3" class="m_editor">
+	<div cond="!Mobile::isMobileCheckByAgent() || $mi->m_editor==3" class="get_editor">{$oComment->getEditor()}</div>
+	<div cond="Mobile::isMobileCheckByAgent() && $mi->m_editor!=3" class="m_editor">
 <!-- Textarea -->
 <block cond="$mi->m_editor==2">
 <load target="../../../editor/tpl/js/editor_common.min.js" />
@@ -76,24 +76,25 @@
 		<div id="editor"><p>&nbsp;</p></div>
 </block>
 	</div>
-	<!--// 비로그인 입력 -->
-	<div class="edit_opt" cond="!$is_logged">
+	<div class="edit_opt">
+		<block cond="!$is_logged">
 		<span class="itx_wrp">
 			<label for="nick_name">{$lang->writer}</label>
-            <input type="text" name="nick_name" id="nick_name" value="{$oDocument->getNickName()}" class="itx n_p" />
+			<input type="text" name="nick_name" id="nick_name" class="itx n_p" value="{$oComment->getNickName()}" />
 		</span>
 		<span class="itx_wrp">
 			<label for="password">{$lang->password}</label>
-            <input type="password" name="password" id="password" class="itx n_p" />
-		</span>
+			<input type="password" name="password" id="password" class="itx n_p" />
+		</span>	
 		<span class="itx_wrp" cond="!$mi->email_view==''">
 			<label for="email_address">{$lang->email_address}</label>
-            <input type="text" name="email_address" id="email_address" value="{htmlspecialchars($oDocument->get('email_address'))}" class="itx m_h" />
-		</span>
+			<input type="text" name="email_address" id="email_address" class="itx m_h" />
+		</span>	
 		<span class="itx_wrp" cond="!$mi->homepage_view==''">
 			<label for="homepage">{$lang->homepage}</label>
-            <input type="text" name="homepage" id="homepage" value="{escape($oDocument->get('homepage'), false)}" class="itx m_h" />
+			<input type="text" name="homepage" id="homepage" class="itx m_h" />
 		</span>
+		</block>
 	</div>
 	<div class="opt_chk clear">
 		<block cond="$is_logged">
@@ -104,9 +105,6 @@
 		<input type="checkbox" name="is_secret" value="Y" id="is_secret" checked="checked"|cond="$oComment->get('is_secret')=='Y' || ($oComment->get('is_secret')!='Y' && @in_array('secret',$mi->wrt_opt))" />
 		<label for="is_secret">{$lang->secret}</label>
 		</block>
-	</div>
-	<div class="write_captcha" cond="$captcha">
-		{$captcha}
 	</div>
 	<div class="regist">
 		<button type="button" onclick="history.back()" class="bd_btn">{$lang->cmd_back}</button>
