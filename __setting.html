@@ -393,7 +393,7 @@
 	<block cond="$mi->zine_style=='3' || $mi->zine_style=='4'">
 	.bd_zine{margin:0 auto;padding:{$mi->zine_margin}px 0}
 	.bd_zine li{width:{$mi->zine_thumb_width}px;margin:{$mi->zine_margin}px}
-	.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width-2}px;<!--@if($mi->thumbnail_type=='crop')-->height:{$mi->zine_thumb_width-2}px;line-height:{$mi->zine_thumb_width-2}px<!--@else-->height:120px;line-height:120px<!--@end-->;border:1px solid #DDD}
+	.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width-2}px;<!--@if($mi->thumbnail_type=='fill')-->height:{$mi->zine_thumb_width-2}px;line-height:{$mi->zine_thumb_width-2}px<!--@else-->height:120px;line-height:120px<!--@end-->;border:1px solid #DDD}
 	<!--@if($mi->zine_thumb_width > 399)-->
 	.bd_zine.card h3{font-size:15px}
 	.bd_zine.card .cnt{margin-top:1.5em}
@@ -524,9 +524,9 @@
 	</block>
 
 	<!--// FirstThumb 스타일 -->
-	.bd_ft li { border:{$mi->line_size}px solid {$mi->line_color}; }
-	.bd_ft li:hover,
-	.bd_ft li:focus,
+	.bd_ft ul { border:{$mi->line_size}px solid {$mi->line_color}; }
+	.bd_ft ul:hover,
+	.bd_ft ul:focus,
 	.bd_ft .select { border:{$mi->line_size}px solid #{$mi->color}; background:{$mi->background_color}; }
 
 	.line_right { background:url({$tpl_path}img/line_1x10_e0e0e0.gif) no-repeat right 3px; padding-right:.5em; margin-right:.5em; }
