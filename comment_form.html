@@ -17,20 +17,20 @@
 <!--@else-->
 <div class="context_data">
 	<h3 class="title">&quot;{$lang->cmd_reply} {$lang->cmd_modify}&quot;</h3>
-	<p cond="Mobile::isMobileCheckByAgent()">※ {$lang->m_editor_notice}.</p>
+	<p cond="$mo">※ {$lang->m_editor_notice}.</p>
 </div>
 <div class="context_message" style="margin-bottom:40px"></div>
 <!--@end-->
 
 <!--// 댓글 수정화면 -->
-<form action="./" method="post" onsubmit="<!--@if(Mobile::isMobileCheckByAgent() && !$mi->m_editor)-->jQuery(this).find('input[name=content]').val(jQuery('#editor').html());<!--@end-->return procFilter(this, insert_comment)" class="bd_wrt bd_wrt_main clear">
+<form action="./" method="post" onsubmit="<!--@if($mo && !$mi->m_editor)-->jQuery(this).find('input[name=content]').val(jQuery('#editor').html());<!--@end-->return procFilter(this, insert_comment)" class="bd_wrt bd_wrt_main clear">
 	<input type="hidden" name="mid" value="{$mid}" />
 	<input type="hidden" name="document_srl" value="{$oComment->get('document_srl')}" />
 	<input type="hidden" name="comment_srl" value="{$oComment->get('comment_srl')}" />
 	<input type="hidden" name="content" value="{htmlspecialchars($oComment->get('content'))}" />
 	<input type="hidden" name="parent_srl" value="{$oComment->get('parent_srl')}" />
-	<div cond="!Mobile::isMobileCheckByAgent() || $mi->m_editor==3" class="get_editor">{$oComment->getEditor()}</div>
-	<div cond="Mobile::isMobileCheckByAgent() && $mi->m_editor!=3" class="m_editor">
+	<div cond="!$mo || $mi->m_editor==3" class="get_editor">{$oComment->getEditor()}</div>
+	<div cond="$mo && $mi->m_editor!=3" class="m_editor">
 <!-- Textarea -->
 <block cond="$mi->m_editor==2">
 <load target="../../../editor/tpl/js/editor_common.min.js" />
