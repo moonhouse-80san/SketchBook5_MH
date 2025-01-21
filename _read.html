@@ -78,7 +78,7 @@
 					<strong cond="$mi->rd_cate=='2' && $mi->use_category=='Y' && $oDocument->get('category_srl')" class="cate" title="Category">{$category_list[$oDocument->get('category_srl')]->title}</strong>
 					<block cond="$mi->rd_info=='2'">
 					<span cond="!$mi->rd_view">{$lang->readed_count} <b>{number_format($oDocument->get('readed_count'))}</b></span>
-					<span cond="!$mi->rd_view">{$lang->voted_count} <b>{$oDocument->get('voted_count')}</b></span>
+					<span cond="!$mi->rd_vote">{$lang->voted_count} <b>{$oDocument->get('voted_count')}</b></span>
 					<span cond="!$mi->rd_cmt">{$lang->comment} <b>{$oDocument->getCommentcount()}</b></span>
 					</block>
 				</div>
@@ -127,9 +127,9 @@
 				<span cond="$mi->rd_blog_cate=='2' && $mi->use_category=='Y' && $oDocument->get('category_srl')"><small>In </small><b title="Category">{$category_list[$oDocument->get('category_srl')]->title}</b></span>
 				<span cond="!$mi->rd_blog_nick"><small>by </small><b>{$oDocument->getNickName()}</b></span>
 				<span cond="!$mi->rd_blog_date" title="{$oDocument->getRegdate('Y.m.d H:i')}"><small>posted </small><b class="date">{$oDocument->getRegdate('M d, Y')}</b></span>
-				<span cond="@in_array('view',$mi->rd_blog_itm)"><small>Views</small> <b>{number_format($oDocument->get('readed_count'))}</b></span>
-				<span cond="@in_array('like',$mi->rd_blog_itm)"><small>Likes</small> <b>{$oDocument->get('voted_count')}</b></span>
-				<span cond="@in_array('cmt',$mi->rd_blog_itm)"><small>Replies</small> <b>{$oDocument->getCommentcount()}</b></span>
+				<span cond="is_array($mi->rd_blog_itm) && in_array('view',$mi->rd_blog_itm)"><small>Views</small> <b>{number_format($oDocument->get('readed_count'))}</b></span>
+				<span cond="is_array($mi->rd_blog_itm) && in_array('like',$mi->rd_blog_itm)"><small>Likes</small> <b>{$oDocument->get('voted_count')}</b></span>
+				<span cond="is_array($mi->rd_blog_itm) && in_array('cmt',$mi->rd_blog_itm)"><small>Replies</small> <b>{$oDocument->getCommentcount()}</b></span>
 			</div>
 		</div>
 
@@ -282,7 +282,7 @@
 
 			<!--// Tag -->
 			{@ $tag_list=$oDocument->get('tag_list') }
-			<div cond="count($tag_list)" class="rd_t_f rd_tag css3pie clear">
+			<div cond="$tag_list" class="rd_t_f rd_tag css3pie clear">
 				<div class="bg_f_color border_color">TAG &bull;</div>
 				<ul>
 					<!--@for($i=0;$i<count($tag_list);$i++)-->
@@ -354,7 +354,7 @@
 										$prevnext_nick = $document2->nick_name;
 										$thumbnail_path = sprintf('files/thumbnails/%s',getNumberingPath($prevnext_doc, 3));
 										$thumbnail_type_tmp = $mi->thumbnail_type;
-										if(!$thumbnail_type_tmp) $thumbnail_type_tmp = 'crop';
+										if(!$thumbnail_type_tmp) $thumbnail_type_tmp = 'fill';
 										$thumbnail_file = sprintf('%s%dx%d.%s.jpg', $thumbnail_path, $mi->thumbnail_width, $mi->thumbnail_height, $thumbnail_type_tmp);
 										$thumbnail_url  = Context::getRequestUri().$thumbnail_file;
 										if(file_exists($thumbnail_file)) $prevnext_thumb = $thumbnail_url;

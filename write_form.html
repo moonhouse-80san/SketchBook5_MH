@@ -220,17 +220,19 @@
 			<input type="checkbox" name="comment_status" value="ALLOW" checked="checked"|cond="$oDocument->allowComment()" id="comment_status" />
 			<label for="comment_status">{$lang->allow_comment}</label>
 		</div>
+
 		<div cond="$is_logged" class="sk_section">
-			<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify() || (!$oDocument->useNotify() && @in_array('notify',$mi->wrt_opt))" id="notify_message" />
+			<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify() || (!$oDocument->useNotify() && is_array($mi->wrt_opt) && in_array('notify',$mi->wrt_opt))" id="notify_message" />
 			<label for="notify_message">{$lang->notify}</label>
 		</div>
 		<div cond="is_array($status_list)" class="sk_section">
 			<!--@foreach($status_list AS $key=>$value)-->
-			<input cond="@!in_array('secret',$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='PUBLIC' && !$document_srl)" />
-			<input cond="@in_array('secret',$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='SECRET' && !$document_srl)" />
+			<input cond="!$mi->wrt_opt" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='PUBLIC' && !$document_srl)" />
+			<input cond="$mi->wrt_opt" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='SECRET' && !$document_srl)" />
 			<label for="{$key}">{$value}</label>
 			<!--@end-->
 		</div>
+
 		<div cond="$mi->use_anonymous == 'Y'" class="sk_section">
 			<input type="checkbox" name="use_anonymous" class="iCheck" value="Y" id="use_anonymous" checked="checked"<!--@if(!$is_logged)--> style="display: none;" onclick="return false;"<!--@end--> />
 			<label for="use_anonymous"<!--@if(!$is_logged)--> style="display: none;" onclick="return false;"<!--@end-->><b>익명</b></label>

@@ -1211,7 +1211,7 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 .bd_ft .EndButton { float:right; text-align:right; margin-top:-5px; }
 .bd_ft .Area { display:table; width:100%; box-sizing:border-box; padding:10px; }
 .bd_ft .title { vertical-align:middle; }
-.bd_ft .number { float:left; display:flex; justify-content:center; align-items:center; width:15px; height:15px; font-size:0.9em; color:#fff; background-color:#444; padding:3px; border-radius:50%;  margin:4px 5px 0 0; }
+.bd_ft .number { float:left; display:flex; justify-content:center; align-items:center; width:22px; height:22px; font-size:0.9em; color:#fff; background-color:#444; padding:3px; border-radius:50%;  margin:4px 5px 0 0; }
 .bd_ft .title a { font-size:20px; }
 .bd_ft .tag { margin-top:5px; }
 .bd_ft .tag a { margin:0 5px; font-size:12px; color:#444; }
@@ -1234,14 +1234,14 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 .bd_ft .CommArea { position:relative; width:100%; border:1px solid #eee; background-color:#fafafa; padding:5px; border-radius:5px; box-shadow:0 1px 2px rgba(0,0,0,.2); }
 .bd_ft td { border:0; line-height:1.5; white-space:nowrap; padding:1px 5px; }
 .bd_ft .replyIndent { margin:3px; border-top:0 dotted #ddd; overflow:hidden; white-space:normal; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; word-wrap:break-word; }
-.bd_ft .replyIndent a { font-size:0.9em ; }
+.bd_ft .replyIndent a { font-size:0.9em; }
 
 .bd_ft .arrow-container { position:relative; display:inline-block; top:4px; left:7px; z-index:1 }
 .bd_ft .arrow-outer {	position:absolute; width:0; height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-bottom:10px solid #eee; /* 외부 테두리 색상 */ }
 .bd_ft .arrow-inner { position:absolute; top:2px; /* 테두리 두께에 따라 조정 */ left:2px; /* 테두리 두께에 따라 조정 */ width:0; height:0; border-left:8px solid transparent; border-right:8px solid transparent;  border-bottom:8px solid #fafafa; /* 내부 색상 */ }
 
 /* 댓글 리스트 */
-.replylist .replyIndent a { background:url(../img/iconReplyArrow.gif) no-repeat left ; padding-left:35px; color:#999999; }
+.replylist .replyIndent a { background:url(../img/iconReplyArrow.gif) no-repeat left ; padding-left:35px; color:#999999; word-break:break-all; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; }
 .replylist .author { width:10px; }
 .replylist .author span { color:#A6A39D; font-size:0.8em; }
 .replylist .date .day { font-size:1em; }
@@ -1286,4 +1286,4 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 .trackBar { background-color:#c00000c2; height:10px; width:0; position:relative; margin:-6px 2px 0px 0px; }
 
 /* 관리자에게 모듈번호 출력 */
-.m_num { z-index:99; position:absolute; top:0px; right:0px; font-weight:700; font-size:1em; clip-path:polygon(50% 0, 100% 0, 100% 80%, 50% 100%, 0 80%, 0 0); background-color:red; padding:5px 10px 10px 10px; color:white; cursor:pointer; }
+.m_num { z-index:1; position:relative; float:right; max-width:100px; text-align:center; font-weight:700; font-size:1em; clip-path:polygon(50% 0, 100% 0, 100% 80%, 50% 100%, 0 80%, 0 0); background-color:red; padding:5px 10px 10px 10px; color:white; cursor:pointer; }

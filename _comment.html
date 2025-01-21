@@ -98,7 +98,7 @@
 					<span cond="$comment->isSecret()" class="ico_secret">SECRET</span>
 
 					<!--// 댓글 작성자가 원글 작성자인 경우 표시-->
-					{@ if(!$mi->comment_write_view) $mi->comment_write_view = 글쓴이; }
+					{@ if(!$mi->comment_write_view) $mi->comment_write_view = '글쓴이'; }
 					<!--@if( abs($oDocument->get('member_srl')) >0 || abs($comment->member_srl ) > 0 )-->
 						<!--@if( abs($comment->get('member_srl')) === abs($oDocument->get('member_srl')) )-->
 							<span class="cw">{$mi->comment_write_view}</span>

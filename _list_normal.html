@@ -104,7 +104,7 @@
 										<include target="d_day.html" />
 										<include target="title.html" />
 										<span cond="!$document->isSecret()" class="wrp">
-											<img cond="$document->thumbnailExists() && @in_array('img',$mi->preview)" src="{$document->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
+											<img cond="$document->thumbnailExists() && is_array($mi->preview) && in_array('img',$mi->preview)" src="{$document->getThumbnail($mi->thumbnail_width,$mi->thumbnail_height,$mi->thumbnail_type)}" alt="" />
 											<span class="speech">{htmlspecialchars($document->getSummary($mi->preview_tx))}</span><i class="bubble_edge"></i>
 											<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
 										</span>
@@ -215,7 +215,7 @@
 
 				<!--// 목록에 에드센스 출력 -->
 				<!--@if(in_array($i+1, array($mi->ad1, $mi->ad2, $mi->ad3)) && $mi->list_ads=='Y')-->
-					<tr class="w100">
+					<tr class="w100 adsense-container">
 						<td colspan="10">{$mi->ads_code}</td>
 					</tr>
 				<!--@end-->
@@ -226,6 +226,13 @@
 </div>
 
 <style>
+	ins.adsbygoogle[data-ad-status="unfilled"] {
+		display: none !important;
+	}
+	tr.adsense-container:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
+		display: none !important;
+	}
+
 	.bd_lst th.fixed, .bd_lst td.fixed, 
 	.bd_lst th.t_fixed, .bd_lst td.t_fixed { background-color:{$mi->sticky_bcolor}; }
 </style>

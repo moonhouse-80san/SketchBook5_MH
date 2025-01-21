@@ -65,9 +65,9 @@
 
 	if($mi->custom_color) $mi->color = $mi->custom_color;
 	if($mi->custom_shadow) $mi->shadow = $mi->custom_shadow;
-	if(!$mi->color) $mi->color = 333333;
+	if(!$mi->color) $mi->color = '#333333';
 	if(!$mi->color) $mi->shadow = '#999';
-	if($mi->colorset=='black') $mi->color = EEEEEE;
+	if($mi->colorset=='black') $mi->color = '#EEEEEE';
 	if($mi->colorset=='black') $mi->shadow = '#000';
 	if($mi->color=='87cefa') $mi->shadow = '#5f9ea0';<!--// 라이트스카이블루 -->
 	if($mi->color=='6495ed') $mi->shadow = '#4682b4';<!--// 콘플라워블루 -->
@@ -233,7 +233,7 @@
 {@ $mi->default_style = 'list'}
 <!--@end-->
 
-<!--@if(class_exists(Mobile) && Mobile::isFromMobilePhone())-->
+<!--@if(class_exists('Mobile') && Mobile::isFromMobilePhone())-->
 <load target="../../../../common/js/jquery.min.js" index="-100006" />
 <load target="../../../../common/js/xe.min.js" index="-100006" />
 <load target="../../../../common/js/x.min.js" index="-100006" />

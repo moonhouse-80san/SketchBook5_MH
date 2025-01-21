@@ -74,14 +74,23 @@
 .sbtn_small a { text-decoration:none; color:#8c8c8c;}
 .sbtn_mini a { text-decoration:none; color:#8c8c8c;}
 .sbtn-blue a { text-decoration:none; color:#fff; }
+.sbtn-blue .sbtna { text-decoration:none; color:#fff; }
 .sbtn-orange a { text-decoration:none; color:#fff; }
+.sbtn-orange .sbtna { text-decoration:none; color:#fff; }
 .sbtn-red a { text-decoration:none; color:#fff; }
+.sbtn-red .sbtna { text-decoration:none; color:#fff; }
 .sbtn-purple a { text-decoration:none; color:#fff; }
+.sbtn-purple .sbtna { text-decoration:none; color:#fff; }
 .sbtn-green a { text-decoration:none; color:#fff; }
+.sbtn-green .sbtna { text-decoration:none; color:#fff; }
 .sbtn-yellow a { text-decoration:none; color:#967d09; }
+.sbtn-yellow .sbtna { text-decoration:none; color:#967d09; }
 .sbtn-sky a { text-decoration:none; color:#000; }
+.sbtn-sky .sbtna { text-decoration:none; color:#000; }
 .sbtn-dark a { text-decoration:none; color:#fff; }
+.sbtn-dark .sbtna { text-decoration:none; color:#fff; }
 .sbtn-white a { text-decoration:none; color:#8c8c8c; }
+.sbtn-white .sbtna { text-decoration:none; color:#8c8c8c; }
 
 .sbtn:hover a { text-decoration:none; color:#8c8c8c;}
 .sbtn_small:hover a { text-decoration:none; color:#8c8c8c;}
