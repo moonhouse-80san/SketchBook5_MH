@@ -226,16 +226,26 @@
 
 		<!--// 목록에 에드센스 출력 -->
 		<!--@if(in_array($i+1, array($mi->ad1, $mi->ad2, $mi->ad3)) && $mi->list_ads=='Y' && !$mo)-->
-			<li class="ads">
+			<li class="ads adsense-container">
 				{$mi->ads_code}
 			</li>
 		<!--@end-->
 		<!--@if(in_array($i+1, array($mi->ad1, $mi->ad2, $mi->ad3)) && $mi->list_ads=='Y' && $mo)-->
-			<div class="adsm">
+			<div class="adsm adsense-container">
 				{$mi->ads_mcode}
 			</div>
 		<!--@end-->
 			<style>
+				ins.adsbygoogle[data-ad-status="unfilled"] {
+					display: none !important;
+				}
+				li.adsense-container:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
+					display: none !important;
+				}
+				div.adsense-container:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
+					display: none !important;
+				}
+
 				.bd_zine .ads { margin:0 !important; padding:0px; border-top:0px solid #f60}
 
 				@media all and (max-width:480px) {

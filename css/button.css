@@ -74,35 +74,51 @@
 .sbtn_small a { text-decoration:none; color:#8c8c8c;}
 .sbtn_mini a { text-decoration:none; color:#8c8c8c;}
 .sbtn-blue a { text-decoration:none; color:#fff; }
+.sbtn-blue a i { text-decoration:none; color:#fff; }
 .sbtn-blue .sbtna { text-decoration:none; color:#fff; }
 .sbtn-orange a { text-decoration:none; color:#fff; }
-.sbtn-orange .sbtna { text-decoration:none; color:#fff; }
+.sbtn-orange a i { text-decoration:none; color:#fff; }
+.sbtn-orange .sbtna{ text-decoration:none; color:#fff; }
 .sbtn-red a { text-decoration:none; color:#fff; }
 .sbtn-red .sbtna { text-decoration:none; color:#fff; }
+.sbtn-red a i { text-decoration:none; color:#fff; }
 .sbtn-purple a { text-decoration:none; color:#fff; }
 .sbtn-purple .sbtna { text-decoration:none; color:#fff; }
+.sbtn-purple a i { text-decoration:none; color:#fff; }
 .sbtn-green a { text-decoration:none; color:#fff; }
 .sbtn-green .sbtna { text-decoration:none; color:#fff; }
+.sbtn-green a i { text-decoration:none; color:#fff; }
 .sbtn-yellow a { text-decoration:none; color:#967d09; }
 .sbtn-yellow .sbtna { text-decoration:none; color:#967d09; }
+.sbtn-yellow a i { text-decoration:none; color:#967d09; }
 .sbtn-sky a { text-decoration:none; color:#000; }
 .sbtn-sky .sbtna { text-decoration:none; color:#000; }
+.sbtn-sky a i { text-decoration:none; color:#000; }
 .sbtn-dark a { text-decoration:none; color:#fff; }
 .sbtn-dark .sbtna { text-decoration:none; color:#fff; }
+.sbtn-dark a i { text-decoration:none; color:#fff; }
 .sbtn-white a { text-decoration:none; color:#8c8c8c; }
 .sbtn-white .sbtna { text-decoration:none; color:#8c8c8c; }
+.sbtn-white a i { text-decoration:none; color:#8c8c8c; }
 
 .sbtn:hover a { text-decoration:none; color:#8c8c8c;}
 .sbtn_small:hover a { text-decoration:none; color:#8c8c8c;}
 .sbtn_mini:hover a { text-decoration:none; color:#8c8c8c;}
-.sbtn-blue:hover a { text-decoration:none; color:#fff; }
-.sbtn-orange:hover a { text-decoration:none; color:#fff; }
-.sbtn-red:hover a { text-decoration:none; color:#fff; }
-.sbtn-purple:hover a { text-decoration:none; color:#fff; }
-.sbtn-green:hover a { text-decoration:none; color:#fff; }
-.sbtn-yellow:hover a { text-decoration:none; color:#967d09; }
-.sbtn-sky:hover a { text-decoration:none; color:#967d09; }
-.sbtn-dark:hover a { text-decoration:none; color:#444; }
-.sbtn-white:hover a { text-decoration:none; color:#fff; }
-
-
+.sbtn-blue:hover a,
+.sbtn-blue:hover a i { text-decoration:none; color:#fff; }
+.sbtn-orange:hover a,
+.sbtn-orange:hover a i { text-decoration:none; color:#fff; }
+.sbtn-red:hover a, 
+.sbtn-red:hover a i { text-decoration:none; color:#fff; }
+.sbtn-purple:hover a,
+.sbtn-purple:hover a i { text-decoration:none; color:#fff; }
+.sbtn-green:hover a,
+.sbtn-green:hover a i { text-decoration:none; color:#fff; }
+.sbtn-yellow:hover a,
+.sbtn-yellow:hover a i { text-decoration:none; color:#967d09; }
+.sbtn-sky:hover a, 
+.sbtn-sky:hover a i { text-decoration:none; color:#967d09; }
+.sbtn-dark:hover a,
+.sbtn-dark:hover a i { text-decoration:none; color:#444; }
+.sbtn-white:hover a,
+.sbtn-white:hover a i { text-decoration:none; color:#fff; }

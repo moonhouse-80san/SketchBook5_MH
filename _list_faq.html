@@ -23,7 +23,6 @@
 			<strong cond="$mi->use_category=='Y' && $document->get('category_srl')" class="cate">&#91;{$category_list[$document->get('category_srl')]->title}&#93;</strong>
 			<span class="tl">{$document->getTitle($mi->subject_cut_size)}</span>
 			<span class="fr">
-				<span cond="$document->getExtraEidValue('rating')" class="starRating" title="{$document->getExtraEidValue('rating')}점"><span style="width:{$document->getExtraEidValue('rating')*10}%">{$document->getExtraEidValue('rating')}점</span></span>
 				<span cond="$list_config['nick_name']" class="nick">{$document->getNickName()}</span>
 				<span cond="$list_config['regdate']" class="date">{$document->getRegdate('Y.m.d')}</span>
 			</span>
