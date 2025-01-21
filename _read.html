@@ -95,7 +95,7 @@
 					</block>
 
 					<!--게시물 주소 복사-->
-					<button cond="!$mi->url_copy=='N'" class="sbtn_mini sbtn-{$mi->url_copy_color} pr_tooltip" pr_color="dark" pr_position="t_left" title="{$lang->copy_click}"><a href="#" onclick="copyItemLink(); return false;" style="font-size:12px"><i class="fas fa-link"></i> {$lang->copy_add}<input type="text" value="{$oDocument->getPermanentUrl()}" id="address" readonly style="position:absolute; top:1000px; width:1px; padding:0px; margin-left:5px; border:0px; background-color:transparent; display:inline-block;" /></a></button>
+					<button cond="!$mi->url_copy=='N'" class="sbtn_mini sbtn-{$mi->url_copy_color} pr_tooltip" pr_color="dark" pr_position="t_left" title="{$lang->copy_click}"><a href="#" onclick="copyItemLink(); return false;" style="font-size:12px"><i class="fa-solid fa-copy"></i> {$lang->copy_add}<input type="text" value="{$oDocument->getPermanentUrl()}" id="address" readonly style="position:absolute; top:1000px; width:1px; padding:0px; margin-left:5px; border:0px; background-color:transparent; display:inline-block;" /></a></button>
 					<script cond="!$mi->url_copy=='N'">
 						function copyItemLink(){
 							var copyText = document.getElementById("address");
