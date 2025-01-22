@@ -82,7 +82,7 @@
 					<img cond="$comment->getProfileImage()" class="profile img" src="{$comment->getProfileImage()}" alt="profile" />
 					<!--@if(!$mi->pname_img == 'C')-->
 						<span cond="!$comment->getProfileImage() && $mi->pname == 'Y'" class="profile img no_img" 
-						style="background:url('{$tpl_path}img/{$oNickBgUtil->getNickBgColor($comment->getNickName())}') 2px 2px no-repeat; width:50px; height:50px; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold; border:1px solid #ddd; padding:2px;">{$fisrt_nick_str}</span>
+						style="background:url('{$tpl_path}img/profile/{$oNickBgUtil->getNickBgColor($comment->getNickName())}') 2px 2px no-repeat; width:50px; height:50px; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold; border:1px solid #ddd; padding:2px;">{$fisrt_nick_str}</span>
 					<!--@else-->
 						<span cond="!$comment->getProfileImage() && $mi->pname == 'Y'" class="profile img no_img" 
 						style="background-color:{$oNickBgUtil->getNickBgColor($comment->getNickName())}; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold; border:1px solid #ddd; padding:2px;">{$second_nick_str}</span>
