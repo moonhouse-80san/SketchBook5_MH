@@ -23,7 +23,11 @@
 			</div>
 			<!--// 제목 -->
 			<h3 class="ngeb">
-				<include target="title.html" />
+				<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
+					<strong>
+						<include target="title.html" />
+					</strong>
+				</a>
 			</h3>
 			<!--// 본문 요약 -->
 			<div class="cnt" cond="$list_config['summary']">{$document->getSummary($mi->content_cut_size)}</div>
@@ -74,7 +78,9 @@
 				<span style="font-size:0.8em; color:#888; margin:0 5px">
 					<!--// 종료 확장변수 설정 -->
 					<include target="d_day.html" />
-					<include target="title.html" />
+					<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
+						<include target="title.html" />
+					</a>
 				</span>
 			</h3>
 
@@ -82,7 +88,9 @@
 			<h3 class="ngeb" cond="!$mi->guest_view == ''">
 				<!--// 종료 확장변수 설정 -->
 				<include target="d_day.html" />
-				<include target="title.html" />
+				<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
+					<include target="title.html" />
+				</a>
 			</h3>
 			<!--// 본문 요약 -->
 			<div class="cnt" cond="$list_config['summary']">{$document->getSummary($mi->content_cut_size)}</div>

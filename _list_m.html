@@ -10,7 +10,11 @@
 			</div>
 			<!--// 제목 -->
 			<h3>
-				<include target="title.html" />
+				<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
+					<strong>
+						<include target="title.html" />
+					</strong>
+				</a>
 				<!--@if((int)($document->getRegdate('YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
 				<i class="mrk new">NEW</i>
 				<!--@elseif((int)(zdate($document->get('last_update'),'YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
@@ -50,8 +54,9 @@
 			<h3>
 				<!--// 종료 확장변수 설정 -->
 				<include target="d_day.html" />
-				<include target="title.html" />
-
+				<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
+					<include target="title.html" />
+				</a>
 				<!--@if((int)($document->getRegdate('YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
 				<i class="mrk new">NEW</i>
 				<!--@elseif((int)(zdate($document->get('last_update'),'YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
