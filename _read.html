@@ -550,21 +550,3 @@
 </div>
 
 <hr id="rd_end_{$oDocument->document_srl}" class="rd_end clear" />
-
-<!-- MP4 동영상에 프로그레스바 기능 추가 -->
-<script>
-	const videos = document.querySelectorAll('video');
-	videos.forEach((player, index) => {
-		const spacer = document.createElement('div');
-		spacer.innerHTML = '&nbsp;';      //동영상이 여러개 첨부될 경우 가독성을위해 한줄 띄우기
-		player.parentNode.insertBefore(spacer, player.nextSibling);
-
-		const trackBar = document.createElement('div');
-		trackBar.classList.add('trackBar');
-		player.parentNode.insertBefore(trackBar, player.nextSibling);
-
-		setInterval(() => {
-			trackBar.style.width = (player.currentTime / player.duration * player.offsetWidth) + "px";
-		}, 100);
-	});
-</script>
