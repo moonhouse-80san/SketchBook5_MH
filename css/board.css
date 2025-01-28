@@ -694,7 +694,7 @@
 .bd_zine h3{margin:0;font-size:15px;color:#444}
 .bd_zine .ngeb,
 .bd_zine .ngeb>span {font-weight:bold}
-.bd_zine .cnt {margin:6px 0 2px}
+.bd_zine .cnt { margin:6px 0 2px; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-box-orient:vertical; }
 .bd_zine .info,.bd_zine .info a{color:#999}
 .bd_zine .info i{display:none;color:#BBB}
 .bd_zine .info b{margin-left:5px}
@@ -1222,6 +1222,7 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 .bd_ft .InfoRight .irt { margin-left:5px;  }
 .bd_ft img.tmb:hover { transform:scale(1.05); }
 .align-middle, .align-middle img, .align-middle span { vertical-align:middle; }
+.bd_ft .cnt { overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-box-orient:vertical; }
 
 @media only screen and (max-width:420px){
 	.bd_ft .InfoRight .irt { display:none !important; }
@@ -1281,9 +1282,6 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 .tMenu_Position a { margin-left:5px; color:#444; text-decoration:none; }
 .tMenu_Position a:hover { color:#ff6600; }
 .tWrite_Position { margin:0 10px 10px 0; float:right; }
-
-/* MP4 동영상에 프로그레스바 기능 추가 */
-.trackBar { background-color:#c00000c2; height:10px; width:0; position:relative; margin:-6px 2px 0px 0px; }
 
 /* 관리자에게 모듈번호 출력 */
 .m_num { z-index:1; position:relative; float:right; max-width:100px; text-align:center; font-weight:700; font-size:1em; clip-path:polygon(50% 0, 100% 0, 100% 80%, 50% 100%, 0 80%, 0 0); background-color:red; padding:5px 10px 10px 10px; color:white; cursor:pointer; }

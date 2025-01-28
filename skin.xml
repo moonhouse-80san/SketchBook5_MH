@@ -347,6 +347,8 @@
 			</var>
 			<var name="modul_num" type="radio">
 				<title>모듈번호 출력</title>
+				<description>관리자만 보임.
+				https://moonhouse.co.kr/xetip/592258</description>
 				<options value="">
 					<title>사용</title>
 				</options>
@@ -356,6 +358,7 @@
 			</var>
 			<var name="ver_info" type="radio">
 				<title>SketchBook5_MH 버전 정보 출력</title>
+				<description>관리자만 보임</description>
 				<options value="">
 					<title>사용</title>
 				</options>
@@ -626,6 +629,10 @@
 			<var name="content_cut_size" type="text">
 				<title>내용 글자 수</title>
 				<description>입력하지 않으면 기본 설정은 240 입니다.</description>
+			</var>
+			<var name="content_cut_height" type="text">
+				<title>내용글 세로 칸수</title>
+				<description>내용글 세로 줄 수를 지정합니다.(기본 2)</description>
 			</var>
 			<var name="duration_new" type="text" default="12">
 				<title>새 글 표시 시간</title>
@@ -3000,7 +3007,7 @@
 			<var name="viewer_with" type="radio" default="N">
 				<title>게시판 상단 버튼</title>
 				<description>게시판의 상단에 게시물을 클릭 시 바로 뷰어로 보게 하는 '게시물을 뷰어로 보기' 버튼의 표시 여부를 결정합니다.</description>
-				<options value="N">
+				<options value="">
 					<title>표시(기본)</title>
 				</options>
 				<options value="2">

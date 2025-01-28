@@ -31,6 +31,7 @@
 	if(!$mi->f_name) $mi->f_name = '₩';
 	if(!$mi->readed_count_hot) $mi->readed_count_hot = 10000;
 	if(!$mi->readed_count_cool) $mi->readed_count_cool = 5000;
+	if(!$mi->content_cut_height) $mi->content_cut_height = 2;
 
 	<!--// 종료 확장변수 -->
 	if(!$mi->start_name) $mi->start_name = 'start';
@@ -319,7 +320,7 @@
 	.bd_zine.card li:hover{ -ms-transform:scale(1.05);transform:scale(1.05)}
 	</block>
 	.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width}px;height:{$mi->zine_thumb_height}px;line-height:{$mi->zine_thumb_height}px}
-
+	.bd_zine .cnt { -webkit-line-clamp:{$mi->content_cut_height}; }
 	<!--@if(!$mi->dark_mode=='Y')-->
 	.bd_zine>li>a{display:block;position:absolute;top:-1px;bottom:-1px;left:-1px;right:-1px;border:2px solid transparent;background-image:url(../img/blank.gif);text-decoration:none}
 	.bd_zine a:hover,.bd_zine a:focus,.bd_zine .select a{border-color:#{$mi->color}; border-radius:5px}
@@ -527,6 +528,7 @@
 	.bd_ft ul { border:{$mi->line_size}px solid {$mi->line_color}; }
 	.bd_ft ul:hover,
 	.bd_ft ul:focus,
+	.bd_ft .cnt { -webkit-line-clamp:{$mi->content_cut_height}; }
 	.bd_ft .select { border:{$mi->line_size}px solid #{$mi->color}; background:{$mi->background_color}; }
 
 	.line_right { background:url({$tpl_path}img/line_1x10_e0e0e0.gif) no-repeat right 3px; padding-right:.5em; margin-right:.5em; }
