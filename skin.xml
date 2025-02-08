@@ -3004,17 +3004,17 @@
 		</group>
 		<group>
 		<title>'뷰어로 보기' 설정</title>
-			<var name="viewer_with" type="radio" default="N">
+			<var name="viewer_with" type="radio" default="">
 				<title>게시판 상단 버튼</title>
 				<description>게시판의 상단에 게시물을 클릭 시 바로 뷰어로 보게 하는 '게시물을 뷰어로 보기' 버튼의 표시 여부를 결정합니다.</description>
 				<options value="">
-					<title>표시(기본)</title>
+					<title>표시 안함(기본)</title>
+				</options>
+				<options value="Y">
+					<title>표시</title>
 				</options>
 				<options value="2">
 					<title>시작시 활성화</title>
-				</options>
-				<options value="Y">
-					<title>표시 안함</title>
 				</options>
 			</var>
 			<var name="viewer" type="radio" default="N">
