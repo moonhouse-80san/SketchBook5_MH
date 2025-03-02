@@ -100,7 +100,7 @@
 						function copyItemLink(){
 							var copyText = document.getElementById("address");
 							copyText.select();
-							copyText.setSelectionRange(0, 99999)
+							copyText.setSelectionRange(0, 99999);
 							document.execCommand("copy");
 							alert("{$lang->copy_clip}\n{$oDocument->getPermanentUrl()}");
 						}
@@ -260,7 +260,7 @@
 			<!--// 외부링크 다운로드 출력 : content_footer -->
 			<table cond="$mi->et_var=='2' && $oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())" class="et_vars bd_tb">
 				<caption class="blind">Extra Form</caption>
-				<tr loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML() && $val->eid!='rd_preview' && ($val->name==$mi->t_logon_name || $val->name==$mi->g_logon_name || $val->name==$mi->git_logon_name || $val->name==$mi->d_logon_name || $val->name==$mi->et_logon_name)">
+				<tr loop="$oDocument->getExtraVars() => $key,$val" cond="$val->hasValue() && $val->eid!='rd_preview' && ($val->name==$mi->t_logon_name || $val->name==$mi->g_logon_name || $val->name==$mi->git_logon_name || $val->name==$mi->d_logon_name || $val->name==$mi->et_logon_name)">
 					<!--// 외부 Url 파일 다운로드 -->
 					<!--@if($mid==$mi->extra_mid)-->
 						<!--@if($is_logged)-->
@@ -452,6 +452,7 @@
 					<span>{$lang->cmd_declare}</span>
 				</a>
 			</div>
+
 			<!--// SNS -->
 			<div cond="$mi->to_sns=='3'" class="to_sns big" style="text-align:{$mi->to_sns_big}" data-url="{$sns_link}" data-permanenturl="{$oDocument->getPermanentUrl()}" data-title="{$sns_title}">
 				<a class="facebook bubble" href="#" data-type="facebook" title="To Facebook"><b class="ico_sns facebook">Facebook</b></a>
@@ -495,7 +496,7 @@
 				$mi->profile_img='';
 			}
 		</block>
-		<div cond="!$mi->viewer_cmt" class="fdb_lst_wrp {$mi->fdb_style} {$mi->profile_img}">
+		<div cond="!$mi->viewer_cmt" class="mh_com fdb_lst_wrp {$mi->fdb_style} {$mi->profile_img}">
 			<div id="{$oDocument->document_srl}_comment" class="fdb_lst clear {$mi->fdb_nav} {$mi->cmt_wrt_position}">
 				<!--// Editor -->
 				<!--@if($mi->cmt_wrt=='sns')-->

@@ -87,7 +87,7 @@
 				</options>
 			</var>
 			<var name="link_board" type="radio">
-				<title>링크 게시판으로 사용</title>
+				<title>📍 링크 게시판으로 사용</title>
 				<description>게시판의 목록의 링크를 누르면 확장변수에서 입력한 사이트 주소로 이동합니다. 확장변수에서 'link_url' 항목을 등록하신 후 사용하세요. 'prettyphoto 애드온 사용'은 prettyphoto 애드온을 설치하고 활성화시키셔야 합니다. 자세한 사용법은 매뉴얼 또는 제작자의 홈페이지를 참조하세요.</description>
 				<options value="">
 					<title>사용 안함(기본)</title>
@@ -110,7 +110,7 @@
 				</options>
 			</var>
 			<var name="content_color" type="text">
-				<title>게시판 배경 색상 입력</title>
+				<title>📍 게시판 배경 색상 입력</title>
 				<description>게시판 배경 색상 색상을 입력(기본 투명 transparent)</description>
 			</var>
 			<var name="content_radius" type="radio">
@@ -216,7 +216,7 @@
 				</options>
 			</var>
 			<var name="top_panel_text" type="textarea">
-				<title>★게시판 최상단 판넬 출력과 내용</title>
+				<title>📍 게시판 최상단 판넬 출력과 내용</title>
 				<description>폴딩 판넬 출력과 판넬안에 들어갈 문구나 이미지, 위젯을 넣어시면 됩니다.(Html지원됨)
 				https://moonhouse.co.kr/xetip/504341
 				</description>
@@ -261,7 +261,7 @@
 			</var>
 			<var name="top_panel_bcolor" type="text">
 				<title>　┖ 배경색상</title>
-				<description>배경색상을 지정.(기본 투명 ex:#ffffff)</description>
+				<description>배경색상을 지정.(기본 transparent(투명) / ex:#ffffff)</description>
 			</var>
 			<var name="top_panel_color" type="text">
 				<title>　┖ 글색상</title>
@@ -274,7 +274,7 @@
 				<title>게시판 부제목</title>
 			</var>
 			<var name="top_image" type="image">
-				<title>★게시판최상단 이미지삽입</title>
+				<title>📍 게시판최상단 이미지삽입</title>
 				<description>게시판최상단에 이미지를 삽입할 수 있습니다.</description>
 			</var>
 			<var name="top_image_align" type="select">
@@ -322,7 +322,7 @@
 				<title>자동 입력될 내용</title>
 			</var>
 			<var name="board_table" type="radio">
-				<title>table 가로 overflow-x: auto 적용</title>
+				<title>📍 table 가로 overflow-x: auto 적용</title>
 				<description>게시판 전체영역(List, 본문등) table 가로 overflow-x: auto 적용</description>
 				<options value="">
 					<title>적용</title>
@@ -349,21 +349,21 @@
 				<title>모듈번호 출력</title>
 				<description>관리자만 보임.
 				https://moonhouse.co.kr/xetip/592258</description>
-				<options value="">
-					<title>사용</title>
-				</options>
 				<options value="N">
 					<title>사용 안함</title>
+				</options>
+				<options value="">
+					<title>사용</title>
 				</options>
 			</var>
 			<var name="ver_info" type="radio">
 				<title>SketchBook5_MH 버전 정보 출력</title>
 				<description>관리자만 보임</description>
-				<options value="">
-					<title>사용</title>
-				</options>
 				<options value="N">
 					<title>사용 안함</title>
+				</options>
+				<options value="">
+					<title>사용</title>
 				</options>
 			</var>
 		</group>
@@ -499,8 +499,8 @@
 				</options>
 			</var>
 			<var name="top_tag_btn" type="radio">
-				<title>★상단 TAG 버튼</title>
-				<description>★TAG 버튼 표시 선택시 게시판 상단에 Tag 분류 버턴 출력
+				<title>📍 상단 TAG 버튼</title>
+				<description>📍 TAG 버튼 표시 선택시 게시판 상단에 Tag 분류 버턴 출력
 				tag_list_adv 위젯이 설치 되어 있어야 함. https://xetown.com/download/299989
 				</description>
 				<options value="">
@@ -516,7 +516,7 @@
 			</var>
 			<var name="tag_total" type="text">
 				<title>　┖ 전체 출력 이름</title>
-				<description>★TAG 버튼 표시 선택시 게시판 상단에 Tag 분류 버턴 출력중 전체 출력버턴 이름(기본 Total)</description>
+				<description>📍 TAG 버튼 표시 선택시 게시판 상단에 Tag 분류 버턴 출력중 전체 출력버턴 이름(기본 Total)</description>
 			</var>
 			<var name="tag_cate1" type="text">
 				<title>　┖ 분류1 출력 이름</title>
@@ -603,7 +603,7 @@
 				</options>
 			</var>
 			<var name="notice_style" type="radio">
-				<title>공지 출력 형식</title>
+				<title>📍 공지 출력 형식</title>
 				<description>공지의 출력형식을 결정합니다. 모든 목록형태에서 동일한 공지의 출력이 필요한 경우 사용됩니다.</description>
 				<options value="">
 					<title>선택된 목록 유형과 같은 방식(기본)</title>
@@ -691,7 +691,7 @@
 				</description>
 			</var>
 			<var name="Extraimg_View" type="radio">
-				<title>게시판 목록 아이콘들 출력</title>
+				<title>📍 게시판 목록 아이콘들 출력</title>
 				<description>게시판 목록옆에 New, 파일, 이미지 아이콘들을 출력할 것인지를 결정합니다.
 				https://moonhouse.co.kr/xetip/502571
 				</description>
@@ -743,7 +743,7 @@
 				</options>
 			</var>
 			<var name="list_ads" type="radio">
-				<title>★리스트에 광고 삽입</title>
+				<title>📍 리스트에 광고 삽입</title>
 				<description>리스트에 광고 기능 사용하기(목록형,웹진형,FT)</description>
 				<options value="">
 					<title>사용 안함(기본)</title>
@@ -773,7 +773,7 @@
 				<description>모바일 광고(에드센스) 코드를 입력</description>
 			</var>
 			<var name="start_name" type="text">
-				<title>★날짜시작 사용자정의 이름</title>
+				<title>📍 날짜시작 사용자정의 이름</title>
 				<description>날짜시작 확장변수 사용자정의 이름을 기재하세요.(기본 start)
 				https://moonhouse.co.kr/xetip/577872
 				</description>
@@ -823,7 +823,7 @@
 				<description>종료 카운트다운 시간 작성(2024-01-01 00:00:00 형식으로)</description>
 			</var>
 			<var name="d_day" type="radio">
-				<title>D-Day출력</title>
+				<title>📍 D-Day출력</title>
 				<description>D-Day를 출력표시합니다.
 				https://moonhouse.co.kr/xetip/577872</description>
 				<options value="">
@@ -838,7 +838,7 @@
 				<description>D-Day 제목을 적어주세요</description>
 			</var>
 			<var name="board_write_mid" type="text">
-				<title>★글쓰기폼 먼저 출력 mid</title>
+				<title>글쓰기폼 먼저 출력 mid</title>
 				<description>게시판을 클릭했을때 관리자 이외의 접속자는 글쓰기폼이 먼저 출력될 게시판의 mid</description>
 			</var>
 		</group>
@@ -913,7 +913,7 @@
 				</description>
 			</var>
 			<var name="Icons_Count" type="radio">
-				<title>★게시판목록 조회수별 아이콘출력</title>
+				<title>📍 게시판목록 조회수별 아이콘출력</title>
 				<options value="">
 					<title>출력안함(기본)</title>
 				</options> 
@@ -947,7 +947,7 @@
 				</description>
 			</var>
 			<var name="color_mid" type="text">
-				<title>★색상입히기 mid</title>
+				<title>📍 색상입히기 mid</title>
 				<description>색상입힐 확장변수의 mid(게시판명)를 적어주세요.
 				https://moonhouse.co.kr/xetip/404287
 				</description>
@@ -1152,7 +1152,7 @@
 				</options>
 			</var>
 			<var name="webzine_col" type="text" default="2">
-				<title>★다단웹진형식시 가로 출력 개수</title>
+				<title>📍 다단웹진형식시 가로 출력 개수</title>
 				<description>다단웹진형식시, 가로로 배치할 단수 (기본 2개)</description>
 			</var>
 			<var name="dw_zoom" type="radio">
@@ -1166,7 +1166,7 @@
 				</options>
 			</var>
 			<var name="first_thumb_user" type="radio">
-				<title>★첫 게시글만 썸네일 출력(FT)</title>
+				<title>📍 첫 게시글만 썸네일 출력(FT)</title>
 				<description>"첫 글만 썸네일 출력 웹진" 스킨 사용시</description>
 				<options value="">
 					<title>첫 게시글만 썸네일 출력(기본)</title>
@@ -1192,7 +1192,7 @@
 				<description>Hover시 배경 색상. (기본 #fff)</description>
 			</var>
 			<var name="ftu_cvb" type="radio">
-				<title>　┖ ★댓글 펼치기(FT)</title>
+				<title>　┖ 📍 댓글 펼치기(FT)</title>
 				<description>댓글창 기본으로 펼치기</description>
 				<options value="">
 					<title>댓글창 펼치지 않음(기본)</title>
@@ -1213,7 +1213,7 @@
 		<group>
 		<title>목록형, 웹진형 공통설정</title>
 			<var name="list_replyContent" type="radio">
-				<title>★리스트 댓글 출력(FT)</title>
+				<title>📍 리스트 댓글 출력(FT)</title>
 				<options value="">
 					<title>출력하지 않음(기본)</title>
 				</options>
@@ -1284,7 +1284,7 @@
 				</options>
 			</var>
 			<var name="select_icons" type="text">
-				<title>★제목앞 분류 버턴 확장변수 ID(FT)</title>
+				<title>📍 제목앞 분류 버턴 확장변수 ID(FT)</title>
 				<description>제목앞에 분류 버턴을 출력할 확장변수 ID를 작성(기본 change)
 				https://moonhouse.co.kr/qa/543730#comment_543791
 				</description>
@@ -1725,7 +1725,7 @@
 				</options>
 			</var>
 			<var name="gallery_ex" type="radio">
-				<title>제목아래 확장변수 표시(Book)</title>
+				<title>📍 제목아래 확장변수 표시(Book)</title>
 				<description>
 				"Book Gallery 형태" 유형 추가 https://moonhouse.co.kr/xetip/530228
 				</description>
@@ -1781,7 +1781,7 @@
 				</options>
 			</var>
 			<var name="deco_img" type="image">
-				<title>데코레이션 이미지</title>
+				<title>📍 데코레이션 이미지</title>
 				<description>기본 제공되는 데코레이션 이미지 외에 사용자가 직접 이미지를 등록할 수 있습니다. 상단 가운데에 위치하게 됩니다.</description>
 			</var>
 			<var name="deco_img_w" type="text">
@@ -1901,7 +1901,7 @@
 				</options>
 			</var>
 			<var name="display_content_writer" type="radio">
-				<title>★본문 작성(Edit)기 출력</title>
+				<title>📍 본문 작성(Edit)기 출력</title>
 				<options value="">
 					<title>출력</title>
 				</options>
@@ -1919,7 +1919,7 @@
 				<description>글쓰기 화면에서 글쓰기 창 안에 표시될 글을 출력하는 기능입니다. 미리 준비된 양식이나 글쓰기 안내글 등에 사용할 수 있습니다. HTML을 사용 할 수 있습니다.(style="display:none" 사용시 입력글 안 보이게 가능)</description>
 			</var>
 			<var name="display_title" type="radio">
-				<title>★본문 제목 출력</title>
+				<title>📍 본문 제목 출력</title>
 				<options value="">
 					<title>출력</title>
 				</options>
@@ -1936,7 +1936,7 @@
 				<description>문서 작성시 제목에 기본값을 입력할 수 있습니다.</description>
 			</var>
 			<var name="title_no1" type="text">
-				<title>　┖ ★제목 대체 확장변수 번호1</title>
+				<title>　┖ 📍 제목 대체 확장변수 번호1</title>
 				<description>지정한 확장변수 번호1로 제목을 대체 합니다.
 				[ 본문 제목 출력이 필수 선택 ]
 				https://xetown.com/questions/1753946#comment_1756430</description>
@@ -1946,7 +1946,7 @@
 				<description>지정한 확장변수 번호1 - 번호2로 제목을 대체 합니다.</description>
 			</var>
 			<var name="extra_title" type="radio">
-				<title>★확장변수로 제목 대체</title>
+				<title>📍 확장변수로 제목 대체</title>
 				<options value="">
 					<title>기본 제목</title>
 				</options>
@@ -2002,7 +2002,7 @@
 				<description>글쓰기 권한 미달시 출력할 문구</description>
 			</var>
 			<var name="comment_induce_mid" type="text">
-				<title>댓글 유도 mid</title>
+				<title>📍 댓글 유도 mid</title>
 				<description>댓글 유도 문구표시할 mid명
 				* 댓글유도문구에 에니메이션 효과 적용 https://moonhouse.co.kr/xetip/433425
 				</description>
@@ -2050,7 +2050,7 @@
 				<description>비로그인시 닉네임을 자동으로 입력해 줍니다.</description>
 			</var>
 			<var name="pname" type="radio">
-				<title>★프로필이미지 자동 입력</title>
+				<title>📍 프로필이미지 자동 입력</title>
 				<options value="">
 					<title>기존방식</title>
 				</options>
@@ -2128,7 +2128,7 @@
 				</options>
 			</var>
 			<var name="files_type" type="radio">
-				<title>★확장자 필터 기능</title>
+				<title>📍 확장자 필터 기능</title>
 				<description>첨부파일에서 이미지, 동영상, 음악 파일을 제외하는 기능을 사용합니다. 아래의 옵션에서 출력할 파일 타입을 선택하세요.</description>
 				<options value="Y">
 					<title>사용</title>
@@ -2188,7 +2188,7 @@
 				</options>
 			</var>
 			<var name="data_files" type="radio">
-				<title>★자료실 형태</title>
+				<title>📍 자료실 형태</title>
 				<description>자료실 형태의 파일의 출력 여부를 선택합니다.
 				https://moonhouse.co.kr/xetip/578018</description>
 				<options value="">
@@ -2209,7 +2209,7 @@
 				</options>
 			</var>
 			<var name="down_mid" type="text">
-				<title>★파일 다운 권한 mid</title>
+				<title>📍 파일 다운 권한 mid</title>
 				<description>파일 다운로드 권한 적용의 mid(게시판명)를 적어주세요.
 				https://moonhouse.co.kr/xetip/504893
 				</description>
@@ -2378,7 +2378,7 @@
 				(광고, 위젯코드, 텍스트등... HTML 태그 사용 가능)</description>
 			</var>
 			<var name="document_no" type="text">
-				<title>★지정내용 리스트 번호</title>
+				<title>📍 지정내용 리스트 번호</title>
 				<description>지정한 게시글안에서만 아래의 내용이 출력됩니다.</description>
 			</var>
 			<var name="document_no_text" type="textarea">
@@ -2530,6 +2530,7 @@
 			<var name="autoreplace_text" type="textarea">
 				<title>치환 문자 *( ',' 로 구분 줄바꿈으로 새 규칙)</title>
 			</var>
+
 		</group>
 		<group>
 		<title>본문 Map 출력</title>
@@ -2665,7 +2666,7 @@
 				</options>
 			</var>
 			<var name="cmt_line_use" type="radio">
-				<title>★댓글 한줄 출력</title>
+				<title>📍 댓글 한줄 출력</title>
 				<description>댓글이 2줄 이상일때 펼쳐보기 메뉴 출력
 				https://moonhouse.co.kr/xetip/464911
 				</description>
@@ -3123,7 +3124,7 @@
 				</options>
 			</var>
 			<var name="etc_mid" type="text">
-				<title>★수정확장변수 게시판명</title>
+				<title>📍 수정확장변수 게시판명</title>
 				<description>확장변수중 "단일 선택(radio)"시 "직접입력" 부분 나오게 수정 
 				https://moonhouse.co.kr/xetip/405474
 				</description>
@@ -3149,16 +3150,16 @@
 				<description>입력값이 최저치 이하인 경우 메세지 2</description>
 			</var>
 			<var name="extra_hidden" type="radio">
-				<title>★확장변수 특정 단어 입력시 숨김</title>
+				<title>📍 확장변수 특정 단어 입력시 숨김</title>
 				<description>
 				확장변수명이 _wh, _wrh로 끝날때 글 작성시 숨김처리 하기(관리자는 예외)
 				확장변수명이 _rh, _wrh로 끝날때 본문 읽기시 숨김처리 하기(관리자는 예외)
 				* https://moonhouse.co.kr/xetip/582252
-				* 아래 "★Hidden 확장변수 mid"을 적용해도 됨
+				* 아래 "📍 Hidden 확장변수 mid"을 적용해도 됨
 				</description>
 			</var>
 			<var name="extra_mid" type="text">
-				<title>★Hidden 확장변수 mid</title>
+				<title>📍 Hidden 확장변수 mid</title>
 				<description>본문 확장변수 출력에서 Hidden을 원하는 mid(게시판명)를 적어주세요.
 				북마크형식의 경우는 아래 입력항목이름만 기입하면됩니다.
 				* 관리자는 항상 보입니다.
@@ -3178,11 +3179,11 @@
 				<description>Hidden을 원하는 확장변수의 입력항목3의 이름을 적어주세요.(예 숨김3)</description>
 			</var>
 			<var name="t_logon_name" type="text">
-				<title>★확장변수 입력항목 이름(일반텍스트 링크)</title>
+				<title>📍 확장변수 입력항목 이름(일반텍스트 링크)</title>
 				<description>입력항목 이름을 적어주세요. 한줄 입력칸형식("http://다운주소" 직접 입력)
 				* 외부링크 파일을 로그인회원만 확장변수활용 다운받게 하는 방법 https://moonhouse.co.kr/xetip/435286
 				* 외부링크를 XE게시판에 적용하는 방법 https://moonhouse.co.kr/xetip/457183
-				* 상단의 ★Hidden 확장변수 mid를 기재해야 작동 됨
+				* 상단의 📍 Hidden 확장변수 mid를 기재해야 작동 됨
 				</description>
 			</var>
 			<var name="g_logon_name" type="text">
@@ -3199,7 +3200,7 @@
 			</var>
 			<var name="et_logon_name" type="text">
 				<title>　┖ 확장변수 입력항목 이름(URL 링크)</title>
-				<description>입력항목 이름을 적어주세요. URL형식(★Hidden 확장변수 mid도 적어주시면 좋습니다)</description>
+				<description>입력항목 이름을 적어주세요. URL형식(📍 Hidden 확장변수 mid도 적어주시면 좋습니다)</description>
 			</var>
 			<var name="et_logon_t" type="text">
 				<title>　┖ 다운로드칸 옵션 설명</title>
@@ -3230,7 +3231,7 @@
 				<description>해당 리스트 번호만 다운로드 권한 인정</description>
 			</var>
 			<var name="sticky_select" type="radio">
-				<title>★목록(거래장형) 게시판 좌우 스크롤 기능 고정칸 선택</title>
+				<title>📍 목록(거래장형) 게시판 좌우 스크롤 기능 고정칸 선택</title>
 				<description>게시목록의 항목이 많아서 좌우 수평 스크롤, 스와이프 기능적용시 고정칸을 선택하는 방법
 				https://moonhouse.co.kr/xetip/554284</description>
 				<options value="">
@@ -3256,7 +3257,7 @@
 				<description>입력하지 않으면 기본 설정은 넓이 지정 하지 않습니다.(250px 가 적당 숫자만)</description>
 			</var>
 			<var name="e_url" type="text">
-				<title>★URL 형식 주소 대신 텍스트 출력 확장변수 ID</title>
+				<title>📍 URL 형식 주소 대신 텍스트 출력 확장변수 ID</title>
 				<description>URL 형식 확장변수란 주소 대신 텍스트(Link) 출력할 확장변수 ID를 적어주세요.</description>
 			</var>
 			<var name="e_urlt" type="text">
@@ -3269,13 +3270,13 @@
 				https://moonhouse.co.kr/xetip/536633</description>
 			</var>
 			<var name="admin_extra" type="text">
-				<title>★관리자전용 작성 확장 변수 ID</title>
+				<title>📍 관리자전용 작성 확장 변수 ID</title>
 				<description>글 작성 시나 수정 시 관리자만 보이게 수정가능한 확장변수ID(기본 확장 변수ID "admin_select")
 				본문에서도 관리자전용으로 보이기 위해서는 상단메뉴의 "Hidden 확장변수 입력항목"을 입력하세요.
 				https://moonhouse.co.kr/xetip/550860</description>
 			</var>
 			<var name="icon_url" type="text">
-				<title>★게시판 리스트에 버튼 형식으로 출력할 확장변수 ID</title>
+				<title>📍 게시판 리스트에 버튼 형식으로 출력할 확장변수 ID</title>
 				<description>게시판 리스트 목록에 확장변수중 url변수를 버턴형식으로 출력할 확장변수 ID(웹진형, ft, 갤러리)
 				https://moonhouse.co.kr/xetip/584217</description>
 			</var>
@@ -3284,7 +3285,7 @@
 				<description>확방변수 url을 대처할 문구</description>
 			</var>
 			<var name="regular_no" type="text">
-				<title>★지정글 확장변수 No</title>
+				<title>📍 지정글 확장변수 No</title>
 				<description>지정한 순서의 확장변수에 아래 글 자동 입력</description>
 			</var>
 			<var name="regular_text" type="text">
@@ -3292,7 +3293,7 @@
 				<description>지정한 확장변수란에 작성글 자동 입력</description>
 			</var>
 			<var name="work_total" type="text">
-				<title>★날짜 기간 출력시 제목</title>
+				<title>📍 날짜 기간 출력시 제목</title>
 				<description>확장변수 사용하여 날짜 기간 출력하기시 제목글(기본 총날짜)
 				https://moonhouse.co.kr/xetip/582728</description>
 			</var>
@@ -3309,7 +3310,7 @@
 				<description>남은 날짜 뒤에 붙는 문구</description>
 			</var>
 			<var name="extra_form" type="radio">
-				<title>★폼 형태</title>
+				<title>📍 폼 형태</title>
 				<description>확장변수를 폼형태로 출력합니다.
 				https://moonhouse.co.kr/xetip/594999</description>
 				<options value="">

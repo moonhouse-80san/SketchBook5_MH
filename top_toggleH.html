@@ -1,25 +1,30 @@
-<details <!--@if(!$mi->panel_auto =='')-->open<!--@end-->>
-	<summary class="tb">
-		<span>{$mi->top_panel_btn}</span>
-	</summary>
-	<div class="tpt">{$mi->top_panel_text}</div>
-</details>
+<div class="folding-panel-wrapper">
+	<details class="folding-panel" <!--@if(!$mi->panel_auto =='')-->open<!--@end-->>
+		<summary class="folding-header">
+			<span>{$mi->top_panel_btn}</span>
+		</summary>
+		<div class="folding-content">{$mi->top_panel_text}</div>
+	</details>
+</div>
 
 <style>
-	details { margin:10px 0; z-index:1; }
-	details > summary { cursor:pointer; margin-left:15px; }
-	details > summary.tb { position:relative; padding-left:1.2em; transition:background 0.5s; }
-	details > summary.tb { display:block; }
-	details > summary.tb span { background:{$mi->top_panel_bcolor}; color:{$mi->top_panel_color}; border:0px solid {$mi->top_panel_color}; border-radius:5px; padding:5px 10px; }
+	.folding-panel-wrapper { display:flex;  justify-content:left; margin:0 20px; }
+	.folding-panel { border:1px solid #ddd; border-radius:4px; background:#f8f9fa; border-bottom:1px solid #ddd; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
+	.folding-header { background:#f8f9fa; padding:5px 0; cursor:pointer; font-weight:bold; margin-right:15px; }
+	.folding-header:hover { background:#f8f9fa; }
+	.folding-content { padding:10px; background:{$mi->top_panel_bcolor}; color:{$mi->top_panel_color}; line-height:1.6; font-size:{$mi->top_panel_size}; }
 
-	details > summary.tb::before { content: ""; position:absolute; border-top:0.5em solid transparent; border-bottom:0.5em solid transparent; border-left:0.75em solid #ff6600; top:0.5em; left:0; transition:.25s transform; }
-	details[open] > summary:before { transform:rotateZ(450deg); }
+	.folding-panel-wrapper details { margin:10px 0; z-index:1; }
+	.folding-panel-wrapper details > summary { cursor:pointer; margin-left:15px; }
+	.folding-panel-wrapper details > summary.tb::before { content:""; position:absolute; border-top:0.5em solid transparent; border-bottom:0.5em solid transparent; border-left:0.75em solid #ff6600; top:0.5em; left:0; transition:.25s transform; }
+	.folding-panel-wrapper details[open] > summary:before { transform:rotateZ(450deg); }
 
-	details[open] > summary::-webkit-details-marker { transform:rotate3d(0, 0, 1, 180deg);}
-	details[open] > summary ~ * { animation:reveal 2s;}
-	div .tpt { background:{$mi->top_panel_bcolor}; color:{$mi->top_panel_color}; margin:5px 10px; padding:5px 10px; line-height:25px; border-radius:5px; border:1px dotted #000; }
+	.folding-panel-wrapper details[open] > summary::-webkit-details-marker { transform:rotate3d(0, 0, 1, 180deg);}
+	.folding-panel-wrapper details[open] > summary ~ * { animation:reveal 2s;}
 	@keyframes reveal {
 		from { opacity:0; transform:translate3d(0, -20px, 0); }
 		to { opacity:1; transform:translate3d(0, 0, 0); }
 	}
 </style>
+
+

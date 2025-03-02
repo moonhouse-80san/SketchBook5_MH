@@ -185,6 +185,7 @@ FFF : 191919
 
 /* Viewer */
 #viewer .bd{background:#191919;border:1px solid #333}
+.viewer_with.on:before{content:"";display:block;position:absolute;bottom:0px;left:4px;width:95%;height:2px;opacity:.7}
 
 /* Mobile Editor */
 .bd #mUpload{border-color:#444;background:#191919}
