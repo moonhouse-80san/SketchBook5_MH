@@ -195,7 +195,7 @@
 		</div>
 		<div cond="is_array($status_list)" class="sk_section">
 			<!--@foreach($status_list AS $key=>$value)-->
-			<input cond="is_array($mi->wrt_opt) && !in_array('secret',$mi->wrt_opt)" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='PUBLIC' && !$document_srl)" />
+			<input cond="@!in_array('secret',$mi->wrt_opt?:[])" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='PUBLIC' && !$document_srl)" />
 			<input cond="@in_array('secret',$mi->wrt_opt?:[])" type="radio" name="status" value="{$key}" id="{$key}" checked="checked"|cond="$oDocument->get('status')==$key || ($key=='SECRET' && !$document_srl)" />
 			<label for="{$key}">{$value}</label>
 			<!--@end-->

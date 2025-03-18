@@ -18,13 +18,13 @@
 	$mi->rd_nav_side = '';
 	$mi->prev_next = '';
 	$mi->rd_lst = '';
-	if(is_array($mi->viewer_itm) && !in_array('vote',$mi->viewer_itm)) $mi->votes = 'N';
-	if(is_array($mi->viewer_itm) && !in_array('sns',$mi->viewer_itm)) $mi->to_sns = 'N';
+	if(@!in_array('vote',$mi->viewer_itm?:[])) $mi->votes = 'N';
+	if(@!in_array('sns',$mi->viewer_itm?:[])) $mi->to_sns = 'N';
 }
 
 <style>
 body,input,textarea,select,button,table{font-family:{$_COOKIE['bd_viewer_font']};}
-<block cond="is_array($mi->viewer_itm) && !in_array('fnt',$mi->viewer_itm)">
+<block cond="@!in_array('fnt',$mi->viewer_itm?:[])">
 {@ $mi->show_files = 'N' }
 #viewer .rd_trb,#viewer #trackback{display:none}
 </block>

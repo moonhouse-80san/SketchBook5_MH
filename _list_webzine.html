@@ -62,7 +62,7 @@
 					<span cond="$val->eid=='rating'"><strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
 				</block>
 				</block>
-				<block cond="is_array($mi->ext_img) && @in_array('zine',$mi->ext_img)"><span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span></block>
+				<block cond="@in_array('zine',$mi->ext_img?:[])"><span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span></block>
 				<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
 			</div>
 		</div>
@@ -217,7 +217,7 @@
 						<span cond="$val->eid=='rating'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="cursor:pointer"|cond="$document->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))">{$val->name} :<strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
 					</block>
 				</block>
-				<block cond="is_array($mi->ext_img) && @in_array('zine',$mi->ext_img)"><span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span></block>
+				<block cond="@in_array('zine',$mi->ext_img?:[])"><span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span></block>
 				<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
 				<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}">{$lang->cmd_modify}</a>
 			</div>

@@ -127,9 +127,9 @@
 				<span cond="$mi->rd_blog_cate=='2' && $mi->use_category=='Y' && $oDocument->get('category_srl')"><small>In </small><b title="Category">{$category_list[$oDocument->get('category_srl')]->title}</b></span>
 				<span cond="!$mi->rd_blog_nick"><small>by </small><b>{$oDocument->getNickName()}</b></span>
 				<span cond="!$mi->rd_blog_date" title="{$oDocument->getRegdate('Y.m.d H:i')}"><small>posted </small><b class="date">{$oDocument->getRegdate('M d, Y')}</b></span>
-				<span cond="is_array($mi->rd_blog_itm) && in_array('view',$mi->rd_blog_itm)"><small>Views</small> <b>{number_format($oDocument->get('readed_count'))}</b></span>
-				<span cond="is_array($mi->rd_blog_itm) && in_array('like',$mi->rd_blog_itm)"><small>Likes</small> <b>{$oDocument->get('voted_count')}</b></span>
-				<span cond="is_array($mi->rd_blog_itm) && in_array('cmt',$mi->rd_blog_itm)"><small>Replies</small> <b>{$oDocument->getCommentcount()}</b></span>
+				<span cond="@in_array('view',$mi->rd_blog_itm?:[])"><small>Views</small> <b>{number_format($oDocument->get('readed_count'))}</b></span>
+				<span cond="@in_array('like',$mi->rd_blog_itm?:[])"><small>Likes</small> <b>{$oDocument->get('voted_count')}</b></span>
+				<span cond="@in_array('cmt',$mi->rd_blog_itm?:[])"><small>Replies</small> <b>{$oDocument->getCommentcount()}</b></span>
 			</div>
 		</div>
 
