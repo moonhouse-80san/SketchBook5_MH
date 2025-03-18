@@ -1,5 +1,5 @@
 <style>
-	.bd_tb .tc { text-align:center }
+	.bd_tb .tc { text-align:center; width:auto; white-space:nowrap; }
 	.bd_tb .tb { background-color:#f9f9f9 }
 </style>
 
@@ -8,8 +8,8 @@
 		<thead>
 			<tr cond="$oDocument->hasUploadedFiles()" class="tb">
 				<th>{$lang->uploaded_files}</th>
-				<th cond="!$mo" class="tc">{$lang->regdate}　　　　</th>
-				<th cond="!$mo" class="tc">{$lang->files}　　</th>
+				<th cond="!$mo" class="tc">{$lang->regdate}</th>
+				<th cond="!$mo" class="tc">{$lang->files}</th>
 				<th class="tc">{$lang->down_no}</th>
 			</tr>
 		</thead>

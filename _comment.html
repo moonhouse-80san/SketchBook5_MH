@@ -169,6 +169,11 @@
 					<!--@end-->
 				<!--@end-->
 
+				<!--// 글 리액션 -->
+				<div cond="!$mi->reaction == ''" class="da-reaction" x-da-reaction-print x-data="daReaction('{\Rhymix\Modules\Da_reaction\Src\ReactionHelper::generateIdByItem($comment)}', { button: false, placement: 'prepend' })" style="float:right">
+					<span x-bind="daReactionButton" class="pr_tooltip" pr_color="dark" pr_position="top_right" title="리엑션을 이모티콘으로 표시합니다." style="padding-top:5px"><i class="fa-regular fa-thumbs-up" style="color:#f60"></i></span>
+				</div>
+
 				<!--// 편집 등 -->
 				<div class="fdb_nav img_tx">
 					<block cond="$mi->cmt_this_btn=='2' && $is_logged">

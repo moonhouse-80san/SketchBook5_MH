@@ -2,23 +2,23 @@
 	$mi = $module_info;
 	$mo = Mobile::isMobileCheckByAgent();
 	$Path = "modules/board/skins/sketchbook5_MH";
-	if(!$mi->content_cut_size) $mi->content_cut_size = 240;
-	if(!$mi->duration_new) $mi->duration_new = 24;
+	if(!$mi->content_cut_size) $mi->content_cut_size = '240';
+	if(!$mi->duration_new) $mi->duration_new = '24';
 	if(!$mi->colorset) $mi->colorset = 'white';
-	if(!$mi->preview_tx)  $mi->preview_tx = 150;
-	if(!$mi->extra_num) $mi->extra_num = 1;
-	if(!$mi->thumbnail_width)  $mi->thumbnail_width  = 90;
-	if(!$mi->thumbnail_height) $mi->thumbnail_height = 90;
-	if(!$mi->zine_thumb_width) $mi->zine_thumb_width = 90;
-	if(!$mi->zine_thumb_height) $mi->zine_thumb_height = 90;
-	if(!$mi->pre_tb_width)  $mi->pre_tb_width  = 90;
-	if(!$mi->pre_tb_height) $mi->pre_tb_height = 90;
-	if(!$mi->youtube_tb_width) $mi->youtube_tb_width  = 180;
-	if(!$mi->youtube_tb_height) $mi->youtube_tb_height = 100;
-	if(!$mi->zine_margin) $mi->zine_margin = 10;
+	if(!$mi->preview_tx)  $mi->preview_tx = '150';
+	if(!$mi->extra_num) $mi->extra_num = '1';
+	if(!$mi->thumbnail_width)  $mi->thumbnail_width  = '90';
+	if(!$mi->thumbnail_height) $mi->thumbnail_height = '90';
+	if(!$mi->zine_thumb_width) $mi->zine_thumb_width = '90';
+	if(!$mi->zine_thumb_height) $mi->zine_thumb_height = '90';
+	if(!$mi->pre_tb_width)  $mi->pre_tb_width  = '90';
+	if(!$mi->pre_tb_height) $mi->pre_tb_height = '90';
+	if(!$mi->youtube_tb_width) $mi->youtube_tb_width  = '180';
+	if(!$mi->youtube_tb_height) $mi->youtube_tb_height = '100';
+	if(!$mi->zine_margin) $mi->zine_margin = '10';
 	if(!$mi->cmt_wrt) $mi->cmt_wrt = 'simple';
 	if(!$mi->img_insert_align) $mi->img_insert_align = 'center';
-	if(!$mi->top_toggle) $mi->top_toggle = 1;
+	if(!$mi->top_toggle) $mi->top_toggle = '1';
 	if(!$mi->eid_up1) $mi->eid_up1 = 'update';
 	if(!$mi->eid_up2) $mi->eid_up2 = 'update1';
 	if(!$mi->title_name) $mi->title_name = 'etitle';
@@ -29,9 +29,9 @@
 	if(!$mi->work_stop) $mi->work_stop = 'work_stop';
 	if(!$mi->tag_total) $mi->tag_total = 'Total';
 	if(!$mi->f_name) $mi->f_name = '₩';
-	if(!$mi->readed_count_hot) $mi->readed_count_hot = 10000;
-	if(!$mi->readed_count_cool) $mi->readed_count_cool = 5000;
-	if(!$mi->content_cut_height) $mi->content_cut_height = 2;
+	if(!$mi->readed_count_hot) $mi->readed_count_hot = '10000';
+	if(!$mi->readed_count_cool) $mi->readed_count_cool = '5000';
+	if(!$mi->content_cut_height) $mi->content_cut_height = '2';
 
 	<!--// 종료 확장변수 -->
 	if(!$mi->start_name) $mi->start_name = 'start';
@@ -48,7 +48,7 @@
 
 	<!--// FirstThumb Style -->
 	if(!$mi->line_color) $mi->line_color = '#fff';
-	if(!$mi->line_size) $mi->line_size = 1;
+	if(!$mi->line_size) $mi->line_size = '1';
 	if(!$mi->select_icons) $mi->select_icons = 'change';
 
 	<!--// 체크박스 옵션 -->
@@ -103,7 +103,7 @@
 	$mi->zine_hover = 'N';
 	$mi->rd_nav_side = 'N';
 	if($mi->cmt_wrt=='editor') $mi->cmt_wrt = 'simple';
-	if($mi->to_sns!='N') $mi->to_sns = 3;
+	if($mi->to_sns!='N') $mi->to_sns = '3';
 }
 <!--@end-->
 
@@ -230,7 +230,7 @@
 {@ $mi->default_style = 'viewer'}
 <!--@elseif($listStyle=='firstthumb')-->
 {@ $mi->default_style = 'firstthumb'}
-<!--@elseif(!in_array($mi->default_style,array('list','books','webzine','gallery','book','cloud_gall','guest','blog','faq','youtube','double','viewer','firstthumb')))-->
+<!--@elseif(!in_array($mi->default_style?:[],array('list','books','webzine','gallery','book','cloud_gall','guest','blog','faq','youtube','double','viewer','firstthumb')))-->
 {@ $mi->default_style = 'list'}
 <!--@end-->
 
@@ -249,7 +249,7 @@
 
 <!--// 커스텀 파일 넣기 -->
 <include cond="file_exists(_XE_PATH_.'modules/board/skins/sketchbook5_MH/custom/custom.php')" target="custom/custom.php" />
-<include cond="$grant->manager && $mi->ver_info==''" target="ver.html" />
+<include cond="$grant->manager && $mi->ver_info=='Y'" target="ver.html" />
 
 <style data-id="bdCss">
 	.color_scheme_dark { color:var(--color-black) !important; background-color:var(--color-white) !important;}

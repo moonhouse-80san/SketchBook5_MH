@@ -28,7 +28,7 @@ body,input,textarea,select,button,table{font-family:{$_COOKIE['bd_viewer_font']}
 {@ $mi->show_files = 'N' }
 #viewer .rd_trb,#viewer #trackback{display:none}
 </block>
-<block cond="is_array($mi->viewer_itm) && in_array('cmt',$mi->viewer_itm)">
+<block cond="@in_array('cmt',$mi->viewer_itm?:[])">
 {@ $mi->viewer_cmt = '' }
 #viewer .rd_nav .comment{display:block}
 </block>

@@ -3,18 +3,10 @@
 	{@$j++}
 		<td class="replyIndent" style="<!--@if($val->depth < 11 && $mi->comment_order == '')-->margin-left:{($val->depth)*1}em;<!--@end-->">
 			<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}">
-				<!--@if(!$mo) -->
-					<!--@if(!$mi->comment_cut_size) -->
-						{cut_str(strip_tags($val->content),90,'...')}
-					<!--@else-->
-						{cut_str(strip_tags($val->content),$mi->comment_cut_size,'...')}
-					<!--@end-->
+				<!--@if(!$mi->comment_cut_size) -->
+					{cut_str(strip_tags($val->content),90,'...')}
 				<!--@else-->
-					<!--@if(!$mi->comment_cut_size_m) -->
-						{cut_str(strip_tags($val->content),30,'...')}
-					<!--@else-->
-						{cut_str(strip_tags($val->content),$mi->comment_cut_size_m,'...')}
-					<!--@end-->
+					{cut_str(strip_tags($val->content),$mi->comment_cut_size,'...')}
 				<!--@end-->
 			</a>
 		</td>
