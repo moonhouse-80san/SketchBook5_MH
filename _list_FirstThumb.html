@@ -81,6 +81,21 @@
 						<span>Board :</span><b><a href="{getUrl('', 'mid', $document->get('mid'))}"><strong style="color:#444">{$document->get('module_title')}</strong></a></b>
 					</span>
 					<span class="line_right" cond="!$mi->show_cate && $document->get('category_srl')" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')" style="cursor:pointer"|cond="$document->isGranted() && $use_category_update"><span>Category :</span><span style="text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_category_update"> {$category_list[$document->get('category_srl')]->title}</span></span>
+
+					<!-- 여기에 평점 표시 부분 추가 -->
+					<block cond="!$mi->star_point =='' && !$mi->starpoint_list == ''">
+						{@
+							$oStarPointModel = getModel('starpoint');
+							$total_point = $oStarPointModel->getDocumentRatedTotalPoint($document->document_srl);
+						}
+						<!--@if($total_point->avg > 0)-->
+						<span class="starpoint">
+							<span class="score">평점 : {number_format($total_point->avg, 1)}점</span>
+							<span class="starRating"><span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span></span>
+						</span>
+						<!--@end-->
+					</block>
+
 					<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" class="align-middle" />
 					<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}"> {$lang->cmd_modify}</a>
 				</div>

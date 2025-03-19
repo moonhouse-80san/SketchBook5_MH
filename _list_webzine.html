@@ -212,6 +212,21 @@
 						</span>
 					</block>
 				</block>
+
+				<!-- 여기에 평점 표시 부분 추가 -->
+				<block cond="!$mi->star_point =='' && !$mi->starpoint_list == ''">
+					{@
+						$oStarPointModel = getModel('starpoint');
+						$total_point = $oStarPointModel->getDocumentRatedTotalPoint($document->document_srl);
+					}
+					<!--@if($total_point->avg > 0)-->
+					<span class="starpoint">
+						<span class="score">평점 : {number_format($total_point->avg, 1)}점</span>
+						<span class="starRating"><span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span></span>
+					</span>
+					<!--@end-->
+				</block>
+
 				<block cond="$mi->zine_extra || $mi->rating_output == 'Y'">
 					<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
 						<span cond="$val->eid=='rating'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="cursor:pointer"|cond="$document->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))">{$val->name} :<strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>

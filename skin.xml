@@ -2555,6 +2555,16 @@
 				<title>　┖ 타이틀</title>
 				<description>상단에 들어갈 타이틀(기본문구 : 글)</description>
 			</var>
+			<var name="starpoint_list" type="radio">
+				<title>　┖ 리스트에 별 평점 출력</title>
+				<description>게시글의 리스트에 별 평점을 출력(웹진형 과 FT형에만 적용)</description>
+				<options value="">
+					<title>출력 안함(기본)</title>
+				</options>
+				<options value="Y">
+					<title>출력</title>
+				</options>
+			</var>
 		</group>
 		<group>
 			<title>본문 Map 출력</title>

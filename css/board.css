@@ -895,13 +895,18 @@ body.viewer_blk{background:#222}
 
 /* Link Board. Star Rating(from XEUI) */
 .bd_tb_lst td.link_url{overflow:hidden;max-width:240px;text-overflow:ellipsis}
-.bd .starRating,.bd .starRating span{overflow:hidden;display:inline-block;height:14px;background:transparent url(../img/white/iconStarRating.png) no-repeat}
+.bd .starRating,
+.bd .starRating span{overflow:hidden;display:inline-block;height:14px;background:transparent url(../img/white/iconStarRating.png) no-repeat}
 .bd .starRating{width:79px;vertical-align:middle;text-align:left !important}
 .bd .starRating span{font-size:0;line-height:0;vertical-align:top;text-indent:-100px;*text-indent:0;background-position:0 -14px}
 .bd_zine.zine .info .starRating{margin-top:-4px}
 .bd_zine.card .info .starRating{display:block;margin:8px auto}
 .link_modify{margin:0 4px;font-size:11px;border-bottom:1px dotted #999}
 .bd_zine .link_modify{position:relative;z-index:100}
+
+/* 별점 스타일 */
+.bd .starpoint { display: inline-block; vertical-align: middle;}
+.bd .starpoint .score { display: inline-block; margin-right: 5px; vertical-align: middle;}
 
 /* IE8- Fix */
 .dummy_ie{display:none;*display:block;*width:1px}
