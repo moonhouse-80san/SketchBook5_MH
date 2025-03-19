@@ -29,6 +29,7 @@
 					<th scope="col" cond="$val->type=='voted_count' && $val->idx==-1" class="m_no"><span><a href="{getUrl('sort_index','voted_count','order_type',$order_type)}">{$lang->voted_count}<i cond="$sort_index=='voted_count'" class="arrow {$order_icon}"></i></a></span></th>
 					<th scope="col" cond="$val->idx!=-1" <!--@if($mi->sticky_select == 'e')-->	class="fixed"|cond="$val->eid == $mi->sticky"	<!--@end--> class="m_no"|cond="$val->eid!='link_url'"><span><a href="{getUrl('sort_index',$val->eid,'order_type',$order_type)}">{$val->name}</a></span></th>
 				</block>
+				<th scope="col" cond="!$mi->star_point =='' && !$mi->starpoint_list == ''"><span>평점</span></th>
 				<th scope="col" cond="$grant->manager" class="m_no"><span><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true });" class="iCheck" title="Check All" /></span></th>
 			</tr>
 		</thead>
@@ -73,6 +74,18 @@
 					<td cond="$val->type=='voted_count' && $val->idx==-1" class="m_no">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</td>
 					<td cond="$val->idx!=-1" <!--@if($mi->sticky_select == 'e')-->	class="fixed"|cond="$val->eid == $mi->sticky"	<!--@end--> onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="m_no"|cond="$val->eid!='link_url'"><!--@if($val->eid=='rating')--><span class="starRating" title="{$document->getExtraValueHTML($val->idx)}{$lang->score}"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span><!--@else-->{$document->getExtraValueHTML($val->idx)}<!--@end--></td>
 				</block>
+				<!-- 여기에 평점 표시 부분 추가 -->
+				<td cond="!$mi->star_point =='' && !$mi->starpoint_list == ''">
+					{@
+						$oStarPointModel = getModel('starpoint');
+						$total_point = $oStarPointModel->getDocumentRatedTotalPoint($document->document_srl);
+					}
+					<!--@if($total_point->avg > 0)-->
+					<span class="starpoint">
+						<span class="score" style="font-weight:bold">{number_format($total_point->avg, 1)}점</span>
+					</span>
+					<!--@end-->
+				</td>
 				<td cond="$grant->manager" class="check m_no"><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
 			</tr>
 
@@ -191,6 +204,20 @@
 						<!--@end-->
 					</td>
 				</block>
+
+				<!-- 여기에 평점 표시 부분 추가 -->
+				<td cond="!$mi->star_point =='' && !$mi->starpoint_list == ''">
+					{@
+						$oStarPointModel = getModel('starpoint');
+						$total_point = $oStarPointModel->getDocumentRatedTotalPoint($document->document_srl);
+					}
+					<!--@if($total_point->avg > 0)-->
+					<span class="starpoint">
+						<span class="score" style="font-weight:bold">{number_format($total_point->avg, 1)}점</span>
+					</span>
+					<!--@end-->
+				</td>
+
 				<td cond="$grant->manager" class="check m_no"><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
 
 				<!-- 코멘트 리스트 시작 -->
