@@ -185,7 +185,7 @@
 			</div>
 
 			<!--// 글 정보 -->
-			<div class="info">
+			<div class="info" style="line-height:1.2em">
 				<span cond="$list_config['regdate'] && $mi->zine_style!='2'"><span>Date</span><b>{$document->getRegdate("Y.m.d")}</b></span>
 				<!--// 타임라인게시판적용시 게시판명 출력 -->
 				<span class="mid" cond="$timeline_info" style="background:url({$tpl_path}/images/common/line_1x10_e0e0e0.gif) no-repeat right 3px; padding-right:.5em; margin-right:.5em"><a href="{getUrl('module_srl', $document->get('module_srl'))}"><span>Board :</span><b><strong>{htmlspecialchars($modules_info[$document->get('module_srl')]->browser_title)}</strong></b></a>
@@ -214,16 +214,19 @@
 				</block>
 
 				<!-- 여기에 평점 표시 부분 추가 -->
-				<block cond="!$mi->star_point =='' && !$mi->starpoint_list == ''">
+				<block cond="!$mi->star_point ==''">
 					{@
 						$oStarPointModel = getModel('starpoint');
 						$total_point = $oStarPointModel->getDocumentRatedTotalPoint($document->document_srl);
 					}
 					<!--@if($total_point->avg > 0)-->
-					<span class="starpoint">
-						<span class="score">평점 : {number_format($total_point->avg, 1)}점</span>
-						<span class="starRating"><span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span></span>
-					</span>
+						<span cond="!$mi->star_user == ''" class="starpoint">
+							<span>평점 :</span>
+							<span cond="$mi->star_user == 'all' || $mi->star_user == 'point'" class="score">{number_format($total_point->avg, 1)}점</span>
+							<span cond="$mi->star_user == 'all' || $mi->star_user == 'star'" class="starRating pr_tooltip" pr_color="dark" pr_position="b_right" title="{number_format($total_point->avg, 1)}점">
+								<span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span>
+							</span>
+						</span>
 					<!--@end-->
 				</block>
 

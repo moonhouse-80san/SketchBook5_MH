@@ -83,16 +83,19 @@
 					<span class="line_right" cond="!$mi->show_cate && $document->get('category_srl')" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')" style="cursor:pointer"|cond="$document->isGranted() && $use_category_update"><span>Category :</span><span style="text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_category_update"> {$category_list[$document->get('category_srl')]->title}</span></span>
 
 					<!-- 여기에 평점 표시 부분 추가 -->
-					<block cond="!$mi->star_point =='' && !$mi->starpoint_list == ''">
+					<block cond="!$mi->star_point ==''">
 						{@
 							$oStarPointModel = getModel('starpoint');
 							$total_point = $oStarPointModel->getDocumentRatedTotalPoint($document->document_srl);
 						}
 						<!--@if($total_point->avg > 0)-->
-						<span class="starpoint">
-							<span class="score">평점 : {number_format($total_point->avg, 1)}점</span>
-							<span class="starRating"><span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span></span>
-						</span>
+							<span cond="!$mi->star_user == ''" class="starpoint">
+								<span>평점 :</span>
+								<span cond="$mi->star_user == 'all' || $mi->star_user == 'point'" class="score">{number_format($total_point->avg, 1)}점</span>
+								<span cond="$mi->star_user == 'all' || $mi->star_user == 'star'" class="starRating pr_tooltip" pr_color="dark" pr_position="b_right" title="{number_format($total_point->avg, 1)}점">
+									<span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span>
+								</span>
+							</span>
 						<!--@end-->
 					</block>
 
