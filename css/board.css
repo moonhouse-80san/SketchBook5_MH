@@ -907,6 +907,7 @@ body.viewer_blk{background:#222}
 /* 별점 스타일 */
 .bd .starpoint { display: inline-block; vertical-align: middle;}
 .bd .starpoint .score { display: inline-block; margin-right: 5px; vertical-align: middle;}
+.bd .starpoint .sp_score { display: inline-block; margin-right: 5px; vertical-align: middle;}
 
 /* IE8- Fix */
 .dummy_ie{display:none;*display:block;*width:1px}

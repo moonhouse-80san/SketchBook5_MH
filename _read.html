@@ -144,6 +144,19 @@
 		<!--// SNS small -->
 		<include cond="$mi->to_sns=='2'" target="_read_sns.html" />
 		<!--// Read Navi -->
+		<!-- 여기에 평점 표시 부분 추가 -->
+		<div cond="!$mi->star_point ==''" style="float:left; margin-top:22px">
+			{@
+				$oStarPointModel = getModel('starpoint');
+				$total_point = $oStarPointModel->getDocumentRatedTotalPoint($oDocument->document_srl);
+			}
+			<!--@if($total_point->avg > 0)-->
+			<span class="starpoint">
+				<span class="sp_score" style="margin-left:15px">평점 : {number_format($total_point->avg, 1)}점</span>
+				<span class="starRating pr_tooltip" pr_color="dark" pr_position="right" title="{number_format($total_point->avg, 1)}점"><span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span></span>
+			</span>
+			<!--@end-->
+		</div>
 		<include cond="!$mi->rd_nav" target="_read_nav.html" />
 		<div cond="!$mi->rd_nav_side" class="rd_nav_side">
 			<include target="_read_nav.html" />
@@ -170,11 +183,10 @@
 
 		<!--// Body -->
 		<div class="rd_body clear">
-
 			<!--// 자료실형태 -->
 			<include cond="$oDocument->hasUploadedFiles() && $mi->data_files=='Y'" target="_read_data.html" />
 
-			<!--// Extra Var -->
+			<!--// 확장변수 출력 -->
 			<!--@if($mi->extra_form=='form')-->
 				<include cond="$oDocument->isExtraVarsExists() && (!$oDocument->isSecret() || $oDocument->isGranted())"  target="_read_form.html" />
 			<!--@elseif($mi->extra_form=='')-->
@@ -228,20 +240,19 @@
 						<a href="{getUrl('','document_srl',$oDocument->document_srl)}"><strong>원 게시판 : {$oDocument->get('module_title')}로 가기</strong></a>
 					</span>
 				<!--@end-->
-
-				<!--// 글 리액션 -->
-				<div cond="!$mi->reaction == ''" class="da-reaction" x-da-reaction-print x-data="daReaction('{\Rhymix\Modules\Da_reaction\Src\ReactionHelper::generateIdByItem($oDocument)}', { button: false, placement: 'append' })">
-					<button x-bind="daReactionButton" class="sbtn_small sbtn-orange pr_tooltip" pr_color="dark" pr_position="top_right" title="리엑션을 이모티콘으로 표시합니다."><i class="fa-regular fa-thumbs-up" style="color:#fff"></i> Reaction</button>
-				</div>
 			</article>
-
-			<!--// 글 별평가 모듈 -->
-			<include cond="!$mi->star_point ==''" target="/modules/starpoint/tpl/rating.html" />
-
 			<style>
 				.cont a, .urllink a { text-decoration:none; color:#{$mi->color} !important }
 				.cont a:hover, .urllink a:hover { text-decoration:none; color:#808080 !important }
 			</style>
+
+			<!--// 글 리액션 모듈 -->
+			<div cond="!$mi->reaction == ''" class="da-reaction" x-da-reaction-print x-data="daReaction('{\Rhymix\Modules\Da_reaction\Src\ReactionHelper::generateIdByItem($oDocument)}', { button: false, placement: 'append' })">
+				<button x-bind="daReactionButton" class="sbtn_small sbtn-orange pr_tooltip" pr_color="dark" pr_position="t_right" title="리엑션을 이모티콘으로 표시합니다."><i class="fa-regular fa-thumbs-up" style="color:#fff"></i> Reaction</button>
+			</div>
+
+			<!--// 글 별평가 모듈 -->
+			<include cond="!$mi->star_point ==''" target="/modules/starpoint/tpl/rating.html" />
 
 			<!--// 지정한 게시글의 본문에서만 출력 -->
 			<span cond="$oDocument->get('document_srl')==$mi->document_no" class="documentText">{$mi->document_no_text}</span>
@@ -422,7 +433,6 @@
 
 			<!--// Vote -->
 			<div cond="$mi->votes!='N'" class="rd_vote">
-
 				<!--@if($mi->xe_user=='')-->
 					<a cond="$oDocument->getMyVote() === false || $oDocument->getMyVote() < 0" href="#" onclick="doCallModuleAction('document','procDocumentVoteUp','{$oDocument->document_srl}');return false;" style="border:2px solid #{$mi->color};color:#{$mi->color};">
 						<b><i class="fa fa-heart"></i> {$oDocument->get('voted_count')}</b>
@@ -453,9 +463,7 @@
 						<span>{$lang->cmd_vote_down}</span>
 					</a>
 				<!--@end-->
-
 				<include cond="$mi->recommend=='' && ($mi->votes=='' || $mi->votes=='2')" target="_read_vote.html" />
-
 				<a cond="$mi->declare" class="blamed declare bd_login" href="#" onclick="doCallModuleAction('document','procDocumentDeclare','{$oDocument->document_srl}');return false;"|cond="$is_logged">
 					<b><i class="fa fa-phone"></i></b>
 					<span>{$lang->cmd_declare}</span>
