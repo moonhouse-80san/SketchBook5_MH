@@ -2552,6 +2552,16 @@
 					<title>모듈 설치</title>
 				</options>
 			</var>
+			<var name="starpoint_skin" type="radio">
+				<title>　┖ 스킨</title>
+				<description/>
+				<options value="">
+					<title>Default(기본)</title>
+				</options>
+				<options value="s">
+					<title>Simple</title>
+				</options>
+			</var>
 			<var name="starpoint_text" type="text">
 				<title>　┖ 타이틀</title>
 				<description>상단에 들어갈 타이틀(기본문구 : 글)</description>

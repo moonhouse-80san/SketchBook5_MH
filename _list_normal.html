@@ -84,7 +84,7 @@
 					<!--@if($total_point->avg > 0)-->
 						<span class="starpoint">
 							<span cond="$mi->star_user == 'all' || $mi->star_user == 'point'" class="sp_score">{number_format($total_point->avg, 1)}점</span>
-							<span cond="$mi->star_user == 'all' || $mi->star_user == 'star'" class="starRating pr_tooltip" pr_color="dark" pr_position="b_right" title="{number_format($total_point->avg, 1)}점">
+							<span cond="$mi->star_user == 'all' || $mi->star_user == 'star'" class="starRating pr_tooltip" pr_color="dark" pr_position="right" title="{number_format($total_point->avg, 1)}점">
 								<span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span>
 							</span>
 						</span>
@@ -219,7 +219,7 @@
 					<!--@if($total_point->avg > 0)-->
 						<span class="starpoint">
 							<span cond="$mi->star_user == 'all' || $mi->star_user == 'point'" class="sp_score" style="font-weight:bold">{number_format($total_point->avg, 1)}점</span>
-							<span cond="$mi->star_user == 'all' || $mi->star_user == 'star'" class="starRating pr_tooltip" pr_color="dark" pr_position="b_right" title="{number_format($total_point->avg, 1)}점">
+							<span cond="$mi->star_user == 'all' || $mi->star_user == 'star'" class="starRating pr_tooltip" pr_color="dark" pr_position="right" title="{number_format($total_point->avg, 1)}점">
 								<span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span>
 							</span>
 						</span>
