@@ -2561,6 +2561,12 @@
 				<options value="s">
 					<title>Simple</title>
 				</options>
+				<options value="b_d">
+					<title>Black Default</title>
+				</options>
+				<options value="b_s">
+					<title>Black Simple</title>
+				</options>
 			</var>
 			<var name="starpoint_text" type="text">
 				<title>　┖ 타이틀</title>
