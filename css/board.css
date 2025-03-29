@@ -693,7 +693,7 @@
 .bd_zine.zine .tmb_wrp img,.bd_zine .no_img{border:1px solid #DDD}
 .bd_zine h3{margin:0;font-size:15px;color:#444}
 .bd_zine .ngeb,
-.bd_zine .ngeb>span {font-weight:bold}
+.bd_zine .ngeb>span {font-weight:normal}
 .bd_zine .cnt { margin:6px 0 2px; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-box-orient:vertical; }
 .bd_zine .info,.bd_zine .info a{color:#999}
 .bd_zine .info i{display:none;color:#BBB}
@@ -708,7 +708,7 @@
 .bd_zine.card .tmb_wrp{width:100%}
 .bd_zine.card h3{margin-top:1.2em;font-size:12px;line-height:1.4}
 .bd_zine.card .ngeb,
-.bd_zine.card .ngeb>span {font-weight:bold}
+.bd_zine.card .ngeb>span {font-weight:normal}
 .bd_zine.card .cnt{margin-top:1em;font-size:11px}
 .bd_zine.card .info{margin-top:1em;font-size:10px}
 .bd_zine.card .info b{margin:0 4px 0 3px;font-weight:400}
