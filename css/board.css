@@ -691,9 +691,9 @@
 .bd_zine .tmb_wrp{text-align:center;transition:all .4s}
 .bd_zine.zine .tmb_wrp{float:left}
 .bd_zine.zine .tmb_wrp img,.bd_zine .no_img{border:1px solid #DDD}
-.bd_zine h3{margin:0;font-size:15px;color:#444}
+.bd_zine h3{margin:0;font-size:1.1em;color:#000;}
 .bd_zine .ngeb,
-.bd_zine .ngeb>span {font-weight:normal}
+.bd_zine .ngeb>span {font-size:1.1em;font-weight:normal}
 .bd_zine .cnt { margin:6px 0 2px; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-box-orient:vertical; }
 .bd_zine .info,.bd_zine .info a{color:#999}
 .bd_zine .info i{display:none;color:#BBB}

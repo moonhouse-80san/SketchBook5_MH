@@ -152,8 +152,8 @@
 			}
 			<!--@if($total_point->avg > 0)-->
 			<span class="starpoint">
-				<span class="sp_score" style="margin-left:15px">평점 : {number_format($total_point->avg, 1)}점 | {$total_point->count_members}명</span>
-				<span class="starRating pr_tooltip" pr_color="dark" pr_position="right" title="{number_format($total_point->avg, 1)}점"><span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span></span>
+				<span class="sp_score" style="margin-left:15px">평점 : {number_format($total_point->avg, 1)}점<span cond="!$mo"> | {$total_point->count_members}명</span></span>
+				<span cond="!$mo" class="starRating pr_tooltip" pr_color="dark" pr_position="right" title="{number_format($total_point->avg, 1)}점"><span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span></span>
 			</span>
 			<!--@end-->
 		</div>
