@@ -17,6 +17,8 @@
 			<i class="edge"></i>
 		</div>
 	</div>
+	<a class="rd_prev bubble no_bubble" href="{getUrl('document_srl',$document_list[$no+1]->document_srl)}" title="{$lang->cmd_prev}"><i class="fa fa-arrow-left"></i><b class="tx">{$lang->cmd_prev}</b></a>
+	<a class="rd_next bubble no_bubble" href="{getUrl('document_srl',$prevnext_doc,'page','','cpage','')}" title="{$lang->cmd_next}"><i class="fa fa-arrow-right"></i><b class="tx">{$lang->cmd_next}</b></a>
 	<a cond="$mi->font_btn!='N' && $lang_type=='ko'" class="tg_btn2 bubble m_no" href="#" data-href=".bd_font_select" title="글꼴 선택"><strong>가</strong><i class="arrow down"></i></a>
 	<a cond="$mi->viewer=='2'" class="if_viewer bubble" href="#" onclick="window.open('{getUrl('listStyle','viewer','page','')}','viewer','width=9999,height=9999,scrollbars=yes,resizable=yes,toolbars=no');return false;" title="{$lang->viewer}"><i class="fa fa-picture-o"></i><b class="tx">{$lang->viewer}</b></a>
 	<!--@end-->

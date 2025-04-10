@@ -105,11 +105,11 @@
 				<span cond="$mi->tmb_hover!='N'" class="info_wrp">
 					<span class="info st<!--@if($mi->tmb_hover=='R')-->{rand(1,4)}<!--@else-->{$mi->tmb_hover}<!--@end-->">
 						<span class="padding">
-							<b class="tl" style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">제목&nbsp;&nbsp;:&nbsp;&nbsp;<include target="title.html" /></b>
-							<b cond="$list_config['regdate']" class="tl">날짜&nbsp;&nbsp;:&nbsp;&nbsp;{$document->getRegdate("Y년 m월 d일")}</b>
+							<b class="tl" style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;"><include target="title.html" /></b>
+							<b cond="$mi->trans_window=='date' && $list_config['regdate']" class="tl">날짜&nbsp;&nbsp;:&nbsp;&nbsp;{$document->getRegdate("Y년 m월 d일")}</b>
 							<block cond="$mi->use_category=='Y' && $document->get('category_srl')">분류 : <b>{$category_list[$document->get('category_srl')]->title}</b><br /></block>
-							<span><block cond="$list_config['readed_count']">Views <b>{$document->get('readed_count')}</b>&nbsp;</block> <block cond="$list_config['voted_count']">Likes <b>{$document->get('voted_count')}</b></block></span>
-							<block cond="$document->getCommentCount()">Replies <b>{$document->getCommentCount()}</b></block>
+							<span><block cond="$mi->trans_window=='read' && $list_config['readed_count']">Views <b>{$document->get('readed_count')}</b>&nbsp;</block> <block cond="$mi->trans_window=='vote' && $list_config['voted_count']">Likes <b>{$document->get('voted_count')}</b></block></span>
+							<block cond="$mi->trans_window=='cmt' && $document->getCommentCount()">Replies <b>{$document->getCommentCount()}</b></block>
 
 							<!--// 확장변수 -->
 							<block cond="$mi->zine_extra || $mi->rating_output == 'Y'">
