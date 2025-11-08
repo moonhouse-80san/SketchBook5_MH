@@ -70,7 +70,7 @@
 						</block>
 						<block cond="(int)($document->get('comment_count'))==0">&nbsp;</block>
 					</td>
-					<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no">{number_format($document->get('readed_count')>0?$document->get('readed_count'):'0')}</td>
+					<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no" style="text-align:right">{number_format($document->get('readed_count')>0?$document->get('readed_count'):'0')}</td>
 					<td cond="$val->type=='voted_count' && $val->idx==-1" class="m_no">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</td>
 					<td cond="$val->idx!=-1" <!--@if($mi->sticky_select == 'e')-->	class="fixed"|cond="$val->eid == $mi->sticky"	<!--@end--> onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="m_no"|cond="$val->eid!='link_url'"><!--@if($val->eid=='rating')--><span class="starRating" title="{$document->getExtraValueHTML($val->idx)}{$lang->score}"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span><!--@else-->{$document->getExtraValueHTML($val->idx)}<!--@end--></td>
 				</block>

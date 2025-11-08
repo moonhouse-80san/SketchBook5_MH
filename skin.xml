@@ -417,19 +417,6 @@
 					<title>표시 안함</title>
 				</options>
 			</var>
-			<var name="font_btn" type="radio">
-				<title>글꼴 선택 버튼</title>
-				<description>'표시 안함' 은 관리자가 설정한 글꼴로 강제합니다.</description>
-				<options value="">
-					<title>선택된 글꼴 표시하는 버튼(기본)</title>
-				</options>
-				<options value="2">
-					<title>간단한 버튼</title>
-				</options>
-				<options value="N">
-					<title>표시 안함</title>
-				</options>
-			</var>
 			<var name="select_lst" type="radio">
 				<title>목록 유형 버튼</title>
 				<options value="">

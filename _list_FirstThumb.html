@@ -4,7 +4,7 @@
 	{@$i=0}
 	<ul loop="$document_list=>$no,$document" class="<!--@if($document_srl==$document->document_srl)-->select <!--@end-->clear">
 
-		<!--@if($mi->first_thumb_user =='' && ($total_count - $no) % $module_info->list_count === 0 && $list_config['thumbnail'] && $document->thumbnailExists())-->
+		<!--@if($mi->first_thumb_user =='' && $mi->list_count > 0 && ($total_count - $no) % $mi->list_count === 0 && $list_config['thumbnail'] && $document->thumbnailExists())-->
 			<include target="list_ft.html" />
 		<!--@elseif($mi->first_thumb_user =='all')-->
 			<include target="list_ft.html" />
