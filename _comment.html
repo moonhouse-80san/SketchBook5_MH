@@ -124,7 +124,7 @@
 					<div style="margin-top:5px">
 						<!--댓글 주소 복사-->
 						<load target="./js/clipboard.min.js" />
-						<a class="copycomLink" style="font-size:12px; color:#aaa" href="{getUrl('', 'mid', $mid, 'act', 'document_srl', $comment->document_srl, 'comment_srl', $comment->comment_srl)}#comment_{$comment->comment_srl}" data-clipboard-text="{getFullUrl('', 'mid', $mid, 'act', 'document_srl', $comment->document_srl, 'comment_srl', $comment->comment_srl)}#comment_{$comment->comment_srl}" onclick="return false;">#comment_{$comment->comment_srl}</a>
+						<a class="copycomLink" style="font-size:12px; color:#aaa" href="{getUrl('', 'mid', $mid, 'document_srl', $comment->document_srl)}#comment_{$comment->comment_srl}" data-clipboard-text="{getFullUrl('', 'mid', $mid, 'document_srl', $comment->document_srl)}#comment_{$comment->comment_srl}" onclick="return false;">#comment_{$comment->comment_srl}</a>
 					</div>
 				</div>
 
