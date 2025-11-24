@@ -139,13 +139,15 @@
 					{@if(!$mi->comment_lineno) $mi->comment_lineno = 5;}
 					{@$comments_list = $document->getComments();}
 					<!--@if(is_array($comments_list) && count($comments_list) > 0)-->
-						<!--@if(!$mi->comment_order == '')-->
+						<!--@if($mi->comment_line == 'appoint' && $mi->comment_lineno > 0)-->
+							{@$comments_list = array_slice($comments_list, -$mi->comment_lineno);}
+							<!--@if($mi->comment_order == 'reverse')-->
+								{@$comments_list = array_reverse($comments_list);}
+							<!--@end-->
+						<!--@elseif($mi->comment_order == 'reverse')-->
 							{@$comments_list = array_reverse($comments_list);}
-						<!--@elseif($mi->comment_lineno > 0)-->
-							{@$comments_list = array_slice($comments_list, -$mi->comment_lineno, $mi->comment_lineno);}
 						<!--@end-->
 					<!--@end-->
-					{@$j = 0}
 					<!--@if($document->getCommentCount())-->
 						<!--@if($mi->ftu_cvb!='')-->
 							<details open>
@@ -160,11 +162,7 @@
 								</div>
 								<table class="CommArea">
 									<!--@foreach($comments_list as $key => $val)-->
-										<!--@if(!$mi->comment_line == '')-->
-											<include target="list_webzin_comment.html" cond="$j < $mi->comment_lineno"/>
-										<!--@else-->
-											<include target="list_webzin_comment.html" />
-										<!--@end-->
+										<include target="list_webzin_comment.html"/>
 									<!--@end-->
 								</table>
 							</details>

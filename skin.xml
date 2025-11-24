@@ -1249,7 +1249,7 @@
 				<options value="">
 					<title>전체출력</title>
 				</options>
-				<options value="N">
+				<options value="appoint">
 					<title>지정칸수출력</title>
 				</options>
 				<description>댓글의 수가 많은 경우 지정칸수 만큼만 출력</description>
