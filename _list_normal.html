@@ -233,7 +233,13 @@
 					<!--@if(!($oDocument->isExists() && $grant->view && $mi->cmtlist_at_boardlist == 'nolist'))-->
 						{@ if(!$mi->comment_lineno) $mi->comment_lineno = 5;
 							 $comments_list = $document->getComments(); }
-						<!--@if(!$mi->comment_order == '')-->{@ $comments_list = array_reverse($comments_list); }<!--@end-->
+						<!--@if(is_array($comments_list) && count($comments_list) > 0)-->
+							<!--@if(!$mi->comment_order == '')-->
+								{@$comments_list = array_reverse($comments_list);}
+							<!--@elseif($mi->comment_lineno > 0)-->
+								{@$comments_list = array_slice($comments_list, -$mi->comment_lineno, $mi->comment_lineno);}
+							<!--@end-->
+						<!--@end-->
 						{@$j = 0}
 						<!--@if($document->getCommentCount())-->
 							<!--@foreach($comments_list as $key => $val)-->

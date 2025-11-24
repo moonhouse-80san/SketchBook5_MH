@@ -1239,7 +1239,7 @@
 				<options value="">
 					<title>시간순</title>
 				</options>
-				<options value="N">
+				<options value="reverse">
 					<title>새글순</title>
 				</options>
 				<description>댓글이 정렬하는 순서를 지정(새글순 - 새로운 댓글이 상위)</description>
