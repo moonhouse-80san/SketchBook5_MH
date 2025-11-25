@@ -148,6 +148,7 @@
 				<div cond="!$mi->Tag_view==''">
 					{@
 					$tagModel = &getModel('tag');
+					$args = new stdClass(); // 객체 먼저 선언
 					$args->document_srl = $document->document_srl;
 					$tag_list = $tagModel->getDocumentsTagList($args);
 					}
