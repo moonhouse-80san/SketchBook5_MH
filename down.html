@@ -12,11 +12,11 @@
 {$val->getValueHTML()}<b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
 </div>
 
-<div cond="$val->name==$mi->t_logon_name" id="toggleExtraVars" class="sty" onclick="<!--@if($mi->down_loca == '')-->location.href='{$val->getValueHTML()}'<!--@else-->window.open('{$val->getValueHTML()}')<!--@end-->"><i class="fas fa-download"></i>
+<div cond="$val->name==$mi->t_logon_name" id="toggleExtraVars" class="sty" onclick="<!--@if($mi->down_loca == '')-->location.href='{$val->getValueHTML()}'<!--@else-->location.href='{$val->getValueHTML()}'<!--@end-->"><i class="fas fa-download"></i>
 <b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
 </div>
 
-<div cond="$val->name==$mi->git_logon_name" id="toggleExtraVars" class="sty" onclick="<!--@if($mi->down_loca == '')-->location.href='{$val->getValueHTML()}?raw=true'<!--@else-->window.open('{$val->getValueHTML()}?raw=true}')<!--@end-->"><i class="fas fa-download"></i>
+<div cond="$val->name==$mi->git_logon_name" id="toggleExtraVars" class="sty" onclick="<!--@if($mi->down_loca == '')-->location.href='{$val->getValueHTML()}?raw=true'<!--@else-->location.href='{$val->getValueHTML()}?raw=true'<!--@end-->"><i class="fas fa-download"></i>
 <b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
 </div>
 
@@ -24,7 +24,7 @@
 <b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
 </div>
 
-<div cond="$val->name==$mi->d_logon_name" id="toggleExtraVars" class="sty" onclick="<!--@if($mi->down_loca == '')-->location.href='https://www.dropbox.com/s/{$val->getValueHTML()}?dl=1'<!--@else-->window.open('https://www.dropbox.com/s/{$val->getValueHTML()}?dl=1')<!--@end-->"><i class="fas fa-download"></i>
+<div cond="$val->name==$mi->d_logon_name" id="toggleExtraVars" class="sty" onclick="<!--@if($mi->down_loca == '')-->location.href='https://www.dropbox.com/s/{$val->getValueHTML()}?dl=1'<!--@else-->location.href='https://www.dropbox.com/s/{$val->getValueHTML()}?dl=1'<!--@end-->"><i class="fas fa-download"></i>
 <b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
 </div>
 
