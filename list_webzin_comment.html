@@ -2,11 +2,20 @@
 	<tr class="replylist">
 	{@$j++}
 		<td class="replyIndent" style="<!--@if($val->depth < 11 && $mi->comment_order == '')-->margin-left:{($val->depth)*1}em;<!--@end-->">
+			{@
+				$stripped_content = strip_tags($val->content);
+				$trimmed_content = trim($stripped_content);
+				$is_empty = empty($trimmed_content);
+			}
 			<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}">
-				<!--@if(!$mi->comment_cut_size) -->
-					{cut_str(strip_tags($val->content),90,'...')}
+				<!--@if($is_empty)-->
+					<i class="fa-solid fa-image"> 이미지 댓글</i>
 				<!--@else-->
-					{cut_str(strip_tags($val->content),$mi->comment_cut_size,'...')}
+					<!--@if(!$mi->comment_cut_size) -->
+						{cut_str(strip_tags($val->content),90,'...')}
+					<!--@else-->
+						{cut_str(strip_tags($val->content),$mi->comment_cut_size,'...')}
+					<!--@end-->
 				<!--@end-->
 			</a>
 		</td>

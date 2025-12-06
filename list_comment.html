@@ -8,12 +8,21 @@
 	<td class="replyContent" >
 		<div <!--@if($val->depth < 11 && $mi->comment_order == '')-->style="margin-left:{($val->depth)*1.3}em"<!--@end--> >
 			<div class="replyIndent">
+				{@
+					$stripped_content = strip_tags($val->content);
+					$trimmed_content = trim($stripped_content);
+					$is_empty = empty($trimmed_content);
+				}
 				<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}" class="pr_tooltip" pr_color="dark" pr_position="b_right" title="{cut_str(strip_tags($val->content),0,'...')}">
+				<!--@if($is_empty)-->
+					<i class="fa-solid fa-image"> 이미지 댓글</i>
+				<!--@else-->
 					<!--@if(!$mi->comment_cut_size) -->
 					{cut_str(strip_tags($val->content),60,'...')}
 					<!--@else-->
 					{cut_str(strip_tags($val->content),$mi->comment_cut_size,'...')}
 					<!--@end-->
+				<!--@end-->
 				</a>
 			</div>
 		</div>
