@@ -15,7 +15,7 @@
 				}
 				<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}" class="pr_tooltip" pr_color="dark" pr_position="b_right" title="{cut_str(strip_tags($val->content),0,'...')}">
 				<!--@if($is_empty)-->
-					<i class="fa-solid fa-image"> 이미지 댓글</i>
+					<i class="fa-solid fa-image" style="font-weight:normal; font-size:12px"> 이미지 댓글</i>
 				<!--@else-->
 					<!--@if(!$mi->comment_cut_size) -->
 					{cut_str(strip_tags($val->content),60,'...')}
