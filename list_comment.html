@@ -18,15 +18,11 @@
 					$img_src = isset($img_match[1]) ? $img_match[1] : '';
 					$is_image_only = !empty($img_src) && empty($trimmed_content);
 				}
-				<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}" class="pr_tooltip" pr_color="dark" pr_position="b_right" 	title="<!--@if($is_image_only)-->	<img src='{$img_src}' style='max-width:100px; max-height:100px;'><!--@else-->{cut_str(strip_tags($val->content),0,'...')}<!--@end-->">
+				<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}" class="pr_tooltip" pr_color="dark" pr_position="b_right" 	title="<!--@if($is_image_only)-->	<img src='{$img_src}' style='max-width:100px; max-height:100px;'><!--@else-->{cut_str(strip_tags($val->content),150,'...')}<!--@end-->">
 				<!--@if($is_image_only)-->
 					<img src="img/image-line.svg" width="15" height="15"> "Img 댓글"
 				<!--@else-->
-					<!--@if(!$mi->comment_cut_size) -->
-						{cut_str(strip_tags($val->content),60,'...')}
-					<!--@else-->
-						{cut_str(strip_tags($val->content),$mi->comment_cut_size,'...')}
-					<!--@end-->
+					{cut_str(strip_tags($val->content),0,'...')}
 				<!--@end-->
 				</a>
 			</div>

@@ -1201,9 +1201,9 @@
 			</var>
 		</group>
 		<group>
-			<title>목록형, 웹진형 공통설정</title>
+			<title>목록형, 웹진형, FT형 공통설정</title>
 			<var name="list_replyContent" type="radio">
-				<title>📍 리스트 댓글 출력(FT)</title>
+				<title>📍 리스트 댓글 출력</title>
 				<options value="">
 					<title>출력하지 않음(기본)</title>
 				</options>
@@ -1211,10 +1211,6 @@
 					<title>출력</title>
 				</options>
 				<description>리스트내용글 아래에 댓글의 출력유무를 선택합니다.</description>
-			</var>
-			<var name="comment_cut_size" type="text">
-				<title>　┖ 댓글 글자수</title>
-				<description>댓글 글자수를 지정할 수 있습니다. (기본 90)</description>
 			</var>
 			<var name="display_author" type="radio">
 				<title>　┖ 댓글작성자 표시</title>
@@ -1259,7 +1255,7 @@
 				<description>댓글의 칸수를 지정할 수 있습니다. (기본 5)</description>
 			</var>
 			<var name="Tag_view" type="radio">
-				<title>목록에 #태그 출력(FT)</title>
+				<title>목록에 #태그 출력</title>
 				<description>목록글 아래에 #태그(Tag)를 출력표시합니다.
 				https://moonhouse.co.kr/xetip/402330</description>
 				<options value="">
@@ -1270,7 +1266,7 @@
 				</options>
 			</var>
 			<var name="select_icons" type="text">
-				<title>📍 제목앞 분류 버턴 확장변수 ID(FT)</title>
+				<title>📍 제목앞 분류 버턴 확장변수 ID</title>
 				<description>제목앞에 분류 버턴을 출력할 확장변수 ID를 작성(기본 change)
 				https://moonhouse.co.kr/qa/543730#comment_543791
 				</description>
