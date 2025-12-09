@@ -6,17 +6,22 @@
 				$stripped_content = strip_tags($val->content);
 				$trimmed_content = trim($stripped_content);
 				$is_empty = empty($trimmed_content);
+
+				// 이미지 src 추출
+				preg_match('/<img[^>]+src=["\']([^"\']+)["\'][^>]*>/i', $val->content, $img_match);
+				$img_src = isset($img_match[1]) ? $img_match[1] : '';
+				$is_image_only = !empty($img_src) && empty($trimmed_content);
 			}
-			<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}">
-				<!--@if($is_empty)-->
-					<img src="img/image-line.svg" width="15" height="15"> "Img 댓글"
+			<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}" class="pr_tooltip" pr_color="dark" pr_position="b_right" 	title="<!--@if($is_image_only)-->	<img src='{$img_src}' style='max-width:100px; max-height:100px;'><!--@else-->{cut_str(strip_tags($val->content),0,'...')}<!--@end-->">
+			<!--@if($is_image_only)-->
+				<img src="img/image-line.svg" width="15" height="15"> "Img 댓글"
+			<!--@else-->
+				<!--@if(!$mi->comment_cut_size) -->
+					{cut_str(strip_tags($val->content),60,'...')}
 				<!--@else-->
-					<!--@if(!$mi->comment_cut_size) -->
-						{cut_str(strip_tags($val->content),90,'...')}
-					<!--@else-->
-						{cut_str(strip_tags($val->content),$mi->comment_cut_size,'...')}
-					<!--@end-->
+					{cut_str(strip_tags($val->content),$mi->comment_cut_size,'...')}
 				<!--@end-->
+			<!--@end-->
 			</a>
 		</td>
 
