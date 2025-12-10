@@ -1212,6 +1212,10 @@
 				</options>
 				<description>리스트내용글 아래에 댓글의 출력유무를 선택합니다.</description>
 			</var>
+			<var name="comment_cut_size" type="text">
+				<title>　┖ 댓글 글자수</title>
+				<description>댓글 글자수를 지정할 수 있습니다. (기본 자르지 않음)</description>
+			</var>			
 			<var name="display_author" type="radio">
 				<title>　┖ 댓글작성자 표시</title>
 				<options value="Y">

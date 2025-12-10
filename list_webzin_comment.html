@@ -16,7 +16,7 @@
 			<!--@if($is_image_only)-->
 				<img src="img/image-line.svg" width="15" height="15"> "Img 댓글"
 			<!--@else-->
-				{cut_str(strip_tags($val->content),0,'...')}
+				{cut_str(strip_tags($val->content),$mi->comment_cut_size,'...')}
 			<!--@end-->
 			</a>
 		</td>
