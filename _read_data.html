@@ -25,6 +25,11 @@
 			</tr>
 		</tbody>
 
+		{@ $total_downloads = 0 }
+		<!--@foreach($re_files as $file)-->
+			{@ $total_downloads += $file->download_count }
+		<!--@end-->
+
 		<tbody cond="$mi->files_type">
 			<tr loop="$re_files=>$key,$file">
 				{@
@@ -60,5 +65,11 @@
 				</block>
 			</tr>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="3" class="tr">Total 다운로드</td>
+				<td class="tc">{number_format($total_downloads)}</td>
+			</tr>
+		</tfoot>
 	</table>
 </div>
