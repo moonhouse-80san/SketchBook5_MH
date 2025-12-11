@@ -26,8 +26,20 @@
 		</tbody>
 
 		{@ $total_downloads = 0 }
+		{@ $etc_count = 0 }
 		<!--@foreach($re_files as $file)-->
-			{@ $total_downloads += $file->download_count }
+			{@
+				$ext = substr($file->source_filename, -4);
+				$ext = strtolower($ext);
+				$ext_img = in_array($ext,array('.jpg','jpeg','.gif','.svg','.png'));
+				$ext_video = in_array($ext,array('.mpg','mpeg','.avi','.wmv','.mp4','.mov','.mkv','.swf','.flv','.ogv','webm'));
+				$ext_audio = in_array($ext,array('.mp3','.ogg','.wma','.wav','.ape','flac','.mid'));
+				$is_etc = (!$ext_img && !$ext_video && !$ext_audio);
+			}
+			<!--@if(!$mi->files_etc && $is_etc)-->
+				{@ $total_downloads += $file->download_count }
+				{@ $etc_count++ }
+			<!--@end-->
 		<!--@end-->
 
 		<tbody cond="$mi->files_type">
@@ -65,7 +77,7 @@
 				</block>
 			</tr>
 		</tbody>
-		<tfoot>
+		<tfoot cond="$etc_count > 1">
 			<tr>
 				<td colspan="3" class="tr">Total 다운로드</td>
 				<td class="tc">{number_format($total_downloads)}</td>
