@@ -41,7 +41,6 @@
 				{@ $etc_count++ }
 			<!--@end-->
 		<!--@end-->
-
 		<tbody cond="$mi->files_type">
 			<tr loop="$re_files=>$key,$file">
 				{@
@@ -50,6 +49,7 @@
 					$ext_img = in_array($ext,array('.jpg','jpeg','.gif','.svg','.png'));
 					$ext_video = in_array($ext,array('.mpg','mpeg','.avi','.wmv','.mp4','.mov','.mkv','.swf','.flv','.ogv','webm'));
 					$ext_audio = in_array($ext,array('.mp3','.ogg','.wma','.wav','.ape','flac','.mid'));
+					$is_etc = (!$ext_img && !$ext_video && !$ext_audio);
 				}
 				<block cond="!$mi->files_img && $ext_img">
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
@@ -69,7 +69,7 @@
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
 					<td class="tc">{number_format($file->download_count)}</td>
 				</block>
-				<block cond="!$mi->files_etc && (!$ext_img && !$ext_video && !$ext_audio)">
+				<block cond="!$mi->files_etc && $is_etc">
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
