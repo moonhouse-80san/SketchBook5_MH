@@ -1,6 +1,6 @@
 <style>
 	.bd_tb .tc { text-align:center; width:auto; white-space:nowrap; }
-	.bd_tb .tb { background-color:#f9f9f9 }
+	.bd_tb .tb { background-color:#f9f9f9; }
 </style>
 
 <div id="files_{$oDocument->document_srl}" class="rd_fnt rd_file">
@@ -79,7 +79,7 @@
 		</tbody>
 		<tfoot cond="$etc_count > 1">
 			<tr>
-				<td colspan="3" class="tr">Total 다운로드</td>
+				<td class="tr" colspan="{$mo ? '1' : '3'}">Total 다운로드</td>
 				<td class="tc">{number_format($total_downloads)}</td>
 			</tr>
 		</tfoot>
