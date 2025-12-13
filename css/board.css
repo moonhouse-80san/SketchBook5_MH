@@ -1255,7 +1255,7 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 .replylist .date { color:#A6A39D; font-size:0.8em; width:10px; }
 
 /* 리스트 댓글 */
-.bd_lst .replylist { background-color:transparent; border-bottom:1px solid #eee; }
+.bd_lst .replylist { background-color:transparent; }
 .bd_lst .replylist .replyContent { padding-left:15px; max-width:300px; }
 .bd_lst .replylist .replyIndent { text-align:left; text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; overflow:hidden;}
 

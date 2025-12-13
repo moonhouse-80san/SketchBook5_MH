@@ -5,7 +5,7 @@
 	<td scope="col" cond="!$timeline_info && $module_info->include_modules">&nbsp;</td>
 	<td scope="col" cond="!$mi->show_cate && $mi->use_category=='Y'" class="m_no">&nbsp;</td>
 
-	<td class="replyContent">
+	<td class="replyContent" >
 		<div <!--@if($val->depth < 11 && $mi->comment_order == '')-->style="margin-left:{($val->depth)*1.3}em"<!--@end--> >
 			<div class="replyIndent">
 				{@
@@ -33,7 +33,7 @@
 				}
 				<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}" class="pr_tooltip" pr_color="dark" pr_position="b_right" 	title="<!--@if($is_image_only)-->	<img src='{$img_src}' style='max-width:100px; max-height:100px;'><!--@elseif($is_video_only)--><!--@else-->{cut_str(strip_tags($val->content),150,'...')}<!--@end-->">
 				<!--@if($is_image_only)-->
-					<img src="img/image-line.svg" width="15" height="15"> "이미지 댓글"
+					<img src="img/image-line.svg" width="15" height="15"> "Img 댓글"
 				<!--@elseif($is_video_only)-->
 					<img src="img/file-video-line.svg" width="15" height="15"> "동영상 댓글"
 				<!--@else-->

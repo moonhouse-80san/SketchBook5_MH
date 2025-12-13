@@ -2,100 +2,98 @@
 	$mi = $module_info;
 	$mo = Mobile::isMobileCheckByAgent();
 	$Path = "modules/board/skins/sketchbook5_MH";
-	
-	// 동적 속성 설정 - isset() 체크 추가
-	if(!isset($mi->content_cut_size)) $mi->content_cut_size = '240';
-	if(!isset($mi->duration_new)) $mi->duration_new = '24';
-	if(!isset($mi->colorset)) $mi->colorset = 'white';
-	if(!isset($mi->preview_tx)) $mi->preview_tx = '150';
-	if(!isset($mi->extra_num)) $mi->extra_num = '1';
-	if(!isset($mi->thumbnail_width)) $mi->thumbnail_width  = '90';
-	if(!isset($mi->thumbnail_height)) $mi->thumbnail_height = '90';
-	if(!isset($mi->zine_thumb_width)) $mi->zine_thumb_width = '90';
-	if(!isset($mi->zine_thumb_height)) $mi->zine_thumb_height = '90';
-	if(!isset($mi->pre_tb_width)) $mi->pre_tb_width  = '90';
-	if(!isset($mi->pre_tb_height)) $mi->pre_tb_height = '90';
-	if(!isset($mi->youtube_tb_width)) $mi->youtube_tb_width  = '180';
-	if(!isset($mi->youtube_tb_height)) $mi->youtube_tb_height = '100';
-	if(!isset($mi->zine_margin)) $mi->zine_margin = '10';
-	if(!isset($mi->cmt_wrt)) $mi->cmt_wrt = 'simple';
-	if(!isset($mi->img_insert_align)) $mi->img_insert_align = 'center';
-	if(!isset($mi->top_toggle)) $mi->top_toggle = '1';
-	if(!isset($mi->eid_up1)) $mi->eid_up1 = 'update';
-	if(!isset($mi->eid_up2)) $mi->eid_up2 = 'update1';
-	if(!isset($mi->title_name)) $mi->title_name = 'etitle';
-	if(!isset($mi->content_color)) $mi->content_color = 'transparent';
-	if(!isset($mi->admin_extra)) $mi->admin_extra = 'admin_select';
-	if(!isset($mi->work_total)) $mi->work_total = '총날짜';
-	if(!isset($mi->work_start)) $mi->work_start = 'work_start';
-	if(!isset($mi->work_stop)) $mi->work_stop = 'work_stop';
-	if(!isset($mi->tag_total)) $mi->tag_total = 'Total';
-	if(!isset($mi->f_name)) $mi->f_name = '₩';
-	if(!isset($mi->readed_count_hot)) $mi->readed_count_hot = '10000';
-	if(!isset($mi->readed_count_cool)) $mi->readed_count_cool = '5000';
-	if(!isset($mi->content_cut_height)) $mi->content_cut_height = '2';
-	if(!isset($mi->comment_cut_size)) $mi->comment_cut_size = '0';	
+	if(!$mi->content_cut_size) $mi->content_cut_size = '240';
+	if(!$mi->duration_new) $mi->duration_new = '24';
+	if(!$mi->colorset) $mi->colorset = 'white';
+	if(!$mi->preview_tx)  $mi->preview_tx = '150';
+	if(!$mi->extra_num) $mi->extra_num = '1';
+	if(!$mi->thumbnail_width)  $mi->thumbnail_width  = '90';
+	if(!$mi->thumbnail_height) $mi->thumbnail_height = '90';
+	if(!$mi->zine_thumb_width) $mi->zine_thumb_width = '90';
+	if(!$mi->zine_thumb_height) $mi->zine_thumb_height = '90';
+	if(!$mi->pre_tb_width)  $mi->pre_tb_width  = '90';
+	if(!$mi->pre_tb_height) $mi->pre_tb_height = '90';
+	if(!$mi->youtube_tb_width) $mi->youtube_tb_width  = '180';
+	if(!$mi->youtube_tb_height) $mi->youtube_tb_height = '100';
+	if(!$mi->zine_margin) $mi->zine_margin = '10';
+	if(!$mi->cmt_wrt) $mi->cmt_wrt = 'simple';
+	if(!$mi->img_insert_align) $mi->img_insert_align = 'center';
+	if(!$mi->top_toggle) $mi->top_toggle = '1';
+	if(!$mi->eid_up1) $mi->eid_up1 = 'update';
+	if(!$mi->eid_up2) $mi->eid_up2 = 'update1';
+	if(!$mi->title_name) $mi->title_name = 'etitle';
+	if(!$mi->content_color) $mi->content_color = 'transparent';
+	if(!$mi->admin_extra) $mi->admin_extra = 'admin_select';
+	if(!$mi->work_total) $mi->work_total = '총날짜';
+	if(!$mi->work_start) $mi->work_start = 'work_start';
+	if(!$mi->work_stop) $mi->work_stop = 'work_stop';
+	if(!$mi->tag_total) $mi->tag_total = 'Total';
+	if(!$mi->f_name) $mi->f_name = '₩';
+	if(!$mi->readed_count_hot) $mi->readed_count_hot = '10000';
+	if(!$mi->readed_count_cool) $mi->readed_count_cool = '5000';
+	if(!$mi->content_cut_height) $mi->content_cut_height = '2';
+	if(!$mi->comment_cut_size) $mi->comment_cut_size = '0';	
 
-	// 종료 확장변수
-	if(!isset($mi->start_name)) $mi->start_name = 'start';
-	if(!isset($mi->end_name)) $mi->end_name = 'end';
-	if(!isset($mi->end_title)) $mi->end_title = '종료';
-	if(!isset($mi->d_day_title)) $mi->d_day_title = '';
-	if(!isset($mi->before_title)) $mi->before_title = '';
-	if(!isset($mi->ing_title)) $mi->ing_title = '';
-	if(!isset($mi->approach_title)) $mi->approach_title = '종료임박';
-	if(!isset($mi->today_title)) $mi->today_title = '종료급박';
-	if(!isset($mi->i_d)) $mi->i_d = '-1 days';
-	if(!isset($mi->a_d)) $mi->a_d = '+1 day';
-	if(!isset($mi->a_h)) $mi->a_h = '-12 hours';
+	<!--// 종료 확장변수 -->
+	if(!$mi->start_name) $mi->start_name = 'start';
+	if(!$mi->end_name) $mi->end_name = 'end';
+	if(!$mi->end_title) $mi->end_title = '종료';
+	if(!$mi->d_day_title) $mi->d_day_title = '';
+	if(!$mi->before_title) $mi->before_title = '';
+	if(!$mi->ing_title) $mi->ing_title = '';
+	if(!$mi->approach_title) $mi->approach_title = '종료임박';
+	if(!$mi->today_title) $mi->today_title = '종료급박';
+	if(!$mi->i_d) $mi->i_d = '-1 days';
+	if(!$mi->a_d) $mi->a_d = '+1 day';
+	if(!$mi->a_h) $mi->a_h = '-12 hours';
 
-	// FirstThumb Style
-	if(!isset($mi->line_color)) $mi->line_color = '#fff';
-	if(!isset($mi->line_size)) $mi->line_size = '1';
-	if(!isset($mi->select_icons)) $mi->select_icons = 'change';
+	<!--// FirstThumb Style -->
+	if(!$mi->line_color) $mi->line_color = '#fff';
+	if(!$mi->line_size) $mi->line_size = '1';
+	if(!$mi->select_icons) $mi->select_icons = 'change';
 
-	// 체크박스 옵션 - 타입 체크 추가
-	$mi->btm_mn = is_string($mi->btm_mn ?? null) ? @unserialize($mi->btm_mn) : ($mi->btm_mn ?? null);
-	$mi->preview = is_string($mi->preview ?? null) ? @unserialize($mi->preview) : ($mi->preview ?? null);
-	$mi->ext_img = is_string($mi->ext_img ?? null) ? @unserialize($mi->ext_img) : ($mi->ext_img ?? null);
-	$mi->cmt_count = is_string($mi->cmt_count ?? null) ? @unserialize($mi->cmt_count) : ($mi->cmt_count ?? null);
-	$mi->wrt_opt = is_string($mi->wrt_opt ?? null) ? @unserialize($mi->wrt_opt) : ($mi->wrt_opt ?? null);
-	$mi->viewer_itm = is_string($mi->viewer_itm ?? null) ? @unserialize($mi->viewer_itm) : ($mi->viewer_itm ?? null);
-	$mi->rd_blog_itm = is_string($mi->rd_blog_itm ?? null) ? @unserialize($mi->rd_blog_itm) : ($mi->rd_blog_itm ?? null);
+	<!--// 체크박스 옵션 -->
+	$mi->btm_mn = unserialize($mi->btm_mn);
+	$mi->preview = unserialize($mi->preview);
+	$mi->ext_img = unserialize($mi->ext_img);
+	$mi->cmt_count = unserialize($mi->cmt_count);
+	$mi->wrt_opt = unserialize($mi->wrt_opt);
+	$mi->viewer_itm = unserialize($mi->viewer_itm);
+	$mi->rd_blog_itm = unserialize($mi->rd_blog_itm);
 
-	if(isset($_COOKIE['bd_font']) && !isset($mi->font_btn)) $mi->font = $_COOKIE['bd_font'];
-	if(isset($_COOKIE['bd_editor'])) $mi->cmt_wrt = $_COOKIE['bd_editor'];
-	if(isset($_COOKIE['cookie_viewer_with'])) $mi->viewer_with = '';
+	if($_COOKIE['bd_font'] && !$mi->font_btn) $mi->font = $_COOKIE['bd_font'];
+	if($_COOKIE['bd_editor']) $mi->cmt_wrt = $_COOKIE['bd_editor'];
+	if($_COOKIE['cookie_viewer_with']) $mi->viewer_with = '';
 
-	if(isset($mi->custom_color)) $mi->color = $mi->custom_color;
-	if(isset($mi->custom_shadow)) $mi->shadow = $mi->custom_shadow;
-	if(!isset($mi->color)) $mi->color = '#333333';
-	if(!isset($mi->shadow)) $mi->shadow = '#999';
+	if($mi->custom_color) $mi->color = $mi->custom_color;
+	if($mi->custom_shadow) $mi->shadow = $mi->custom_shadow;
+	if(!$mi->color) $mi->color = '#333333';
+	if(!$mi->color) $mi->shadow = '#999';
 	if($mi->colorset=='black') $mi->color = '#EEEEEE';
 	if($mi->colorset=='black') $mi->shadow = '#000';
-	if(isset($mi->color) && $mi->color=='87cefa') $mi->shadow = '#5f9ea0';
-	if(isset($mi->color) && $mi->color=='6495ed') $mi->shadow = '#4682b4';
-	if(isset($mi->color) && ($mi->color=='4169e1' || $mi->color=='4682b4')) $mi->shadow = '#646496';
-	if(isset($mi->color) && $mi->color=='adff2f') $mi->shadow = '#80E12A';
-	if(isset($mi->color) && $mi->color=='80E12A') $mi->shadow = '#4BAF4B';
-	if(isset($mi->color) && $mi->color=='ffb6c1') $mi->shadow = '#e9967a';
-	if(isset($mi->color) && $mi->color=='ff69b4') $mi->shadow = '#db7093';
-	if(isset($mi->color) && $mi->color=='ff1493') $mi->shadow = '#C39';
-	if(isset($mi->color) && $mi->color=='ffd700') $mi->shadow = '#daa520';
-	if(isset($mi->color) && $mi->color=='ffa500') $mi->shadow = '#f08080';
-	if(isset($mi->color) && $mi->color=='ff7f50') $mi->shadow = '#d2691e';
-	if(isset($mi->color) && $mi->color=='ff6347') $mi->shadow = '#dc143c';
-	if(isset($mi->color) && $mi->color=='bc8f8f') $mi->shadow = '#A36464';
-	if(isset($mi->color) && $mi->color=='ee82ee') $mi->shadow = '#da70d6';
-	if(isset($mi->color) && $mi->color=='c71585') $mi->shadow = '#8b0000';
-	if(isset($mi->color) && $mi->color=='db7093') $mi->shadow = '#cd5c5c';
+	if($mi->color=='87cefa') $mi->shadow = '#5f9ea0';<!--// 라이트스카이블루 -->
+	if($mi->color=='6495ed') $mi->shadow = '#4682b4';<!--// 콘플라워블루 -->
+	if($mi->color=='4169e1' || $mi->color=='4682b4') $mi->shadow = '#646496';<!--// 로얄블루, 스틸블루(비표준) -->
+	if($mi->color=='adff2f') $mi->shadow = '#80E12A';<!--// 그린옐로우(비표준) -->
+	if($mi->color=='80E12A') $mi->shadow = '#4BAF4B';<!--// 초록(비표준) -->
+	if($mi->color=='ffb6c1') $mi->shadow = '#e9967a';<!--// 라이트핑크(비표준) -->
+	if($mi->color=='ff69b4') $mi->shadow = '#db7093';<!--// 핫핑크 -->
+	if($mi->color=='ff1493') $mi->shadow = '#C39';<!--// 딥핑크 -->
+	if($mi->color=='ffd700') $mi->shadow = '#daa520';<!--// 골드 -->
+	if($mi->color=='ffa500') $mi->shadow = '#f08080';<!--// 오렌지 -->
+	if($mi->color=='ff7f50') $mi->shadow = '#d2691e';<!--// 코랄 -->
+	if($mi->color=='ff6347') $mi->shadow = '#dc143c';<!--// 토마토 -->
+	if($mi->color=='bc8f8f') $mi->shadow = '#A36464';<!--// 장미빛(비표준) -->
+	if($mi->color=='ee82ee') $mi->shadow = '#da70d6';<!--// 바이올렛 -->
+	if($mi->color=='c71585') $mi->shadow = '#8b0000';<!--// 미디엄바이올렛 -->
+	if($mi->color=='db7093') $mi->shadow = '#cd5c5c';<!--// 팔레바이올렛 -->
 
-	if(!isset($mi->write_buten)) $mi->write_buten = $lang->cmd_write;
-	if(!isset($mi->title_area)) $mi->title_area = $lang->title;
-	if(!isset($mi->top_panel_bcolor)) $mi->top_panel_bcolor = 'transparent';
-	if(!isset($mi->top_panel_color)) $mi->top_panel_color = '#444';
-	if(!isset($mi->top_panel_size)) $mi->top_panel_size = '14px';
-	if(!isset($mi->background_color)) $mi->background_color = '#fff';
+	if(!$mi->write_buten) $mi->write_buten = $lang->cmd_write;<!--// 글쓰기 버턴 -->
+	if(!$mi->title_area) $mi->title_area = $lang->title;<!--// 제목칸 이름 변경 -->
+	if(!$mi->top_panel_bcolor) $mi->top_panel_bcolor = 'transparent';<!--// 판넬박스 배경색상 -->
+	if(!$mi->top_panel_color) $mi->top_panel_color = '#444';<!--// 판넬박스 글색상 -->
+	if(!$mi->top_panel_size) $mi->top_panel_size = '14px';<!--// 판넬박스 버턴문구 -->
+	if(!$mi->background_color) $mi->background_color = '#fff';<!--// FT Hover시 배경 색상 -->
 }
 
 <!--@if(Mobile::isMobileCheckByAgent())-->
@@ -105,8 +103,8 @@
 	$mi->font_btn = 'N';
 	$mi->zine_hover = 'N';
 	$mi->rd_nav_side = 'N';
-	if(isset($mi->cmt_wrt) && $mi->cmt_wrt=='editor') $mi->cmt_wrt = 'simple';
-	if(isset($mi->to_sns) && $mi->to_sns!='N') $mi->to_sns = '3';
+	if($mi->cmt_wrt=='editor') $mi->cmt_wrt = 'simple';
+	if($mi->to_sns!='N') $mi->to_sns = '3';
 }
 <!--@end-->
 
@@ -233,7 +231,7 @@
 {@ $mi->default_style = 'viewer'}
 <!--@elseif($listStyle=='firstthumb')-->
 {@ $mi->default_style = 'firstthumb'}
-<!--@elseif(!in_array($mi->default_style ?? '',array('list','books','webzine','gallery','book','cloud_gall','guest','blog','faq','youtube','double','viewer','firstthumb')))-->
+<!--@elseif(!in_array($mi->default_style?:[],array('list','books','webzine','gallery','book','cloud_gall','guest','blog','faq','youtube','double','viewer','firstthumb')))-->
 {@ $mi->default_style = 'list'}
 <!--@end-->
 
@@ -245,18 +243,18 @@
 <!--@end-->
 
 <!--%load_js_plugin("ui")-->
-<load cond="!isset($mi->fontawesome) || $mi->fontawesome==''" target="https://use.fontawesome.com/releases/v6.5.1/css/all.css" />
-<load cond="!isset($mi->sexy_button) || $mi->sexy_button==''" target="css/button.css" />
+<load cond="$mi->fontawesome==''" target="https://use.fontawesome.com/releases/v6.5.1/css/all.css" />
+<load cond="$mi->sexy_button==''" target="css/button.css" />
 <load target="css/board.css" />
 <load cond="$mi->colorset=='black'" target="css/black.css" />
 
 <!--// 커스텀 파일 넣기 -->
 <include cond="file_exists(_XE_PATH_.'modules/board/skins/sketchbook5_MH/custom/custom.php')" target="custom/custom.php" />
-<include cond="isset($grant->manager) && $grant->manager && isset($mi->ver_info) && $mi->ver_info=='Y'" target="ver.html" />
+<include cond="$grant->manager && $mi->ver_info=='Y'" target="ver.html" />
 
 <style data-id="bdCss">
 	.color_scheme_dark { color:var(--color-black) !important; background-color:var(--color-white) !important;}
-	<!--@if(isset($mi->font) && $mi->font)-->
+	<!--@if($mi->font)-->
 	.bd,.bd input,.bd textarea,.bd select,.bd button,.bd table{font-family:"NanumSquareNeo", <!--@if($mi->font=='ng')-->'Segoe UI',Meiryo,'나눔고딕',NanumGothic,ng,<!--@elseif($mi->font=='window_font')-->'Segoe UI',Meiryo,'맑은 고딕','Malgun Gothic',<!--@elseif($mi->font=='tahoma')-->Tahoma,'돋움',Dotum,<!--@end-->'Apple SD Gothic Neo',sans-serif}
 	<!--@if($mi->font=='tahoma')-->
 	.bd .ngeb{font-family:"NanumSquareNeo", '돋움',Dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
@@ -264,7 +262,7 @@
 	.bd .ngeb{font-weight:700;font-family:"NanumSquareNeo", 'Segoe UI',Meiryo,'나눔고딕 ExtraBold','NanumGothic ExtraBold',ngeb,'맑은 고딕','Malgun Gothic','나눔고딕',NanumGothic,ng,'Trebuchet MS','돋움',dotum,Helvetica,'Apple SD Gothic Neo',sans-serif}
 	<!--@end-->
 	<!--@end-->
-	<!--@if(isset($mi->color) && $mi->color!='333333')-->
+	<!--@if($mi->color!='333333')-->
 	.bd a:focus,.bd input:focus,.bd button:focus,.bd textarea:focus,.bd select:focus{outline-color:#{$mi->color};}
 	.bd .replyNum{color:#{$mi->color} !important}
 	.bd .trackbackNum{color:{$mi->shadow} !important}
@@ -281,29 +279,29 @@
 	.bd .border_color{border-color:#{$mi->color};}
 	.bd .bx_shadow{box-shadow:0 0 2px {$mi->shadow};}
 	.viewer_with.on:before{background-color:#{$mi->color};box-shadow:0 0 2px #{$mi->color};}
-	<block cond="isset($mi->ribbon_img) && $mi->ribbon_img">
+	<block cond="$mi->ribbon_img">
 	.ribbon_v .ribbon{width:{$mi->ribbon_size}px;height:{$mi->ribbon_size}px;background:url({$mi->ribbon_img});border:0;-webkit-box-shadow:none;box-shadow:none}
 	</block>
-	<block cond="isset($mi->ribbon_style) && $mi->ribbon_style">
-	.ribbon_v2 .ribbon{<!--@if(isset($mi->ribbon_align) && $mi->ribbon_align)-->right:auto;left:-1px;<!--@end-->background-color:{$mi->ribbon_color};border-color:{$mi->ribbon_color};}
+	<block cond="$mi->ribbon_style">
+	.ribbon_v2 .ribbon{<!--@if($mi->ribbon_align)-->right:auto;left:-1px;<!--@end-->background-color:{$mi->ribbon_color};border-color:{$mi->ribbon_color};}
 	</block>
-	<block cond="isset($mi->no_img) && $mi->no_img">
+	<block cond="$mi->no_img">
 	.no_img{background:url({$mi->no_img}) 50% 50% no-repeat;background-size:cover;text-indent:-999px}
 	</block>
-	<block cond="$mi->use_category!='Y' || (isset($mi->cnb) && $mi->cnb)">
+	<block cond="$mi->use_category!='Y' || $mi->cnb">
 	.bd_zine.zine li:first-child,.bd_tb_lst.common_notice tr:first-child td{margin-top:2px;border-top:1px solid #DDD}
 	</block>
-	<block cond="isset($mi->img_insert) && $mi->img_insert">
+	<block cond="$mi->img_insert">
 	.rd_gallery{text-align:{$mi->img_insert_align};{$mi->img_insert_css};}
 	.rd_gallery img{width:{$mi->img_insert_width};height:{$mi->img_insert_height};{$mi->img_insert_img_css};}
 	</block>
-	<!--@if(isset($mi->cnb3_color) && $mi->cnb3_color)-->
+	<!--@if($mi->cnb3_color)-->
 	.cnb3 .on>a,.cnb3 a:hover,.cnb3 a:focus{border-color:{$mi->shadow};background:#{$mi->color};}
 	.cnb4 .on>a,.cnb4 a:hover,.cnb4 a:focus{border-color:#{$mi->color};color:#{$mi->color};}
 	<!--@end-->
 
 	<!--// List Style -->
-	<block cond="!isset($mi->zine_tx_color) || !$mi->zine_tx_color">
+	<block cond="!$mi->zine_tx_color">
 	.bd_zine .info b,.bd_zine .info a{color:{$mi->shadow};}
 	.bd_zine.card h3{color:#{$mi->color};}
 	</block>
@@ -312,19 +310,19 @@
 	<block cond="$mi->use_category!='Y'">
 	.bd_tb_lst{margin-top:0}
 	</block>
-	<block cond="isset($mi->lst_viewer) && $mi->lst_viewer=='Y'">
+	<block cond="$mi->lst_viewer=='Y'">
 	.bd_tb_lst .hx{position:relative;text-decoration:none}
 	</block>
 	.bd_tb_lst .cate span,.bd_tb_lst .author span,.bd_tb_lst .last_post small{max-width:{$mi->normal_lst_tdW}px}
 	<!--@elseif($mi->default_style=='webzine')-->
 	<!--// Webzine -->
-	<block cond="!isset($mi->zine_hover) || !$mi->zine_hover">
+	<block cond="!$mi->zine_hover">
 	.bd_zine.zine li:hover .tmb_wrp{ -ms-transform:rotate(5deg);transform:rotate(5deg); }
 	.bd_zine.card li:hover{ -ms-transform:scale(1.05);transform:scale(1.05)}
 	</block>
 	.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width}px;height:{$mi->zine_thumb_height}px;line-height:{$mi->zine_thumb_height}px}
 	.bd_zine .cnt { -webkit-line-clamp:{$mi->content_cut_height}; }
-	<!--@if(!isset($mi->dark_mode) || $mi->dark_mode!='Y')-->
+	<!--@if(!$mi->dark_mode=='Y')-->
 	.bd_zine>li>a{display:block;position:absolute;top:-1px;bottom:-1px;left:-1px;right:-1px;border:2px solid transparent;background-image:url(../img/blank.gif);text-decoration:none}
 	.bd_zine a:hover,.bd_zine a:focus,.bd_zine .select a{border-color:#{$mi->color}; border-radius:5px}
 	<!--@else-->
@@ -333,14 +331,14 @@
 	<!--@end-->
 
 	.bd_zine.zine .tmb_wrp img,.bd_zine.card li{ {$mi->zine_css} }
-	<block cond="isset($list_config['thumbnail']) && $list_config['thumbnail']">
+	<block cond="$list_config['thumbnail']">
 	.bd_zine.zine .rt_area{margin-left:{$mi->zine_thumb_width+20}px}
 	.bd_zine.zine .tmb_wrp{margin-left:-{$mi->zine_thumb_width+20}px}
 	</block>
-	<block cond="isset($mi->zine_style) && ($mi->zine_style=='3' || $mi->zine_style=='4')">
+	<block cond="$mi->zine_style=='3' || $mi->zine_style=='4'">
 	.bd_zine{margin:0 auto;padding:{$mi->zine_margin}px 0}
 	.bd_zine li{width:{$mi->zine_thumb_width}px;margin:{$mi->zine_margin}px}
-	.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width-2}px;<!--@if(isset($mi->thumbnail_type) && $mi->thumbnail_type=='ratio')-->height:118px;line-height:118px<!--@else-->height:{$mi->zine_thumb_width-2}px;line-height:{$mi->zine_thumb_width-2}px<!--@end-->;border:1px solid #DDD}
+	.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width-2}px;<!--@if($mi->thumbnail_type=='ratio')-->height:118px;line-height:118px<!--@else-->height:{$mi->zine_thumb_width-2}px;line-height:{$mi->zine_thumb_width-2}px<!--@end-->;border:1px solid #DDD}
 	<!--@if($mi->zine_thumb_width > 399)-->
 	.bd_zine.card h3{font-size:15px}
 	.bd_zine.card .cnt{margin-top:1.5em}
@@ -354,6 +352,22 @@
 	<!--@end-->
 	@media screen and (max-width:640px){
 	<!--@if($mi->zine_thumb_width > 279)-->
+	.bd_zine.card li{width:240px}
+	<!--@else-->
+	.bd_zine.card li{width:140px}
+	<!--@end-->
+	}
+	@media screen and (max-width:480px){
+	<!--@if($mi->zine_thumb_width > 399)-->
+	.bd_zine.card li{width:400px}
+	<!--@elseif($mi->zine_thumb_width > 139)-->
+	.bd_zine.card li{width:200px}
+	<!--@else-->
+	.bd_zine.card li{width:116px}
+	<!--@end-->
+	}
+	@media screen and (max-width:360px){
+	<!--@if($mi->zine_thumb_width > 279)-->
 	.bd_zine.card li{width:300px}
 	<!--@else-->
 	.bd_zine.card li{width:128px}
@@ -363,25 +377,25 @@
 
 	<!--@elseif($mi->default_style=='youtube')-->
 	<!--// Youtube -->
-	<block cond="!isset($mi->zine_hover) || !$mi->zine_hover">
+	<block cond="!$mi->zine_hover">
 	.bd_zine.zine li:hover .tmb_wrp{ -ms-transform:rotate(5deg);-moz-transform:rotate(5deg);-webkit-transform:rotate(5deg);transform:rotate(5deg)}
 	.bd_zine.card li:hover{z-index:10;-ms-transform:scale(1.05);-moz-transform:scale(1.05);-webkit-transform:scale(1.05);transform:scale(1.05)}
 	</block>
 	.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width}px;height:{$mi->zine_thumb_height}px;line-height:{$mi->zine_thumb_height}px}
 	.bd_zine a:hover,.bd_zine a:focus,.bd_zine .select a{z-index:20;border-color:#{$mi->color};}
 	.bd_zine.zine .tmb_wrp img,.bd_zine.card li{ {$mi->zine_css} }
-	<block cond="!isset($mi->zine_tx_color) || !$mi->zine_tx_color">
+	<block cond="!$mi->zine_tx_color">
 	.bd_zine .info b,.bd_zine .info a{color:{$mi->shadow};}
 	.bd_zine.card h3{color:#{$mi->color};}
 	</block>
-	<block cond="isset($list_config['thumbnail']) && $list_config['thumbnail']">
+	<block cond="$list_config['thumbnail']">
 	.bd_zine.zine .rt_area{margin-left:{$mi->zine_thumb_width+20}px}
 	.bd_zine.zine .tmb_wrp{margin-left:-{$mi->zine_thumb_width+20}px}
 	</block>
-	<block cond="isset($mi->zine_style) && ($mi->zine_style=='3' || $mi->zine_style=='4')">
+	<block cond="$mi->zine_style=='3' || $mi->zine_style=='4'">
 	.bd_zine{margin:0 auto;padding:{$mi->zine_margin}px 0}
 	.bd_zine li{width:{$mi->zine_thumb_width}px;margin:{$mi->zine_margin}px}
-	.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width-2}px;<!--@if(isset($mi->thumbnail_type) && $mi->thumbnail_type=='fill')-->height:{$mi->zine_thumb_width-2}px;line-height:{$mi->zine_thumb_width-2}px<!--@else-->height:120px;line-height:120px<!--@end-->;border:1px solid #DDD}
+	.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width-2}px;<!--@if($mi->thumbnail_type=='fill')-->height:{$mi->zine_thumb_width-2}px;line-height:{$mi->zine_thumb_width-2}px<!--@else-->height:120px;line-height:120px<!--@end-->;border:1px solid #DDD}
 	<!--@if($mi->zine_thumb_width > 399)-->
 	.bd_zine.card h3{font-size:15px}
 	.bd_zine.card .cnt{margin-top:1.5em}
@@ -420,70 +434,94 @@
 
 	<!--@elseif($mi->default_style=='gallery')-->
 	<!--// Gallery -->
-	.bd_tmb_lst .no_img{width:{$mi->thumbnail_width}px;<!--@if(isset($mi->thumbnail_type) && $mi->thumbnail_type=='ratio')-->height:120px;line-height:120px<!--@else-->height:{$mi->thumbnail_height}px;line-height:{$mi->thumbnail_height}px<!--@end-->}
+	.bd_tmb_lst .no_img{width:{$mi->thumbnail_width}px;<!--@if($mi->thumbnail_type=='ratio')-->height:120px;line-height:120px<!--@else-->height:{$mi->thumbnail_height}px;line-height:{$mi->thumbnail_height}px<!--@end-->}
 	.bd_tmb_lst .deco_img{background-image:url({$mi->deco_img})}
 	.bd_tmb_lst .tmb_wrp,.bd_tmb_lst.gall_style2 .tmb_wrp{max-width:{$mi->thumbnail_width}px;{$mi->thumb_css} }
-	<block cond="isset($mi->tmb_hover_bg) && $mi->tmb_hover_bg">
+	<block cond="$mi->tmb_hover_bg">
 	.tmb_wrp .info{background:#{$mi->color};color:#FFF;<!--@if($mi->tmb_hover_bg=='3')-->filter:alpha(opacity=80);opacity:.8<!--@end-->}
 	</block>
-	<block cond="isset($mi->gall_deg) && $mi->gall_deg">
+	<block cond="$mi->gall_deg">
 	.bd_tmb_lst .tmb_wrp{transition:transform .5s}
 	.bd_tmb_lst .tmb_wrp:hover{z-index:1;-ms-transform:rotate(0) !important;transform:rotate(0) !important}
 	</block>
-	<!--@if(isset($mi->gall_hover_img) && $mi->gall_hover_img)-->
+	<!--@if($mi->gall_hover_img)-->
 	.tmb_wrp .info{background-image:url({$mi->gall_hover_img})}
 	<!--@end-->
+	@media screen and (max-width:640px){
 	<!--@if($mi->thumbnail_width > 279)-->
-	@media screen and (max-width:640px){ .bd_tmb_lst li{width:50%} }
-	@media screen and (max-width:480px){ .bd_tmb_lst li{display:block} }
-	@media screen and (max-width:360px){ .bd_tmb_lst li{display:block} }
+	.bd_tmb_lst li{width:50%}
 	<!--@elseif($mi->thumbnail_width > 179)-->
-	@media screen and (max-width:640px){ .bd_tmb_lst li{width:33.333%} }
-	@media screen and (max-width:480px){ .bd_tmb_lst li{width:50%} }
-	@media screen and (max-width:360px){ .bd_tmb_lst li{width:50%} }
+	.bd_tmb_lst li{width:33.333%}
 	<!--@else-->
-	@media screen and (max-width:640px){ .bd_tmb_lst li{width:25%} }
-	@media screen and (max-width:480px){ .bd_tmb_lst li{width:33.333%} }
-	@media screen and (max-width:360px){ .bd_tmb_lst li{width:50%} }
+	.bd_tmb_lst li{width:25%}
 	<!--@end-->
+	}
+	@media screen and (max-width:480px){
+	<!--@if($mi->thumbnail_width > 399)-->
+	.bd_tmb_lst li{display:block}
+	<!--@elseif($mi->thumbnail_width > 139)-->
+	.bd_tmb_lst li{width:50%}
+	<!--@else-->
+	.bd_tmb_lst li{width:33.333%}
+	<!--@end-->
+	}
+	@media screen and (max-width:360px){
+	<!--@if($mi->thumbnail_width > 279)-->
+	.bd_tmb_lst li{display:block}
+	<!--@else-->
+	.bd_tmb_lst li{width:50%}
+	<!--@end-->
+	}
 
 	<!--@elseif($mi->default_style=='book')-->
 	<!--// Gallery -->
-	.bd_booktmb_lst .no_img{width:{$mi->thumbnail_width}px;<!--@if(isset($mi->thumbnail_type) && $mi->thumbnail_type=='ratio')-->height:120px;line-height:120px<!--@else-->height:{$mi->thumbnail_height}px;line-height:{$mi->thumbnail_height}px<!--@end-->}
+	.bd_booktmb_lst .no_img{width:{$mi->thumbnail_width}px;<!--@if($mi->thumbnail_type=='ratio')-->height:120px;line-height:120px<!--@else-->height:{$mi->thumbnail_height}px;line-height:{$mi->thumbnail_height}px<!--@end-->}
 	.bd_booktmb_lst .deco_img{background-image:url({$mi->deco_img})}
 	.bd_booktmb_lst .tmb_wrp,.bd_booktmb_lst.gall_style2 .tmb_wrp{max-width:{$mi->thumbnail_width}px;{$mi->thumb_css} }
-	<block cond="isset($mi->tmb_hover_bg) && $mi->tmb_hover_bg">
+	<block cond="$mi->tmb_hover_bg">
 	.tmb_wrp .info{background:#{$mi->color};color:#FFF;<!--@if($mi->tmb_hover_bg=='3')-->filter:alpha(opacity=80);opacity:.8<!--@end-->}
 	</block>
-	<block cond="isset($mi->gall_deg) && $mi->gall_deg">
+	<block cond="$mi->gall_deg">
 	.bd_booktmb_lst .tmb_wrp{transition:transform .5s}
 	.bd_booktmb_lst .tmb_wrp:hover{z-index:1;-ms-transform:rotate(0) !important;transform:rotate(0) !important}
 	</block>
-	<!--@if(isset($mi->gall_hover_img) && $mi->gall_hover_img)-->
+	<!--@if($mi->gall_hover_img)-->
 	.tmb_wrp .info{background-image:url({$mi->gall_hover_img})}
 	<!--@end-->
+	@media screen and (max-width:640px){
 	<!--@if($mi->thumbnail_width > 279)-->
-	@media screen and (max-width:640px){ .bd_booktmb_lst li{width:50%} }
-	@media screen and (max-width:480px){ .bd_booktmb_lst li{display:block} }
-	@media screen and (max-width:360px){ .bd_booktmb_lst li{display:block} }
+	.bd_booktmb_lst li{width:50%}
 	<!--@elseif($mi->thumbnail_width > 179)-->
-	@media screen and (max-width:640px){ .bd_booktmb_lst li{width:33.333%} }
-	@media screen and (max-width:480px){ .bd_booktmb_lst li{width:50%} }
-	@media screen and (max-width:360px){ .bd_booktmb_lst li{width:50%} }
+	.bd_booktmb_lst li{width:33.333%}
 	<!--@else-->
-	@media screen and (max-width:640px){ .bd_booktmb_lst li{width:25%} }
-	@media screen and (max-width:480px){ .bd_booktmb_lst li{width:33.333%} }
-	@media screen and (max-width:360px){ .bd_booktmb_lst li{width:50%} }
+	.bd_booktmb_lst li{width:25%}
 	<!--@end-->
+	}
+	@media screen and (max-width:480px){
+	<!--@if($mi->thumbnail_width > 399)-->
+	.bd_booktmb_lst li{display:block}
+	<!--@elseif($mi->thumbnail_width > 139)-->
+	.bd_booktmb_lst li{width:50%}
+	<!--@else-->
+	.bd_booktmb_lst li{width:33.333%}
+	<!--@end-->
+	}
+	@media screen and (max-width:360px){
+	<!--@if($mi->thumbnail_width > 279)-->
+	.bd_booktmb_lst li{display:block}
+	<!--@else-->
+	.bd_booktmb_lst li{width:50%}
+	<!--@end-->
+	}
 	<!--@end-->
 
-	<block cond="isset($mi->file_icon) && $mi->file_icon != ''">
+	<block cond="!$mi->file_icon == ''">
 		.extraimages img[alt~="file"] {display:none;}
 	</block>
-	<block cond="isset($mi->new_icon) && $mi->new_icon != ''">
+	<block cond="!$mi->new_icon == ''">
 		.extraimages img[alt~="new"] {display:none;}
 	</block>
-	<block cond="isset($mi->update_icon) && $mi->update_icon != ''">
+	<block cond="!$mi->update_icon == ''">
 		.extraimages img[alt~="update"] {display:none;}
 	</block>
 
@@ -501,7 +539,7 @@
 </style>
 
 <!--// KaKao Map Api -->
-<script cond="isset($mi->kakao_key) && $mi->kakao_key" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={$mi->kakao_key}&libraries=services,clusterer"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey={$mi->kakao_key}&libraries=services,clusterer"></script>
 
 <style>
 	ins.adsbygoogle[data-ad-status="unfilled"] {

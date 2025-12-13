@@ -1,13 +1,13 @@
 <!--@if($order_type=="desc")-->
-	{@
-	$order_icon="down";
-	$order_type="asc";
-	}
+{@
+$order_icon="down";
+$order_type="asc";
+}
 <!--@else-->
-	{@
-	$order_icon="up";
-	$order_type="desc";
-	}
+{@
+$order_icon="up";
+$order_type="desc";
+}
 <!--@end-->
 
 <p cond="!$document_list && !$notice_list" class="no_doc">{$lang->no_documents}</p>
@@ -17,7 +17,7 @@
 		<thead class="bg_f_f9">
 			<!--// 테이블 헤더 -->
 			<tr>
-				<block loop="($list_config ?? [])=>$key,$val">
+				<block loop="$list_config=>$key,$val">
 				<th scope="col" cond="$val->type=='no' && $val->idx==-1" class="no"><span><a href="{getUrl('order_type',$order_type)}" title="<!--@if($order_type=="desc")-->{$lang->order_desc}<!--@else-->{$lang->order_asc}<!--@end-->">{$lang->no}</a></span></th>
 				<block cond="$val->type=='title' && $val->idx==-1">
 				<th scope="col" cond="$timeline_info"><span>{$lang->board}</span></th>
@@ -40,14 +40,14 @@
 		</thead>
 		<tbody>
 			<!--// Notice -->
-			<tr class="notice" loop="($notice_list ?? [])=>$no,$document">
-				<block loop="($list_config ?? [])=>$key,$val">
+			<tr class="notice" loop="$notice_list=>$no,$document">
+				<block loop="$list_config=>$key,$val">
 				<td cond="$val->type=='no' && $val->idx==-1" class="no">
 					<block cond="$document_srl==$document->document_srl">&raquo;</block><strong cond="$document_srl!=$document->document_srl">{$lang->notice}</strong>
 				</td>
 				<block cond="$val->type=='title' && $val->idx==-1">
 				<td cond="$timeline_info"><a href="{getUrl('module_srl', $document->get('module_srl'))}"><strong>{htmlspecialchars($modules_info[$document->get('module_srl')]->browser_title)}</strong></a></td>
-				<td cond="!$mi->show_cate && $mi->use_category=='Y'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')"|cond="$grant->manager && $use_category_update" class="cate" style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'"><strong>{$category_list[$document->get('category_srl')]->title ?? ''}</strong></td>
+				<td cond="!$mi->show_cate && $mi->use_category=='Y'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')"|cond="$grant->manager && $use_category_update" class="cate" style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'"><strong>{$category_list[$document->get('category_srl')]->title}</strong></td>
 				<td class="title <!--@if($mi->sticky_select == 't')-->t_fixed<!--@end-->" style="min-width:{$mi->subject_w_size}px;">
 					<a href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
 						<strong>
@@ -67,12 +67,12 @@
 				<td class="time" cond="$val->type=='regdate' && $val->idx==-1">{$document->getRegdate('Y.m.d')}</td>
 				<td class="time m_no" cond="$val->type=='last_update' && $val->idx==-1">{zdate($document->get('last_update'),'Y.m.d')}</td>
 				<td class="time last_post m_no" cond="$val->type=='last_post' && $val->idx==-1">
-					<block cond="(int)($document->get('comment_count') ?? 0)>0">
+					<block cond="(int)($document->get('comment_count'))>0">
 						<a href="{getUrl('document_srl',$document->document_srl)}#{$document->document_srl}_comment" title="{getTimeGap($document->get('last_update'), "H:i")}">{zdate($document->get('last_update'),'Y.m.d')}<small cond="$document->getLastUpdater()">(by {$document->getLastUpdater()})</small></a>
 					</block>
 					<block cond="(int)($document->get('comment_count'))==0">&nbsp;</block>
 				</td>
-				<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no">{($document->get('readed_count') ?? 0) > 0 ? $document->get('readed_count') : '0'}</td>
+				<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no">{$document->get('readed_count')>0?$document->get('readed_count'):'0'}</td>
 				<td cond="$val->type=='voted_count' && $val->idx==-1" class="m_no">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</td>
 				<!--// 확장변수 -->
 				<td cond="$val->idx!=-1" <!--@if($mi->sticky_select == 'e')-->class="fixed"|cond="$val->eid == $mi->sticky"<!--@end--> onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="pr_tooltip" pr_color="dark" pr_position="top" title="{$document->getExtraValueHTML($val->idx)}" style="max-width:{$mi->normal_lst_tdW}px; text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; overflow:hidden"><!--@if($val->eid=='rating')--><span class="starRating" title="{$document->getExtraValueHTML($val->idx)}{$lang->score}"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span><!--@else--><span <!--@if($mid==$mi->color_mid)--><!--@if($document->getExtraValueHTML($val->idx)==$mi->blue_n)-->class="blue"<!--@elseif($document->getExtraValueHTML($val->idx)==$mi->orange_n)-->class="orange"<!--@elseif($document->getExtraValueHTML($val->idx)==$mi->gray_n)-->class="gray"<!--@end--><!--@else--><!--@end-->>{$document->getExtraValueHTML($val->idx)}</span><!--@end--></td>
@@ -82,14 +82,14 @@
 			</tr>
 			<!--// Normal -->
 			<tr loop="$document_list=>$no,$document" class="select"|cond="$document_srl==$document->document_srl" style="line-height:{$mi->list_line_height}em;">
-				<block loop="($list_config ?? [])=>$key,$val">
+				<block loop="$list_config=>$key,$val">
 				<td class="no" cond="$val->type=='no' && $val->idx==-1">
 					<block cond="$document_srl==$document->document_srl">&raquo;</block>
 					<block cond="$document_srl!=$document->document_srl">{$no}</block>
 				</td>
 				<block cond="$val->type=='title' && $val->idx==-1">
 				<td cond="$timeline_info"><a href="{getUrl('module_srl', $document->get('module_srl'))}">{htmlspecialchars($modules_info[$document->get('module_srl')]->browser_title)}</a></td>
-				<td cond="!$mi->show_cate && $mi->use_category=='Y'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')"|cond="$grant->manager && $use_category_update" class="cate"><span style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'">{$category_list[$document->get('category_srl')]->title ?? ''}</span></td>
+				<td cond="!$mi->show_cate && $mi->use_category=='Y'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')"|cond="$grant->manager && $use_category_update" class="cate"><span style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'">{$category_list[$document->get('category_srl')]->title}</span></td>
 				<td class="title <!--@if($mi->sticky_select == 't')-->t_fixed<!--@end-->" style="min-width:{$mi->subject_w_size}px;">
 					<!--// 제목 -->
 					<!--@if(!$mi->preview || @!in_array('tx',$mi->preview?:[] && !$document->thumbnailExists()))-->
@@ -98,7 +98,7 @@
 						<include target="title.html" />
 					</a>
 					<!--@else-->
-					<a <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> class="hx bubble no_bubble<!--@if(@in_array('tx', is_array($mi->preview) ? $mi->preview : []))--> only_img<!--@end-->" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
+					<a <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> class="hx bubble no_bubble<!--@if(@!in_array('tx',$mi->preview?:[]))--> only_img<!--@end-->" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
 						<include target="d_day.html" />
 						<include target="title.html" />
 						<span cond="!$document->isSecret()" class="wrp">
@@ -124,12 +124,12 @@
 				<td class="time" cond="$val->type=='regdate' && $val->idx==-1" title="{getTimeGap($document->get('regdate'), "H:i")}">{$document->getRegdate('Y.m.d')}</td>
 				<td class="time last_update m_no" cond="$val->type=='last_update' && $val->idx==-1">{zdate($document->get('last_update'),'Y.m.d')}</td>
 				<td class="time last_post m_no" cond="$val->type=='last_post' && $val->idx==-1">
-					<block cond="(int)($document->get('comment_count') ?? 0)>0">
+					<block cond="(int)($document->get('comment_count'))>0">
 						<a href="{getUrl('document_srl',$document->document_srl)}#{$document->document_srl}_comment" title="{getTimeGap($document->get('last_update'), "H:i")}">{zdate($document->get('last_update'),'Y.m.d')}<small cond="$document->getLastUpdater()">(by {$document->getLastUpdater()})</small></a>
 					</block>
 					<block cond="(int)($document->get('comment_count'))==0">&nbsp;</block>
 				</td>
-				<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no">{($document->get('readed_count') ?? 0) > 0 ? $document->get('readed_count') : '0'}</td>
+				<td cond="$val->type=='readed_count' && $val->idx==-1" class="m_no">{$document->get('readed_count')>0?$document->get('readed_count'):'0'}</td>
 				<td cond="$val->type=='voted_count' && $val->idx==-1" class="m_no">{$document->get('voted_count')!=0?$document->get('voted_count'):'0'}</td>
 				<!--// 확장변수 -->
 				<td cond="$val->idx!=-1" <!--@if($mi->sticky_select == 'e')-->class="fixed"|cond="$val->eid == $mi->sticky"<!--@end--> onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="pr_tooltip" pr_color="dark" pr_position="top" title="{$document->getExtraValueHTML($val->idx)}" style="max-width:{$mi->normal_lst_tdW}px; text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; overflow:hidden"><!--@if($val->eid=='rating')--><span class="starRating" title="{$document->getExtraValueHTML($val->idx)}{$lang->score}"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></span><!--@else--><span <!--@if($mid==$mi->color_mid)--><!--@if($document->getExtraValueHTML($val->idx)==$mi->blue_n)-->class="blue"<!--@elseif($document->getExtraValueHTML($val->idx)==$mi->orange_n)-->class="orange"<!--@elseif($document->getExtraValueHTML($val->idx)==$mi->gray_n)-->class="gray"<!--@end--><!--@else--><!--@end-->>{$document->getExtraValueHTML($val->idx)}</span><!--@end--></td>
