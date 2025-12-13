@@ -18,7 +18,7 @@
 </block>
 
 <include cond="$notice_list && $mi->notice_style=='2'" target="_notice.html" />
-<ol class="brickfolio {$mi->zine_info_icon} bd_lst bd_zine<!--@if(!$mi->zine_style)--> zine zine1<!--@elseif($mi->zine_style=='2')--> zine zine2<!--@elseif($mi->zine_style=='3')--> card card1<!--@elseif($mi->zine_style=='4')--> card card2<!--@end--> img_load{$mi->tmb_effect}" data-masonry="_{$mi->card_effect}"|cond="$mi->zine_style=='3' || $mi->zine_style=='4'">
+<ol class="brickfolio {$mi->zine_info_icon} bd_zine<!--@if(!$mi->zine_style)--> zine zine1<!--@elseif($mi->zine_style=='2')--> zine zine2<!--@elseif($mi->zine_style=='3')--> card card1<!--@elseif($mi->zine_style=='4')--> card card2<!--@end--> img_load{$mi->tmb_effect}" data-masonry="_{$mi->card_effect}"|cond="$mi->zine_style=='3' || $mi->zine_style=='4'">
 	<li cond="!$document_list && !$notice_list" class="no_doc">{$lang->no_documents}</li>
 	<!--// 공지 목록 -->
 	<li cond="$notice_list && !$mi->notice_style" loop="$notice_list=>$no,$document" class="notice clear">
@@ -149,7 +149,7 @@
 					{@
 					$tagModel = &getModel('tag');
 					$args = new stdClass(); // 객체 먼저 선언
-					$args->document_srl = $document->document_srl;
+					$args = (object)['document_srl' => $document->document_srl];
 					$tag_list = $tagModel->getDocumentsTagList($args);
 					}
 					<label cond="$tag_list->data">

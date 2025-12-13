@@ -2,7 +2,7 @@
 
 <div class="bd_ft">
 	{@$i=0}
-	<ul loop="$document_list=>$no,$document" class="<!--@if($document_srl==$document->document_srl)-->select <!--@end-->clear">
+	<ul loop="($document_list ?? [])=>$no,$document" class="<!--@if($document_srl==$document->document_srl)-->select <!--@end-->clear">
 
 		<!--@if($mi->first_thumb_user =='' && $mi->list_count > 0 && ($total_count - $no) % $mi->list_count === 0 && $list_config['thumbnail'] && $document->thumbnailExists())-->
 			<include target="list_ft.html" />
@@ -47,10 +47,9 @@
 			<!--// 태그 -->
 			<div cond="!$mi->Tag_view==''" class="tag">
 				{@
-				$tagModel = &getModel('tag');
-				$args = new stdClass(); // 객체 먼저 선언
-				$args->document_srl = $document->document_srl;
-				$tag_list = $tagModel->getDocumentsTagList($args);
+					$tagModel = &getModel('tag');
+					$args = (object)['document_srl' => $document->document_srl];
+					$tag_list = $tagModel->getDocumentsTagList($args);
 				}
 				<label cond="$tag_list->data">
 					<block loop="$tag_list->data=>$k,$v">
@@ -81,7 +80,7 @@
 					<span class="mid line_right" cond="!$timeline_info && $mi->include_modules">
 						<span>Board :</span><b><a href="{getUrl('', 'mid', $document->get('mid'))}"><strong style="color:#444">{$document->get('module_title')}</strong></a></b>
 					</span>
-					<span class="line_right" cond="!$mi->show_cate && $document->get('category_srl')" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')" style="cursor:pointer"|cond="$document->isGranted() && $use_category_update"><span>Category :</span><span style="text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_category_update"> {$category_list[$document->get('category_srl')]->title}</span></span>
+					<span class="line_right" cond="!$mi->show_cate && $document->get('category_srl')" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')" style="cursor:pointer"|cond="$document->isGranted() && $use_category_update"><span>Category :</span><span style="text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_category_update"> {$category_list[$document->get('category_srl')]->title ?? ''}</span></span>
 
 					<!-- 여기에 평점 표시 부분 추가 -->
 					<block cond="!$mi->star_point ==''">
@@ -114,11 +113,11 @@
 			<!--// 확장변수 -->
 			<div class="mt" style="display:table; width:100%">
 				<!--// 버턴 출력-->
-				<div loop="$list_config=>$key,$val" cond="$val->eid==$mi->select_icons && $val->idx!=-1" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid" style="float:left">
+				<div loop="($list_config ?? [])=>$key,$val" cond="$val->eid==$mi->select_icons && $val->idx!=-1" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid" style="float:left">
 					<include target="list_iconsort.html" />
 				</div>
 
-				<block loop="$list_config=>$key,$val" cond="$val->eid!==$mi->select_icons && $val->idx!=-1">
+				<block loop="($list_config ?? [])=>$key,$val" cond="$val->eid!==$mi->select_icons && $val->idx!=-1">
 					<span cond="$val->eid!='rating' && $val->eid!==$mi->icon_url && $val->eid!==$mi->e_url && $document->getExtraValueHTML($val->idx)" class="line_right itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->name} : <span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
 					<span cond="$val->eid==$mi->icon_url && $document->getExtraValueHTML($val->idx)" style="cursor:pointer">
 						<a href="{$document->getExtraEidValue($mi->icon_url)}" target="_blank">{$mi->icon_urlt}<img src="img/link.png" style="margin-left:5px"></a>
@@ -129,7 +128,7 @@
 				</block>
 
 				<!--// 평가 출력-->
-				<div loop="$list_config=>$key,$val" cond="$mi->rating_output == 'Y' && $val->idx!=-1" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="float:right; cursor:pointer">
+				<div loop="($list_config ?? [])=>$key,$val" cond="$mi->rating_output == 'Y' && $val->idx!=-1" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="float:right; cursor:pointer">
 					<span cond="$val->eid=='rating'">{$val->name} : <strong class="starRating"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
 				</div>
 			</div>

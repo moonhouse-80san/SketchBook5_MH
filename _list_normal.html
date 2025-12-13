@@ -110,14 +110,14 @@
 							<!--@if($grant->view)-->
 								<include target="list_iconsort.html" />
 								<!--// 제목 -->
-								<!--@if(!$mi->preview || (@!in_array('tx',$mi->preview?:[]) && !$document->thumbnailExists()))-->
+								<!--@if(!$mi->preview || (!in_array('tx', $mi->preview ?? []) && !$document->thumbnailExists()))-->
 									<a <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> class="hx" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
 										<!--// 종료 확장변수 설정 -->
 										<include target="d_day.html" />
 										<include target="title.html" />
 									</a>
 									<!--@else-->
-									<a <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> class="hx bubble no_bubble<!--@if(@!in_array('tx',$mi->preview?:[]))--> only_img<!--@end-->" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
+									<a <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> class="hx bubble no_bubble<!--@if(!in_array('tx', $mi->preview ?? []))--> only_img<!--@end-->" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
 										<!--// 종료 확장변수 설정 -->
 										<include target="d_day.html" />
 										<include target="title.html" />
@@ -173,7 +173,7 @@
 								{@
 								$tagModel = &getModel('tag');
 								$args = new stdClass(); // 객체 먼저 선언
-								$args->document_srl = $document->document_srl;
+								$args = (object)['document_srl' => $document->document_srl];
 								$tag_list = $tagModel->getDocumentsTagList($args);
 								}
 								<label cond="$tag_list->data">

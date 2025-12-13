@@ -2,7 +2,7 @@
 	<!--@if($mi->default_style=='list')--><!--@else--><table class="bd_lst bd_tb_lst bd_tb common_notice"><!--@end-->
 		<tr loop="$notice_list=>$no,$document" class="notice">
 			<td $list_config['no']"><span class="sbtn_mini sbtn-orange">{$lang->notice}</span></td>
-			<td cond="!$mi->show_cate && $mi->use_category=='Y'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')"|cond="$document->isGranted() && $use_category_update" class="cate"><span style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'">{$category_list[$document->get('category_srl')]->title}</span></td>
+			<td cond="isset($mi->show_cate) && $mi->show_cate && $mi->use_category=='Y'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')"|cond="$document->isGranted() && $use_category_update" class="cate"><span style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'">{$category_list[$document->get('category_srl')]->title}</span></td>
 			<td class="title">
 				<!--// 공지사항 일반 출력 -->
 				<a cond="$mi->notice_view_slide ==''" href="{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}">
@@ -68,30 +68,25 @@
 	<!--// 한개의 공지내용만 Open -->
 	const detailsList = document.querySelectorAll('.accordion');
 
-	for (const details of detailsList) {
-	details.addEventListener('click', () => {
-		if (details.open) {
-			// 현재 열려 있는 details가 아닌 다른 details를 찾아 닫습니다.
-			for (const otherDetails of detailsList) {
-			if (otherDetails !== details && otherDetails.open) {
-				otherDetails.open = false;
+	detailsList.forEach(details => {
+		details.addEventListener('click', () => {
+			if (details.open) {
+				// 다른 details 닫기
+				detailsList.forEach(otherDetails => {
+					if (otherDetails !== details && otherDetails.open) {
+						otherDetails.open = false;
+					}
+				});
+
+				// 스크롤 위치 조정
+				const detailsTop = details.getBoundingClientRect().top;
+				window.scrollTo({
+					top: window.pageYOffset + detailsTop - 100,
+					behavior: 'smooth',
+				});
 			}
-		}
-
-		// 화면 최상단으로 스크롤
-		// window.scrollTo({ top: 0, behavior: 'smooth' });
-
-		// 현재 열려 있는 details의 상단 위치를 계산합니다.
-		const detailsTop = details.getBoundingClientRect().top;
-
-		// 스크롤 위치를 details 상단에서 30px 위로 이동합니다.
-		window.scrollTo({
-			top: detailsTop - 30,
-			behavior: 'smooth',
 		});
-		}
 	});
-	}
 
 	<!--// 내용글 Open시 슬라이딩 효과 -->
 	const $_details = $(".accordion");
