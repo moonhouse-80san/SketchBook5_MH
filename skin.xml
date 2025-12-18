@@ -610,7 +610,9 @@
 				<options value="Y">
 					<title xml:lang="ko">폴딩출력</title>
 				</options>
-				<description xml:lang="ko">"모든 목록 유형에서 동일한 한 줄 공지 형식" 선택시 적용됨</description>
+				<description xml:lang="ko">모든 목록 유형에서 동일한 한 줄 공지 형식선택시 적용됨.
+				게시판 설정 > 목록 설정 > 표시 항묵 밒 순서에 "요약"을 추가해야 합니다.
+				</description>
 			</var>
 			<var name="subject_cut_size" type="text">
 				<title>제목 글자 수</title>
