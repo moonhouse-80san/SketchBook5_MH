@@ -45,7 +45,7 @@
 				<span cond="!$mi->rd_cate_mid=='' && $oDocument->get('category_srl')->title"> > </span>
 				<a href="{getUrl('', 'mid', $mid, 'category', $oDocument->get('category_srl')->parent_srl, 'document_srl', '')}">{$category_list[$category_list[$oDocument->get('category_srl')]->parent_srl]->title}</a>
 				<span cond="$category_list[$category_list[$oDocument->get('category_srl')]->parent_srl]->title"> > </span>
-				<a href="{getUrl('', 'mid', $mid, 'category', $oDocument->get('category_srl'), 'document_srl', '')}" >{$category_list[$oDocument->get('category_srl')]->title}</a><span cond="$category_list[$oDocument->get('category_srl')]->title" style="margin-left:15px; color:#{$mi->color}"><i class="fa-solid fa-arrow-right-from-bracket"></i></span></strong>
+				<a href="{getUrl('', 'mid', $mid, 'category', $oDocument->get('category_srl'), 'document_srl', '')}" >{isset($category_list[$oDocument->get('category_srl')]) ? $category_list[$oDocument->get('category_srl')]->title : ''}</a><span cond="$category_list[$oDocument->get('category_srl')]->title" style="margin-left:15px; color:#{$mi->color}"><i class="fa-solid fa-arrow-right-from-bracket"></i></span></strong>
 				<strong cond="$timeline_info" class="cate fl">[ {htmlspecialchars($modules_info[$oDocument->get('module_srl')]->browser_title)} ]</strong>
 				<div class="fr">
 					<a cond="$mi->rd_nick=='2'" href="#popup_menu_area" class="nick member_{$oDocument->get('member_srl')}" onclick="return false">{$oDocument->getNickName()}</a>
@@ -53,7 +53,7 @@
 				</div>
 				<h1 class="np_18px">
 					<a href="{$oDocument->getPermanentUrl()}" style="font-size:1.2em; font-weight:bold">
-						<!--@if($mi->extra_title =='')-->
+						<!--@if($mi->extra_title == '' || $mi->extra_title === null)-->
 							<!--@if($oDocument->getTitle() !== '.')-->
 								{$oDocument->getTitle()}
 							<!--@else-->
@@ -75,7 +75,7 @@
 					<a cond="!$mi->rd_nick" href="#popup_menu_area" class="nick member_{$oDocument->get('member_srl')}" onclick="return false">{$oDocument->getNickName()}</a>
 					<a cond="$mi->rd_link=='2'" class="link m_no" href="{$oDocument->getPermanentUrl()}">{$oDocument->getPermanentUrl()}</a>
 					<span cond="$mi->rd_date=='2'" class="date">{$oDocument->getRegdate('Y.m.d H:i')}</span>
-					<strong cond="$mi->rd_cate=='2' && $mi->use_category=='Y' && $oDocument->get('category_srl')" class="cate" title="Category">{$category_list[$oDocument->get('category_srl')]->title}</strong>
+					<strong cond="$mi->rd_cate=='2' && $mi->use_category=='Y' && $oDocument->get('category_srl')" class="cate" title="Category">{isset($category_list[$oDocument->get('category_srl')]) ? $category_list[$oDocument->get('category_srl')]->title : ''}</strong>
 					<block cond="$mi->rd_info=='2'">
 					<span cond="!$mi->rd_view">{$lang->readed_count} <b>{number_format($oDocument->get('readed_count'))}</b></span>
 					<span cond="!$mi->rd_vote">{$lang->voted_count} <b>{$oDocument->get('voted_count')}</b></span>
@@ -87,7 +87,7 @@
 					<a cond="$mi->rd_link=='3'" class="link m_no" href="{$oDocument->getPermanentUrl()}">{$oDocument->getPermanentUrl()}</a>
 					<a cond="$mi->rd_nick=='3'" href="#popup_menu_area" class="nick member_{$oDocument->get('member_srl')}" onclick="return false">{$oDocument->getNickName()}</a>
 					<span cond="$mi->rd_date=='3'" class="date">{$oDocument->getRegdate('Y.m.d H:i')}</span>
-					<strong cond="$mi->rd_cate=='3' && $mi->use_category=='Y' && $oDocument->get('category_srl')" class="cate" title="Category">{$category_list[$oDocument->get('category_srl')]->title}</strong>
+					<strong cond="$mi->rd_cate=='3' && $mi->use_category=='Y' && $oDocument->get('category_srl')" class="cate" title="Category">{isset($category_list[$oDocument->get('category_srl')]) ? $category_list[$oDocument->get('category_srl')]->title : ''}</strong>
 					<block cond="!$mi->rd_info">
 					<span cond="!$mi->rd_view">{$lang->readed_count} <b>{number_format($oDocument->get('readed_count'))}</b></span>
 					<span cond="!$mi->rd_vote">{$lang->voted_count} <b>{$oDocument->get('voted_count')}</b></span>
@@ -116,7 +116,7 @@
 		<div cond="$mi->rd_style=='blog'" class="blog v{$mi->rd_blog_style}" style="text-align:{$mi->rd_tl};{$mi->rd_css};">
 			<div class="top_area {$mi->rd_top_font} np_18px" style="text-align:{$mi->rd_top}">
 				<span cond="!$mi->rd_blog_cate && $mi->use_category=='Y' && $oDocument->get('category_srl')" title="Category">
-					<b class="cate"><strong style="color:{$category_list[$oDocument->get('category_srl')]->color}"|cond="$category_list[$oDocument->get('category_srl')]->color!='transparent'">{$category_list[$oDocument->get('category_srl')]->title}</strong></b>
+					<b class="cate"><strong style="color:{$category_list[$oDocument->get('category_srl')]->color}"|cond="$category_list[$oDocument->get('category_srl')]->color!='transparent'">{isset($category_list[$oDocument->get('category_srl')]) ? $category_list[$oDocument->get('category_srl')]->title : ''}</strong></b>
 				</span>
 				<span cond="$mi->rd_blog_nick=='2'"><small>by</small><b>{$oDocument->getNickName()}</b></span>
 				<span cond="$mi->rd_blog_date=='2'" title="{$oDocument->getRegdate('Y.m.d H:i')}"><small>posted</small><b class="date">{$oDocument->getRegdate('M d, Y')}</b></span>
@@ -124,7 +124,7 @@
 			<h1 cond="$mi->rd_tl!='N'" class="font {$mi->rd_tl_font}" style="{$mi->rd_tl_css};-webkit-animation-name:rd_h1_v{$mi->rd_h1_ani};-moz-animation-name:rd_h1_v{$mi->rd_h1_ani};animation-name:rd_h1_v{$mi->rd_h1_ani};">{$oDocument->getTitle()}</h1>
 			<div cond="!$mi->rd_preview && $oDocument->getExtraEidValue('rd_preview')" class="rd_preview">{$oDocument->getExtraEidValue('rd_preview')}</div>
 			<div class="btm_area {$mi->rd_btm_font} np_18px" style="text-align:{$mi->rd_btm}"> 
-				<span cond="$mi->rd_blog_cate=='2' && $mi->use_category=='Y' && $oDocument->get('category_srl')"><small>In </small><b title="Category">{$category_list[$oDocument->get('category_srl')]->title}</b></span>
+				<span cond="$mi->rd_blog_cate=='2' && $mi->use_category=='Y' && $oDocument->get('category_srl')"><small>In </small><b title="Category">{isset($category_list[$oDocument->get('category_srl')]) ? $category_list[$oDocument->get('category_srl')]->title : ''}</b></span>
 				<span cond="!$mi->rd_blog_nick"><small>by </small><b>{$oDocument->getNickName()}</b></span>
 				<span cond="!$mi->rd_blog_date" title="{$oDocument->getRegdate('Y.m.d H:i')}"><small>posted </small><b class="date">{$oDocument->getRegdate('M d, Y')}</b></span>
 				<span cond="@in_array('view',$mi->rd_blog_itm?:[])"><small>Views</small> <b>{number_format($oDocument->get('readed_count'))}</b></span>
@@ -237,7 +237,7 @@
 				<!--@if($oDocument->get('content') !== '.')-->
 					{$oDocument->getContent(false)}
 					<span cond="$mi->include_modules">
-						<a href="{getUrl('','document_srl',$oDocument->document_srl)}"><strong>원 게시판 : {$oDocument->get('module_title')}로 가기</strong></a>
+						본 게시판 <a href="{getUrl('','document_srl',$oDocument->document_srl)}" style="margin-top:100px; color:#ff6600"><strong> {$oDocument->get('module_title')} <i class="fa-solid fa-arrow-up-right-from-square"></i></strong></a>&nbsp;&nbsp;바로가기
 					</span>
 				<!--@end-->
 			</article>

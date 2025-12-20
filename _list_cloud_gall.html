@@ -1,6 +1,6 @@
 {@
-	if(!$mi->cloud_y) $mi->cloud_y = 600 ;
-	if(!$mi->cloud_deg) $mi->cloud_deg = 25;
+	if(!isset($mi->cloud_y)) $mi->cloud_y = '600';
+	if(!isset($mi->cloud_deg)) $mi->cloud_deg = '25';
 	if($_COOKIE['cg_rd']) $mi->cloud_rand = '';
 	if($_COOKIE['cg_rt']) $mi->cloud_rotate = '';
 	$cg_idx = 0;

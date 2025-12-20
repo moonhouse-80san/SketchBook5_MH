@@ -9,9 +9,9 @@
 	$end_date = date("Y m d",strtotime($this_day->format("Y-m-d")));
 	$start_datem = date("m d",strtotime($start_day->format("Y-m-d")));
 	$end_datem = date("m d",strtotime($this_day->format("Y-m-d")));
-	$date1 = date("Y-m-d",strtotime($this_day->format("Y-m-d").($mi->i_d))); // 진행중 시작 날수
+	$date1 = date("Y-m-d",strtotime($this_day->format("Y-m-d").($mi->i_d ?? ''))); // 진행중 시작 날수
 	$datetime = new DateTime($now);
-	$date2 = $datetime->modify($mi->a_d); // 종료임박 날수
+	$date2 = $datetime->modify($mi->a_d ?? '+0 days'); // 종료임박 날수
 	$w_today = time();// 오늘 날짜 설정
 
 	$w_b_day_text = str_replace('.', '-', $date_before);// 시작 날짜 설정

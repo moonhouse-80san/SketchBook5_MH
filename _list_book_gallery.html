@@ -1,7 +1,7 @@
 {@
-	if(!$mi->deco_img_w) $mi->deco_img_w = 250;
-	if(!$mi->deco_img_h) $mi->deco_img_h = 25;
-	if(!$mi->deco_img_h1) $mi->deco_img_h1 = 3;
+	$mi->deco_img_w = $mi->deco_img_w ?? 250;
+    $mi->deco_img_h = $mi->deco_img_h ?? 25;
+    $mi->deco_img_h1 = $mi->deco_img_h1 ?? 3;
 }
 
 <style>
@@ -17,7 +17,7 @@
 <include cond="$notice_list && $mi->notice_style=='2'" target="_notice.html" />
 <ol class="bd_lst bd_booktmb_lst gall_style{$mi->gall_style} img_load{$mi->tmb_effect} tmb_bg{$mi->tmb_hover_bg} clear" data-gall_deg="{$mi->gall_deg}"|cond="$mi->gall_deg">
 	<!--// 공지 시작 -->
-	<li cond="$notice_list && !$mi->notice_style" loop="$notice_list=>$no,$document" class="notice">
+	<li cond="$notice_list && !$mi->notice_style" loop="($notice_list ?? [])=>$no,$document" class="notice">
 		<div class="tmb_wrp ribbon_v{$mi->ribbon_style}">
 			<!--// 그림자 -->
 			<block cond="$mi->gall_shadow!='N'">
@@ -82,7 +82,7 @@
 			<!--@end-->
 			</block>
 			<span cond="$mi->gall_ribbon && $mi->gall_ribbon!='new_update'" class="ribbon">
-				<i cond="$mi->gall_ribbon=='cate' && $document->get('category_srl')" class="cate">{$category_list[$document->get('category_srl')]->title}</i>
+				<i cond="$mi->gall_ribbon=='cate' && $document->get('category_srl')" class="cate">{$category_list[$document->get('category_srl')]->title ?? ''}</i>
 				<i cond="$mi->gall_ribbon=='date'" class="date"><b>{$document->getRegdate("d")}</b><small>{$document->getRegdate("M")}</small></i>
 				<i cond="$mi->gall_ribbon=='read'"><b>{$document->get('readed_count')}</b><small>Views</small></i>
 				<i cond="$mi->gall_ribbon=='vote'"><b>{$document->get('voted_count')}</b><small>Likes</small></i>
@@ -94,7 +94,7 @@
 			<div cond="$mi->trans_window!='N'" class="trans_window fixed">
 				<block cond="!$mi->trans_window">by {$document->getNickName()}</block>
 				<b cond="$mi->trans_window=='date'">{$document->getRegdate("Y.m.d")}</b>
-				<block cond="$mi->trans_window=='cate' && $document->get('category_srl')">Category : {$category_list[$document->get('category_srl')]->title}</block>
+				<block cond="$mi->trans_window=='cate' && $document->get('category_srl')">Category : {$category_list[$document->get('category_srl')]->title ?? ''}</block>
 				<block cond="$mi->trans_window=='read'">Views : {$document->get('readed_count')}</block>
 				<block cond="$mi->trans_window=='vote'">Likes : {$document->get('voted_count')}</block>
 				<block cond="$mi->trans_window=='cmt'">Replies : {$document->getCommentCount()}</block>
@@ -107,13 +107,13 @@
 						<span class="padding">
 							<b class="tl" style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;"><include target="title.html" /></b>
 							<b cond="$mi->trans_window=='date' && $list_config['regdate']" class="tl">날짜&nbsp;&nbsp;:&nbsp;&nbsp;{$document->getRegdate("Y년 m월 d일")}</b>
-							<block cond="$mi->use_category=='Y' && $document->get('category_srl')">분류 : <b>{$category_list[$document->get('category_srl')]->title}</b><br /></block>
+							<block cond="$mi->use_category=='Y' && $document->get('category_srl')">분류 : <b>{$category_list[$document->get('category_srl')]->title ?? ''}</b><br /></block>
 							<span><block cond="$mi->trans_window=='read' && $list_config['readed_count']">Views <b>{$document->get('readed_count')}</b>&nbsp;</block> <block cond="$mi->trans_window=='vote' && $list_config['voted_count']">Likes <b>{$document->get('voted_count')}</b></block></span>
 							<block cond="$mi->trans_window=='cmt' && $document->getCommentCount()">Replies <b>{$document->getCommentCount()}</b></block>
 
 							<!--// 확장변수 -->
 							<block cond="$mi->zine_extra || $mi->rating_output == 'Y'">
-							<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
+							<block loop="($list_config ?? [])=>$key,$val" cond="$val->idx!=-1">
 							<span cond="$val->eid=='rating'">{$val->name} : <strong class="starRating book_ext"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
 							<span cond="$val->eid=='price'" class="book_ext">{$val->name} : <b>{$mi->f_name} {number_format($document->getExtraValueHTML($val->idx))}{$mi->b_name}</b></span>
 							<span cond="$val->eid!='rating' && $val->eid!=='price' && $document->getExtraValueHTML($val->idx)" class="book_ext<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name} : <b>{$document->getExtraValueHTML($val->idx)}</b></span>
@@ -153,7 +153,7 @@
 				<!--@end-->
 			</div>
 
-			<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
+			<block loop="($list_config ?? [])=>$key,$val" cond="$val->idx!=-1">
 				<div cond="$mi->gallery_rating && $val->eid=='rating'"><span cond="$mi->extra_n ==''">{$val->name} : </span><strong class="starRating book_ext"><span style="width:{$document->getExtraValueHTML($val->idx)*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></div>
 				<div cond="$mi->gallery_rating && $val->eid=='price'"><span cond="$mi->extra_n ==''">{$val->name} : </span>{$mi->f_name} {number_format($document->getExtraValueHTML($val->idx))}{$mi->b_name}</div>
 			</block>

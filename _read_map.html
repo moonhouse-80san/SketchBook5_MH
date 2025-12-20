@@ -274,8 +274,7 @@
 
 					// 인포윈도우로 장소에 대한 설명을 표시합니다
 					var infowindow = new kakao.maps.InfoWindow({
-						content: '<div class="wrap"><div class="info"><div class="title">{$oDocument->getTitle()}</div><div class="body"><div class="img" title="{$oDocument->getExtraEidValue('homepage')}"><a href="{$oDocument->getExtraEidValue('homepage')}" target="_blank" class="link" ><img src="{$oDocument->getThumbnail(73,70,fill)}"></a></div><div class="desc"><div class="ellipsis">{$oDocument->getExtraEidValue('address')}</div><div class="jibun ellipsis"> {$oDocument->getExtraEidValue('address1')}</div><div style="font-size:12px"><!--@if($oDocument->getExtraEidValueHTML('tel'))-->T {$oDocument->getExtraEidValueHTML('tel')}<!--@else--><!--@end--> <a href="https://map.kakao.com/link/search/{$oDocument->getExtraEidValue('address')}" style="position:absolute; color:red; right:40px; bottom:14px; font-size:12px" target="_blank">{$lang->wide_map}</a></div></div></div></div></div>',
-						removable : true
+						content: '<div class="wrap"><div class="info"><div class="title">{$oDocument->getTitle() ?? ""}</div><div class="body"><div class="img" title="{$oDocument->getExtraEidValue("homepage") ?? ""}"><a href="{$oDocument->getExtraEidValue("homepage") ?? "#"}" target="_blank" class="link" ><img src="{$oDocument->getThumbnail(73,70,"fill") ?? ""}"></a></div><div class="desc"><div class="ellipsis">{$oDocument->getExtraEidValue("address") ?? ""}</div><div class="jibun ellipsis"> {$oDocument->getExtraEidValue("address1") ?? ""}</div><div style="font-size:12px"><!--@if($oDocument->getExtraEidValueHTML("tel"))-->T {$oDocument->getExtraEidValueHTML("tel")}<!--@else--><!--@end--> <a href="https://map.kakao.com/link/search/{$oDocument->getExtraEidValue("address") ?? ""}" style="position:absolute; color:red; right:40px; bottom:14px; font-size:12px" target="_blank">{$lang->wide_map ?? "지도"}</a></div></div></div></div></div>', removable : true
 					});
 					infowindow.open(map, marker);
 

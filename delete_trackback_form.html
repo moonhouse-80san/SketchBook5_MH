@@ -1,12 +1,13 @@
 <include target="_header.html" />
-<form action="./" method="get" onsubmit="return procFilter(this, delete_trackback)" class="context_message">
-	<input type="hidden" name="mid" value="{$mid}" />
+<form action="./" method="post" onsubmit="return procFilter(this, delete_trackback)" class="context_message">
+	<input type="hidden" name="mid" value="{htmlspecialchars($mid ?? '', ENT_QUOTES, 'UTF-8')}" />
 	<input type="hidden" name="page" value="{$page}" />
-	<input type="hidden" name="document_srl" value="{document_srl}" />
+	<input type="hidden" name="document_srl" value="{htmlspecialchars($document_srl ?? '', ENT_QUOTES, 'UTF-8')}" />
 	<input type="hidden" name="trackback_srl" value="{$trackback_srl}" />
+	<input type="hidden" name="csrf_token" value="{$csrf_token ?? ''}" />
 	<h1>{$lang->confirm_delete}</h1>
 	<div class="btnArea">
-		<input class="btn blue" type="submit" value="{$lang->cmd_delete}" />
+		<input class="bd_btn blue" type="submit" value="{htmlspecialchars($lang->cmd_delete ?? '삭제', ENT_QUOTES, 'UTF-8')}" />
 		<button class="bd_btn" type="button" onclick="history.back()">{$lang->cmd_cancel}</button>
 	</div>
 </form>

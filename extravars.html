@@ -11,11 +11,11 @@
 		}
 		<!--@if(($match1 != 1 && $match2 != 1) || $grant->is_admin || $oDocument->isEditable())-->
 		<th scope="row">{$val->name}</th>
-			<td cond="$val->eid!='rating' && $val->eid!==$mi->etc_name && $val->eid!=$mi->copy && $val->eid!==$mi->e_url" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()}</span></td>
+			<td cond="$val->eid!='rating' && $val->eid!==$mi->etc_name && $val->eid!=$mi->copy && $val->eid!==$mi->e_url" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()}</span></td>
 		<!--@end-->
 
 		<!--// 확장변수값 앞뒤에 붙는 단위-->
-		<td cond="$val->eid!='rating' && ($mid==$mi->etc_mid && $val->eid==$mi->etc_name)" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$mi->f_name} {number_format(str_replace(',','',$val->getValueHTML()))}{$mi->b_name}</td>
+		<td cond="$val->eid!='rating' && ($mid==$mi->etc_mid && $val->eid==$mi->etc_name)" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$mi->f_name} {number_format((float)str_replace(',','',$val->getValueHTML()))}{$mi->b_name}</td>
 
 		<!--// 지정 확장변수 내용복사-->
 		<td cond="$val->eid==$mi->copy && $val->eid!==$mi->e_url">

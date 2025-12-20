@@ -1,5 +1,5 @@
 {@
-	$oModuleAdminModel = &getAdminModel('module');
+	$oModuleAdminModel = getAdminModel('module');
 	$skin_content = $oModuleAdminModel->getModuleSkinHTML($module_info->module_srl);
 }
 
@@ -12,36 +12,38 @@
 </div>
 
 <script>
-jQuery(function($){
-	var v = $('#bd_wizard');
-	$('body').append(v);
-	v.find('#bd_wizard_tg,#bd_wizard .tg_close2').click(function(){
-		if(v.hasClass('open')){
-			v.animate({left:-480},{duration:500,complete:function(){
-				jQuery(this).removeClass('open');
-			},step:null,queue:false});
-			jQuery.removeCookie('bd_wizard_cookie');
-		} else {
-			v.animate({left:0},{duration:350}).addClass('open');
-			jQuery.cookie('bd_wizard_cookie','open');
-		};
+	jQuery(function($){
+		var v = $('#bd_wizard');
+		$('body').append(v);
+		v.find('#bd_wizard_tg,#bd_wizard .tg_close2').click(function(){
+			if(v.hasClass('open')){
+				v.animate({left:-480},{duration:500,complete:function(){
+					jQuery(this).removeClass('open');
+				},step:null,queue:false});
+				jQuery.removeCookie('bd_wizard_cookie');
+			} else {
+				v.animate({left:0},{duration:350}).addClass('open');
+				jQuery.cookie('bd_wizard_cookie','open');
+			}
+		});
+		setTimeout(function(){
+		jQuery('#bd_wizard .message').fadeOut();
+		}, 1500);
+		v.find('form>.section').eq(0).remove();
+		v.find('form>.section').eq(0).hide();
+		v.find('form>.section').eq(1).addClass('on');
+		v.find('form>.section>h2').click(function(){
+			var p = $(this).parent();
+			if(p.hasClass('on')){
+				p.removeClass('on');
+			} else {
+				p.addClass('on').siblings().removeClass('on');
+			}
+		});
+		v.find('a.x_icon-question-sign').click(function(){
+			v.find('p.x_help-block:visible').hide();
+			$(this).next('p').show();
+			return false;
+		});
 	});
-	setTimeout("jQuery('#bd_wizard .message').fadeOut()",1500);
-	v.find('form>.section').eq(0).remove();
-	v.find('form>.section').eq(0).hide();
-	v.find('form>.section').eq(1).addClass('on');
-	v.find('form>.section>h2').click(function(){
-		var p = $(this).parent();
-		if(p.hasClass('on')){
-			p.removeClass('on');
-		} else {
-			p.addClass('on').siblings().removeClass('on');
-		};
-	});
-	v.find('a.x_icon-question-sign').click(function(){
-		v.find('p.x_help-block:visible').hide();
-		$(this).next('p').show();
-		return false;
-	});
-});
 </script>
