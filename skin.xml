@@ -610,9 +610,7 @@
 				<options value="Y">
 					<title xml:lang="ko">폴딩출력</title>
 				</options>
-				<description xml:lang="ko">모든 목록 유형에서 동일한 한 줄 공지 형식선택시 적용됨.
-				게시판 설정 > 목록 설정 > 표시 항묵 밒 순서에 "요약"을 추가해야 합니다.
-				</description>
+				<description xml:lang="ko">"모든 목록 유형에서 동일한 한 줄 공지 형식" 선택시 적용됨</description>
 			</var>
 			<var name="subject_cut_size" type="text">
 				<title>제목 글자 수</title>
@@ -1158,7 +1156,7 @@
 				</options>
 			</var>
 			<var name="first_thumb_user" type="radio">
-				<title>📍 첫 게시글만 썸네일 출력(FT)</title>
+				<title>📍 첫 게시글만 썸네일 출력(Only FT형)</title>
 				<description>"첫 글만 썸네일 출력 웹진" 스킨 사용시</description>
 				<options value="">
 					<title>첫 게시글만 썸네일 출력(기본)</title>
@@ -2583,7 +2581,7 @@
 			<title>본문 Map 출력</title>
 			<var name="extra_map" type="radio">
 				<title>Map 출력</title>
-				<description>사용자정의 이름 shop, address 등으로 한줄입력칸으로 등록 / 목록, 웹진, FT, 거래장형에만 적용
+				<description>사용자정의 이름 shop, address 등으로 한줄입력칸으로 등록 / 목록, 웹진, 거래장형에만 적용
 				* 스케치북 게시판에 카카오지도 출력 https://moonhouse.co.kr/xetip/519523
 				</description>
 				<options value="">
@@ -3380,6 +3378,18 @@
 				<options value="N">
 					<title>원본 출력</title>
 				</options>
+			</var>
+			<var name="dhidden" type="text">
+				<title>📍 지정 날 수 Over Hidden 확장변수 ID</title>
+				<description>지정 날 수 Over시 확장변수 내용 Hidden 확장변수 ID</description>
+			</var>
+			<var name="dh_days" type="text">
+				<title>　┖ 지정 날수</title>
+				<description>Hidden 시킬 날 수(기본 5일)</description>
+			</var>
+			<var name="dh_text" type="text">
+				<title>　┖ 문구</title>
+				<description>Hidden시 적용 문구(기본 공백)</description>
 			</var>
 		</group>
 		<group>

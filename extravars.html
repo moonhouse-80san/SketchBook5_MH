@@ -11,11 +11,11 @@
 		}
 		<!--@if(($match1 != 1 && $match2 != 1) || $grant->is_admin || $oDocument->isEditable())-->
 		<th scope="row">{$val->name}</th>
-			<td cond="$val->eid!='rating' && $val->eid!==$mi->etc_name && $val->eid!=$mi->copy && $val->eid!==$mi->e_url" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()}</span></td>
+			<td cond="$val->eid!='rating' && $val->eid!==$mi->etc_name && $val->eid!=$mi->copy && $val->eid!==$mi->e_url && $val->eid!==$mi->dhidden" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()}</span></td>
 		<!--@end-->
 
 		<!--// 확장변수값 앞뒤에 붙는 단위-->
-		<td cond="$val->eid!='rating' && ($mid==$mi->etc_mid && $val->eid==$mi->etc_name)" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$mi->f_name} {number_format((float)str_replace(',','',$val->getValueHTML()))}{$mi->b_name}</td>
+		<td cond="$val->eid!='rating' && $val->eid!==$mi->dhidden && ($mid==$mi->etc_mid && $val->eid==$mi->etc_name)" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$mi->f_name} {number_format((float)str_replace(',','',$val->getValueHTML()))}{$mi->b_name}</td>
 
 		<!--// 지정 확장변수 내용복사-->
 		<td cond="$val->eid==$mi->copy && $val->eid!==$mi->e_url">
@@ -36,8 +36,20 @@
 			<a href="{$oDocument->getExtraEidValue($mi->e_url)}" target="_blank">{$mi->e_urlt}</a>
 		</td>
 
+		<!-- 지정일 후 숨김 처리 -->
+		{@ if(!isset($mi->dh_days)) $mi->dh_days = '5' }
+		<td cond="$val->eid==$mi->dhidden && ($oDocument->isGranted() || (time() - $oDocument->getRegdate('U') < $mi->dh_days*24*60*60))">
+			{$val->getValueHTML()}
+			<span cond="$oDocument->isGranted() && (time() - $oDocument->getRegdate('U') >= $mi->dh_days*24*60*60)" style="color:#f00; font-size:0.9em;">
+				(일반 사용자에게는 숨김 처리됨)
+			</span>
+		</td>
+		<td cond="$val->eid==$mi->dhidden && !$oDocument->isGranted() && (time() - $oDocument->getRegdate('U') >= $mi->dh_days*24*60*60)">
+			<span style="color:#999;">{$mi->dh_text}</span>
+		</td>
+
 		<!--// 확장변수 별표 평점(rating)-->
-		<td cond="$val->eid=='rating' && $val->eid!==$mi->etc_name && $val->eid!==e_url" class="rating" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="cursor:pointer"><span class="starRating" title="{$val->getValueHTML()}{$lang->score}"><span style="width:{$val->getValueHTML()*10}%">{$val->getValueHTML()}</span></span></td>
+		<td cond="$val->eid=='rating' && $val->eid!==$mi->etc_name && $val->eid!==e_url && $val->eid!==$mi->dhidden" class="rating" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="cursor:pointer"><span class="starRating" title="{$val->getValueHTML()}{$lang->score}"><span style="width:{$val->getValueHTML()*10}%">{$val->getValueHTML()}</span></span></td>
 		{@ $etIdx++ }
 	<!--@else-->
 	<!--@end-->
