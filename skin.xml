@@ -21,6 +21,7 @@
 	<extra_vars>
 		<group>
 			<title>전체 설정</title>
+
 			<var name="wizard" type="radio">
 				<title>위저드 사용</title>
 				<description>스킨 설정을 할 수 있는 내비게이션을 게시판 브라우저 좌측에 출력합니다.
@@ -370,6 +371,7 @@
 				</options>
 			</var>
 		</group>
+
 		<group>
 			<title>게시판 상단 설정</title>
 			<var name="top_loca" type="radio">
@@ -525,7 +527,9 @@
 				<description>분류2 출력될 태그 이름들</description>
 			</var>
 		</group>
+
 		<group>
+
 			<title>게시판 하단 메뉴 설정</title>
 			<var name="display_setup_button" type="radio">
 				<title>표시 여부</title>
@@ -580,8 +584,10 @@
 				<description>게시판하단 페이지 네비게이션 출력을 선택합니다.</description>
 			</var>
 		</group>
+
 		<group>
 			<title>목록 공통 설정</title>
+
 			<var name="rd_lst" type="radio">
 				<title>본문에서 목록 출력</title>
 				<description>본문을 볼 때 본문 하단에 목록을 출력할 것인지를 결정합니다.</description>
@@ -832,8 +838,10 @@
 				<description>게시판을 클릭했을때 관리자 이외의 접속자는 글쓰기폼이 먼저 출력될 게시판의 mid</description>
 			</var>
 		</group>
+
 		<group>
 			<title>목록형 설정</title>
+
 			<var name="show_cate" type="radio">
 				<title>카테고리 표시(FT)</title>
 				<description>목록에서 제목 앞에 카테고리를 표시합니다.</description>
@@ -977,8 +985,10 @@
 				</options>
 			</var>
 		</group>
+
 		<group>
 			<title>웹진형 / FT형 설정 (*표시 : '모바일(목록)형'과 공통)</title>
+
 			<var name="zine_style" type="radio">
 				<title>웹진 스타일</title>
 				<options value="">
@@ -1200,8 +1210,10 @@
 				<description>열린 댓글 버턴안 문구</description>
 			</var>
 		</group>
+
 		<group>
 			<title>목록형, 웹진형, FT형 공통설정</title>
+
 			<var name="list_replyContent" type="radio">
 				<title>📍 리스트 댓글 출력</title>
 				<options value="">
@@ -1456,8 +1468,10 @@
 				<description>버턴의 색상을 선택하세요.</description>
 			</var> 
 		</group>
+
 		<group>
 			<title>웹진형, 갤러리형, 모바일(목록)형 공통 설정</title>
+
 			<var name="tmb_effect" type="radio">
 				<title>섬네일 인트로 효과</title>
 				<description>페이지 로딩 시에 섬네일 효과를 설정합니다. (단지 디자인 요소만이 아닌, 이미지가 로딩되기 전에 이미지 영역을 감싸는 요소들이 흐트러지는 것을 방지하는 역할을 합니다.)</description>
@@ -1530,8 +1544,10 @@
 				<description>'좌측 상단 리본'에서 확장변수 사용 시 선택할 확장변수의 번호를 설정합니다. 설정이 없으면 1번이 지정됩니다.</description>
 			</var>
 		</group>
+
 		<group>
 			<title>(Book)갤러리 형 (*표시 : '클라우드 갤러리'와 공통)</title>
+
 			<var name="gall_style" type="radio">
 				<title>갤러리 스타일</title>
 				<options value="">
@@ -1796,8 +1812,10 @@
 				<description>마우스 오버했을 때의 이미지를 사용자가 직접 이미지를 등록할 수 있습니다. 가운데에 위치하게 됩니다.</description>
 			</var>
 		</group>
+
 		<group>
 			<title>클라우드 갤러리</title>
+
 			<var name="cloud_rand" type="radio">
 				<title>섬네일의 무작위 위치</title>
 				<options value="">
@@ -1840,8 +1858,10 @@
 				<description>'무작위 위치'를 사용하지 않을 경우의 정렬된 이미지의 여백을 설정합니다. 설정하지 않으면 기본 '12' 입니다.</description>
 			</var>
 		</group>
+
 		<group>
 			<title>FAQ 게시판 형</title>
+
 			<var name="faq_style" type="radio">
 				<title>스타일 프리셋</title>
 				<description>FAQ 게시판의 스타일을 설정합니다. '공식 FAQ모듈 스타일'은 공식 FAQ모듈과 유사한 스타일로 변형시킵니다.</description>
@@ -1853,8 +1873,10 @@
 				</options>
 			</var>
 		</group>
+
 		<group>
 			<title>블로그 형</title>
+
 			<var name="blog_style" type="radio">
 				<title>스타일 프리셋</title>
 				<description>블로그형 스타일을 설정합니다. 외곽 영역에서 테두리와 그림자 여부를 설정합니다. *익스8 이하의 경우 'css3pie 애드온'을 활성화하여야 적용이 됩니다.</description>
@@ -1866,8 +1888,10 @@
 				</options>
 			</var>
 		</group>
+
 		<group>
 			<title>글쓰기 및 댓글쓰기 설정</title>
+
 			<var name="tl_color" type="radio">
 				<title>'제목 색깔' 및 '제목 굵기' 표시</title>
 				<options value="">
@@ -2096,8 +2120,10 @@
 				<description>댓글창 최하단에 광고 및 기타문구 출력(Html 가능)</description>
 			</var>
 		</group>
+
 		<group>
 			<title>첨부파일</title>
+
 			<var name="show_files" type="radio">
 				<title>첨부파일 표시 방법</title>
 				<options value="">
@@ -2205,8 +2231,10 @@
 				<description>파일다운로드 권한 미달시 출력할 문구</description>
 			</var>
 		</group>
+
 		<group>
 			<title>본문 이미지 설정</title>
+
 			<var name="img_opt" type="checkbox">
 				<title>이미지 부가 기능</title>
 				<description>1. 이미지 드래그 : 본문에 삽입된 이미지를 마우스로 드래그할 수 있습니다.</description>
@@ -2267,8 +2295,10 @@
 				<description>자동 출력되는 이미지의 스타일(CSS)을 직접 입력합니다.</description>
 			</var>
 		</group>
+
 		<group>
 			<title>본문 일반 설정</title>
+
 			<var name="rd_padding" type="text">
 				<title>본문 전체 여백 설정</title>
 				<description>본문의 전체 여백(padding)을 설정합니다. 사용자의 레이아웃에 따라 본문 폭이 달라 필요한 영역 확보를 하지 못하는 경우를 위해 옵션을 두었습니다. 일반 css 입력과 동일하므로 'px', 'em', '%' 등 '단위'까지 반드시(!) 입력해야 합니다(※ '0'으로 사용할 경우 '0'은 저장되지 않으니 '0px'을 입력하세요). 입력하지 않으면 기본설정은 '0 15px' 입니다. 예) '0px', '10px', '10px 20px 30px 10px', '3% 0' 등</description>
@@ -2577,8 +2607,10 @@
 				</options>
 			</var>
 		</group>
+
 		<group>
 			<title>본문 Map 출력</title>
+
 			<var name="extra_map" type="radio">
 				<title>Map 출력</title>
 				<description>사용자정의 이름 shop, address 등으로 한줄입력칸으로 등록 / 목록, 웹진, 거래장형에만 적용
@@ -2630,8 +2662,10 @@
 				<description>(기본 9)</description>
 			</var>
 		</group>
+
 		<group>
 			<title>피드백(트랙백, 댓글) 목록 설정</title>
+
 			<var name="fdb_style" type="radio">
 				<title>댓글 스타일</title>
 				<options value="">
@@ -2731,8 +2765,10 @@
 				<description>댓글 출력 각 칸의 높이를 지정합니다. (기본 1.5em)</description>
 			</var>
 		</group>
+
 		<group>
 			<title>본문 제목 공통 설정</title>
+
 			<var name="rd_style" type="radio">
 				<title>프리셋</title>
 				<description>'뷰어로 보기' 시에는 '블로그 스타일'로 표시됩니다.</description>
@@ -2765,8 +2801,10 @@
 				<description>제목의 스타일(CSS)을 직접 입력합니다.</description>
 			</var>
 		</group>
+
 		<group>
 			<title>본문 '게시판 스타일' 제목 설정</title>
+
 			<var name="rd_board_style" type="radio">
 				<title>게시판 스타일 프리셋</title>
 				<options value="">
@@ -2893,8 +2931,10 @@
 				<description>제목 하단 영역에 나타나는 커스텀 공간입니다. 'html 입력' 또는 '회원정보위젯', '전광판위젯', '광고' 등을 넣어 사용할 수 있습니다.</description>
 			</var>
 		</group>
+
 		<group>
 			<title>본문 '블로그 스타일' 및 '뷰어로 보기' 제목 설정</title>
+
 			<var name="rd_blog_style" type="radio">
 				<title>블로그 스타일 프리셋</title>
 				<options value="">
@@ -3048,8 +3088,10 @@
 				</options>
 			</var>
 		</group>
+
 		<group>
 			<title>'뷰어로 보기' 설정</title>
+
 			<var name="viewer_with" type="radio" default="">
 				<title>게시판 상단 버튼</title>
 				<description>게시판의 상단에 게시물을 클릭 시 바로 뷰어로 보게 하는 '게시물을 뷰어로 보기' 버튼의 표시 여부를 결정합니다.</description>
@@ -3124,8 +3166,10 @@
 				</options>
 			</var>
 		</group>
+
 		<group>
 			<title>*모바일 설정</title>
+
 			<var name="img_link" type="radio" default="2">
 				<title>이미지 원본 링크</title>
 				<description>모바일에서 이미지를 클릭하면 원본 링크로 이동합니다. *다른 리사이즈 애드온과 충돌이 될 수 있으니 해당 애드온 설정에서 모바일 설정을 확인해주세요.</description>
@@ -3154,8 +3198,10 @@
 				<description>카카오톡 링크를 사용하려면 'https://developers.kakao.com/'에서 발급한 API 앱키(Javascript 키)를 입력하셔야 합니다. 자세한 사항은 카카오 개발자 사이트를 참조하세요. 'https://developers.kakao.com/docs/js#카카오톡-링크-예제:-동적으로-바뀌는-내용의-카카오톡-링크-보내기'</description>
 			</var>
 		</group>
+
 		<group>
 			<title>확장변수 설정</title>
+
 			<var name="et_var" type="radio">
 				<title>확장변수 위치</title>
 				<options value="">
@@ -3392,8 +3438,10 @@
 				<description>Hidden시 적용 문구(기본 공백)</description>
 			</var>
 		</group>
+
 		<group>
 			<title>거래장형</title>
+
 			<var name="write_top" type="radio">
 				<title>게시판상단 중앙 쓰기 버튼</title>
 				<description>관리자만 적용
