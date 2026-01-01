@@ -206,7 +206,9 @@
 							<img width="{$document->cover_extra_info[$val->idx]->cover_size_width}" height="{$document->cover_extra_info[$val->idx]->cover_size_height}" src="{$document->cover_extra_info[$val->idx]->cover_extra_url}">
 						<!--@elseif($document->cover_extra_info[$val->idx]->cover_extra=='N')-->
 						<!--@else-->
-							<span<!--@if($mid==$mi->color_mid)--><!--@if($document->getExtraValueHTML($val->idx)==$mi->blue_n)--> class="blue"<!--@elseif($document->getExtraValueHTML($val->idx)==$mi->orange_n)--> class="orange"<!--@elseif($document->getExtraValueHTML($val->idx)==$mi->gray_n)--> class="gray"<!--@end--><!--@else--><!--@end-->><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
+							<span cond="$val->eid!==$mi->icon_url" <!--@if($mid==$mi->color_mid)--><!--@if($document->getExtraValueHTML($val->idx)==$mi->blue_n)--> class="blue"<!--@elseif($document->getExtraValueHTML($val->idx)==$mi->orange_n)--> class="orange"<!--@elseif($document->getExtraValueHTML($val->idx)==$mi->gray_n)--> class="gray"<!--@end--><!--@else--><!--@end-->><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
+							<span cond="$val->eid==$mi->icon_url && $document->getExtraValueHTML($val->idx)" style="cursor:pointer">
+							<a href="{$document->getExtraEidValue($mi->icon_url)}" target="_blank">{$mi->icon_urlt}<img src="img/link.png" style="margin-left:5px"></a></span>
 						<!--@end-->
 					</td>
 				</block>

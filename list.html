@@ -69,6 +69,14 @@ jQuery(function($){
 			</div>
 		</div>
 
+		<!--// Wizard -->
+		<block cond="$grant->manager && !$mi->wizard=='N' && !$mo">
+			<load target="css/wizard.css" />
+			<include target="_wizard.php" />
+		</block>
+		<!--// Wizard 사용 설정 -->
+		<include cond="!$oDocument->isExists() && !$mi->wizard_setting=='N' && $grant->manager && !$mo" target="_wizardsetting.html" />
+
 		<!--// 게시판상단에 풀립 판넬 -->
 		<include cond="$mi->top_panel_text && !$document_srl && $mi->panel_select =='J'" target="top_toggleJ.html" />
 		<include cond="$mi->top_panel_text && !$document_srl && $mi->panel_select =='H'" target="top_toggleH.html" />
@@ -85,15 +93,10 @@ jQuery(function($){
 
 		<div id="bd_{$mi->module_srl}_{$oDocument->document_srl}" class="bd {$_COOKIE['use_np']} {$mi->fdb_count}<!--@if(!$mi->hover)--> hover_effect<!--@end--><!--@if(!$mi->select_lst && ($mi->cnb || $mi->use_category!='Y'))--> small_lst_btn{$oDocument->isExists()}<!--@end--><!--@if($mi->select_lst_more)--> select_lst_cloud<!--@end-->" data-default_style="{$mi->default_style}" data-link_board="{$mi->link_board}"|cond="$mi->link_board" data-bdBubble="N"|cond="$mi->bubble=='N'" data-lstViewer="{$lang->with_viewer}"|cond="$mi->lst_viewer=='Y'" data-bdFilesType="{$mi->files_type}" data-bdImgOpt="Y"|cond="$mi->img_opt" data-bdImgLink="Y"|cond="!$mi->img_link && $mo" data-bdNavSide="N"|cond="$mi->rd_nav_side || $mi->default_style=='blog' || $mi->default_style=='guest'">
 
-		<!--// Wizard -->
-		<block cond="$grant->manager && $mi->wizard!='N' && !$mo">
-			<load target="css/wizard.css" />
-			<include target="_wizard.php" />
-		</block>
-
 		<!--// 헤더 -->
 		<div class="bd_hd<!--@if($oDocument->isExists())--> v2<!--@end--> clear">
 			<include cond="!$mi->breadcrumb" target="_breadcrumb.html" />
+
 			<!--// 우측 상단 설정 메뉴 -->
 			<div class="bd_set fr m_btn_wrp m_no">
 				<block cond="$grant->view && $mi->default_style!='guest' && $mi->default_style!='blog'">

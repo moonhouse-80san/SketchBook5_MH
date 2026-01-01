@@ -1,7 +1,8 @@
 <div style="float:left; border-top:1px solid #ddd; width:100%">
 	<!--@if($mi->default_style=='list')--><!--@else--><table class="bd_lst bd_tb_lst bd_tb common_notice"><!--@end-->
 		<tr loop="$notice_list=>$no,$document" class="notice">
-			<td $list_config['no']"><span class="sbtn_mini sbtn-orange">{$lang->notice}</span></td>
+			<td $list_config['no']><span class="sbtn_mini sbtn-orange">{$lang->notice}</span></td>
+			<td scope="col" class="m_no" style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'"><span>{$category_list[$document->get('category_srl')]->title}</span></td>
 
 			<td class="title">
 				<!--// 공지사항 일반 출력 -->

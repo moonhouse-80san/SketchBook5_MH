@@ -1,0 +1,74 @@
+<div class="wizard-setting-panel">
+	<span class="setting-label">위저드 설정</span>
+	<span class="radio-group">
+		<label class="radio-label">
+			<input type="radio" name="wizard_opt" value="" checked="checked"|cond="$mi->wizard != 'N'" onchange="location.href='<?php echo getUrl('act', 'dispBoardAdminSkinInfo'); ?>'">
+			<span>사용중(✔ 설정 바로가기)</span>
+		</label>
+		<label class="radio-label">
+			<input type="radio" name="wizard_opt" value="N" checked="checked"|cond="$mi->wizard == 'N'" onchange="exeWizardUpdate(this.value)">
+			<span>사용 안함</span>
+		</label>
+	</span>
+</div>
+
+<style>
+	.wizard-setting-panel { display: inline-flex; align-items: center; padding: 5px 10px; margin:5px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; width: fit-content; }
+	.wizard-setting-panel span { font-size:13px; }
+	.setting-label { font-weight: 600; margin-right: 20px; color: #333; }
+	.radio-group { display: flex; gap: 15px; }
+	.radio-label { display: flex; align-items: center; cursor: pointer; font-size: 13px; }
+	.radio-label input { margin-right: 5px; }
+</style>
+
+<script>
+	function exeWizardUpdate(val) {
+		if(!confirm('설정을 변경하시겠습니까?')) return;
+
+		var $ = jQuery;
+		// 1. _wizard.php가 로드한 원본 폼을 찾습니다.
+		var $originForm = $('#bd_wizard_scroll').find('form').first();
+		
+		if(!$originForm.length) {
+			alert('원본 설정 폼을 찾을 수 없습니다. _wizard.php가 정상 로드되었는지 확인해주세요.');
+			return;
+		}
+
+		// 2. 폼 데이터를 복사하여 객체화합니다.
+		var formData = $originForm.serializeArray();
+
+		// 3. 복사된 데이터에서 wizard 값만 사용자가 선택한 값으로 강제 교체합니다.
+		var isReplaced = false;
+		for (var i = 0; i < formData.length; i++) {
+			if (formData[i].name === 'wizard') {
+				formData[i].value = val;
+				isReplaced = true;
+				break;
+			}
+		}
+		if(!isReplaced) formData.push({ name: 'wizard', value: val });
+
+		// 4. 전송 (가장 범용적인 $.post 사용)
+		$.post(request_uri, formData, function(data) {
+			// 성공 시 페이지를 새로고침하여 적용된 내용을 확인합니다.
+			alert('설정이 저장되었습니다.');
+			location.reload();
+		}).fail(function() {
+			// 오류가 나더라도 실제로는 저장되었을 수 있으므로 확인을 위해 새로고침합니다.
+			alert('요청을 완료했습니다.');
+			location.reload();
+		});
+	}
+
+	// 5초 후 패널 제거
+	setTimeout(function() {
+		var panel = document.querySelector('.wizard-setting-panel');
+		if(panel) {
+			panel.style.transition = 'opacity 0.5s';
+			panel.style.opacity = '0';
+			setTimeout(function() {
+				panel.remove();
+			}, 500);
+		}
+	}, 5000);
+</script>

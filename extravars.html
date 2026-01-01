@@ -40,7 +40,7 @@
 		{@ if(!isset($mi->dh_days)) $mi->dh_days = '5' }
 		<td cond="$val->eid==$mi->dhidden && ($oDocument->isGranted() || (time() - $oDocument->getRegdate('U') < $mi->dh_days*24*60*60))">
 			{$val->getValueHTML()|noescape}
-			<span cond="$oDocument->isGranted() && (time() - $oDocument->getRegdate('U') >= $mi->dh_days*24*60*60)" style="color:#f00; font-size:0.9em;">&nbsp;-&nbsp;일반 사용자에게는 숨김 처리됨	</span>
+			<span cond="$oDocument->isGranted() && (time() - $oDocument->getRegdate('U') >= $mi->dh_days*24*60*60)" style="color:#f00; font-size:0.9em;">&nbsp;-&nbsp;{$mi->dh_days}일 경과 비공개 처리됨</span>
 		</td>
 		<td cond="$val->eid==$mi->dhidden && !$oDocument->isGranted() && (time() - $oDocument->getRegdate('U') >= $mi->dh_days*24*60*60)">
 			<span style="color:#999;">{$mi->dh_text}</span>
