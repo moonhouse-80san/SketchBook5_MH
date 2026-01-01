@@ -2648,14 +2648,15 @@
 			</var>
 			<var name="extra_img_title" type="text">
 				<title>✔이미지출력칸 제목</title>
-				<description>미기재시 이미지출력칸 출력안함 (Ex : 업종사진)</description>
+				<description>미입력시 이미지 출력칸 전체 출력안함(Ex : 업종사진)
+				. 입력시 제목만 출력안함</description>
 			</var>
 			<var name="shop_name_title" type="text">
-				<title>✔상호출력칸 제목</title>
-				<description>미기재시 상호출력칸 출력안함 (Ex : 업종명)</description>
+				<title>📍 상호출력칸 제목</title>
+				<description>미입력시 상호출력칸 출력안함 (Ex : 업종명)</description>
 			</var>
 			<var name="shop_name_e" type="text">
-				<title>✔상호출력칸 확장변수 No</title>
+				<title>　┖ 상호출력칸 확장변수 No</title>
 				<description>(기본 1)</description>
 			</var>
 			<var name="getAdd" type="text">

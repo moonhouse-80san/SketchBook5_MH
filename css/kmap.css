@@ -2,13 +2,12 @@
 .extra_img_body {line-height:32px}
 .extra_img_body li {list-style:none; border:1px solid #e0e0e0; overflow:hidden; margin:10px 0; padding:0}
 
-.extra_img_body .lb {position:relative; background:#f7f7f7; width:100px; float:left; text-align:center}
-.extra_img_body .lb:before  {content:""; position:absolute; height:100vh; background:#f7f7f7; width:100%; left:-1px; z-index:-1; top:0; border-left:1px solid #e0e0e0}
-.extra_img_body .txt {float:left; padding-left:5px; text-overflow:ellipsis; width:calc(100% - 110px); white-space:nowrap; overflow:hidden; border-left:1px solid #e0e0e0; height:32px}
+.extra_img_body .lb { display: flex; align-items: center; justify-content: center; margin:5px 5px 0 5px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; font-size:1.2em; }
+.extra_img_body .txt {float:left; padding-left:5px; text-overflow:ellipsis; width:calc(100%); white-space:nowrap; overflow:hidden; border-left:1px solid #e0e0e0; height:32px}
 .extra_img_body .txt b {color:#586EF9}
 
 .extra_img_body .txt.imgbox .img_org { margin:0 auto; }
-.extra_img_body .txt.imgbox .img_org img {display:none; margin:0 auto; max-width:450px; max-height:250px}
+.extra_img_body .txt.imgbox .img_org img {display:none; margin:0 auto; max-width:600px; max-height:350px}
 .extra_img_body .txt.imgbox .img_org img:first-child {display:block}
 
 .extra_img_body .txt.imgbox ul,.extra_img_body .txt.imgbox li {border:0; margin-top:30px; text-align:center}
@@ -28,6 +27,7 @@
 .extra_img_body .txt {width:100%}
 .extra_img_body .content {padding:10px}
 .btn {min-width:36px}
+.extra_img_body .txt.imgbox .img_org img {max-width:360px; max-height:200px}
 }
 
 #container {overflow:hidden;height:300px;position:relative;}

@@ -334,7 +334,7 @@
 			</span>
 		</li>
 		<li cond="$oDocument->getUploadedFiles() && $mi->extra_img_title" class="col-12">
-			<span class="lb">{$mi->extra_img_title}</span>
+			<span cond="$mi->extra_img_title!= '.'" class="lb">{$mi->extra_img_title}</span>
 			<span class="txt contentbox imgbox">
 				<div class="img_org">
 					<block loop="$oDocument->getUploadedFiles()=>$key,$file">
@@ -346,18 +346,16 @@
 					<img cond="$extImg" src="{$file->uploaded_filename}" alt="" />
 					</block>
 				</div>
-				<block cond="$oDocument->getUploadedFiles()">
-					<ul class="img_lst">
-						<li loop="$oDocument->getUploadedFiles()=>$key,$file">
-							{@
-							$ext=substr($file->source_filename, -4);
-							$ext=strtolower($ext);
-							$extImg=in_array($ext,array('.jpg','jpeg','.gif','.png'));
-							}
-							<img cond="$extImg" src="{$file->uploaded_filename}" alt=""/>
-						</li>
-					</ul>
-				</block>
+				<ul cond="count($oDocument->getUploadedFiles()) > 1" class="img_lst">
+					<li loop="$oDocument->getUploadedFiles()=>$key,$file">
+						{@
+						$ext=substr($file->source_filename, -4);
+						$ext=strtolower($ext);
+						$extImg=in_array($ext,array('.jpg','jpeg','.gif','.png'));
+						}
+						<img cond="$extImg" src="{$file->uploaded_filename}" alt=""/>
+					</li>
+				</ul>
 			</span>
 		</li>
 		<li cond="$oDocument->getExtraValueHTML($mi->shop_name_e) && $mi->shop_name_title">
