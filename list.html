@@ -34,7 +34,7 @@ jQuery(function($){
 	<div class="board_content" style="background-color:{$mi->content_color}; <!--@if($mi->content_radius == '')-->-webkit-border-radius:10px;-moz-border-radius:10px; border-radius:10px;<!--@end-->">
 
 		<!--// 관리자에게 모듈번호 출력 -->
-		<div cond="$grant->manager && $mi->modul_num=='' && !$mo" class="m_num" onclick="copyToClipboard('{$mi->module_srl}')">{$mi->module_srl}</div>
+		<div cond="$grant->manager && $mi->modul_num=='' && !$mo" class="m_num mh_disappear" onclick="copyToClipboard('{$mi->module_srl}')">{$mi->module_srl}</div>
 		<script cond="$grant->manager && $mi->modul_num==''">
 			function copyToClipboard(text) {
 				navigator.clipboard.writeText(text).then(function() {

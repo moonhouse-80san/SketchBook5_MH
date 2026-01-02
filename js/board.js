@@ -642,3 +642,19 @@ function bdLinkBoard(bd){
 		hx.prettyPhoto({hideflash:true,social_tools:false});
 	};
 }
+
+// 5초 후 모든 .mh_disappear 패널 제거
+setTimeout(function() {
+	var panels = document.querySelectorAll('.mh_disappear');
+	
+	panels.forEach(function(panel, index) {
+		setTimeout(function() {
+			panel.style.transition = 'opacity 0.5s';
+			panel.style.opacity = '0';
+			
+			setTimeout(function() {
+				panel.remove();
+			}, 500);
+		}, index * 500); // 0.5초씩 지연
+	});
+}, 5000);

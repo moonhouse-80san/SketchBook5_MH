@@ -1,4 +1,4 @@
-<div class="wizard-setting-panel">
+<div class="wizard-setting-panel mh_disappear">
 	<span class="setting-label">위저드 설정</span>
 	<span class="radio-group">
 		<label class="radio-label">
@@ -59,16 +59,4 @@
 			location.reload();
 		});
 	}
-
-	// 5초 후 패널 제거
-	setTimeout(function() {
-		var panel = document.querySelector('.wizard-setting-panel');
-		if(panel) {
-			panel.style.transition = 'opacity 0.5s';
-			panel.style.opacity = '0';
-			setTimeout(function() {
-				panel.remove();
-			}, 500);
-		}
-	}, 5000);
 </script>
