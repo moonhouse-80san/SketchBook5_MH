@@ -2586,21 +2586,34 @@
 				<title>　┖ 스킨</title>
 				<description/>
 				<options value="">
-					<title>Default(기본)</title>
+					<title>Simple(기본)</title>
 				</options>
-				<options value="s">
-					<title>Simple</title>
-				</options>
-				<options value="b_d">
-					<title>Black Default</title>
+				<options value="d">
+					<title>Default</title>
 				</options>
 				<options value="b_s">
 					<title>Black Simple</title>
+				</options>
+				<options value="b_d">
+					<title>Black Default</title>
 				</options>
 			</var>
 			<var name="starpoint_text" type="text">
 				<title>　┖ 타이틀</title>
 				<description>상단에 들어갈 타이틀(기본문구 : 글)</description>
+			</var>
+			<var name="vote_members" type="radio">
+				<title>　┖ 평가 회원 출력</title>
+				<description>평점을 투표한 회원 출력</description>
+				<options value="">
+					<title>출력(기본)</title>
+				</options>
+				<options value="N">
+					<title>출력 안함</title>
+				</options>
+				<options value="A">
+					<title>관리자만 출력</title>
+				</options>
 			</var>
 			<var name="star_user" type="radio">
 				<title>　┖ 게시글 목록에 평점과 형태출력</title>

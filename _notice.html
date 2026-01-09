@@ -60,6 +60,21 @@
 			<td cond="$list_config['regdate']">{$document->getRegdate('Y.m.d')}</td>
 			<td cond="$list_config['last_update']">{getTimeGap($document->get('last_update'), "y.m.d")}</td>
 			<td cond="$list_config['readed_count'] && $val->idx==-1">{$document->get('readed_count')>0?$document->get('readed_count'):'0'}</td>
+			<!-- 여기에 평점 표시 부분 추가 -->
+			<td cond="!$mi->star_point =='' && !$mi->star_user == ''">
+				{@
+					$oStarPointModel = getModel('starpoint');
+					$total_point = $oStarPointModel->getDocumentRatedTotalPoint($document->document_srl);
+				}
+				<!--@if($total_point->avg > 0)-->
+					<span class="starpoint">
+						<span cond="$mi->star_user == 'all' || $mi->star_user == 'point'" class="sp_score">{number_format($total_point->avg, 1)}점</span>
+						<span cond="$mi->star_user == 'all' || $mi->star_user == 'star'" class="starRating pr_tooltip" pr_color="dark" pr_position="right" title="{number_format($total_point->avg, 1)}점">
+							<span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span>
+						</span>
+					</span>
+				<!--@end-->
+			</td>
 			<td cond="$grant->manager" class="check m_no"><input type="checkbox" name="cart" value="{$document->document_srl}" class="iCheck" title="Check This Article" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
 		</tr>
 	<!--@if($mi->default_style=='list')--><!--@else--></table><!--@end-->

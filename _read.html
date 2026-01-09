@@ -252,10 +252,14 @@
 			</div>
 
 			<!--// 글 별평점 모듈 -->
-			<include cond="!$mi->star_point =='' && $mi->starpoint_skin ==''" target="/modules/starpoint/tpl/rating.html" />
-			<include cond="!$mi->star_point =='' && $mi->starpoint_skin =='s'" target="/modules/starpoint/tpl/simple/rating.html" />
-			<include cond="!$mi->star_point =='' && $mi->starpoint_skin =='b_d'" target="/modules/starpoint/tpl/black_default/rating.html" />
-			<include cond="!$mi->star_point =='' && $mi->starpoint_skin =='b_s'" target="/modules/starpoint/tpl/black_simple/rating.html" />
+			<include cond="!$mi->star_point =='' && $mi->starpoint_skin ==''" target="/modules/starpoint/skins/simple/rating.html" />
+			<include cond="!$mi->star_point =='' && $mi->starpoint_skin =='d'" target="/modules/starpoint/skins/default/rating.html" />
+			<include cond="!$mi->star_point =='' && $mi->starpoint_skin =='b_s'" target="/modules/starpoint/skins/black_simple/rating.html" />
+			<include cond="!$mi->star_point =='' && $mi->starpoint_skin =='b_d'" target="/modules/starpoint/skins/black_default/rating.html" />
+
+			<!-- 평가 회원 출력 -->
+			<include cond="!$mi->star_point =='' && $mi->vote_members ==''" target="vote_members.html" />
+			<include cond="!$mi->star_point =='' && $mi->vote_members =='A' && $logged_info->is_admin == 'Y'" target="vote_members.html" />
 
 			<!--// 지정한 게시글의 본문에서만 출력 -->
 			<span cond="$oDocument->get('document_srl')==$mi->document_no" class="documentText">{$mi->document_no_text}</span>

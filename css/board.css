@@ -17,6 +17,17 @@
 /* for bootstrap */
 .bd_font .select,.bd_cnb *,.bd .cTab *,.bd_zine.card,.bd_zine.card li,.bd_pg *,.bd .profile,.bd .rd_vote a,.tmb_wrp .ribbon *,.tmb_wrp,.bd_faq .mrk,.guest_itm_nav{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
 
+/* 굵은 폰트 지정 */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+strong, b, 
+h1, h2, h3, h4, h5, h6,
+[style*="font-weight: bold"],
+[style*="font-weight: 700"],
+[style*="font-weight:bold"],
+[style*="font-weight:700"] {
+	font-family: "Pretendard", sans-serif !important;
+}
+
 /* Common */
 /* Form */
 .bd_btn,.bd textarea,.bd .itx,.bd select,.btn_img{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;transition:border .4s,background .4s;*zoom:1}
