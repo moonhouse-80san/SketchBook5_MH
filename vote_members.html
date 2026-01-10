@@ -54,7 +54,7 @@
 	<!--@else-->
 		<div class="vm_area">
 			<div class="vm_box">
-				<strong style="font-weight:bold">평가 참여:</strong>
+				<strong style="font-weight:bold">평가 참여 :</strong>
 				<!--@foreach($rating_list as $idx => $rating)-->
 					<!--@if($rating->nick_name)-->
 						{@
@@ -65,14 +65,15 @@
 							include_once($nickBgPath);
 							$oNickBgUtil = new nickBgUtil();
 						}
-						<span style="position:relative; display:inline-block; margin:0 2px;">
+						<span style="position:relative; display:inline-block; padding:5px">
 							<img src="{$profile_url}" onerror="this.src='{$tpl_path}/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)}'" title="{$rating->nick_name}" class="pr_tooltip" pr_color="dark" pr_position="top" style="width:30px; height:30px; border-radius:50%; object-fit:cover; cursor:pointer; vertical-align:middle; border:2px solid #ffb400;">
 							<!--@if($logged_info->is_admin == 'Y')-->
 								<span style="color:#ffb400;">({$rating->star_rate}점)</span>
 							<!--@end-->
+							<div cond="$mo">{$rating->nick_name}</div>
 						</span>
 					<!--@else-->
-						<span style="position:relative; display:inline-block; margin:0 2px;">
+						<span style="position:relative; display:inline-block; margin:5px;">
 							<img src="{$tpl_path}/img/ico_default.jpg" title="탈퇴회원" class="pr_tooltip" pr_color="dark" pr_position="top" style="width:30px; height:30px; border-radius:50%; object-fit:cover; cursor:pointer; vertical-align:middle; border:2px solid #666;">
 							<!--@if($logged_info->is_admin == 'Y')-->
 								<span style="color:#ffb400;">({$rating->star_rate}점)</span>
