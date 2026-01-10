@@ -2615,6 +2615,16 @@
 					<title>관리자만 출력</title>
 				</options>
 			</var>
+			<var name="vm_form" type="radio">
+				<title>　┖ 평가 회원 출력 형태</title>
+				<description>평점을 투표한 회원 출력의 형태를 선택</description>
+				<options value="">
+					<title>기본(기본)</title>
+				</options>
+				<options value="S">
+					<title>심플</title>
+				</options>
+			</var>
 			<var name="star_user" type="radio">
 				<title>　┖ 게시글 목록에 평점과 형태출력</title>
 				<description>게시글의 목록에 평점과 형태를 선택 합니다.(웹진형, FT형, 목록형에만 적용)

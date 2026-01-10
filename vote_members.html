@@ -4,50 +4,80 @@
 }
 
 <!--@if($rating_list && count($rating_list) > 0)-->
-	<div cond="$rating_list && count($rating_list) > 0" style="display:flex; <!--@if($mi->starpoint_skin =='' || $mi->starpoint_skin =='b_s')-->justify-content:center;<!--@elseif($mi->starpoint_skin =='d' || $mi->starpoint_skin =='b_d')-->justify-content:flex-end; margin-right:10px;<!--@end-->">
-		<div class="vm_body" style="clear:both; padding:5px; border: 1px solid #e0e0e0; border-radius:5px; max-width::400px; min-width:370px; text-align:center;">
-			<div class="vm_top" style="cursor:pointer; padding:5px 0; text-align:center;" onclick="jQuery('#rating_detail_list').slideToggle();">
-				<h4 style="margin:0; font-size:14px; font-weight:bold; display:inline-block;">
-					평가 참여 회원 ({count($rating_list)}명)
-				</h4>
-				<span style="margin-left:10px; font-size:12px;"><font color="#ffb400">▼</font> 클릭하여 펼치기/접기</span>
-			</div>
+	<!--@if($mi->vm_form =='')-->
+		<div style="display:flex; <!--@if($mi->starpoint_skin =='' || $mi->starpoint_skin =='b_s')-->justify-content:center;<!--@elseif($mi->starpoint_skin =='d' || $mi->starpoint_skin =='b_d')-->justify-content:flex-end; margin-right:10px;<!--@end-->">
+			<div class="vm_body" style="clear:both; padding:5px; border: 1px solid #e0e0e0; border-radius:5px; max-width::400px; min-width:370px; text-align:center;">
+				<div class="vm_top" style="cursor:pointer; padding:5px 0; text-align:center;" onclick="jQuery('#rating_detail_list').slideToggle();">
+					<h4 style="margin:0; font-size:14px; font-weight:bold; display:inline-block;">
+						평가 참여 회원 ({count($rating_list)}명)
+					</h4>
+					<span style="margin-left:10px; font-size:12px;"><font color="#ffb400">▼</font> 클릭하여 펼치기/접기</span>
+				</div>
 
-			<div id="rating_detail_list" style="display:none; margin-top:10px;">
-				<table style="width:100%; border-collapse:collapse;">
-					<thead>
-						<tr class="vm_tr" style="background:#f0f0f0; border-bottom:2px solid #ddd;">
-							<th style="padding:8px; text-align:left;">회원</th>
-							<th style="padding:8px; text-align:center; max-width:170px;">평점</th>
-							<th style="padding:8px; text-align:center; max-width:150px;">평가일시</th>
-						</tr>
-					</thead>
-					<tbody>
-						<!--@foreach($rating_list as $rating)-->
-						<tr style="border-bottom:1px solid #e0e0e0;">
-							<td style="padding:8px;">
-								<!--@if($rating->nick_name)-->
-									<strong>{$rating->nick_name}</strong>
-								<!--@else-->
-									<span>탈퇴회원</span>
-								<!--@end-->
-							</td>
-							<td style="padding:8px; text-align:center;">
-								<span style="color:#ffb400; font-size:16px;">
-									<!--@for($i=1; $i<=5; $i++)-->
-										<!--@if($i <= $rating->star_rate)-->★<!--@else-->☆<!--@end-->
+				<div id="rating_detail_list" style="display:none; margin-top:10px;">
+					<table style="width:100%; border-collapse:collapse;">
+						<thead>
+							<tr class="vm_tr" style="background:#f0f0f0; border-bottom:2px solid #ddd;">
+								<th style="padding:8px; text-align:left;">회원</th>
+								<th style="padding:8px; text-align:center; max-width:170px;">평점</th>
+								<th style="padding:8px; text-align:center; max-width:150px;">평가일시</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!--@foreach($rating_list as $rating)-->
+							<tr style="border-bottom:1px solid #e0e0e0;">
+								<td style="padding:8px;">
+									<!--@if($rating->nick_name)-->
+										<strong>{$rating->nick_name}</strong>
+									<!--@else-->
+										<span>탈퇴회원</span>
 									<!--@end-->
-								</span>
-								<span style="margin-left:5px; font-weight:bold;">{$rating->star_rate}점</span>
-							</td>
-							<td style="padding:8px; text-align:center; font-size:12px;">
-								{zdate($rating->regdate, 'Y-m-d H:i')}
-							</td>
-						</tr>
-						<!--@end-->
-					</tbody>
-				</table>
+								</td>
+								<td style="padding:8px; text-align:center;">
+									<span style="color:#ffb400; font-size:16px;">
+										<!--@for($i=1; $i<=5; $i++)-->
+											<!--@if($i <= $rating->star_rate)-->★<!--@else-->☆<!--@end-->
+										<!--@end-->
+									</span>
+									<span style="margin-left:5px; font-weight:bold;">{$rating->star_rate}점</span>
+								</td>
+								<td style="padding:8px; text-align:center; font-size:12px;">
+									{zdate($rating->regdate, 'Y-m-d H:i')}
+								</td>
+							</tr>
+							<!--@end-->
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
+	<!--@else-->
+		<div class="vm_area">
+			<div class="vm_box">
+				<strong style="font-weight:bold">평가 참여:</strong>
+				<!--@foreach($rating_list as $idx => $rating)-->
+					<!--@if($rating->nick_name)-->
+						{@
+							$oMemberModel = getModel('member');
+							$profile_image = $oMemberModel->getProfileImage($rating->member_srl);
+							$profile_url = $profile_image->src ? $profile_image->src : '';
+						}
+						<span style="position:relative; display:inline-block; margin:0 2px;">
+							<img src="{$profile_url}" onerror="this.src='{$tpl_path}/img/ico_default.jpg'" title="{$rating->nick_name}" class="pr_tooltip" pr_color="dark" pr_position="top" style="width:30px; height:30px; border-radius:50%; object-fit:cover; cursor:pointer; vertical-align:middle; border:2px solid #ffb400;">
+							<!--@if($logged_info->is_admin == 'Y')-->
+								<span style="color:#ffb400;">({$rating->star_rate}점)</span>
+							<!--@end-->
+						</span>
+					<!--@else-->
+						<span style="position:relative; display:inline-block; margin:0 2px;">
+							<img src="{$tpl_path}/img/ico_default.jpg" title="탈퇴회원" class="pr_tooltip" pr_color="dark" pr_position="top" style="width:30px; height:30px; border-radius:50%; object-fit:cover; cursor:pointer; vertical-align:middle; border:2px solid #666;">
+							<!--@if($logged_info->is_admin == 'Y')-->
+								<span style="color:#ffb400;">({$rating->star_rate}점)</span>
+							<!--@end-->
+						</span>
+					<!--@end-->
+				<!--@end-->
+			</div>
+		</div>
+	<!--@end-->
 <!--@end-->
