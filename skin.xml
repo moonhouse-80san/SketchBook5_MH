@@ -2619,10 +2619,13 @@
 				<title>　┖ 평가 회원 출력 형태</title>
 				<description>평점을 투표한 회원 출력의 형태를 선택</description>
 				<options value="">
-					<title>기본(기본)</title>
+					<title>Simple(기본)</title>
 				</options>
-				<options value="S">
-					<title>심플</title>
+				<options value="D">
+					<title>Default</title>
+				</options>
+				<options value="T">
+					<title>Simple + Default(관리자)</title>
 				</options>
 			</var>
 			<var name="star_user" type="radio">
