@@ -2603,7 +2603,7 @@
 				<description>상단에 들어갈 타이틀(기본문구 : 글)</description>
 			</var>
 			<var name="vote_members" type="radio">
-				<title>　┖ 평가 회원 출력</title>
+				<title>✔평가 회원 출력</title>
 				<description>평점을 투표한 회원 출력</description>
 				<options value="">
 					<title>출력(기본)</title>
@@ -2629,7 +2629,7 @@
 				</options>
 			</var>
 			<var name="star_user" type="radio">
-				<title>　┖ 게시글 목록에 평점과 형태출력</title>
+				<title>✔게시글 목록에 평점과 형태출력</title>
 				<description>게시글의 목록에 평점과 형태를 선택 합니다.(웹진형, FT형, 목록형에만 적용)
 				💥주의 : 모듈이 설치 되지 않은 상태에서 출력 선택시 DB오류를 일으킵니다.</description>
 				<options value="">
