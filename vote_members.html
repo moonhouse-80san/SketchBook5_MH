@@ -7,7 +7,7 @@
 	<!--@if($mi->vm_form =='D')-->
 		<div style="margin-bottom:10px; display:flex; <!--@if($mi->starpoint_skin =='' || $mi->starpoint_skin =='b_s')-->justify-content:center;<!--@elseif($mi->starpoint_skin =='d' || $mi->starpoint_skin =='b_d')-->justify-content:flex-end; margin-right:10px;<!--@end-->">
 			<div class="vm_body" style="clear:both; padding:5px; border: 1px solid #e0e0e0; border-radius:5px; max-width::400px; min-width:370px; text-align:center;">
-				<div cond="$mi->vote_members =='A' && $logged_info->is_admin == 'Y'" style="padding:5px 10px; background:#ff9800; color:white; display:inline-block; border-radius:3px; font-size:12px; cursor:pointer; " onclick="jQuery('#rating_detail_list').slideToggle();">
+				<div cond="$mi->vote_members =='A' && $logged_info->is_admin == 'Y'" style="padding:5px 10px; background:#ff9800; color:white; display:inline-block; border-radius:3px; font-size:12px; cursor:pointer;" onclick="jQuery('#rating_detail_list').slideToggle();">
 					<strong>👤 관리자 전용</strong>
 				</div>
 				<div class="vm_top" style="cursor:pointer; padding:5px 0; text-align:center;" onclick="jQuery('#rating_detail_list').slideToggle();">
@@ -55,9 +55,9 @@
 			</div>
 		</div>
 	<!--@elseif($mi->vm_form =='T')-->
-		<div class="vm_area">
+		<div class="vm_area" style="margin-bottom:10px; display:flex; <!--@if($mi->starpoint_skin =='' || $mi->starpoint_skin =='b_s')-->justify-content:center;<!--@elseif($mi->starpoint_skin =='d' || $mi->starpoint_skin =='b_d')-->justify-content:flex-end; margin-right:10px;<!--@end-->">
 			<div class="vm_box">
-				<strong style="font-weight:bold">평가 참여 :</strong>
+				<strong style="font-weight:bold;">평가 참여 :</strong>
 				<!--@foreach($rating_list as $idx => $rating)-->
 					<!--@if($rating->nick_name)-->
 						{@
@@ -90,7 +90,7 @@
 		<!--@if($logged_info->is_admin == 'Y')-->
 			<div style="margin-bottom:10px; display:flex; <!--@if($mi->starpoint_skin =='' || $mi->starpoint_skin =='b_s')-->justify-content:center;<!--@elseif($mi->starpoint_skin =='d' || $mi->starpoint_skin =='b_d')-->justify-content:flex-end; margin-right:10px;<!--@end-->">
 				<div class="vm_body" style="clear:both; padding:5px; border: 1px solid #e0e0e0; border-radius:5px; max-width::400px; min-width:370px; text-align:center;">
-					<div style="padding:5px 10px; background:#ff9800; color:white; display:inline-block; border-radius:3px; font-size:12px; cursor:pointer; " onclick="jQuery('#rating_detail_list').slideToggle();"
+					<div style="padding:5px 10px; background:#ff9800; color:white; display:inline-block; border-radius:3px; font-size:12px; cursor:pointer;" onclick="jQuery('#rating_detail_list').slideToggle();"
 						<strong>👤 관리자 전용</strong>
 					</div>
 					<div class="vm_top" style="cursor:pointer; padding:5px 0; text-align:center;" onclick="jQuery('#rating_detail_list').slideToggle();">
@@ -139,9 +139,9 @@
 			</div>
 		<!--@end-->
 	<!--@else-->
-		<div class="vm_area">
+		<div class="vm_area" style="margin-bottom:10px; display:flex; <!--@if($mi->starpoint_skin =='' || $mi->starpoint_skin =='b_s')-->justify-content:center;<!--@elseif($mi->starpoint_skin =='d' || $mi->starpoint_skin =='b_d')-->justify-content:flex-end; margin-right:10px;<!--@end-->">
 			<div class="vm_box">
-				<strong style="font-weight:bold">평가 참여 :</strong>
+				<strong style="font-weight:bold;">평가 참여 :</strong>
 				<!--@foreach($rating_list as $idx => $rating)-->
 					<!--@if($rating->nick_name)-->
 						{@
