@@ -171,3 +171,47 @@
 		</div>
 	<!--@end-->
 <!--@end-->
+
+<style>
+	/* 모바일 환경에서 vm_area 폭 제한 */
+	@media screen and (max-width: 768px) {
+		.vm_area {
+			max-width: 100%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		.vm_area .vm_body {
+			max-width: 100% !important;
+			min-width: auto !important;
+			width: 100%;
+		}
+		
+		/* 테이블도 모바일에 맞게 조정 */
+		.vm_area table {
+			font-size: 12px;
+		}
+		
+		.vm_area th,
+		.vm_area td {
+			padding: 6px 4px !important;
+		}
+		
+		/* 프로필 이미지 크기 조정 */
+		.vm_area .vm_box img {
+			width: 25px !important;
+			height: 25px !important;
+		}
+	}
+
+	/* 더 작은 모바일 화면 */
+	@media screen and (max-width: 480px) {
+		.vm_area {
+			max-width: 100%;
+		}
+		
+		.vm_area table {
+			font-size: 11px;
+		}
+	}
+</style>
