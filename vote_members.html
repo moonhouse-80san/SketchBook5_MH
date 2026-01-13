@@ -1,12 +1,18 @@
-<load target="css/vote_member.css" />
 {@
 	$oStarPointModel = getModel('starpoint');
 	$rating_list = $oStarPointModel->getRatingList($oDocument->document_srl);
+	$oMemberModel = getModel('member');
+	$profile_image = $oMemberModel->getProfileImage($rating->member_srl);
+	$profile_url = $profile_image->src ? $profile_image->src : '$tpl_path/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)';
+	$nickBgPath = "$tpl_path/nick_bg_img.php";
+	include_once($nickBgPath);
+	$oNickBgUtil = new nickBgUtil();
 }
 
+<load target="css/vote_member.css" />
 <!--@if($rating_list && count($rating_list) > 0)-->
 	<!--@if($mi->vm_form =='D')-->
-		<div class="vm_area" style="display:flex; <!--@if($mi->starpoint_skin =='' || $mi->starpoint_skin =='b_s')-->justify-content:center;<!--@elseif($mi->starpoint_skin =='d' || $mi->starpoint_skin =='b_d')-->justify-content:flex-end; margin-right:10px;<!--@end-->">
+		<div class="vm_area1" style="display:flex; <!--@if($mi->starpoint_skin =='' || $mi->starpoint_skin =='b_s')-->justify-content:center;<!--@elseif($mi->starpoint_skin =='d' || $mi->starpoint_skin =='b_d')-->justify-content:flex-end; margin-right:10px;<!--@end-->">
 			<div class="vm_body">
 				<div class="vm_admin" cond="$mi->vote_members =='A' && $logged_info->is_admin == 'Y'" onclick="jQuery('#rating_detail_list').slideToggle();">
 					<strong>👤 관리자 전용</strong>
@@ -22,7 +28,7 @@
 					<table>
 						<thead>
 							<tr class="vm_tr">
-								<th style="padding:8px; text-align:left;">회원</th>
+								<th class="vm_th">회원</th>
 								<th class="vm_th" style="max-width:170px;">평점</th>
 								<th class="vm_th" style="max-width:150px;">평가일시</th>
 							</tr>
@@ -61,14 +67,6 @@
 				<strong style="font-weight:bold;">평가 참여 :</strong>
 				<!--@foreach($rating_list as $idx => $rating)-->
 					<!--@if($rating->nick_name)-->
-						{@
-							$oMemberModel = getModel('member');
-							$profile_image = $oMemberModel->getProfileImage($rating->member_srl);
-							$profile_url = $profile_image->src ? $profile_image->src : '$tpl_path/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)';
-							$nickBgPath = "$tpl_path/nick_bg_img.php";
-							include_once($nickBgPath);
-							$oNickBgUtil = new nickBgUtil();
-						}
 						<span title="{$rating->nick_name}" class="pr_tooltip" pr_color="dark" pr_position="top">
 							<img src="{$profile_url}" onerror="this.src='{$tpl_path}/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)}'" style="border:2px solid #ffb400;">
 								<!--@if($logged_info->is_admin == 'Y')-->
@@ -89,7 +87,7 @@
 			<!--@if($logged_info->is_admin == 'Y')-->
 				<div style="margin-bottom:10px; display:flex; justify-content:center;">
 					<div class="vm_body">
-						<div class="vm_admin"onclick="jQuery('#rating_detail_list').slideToggle();"
+						<div class="vm_admin" onclick="jQuery('#rating_detail_list').slideToggle();"
 							<strong>👤 관리자 전용</strong>
 						</div>
 						<div class="vm_top" onclick="jQuery('#rating_detail_list').slideToggle();">
@@ -103,7 +101,7 @@
 							<table>
 								<thead>
 									<tr class="vm_tr">
-										<th style="padding:8px; text-align:left;">회원</th>
+										<th class="vm_th">회원</th>
 										<th class="vm_th" style="max-width:170px;">평점</th>
 										<th class="vm_th" style="max-width:150px;">평가일시</th>
 									</tr>
@@ -144,14 +142,6 @@
 				<strong style="font-weight:bold;">평가 참여 :</strong>
 				<!--@foreach($rating_list as $idx => $rating)-->
 					<!--@if($rating->nick_name)-->
-						{@
-							$oMemberModel = getModel('member');
-							$profile_image = $oMemberModel->getProfileImage($rating->member_srl);
-							$profile_url = $profile_image->src ? $profile_image->src : '$tpl_path/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)';
-							$nickBgPath = "$tpl_path/nick_bg_img.php";
-							include_once($nickBgPath);
-							$oNickBgUtil = new nickBgUtil();
-						}
 						<span title="{$rating->nick_name}" class="pr_tooltip" pr_color="dark" pr_position="top">
 							<img src="{$profile_url}" onerror="this.src='{$tpl_path}/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)}'" style="border:2px solid #ffb400;">
 								<!--@if($logged_info->is_admin == 'Y')-->

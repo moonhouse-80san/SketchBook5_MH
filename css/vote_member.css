@@ -1,4 +1,5 @@
-.vm_area { margin-bottom:10px; }
+.vm_area, 
+.vm_area1 { margin-bottom:10px; }
 .vm_body { clear:both; padding:5px; border: 1px solid #e0e0e0; border-radius:5px; max-width::400px; min-width:370px; text-align:center; }
 .vm_body h4 { margin:0; font-size:14px; font-weight:bold; display:inline-block; }
 .vm_admin { padding:5px 10px; background:#ff9800; color:white; display:inline-block; border-radius:3px; font-size:12px; cursor:pointer; }
