@@ -3,11 +3,21 @@
 	$rating_list = $oStarPointModel->getRatingList($oDocument->document_srl);
 	$oMemberModel = getModel('member');
 	$profile_image = $oMemberModel->getProfileImage($rating->member_srl);
-	$profile_url = $profile_image->src ? $profile_image->src : '$tpl_path/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)';
-	$nickBgPath = "$tpl_path/nick_bg_img.php";
-	include_once($nickBgPath);
-	$oNickBgUtil = new nickBgUtil();
+	$profile_url = $profile_image->src ? $profile_image->src : '$tpl_path/img/ico_default.jpg';
 }
+<!--@if($mi->pname_img == '')-->
+	{@
+		$nickBgPath = "$tpl_path/nick_bg_img.php";
+		include_once($nickBgPath);
+		$oNickBgUtil = new nickBgUtil();
+	}
+<!--@else-->
+	{@
+		$nickBgPath = "$tpl_path/nick_bg_color.php";
+		include_once($nickBgPath);
+		$oNickBgUtil = new nickBgUtil();
+	}
+<!--@end-->
 
 <load target="css/vote_member.css" />
 <!--@if($rating_list && count($rating_list) > 0)-->
@@ -64,14 +74,18 @@
 	<!--@elseif($mi->vm_form =='T')-->
 		<div class="vm_area" style="<!--@if($mi->starpoint_skin =='' || $mi->starpoint_skin =='b_s')-->justify-content:center;<!--@elseif($mi->starpoint_skin =='d' || $mi->starpoint_skin =='b_d')-->float:right; margin-right:10px;<!--@end-->">
 			<div class="vm_box">
-				<strong style="font-weight:bold;">평가 참여 :</strong>
+				<span style="font-weight:bold;">평가 참여 :</span>
 				<!--@foreach($rating_list as $idx => $rating)-->
 					<!--@if($rating->nick_name)-->
 						<span title="{$rating->nick_name}" class="pr_tooltip" pr_color="dark" pr_position="top">
-							<img src="{$profile_url}" onerror="this.src='{$tpl_path}/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)}'" style="border:2px solid #ffb400;">
+							<!--@if($mi->pname_img =='')-->
+								<img src="{$profile_url}" onerror="this.src='{$tpl_path}/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)}'" style="border:2px solid #ffb400;">
 								<!--@if($logged_info->is_admin == 'Y')-->
 									<span class="vm_rate">{$rating->star_rate}점</span>
 								<!--@end-->
+							<!--@else-->
+								<span style="background-color:{$oNickBgUtil->getNickBgColor($rating->nick_name)}; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold; border:1px solid #000; padding:3px 5px">{mb_substr($rating->nick_name, 0, 1)}</span>
+							<!--@end-->
 							<div cond="$mo">{$rating->nick_name}</div>
 						</span>
 					<!--@else-->
@@ -139,14 +153,18 @@
 	<!--@else-->
 		<div class="vm_area" style="display:flex; <!--@if($mi->starpoint_skin =='' || $mi->starpoint_skin =='b_s')-->justify-content:center;<!--@elseif($mi->starpoint_skin =='d' || $mi->starpoint_skin =='b_d')-->justify-content:flex-end; margin-right:10px;<!--@end-->">
 			<div class="vm_box">
-				<strong style="font-weight:bold;">평가 참여 :</strong>
+				<span style="font-weight:bold;">평가 참여 :</span>
 				<!--@foreach($rating_list as $idx => $rating)-->
 					<!--@if($rating->nick_name)-->
 						<span title="{$rating->nick_name}" class="pr_tooltip" pr_color="dark" pr_position="top">
-							<img src="{$profile_url}" onerror="this.src='{$tpl_path}/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)}'" style="border:2px solid #ffb400;">
+							<!--@if($mi->pname_img =='')-->
+								<img src="{$profile_url}" onerror="this.src='{$tpl_path}/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)}'" style="border:2px solid #ffb400;">
 								<!--@if($logged_info->is_admin == 'Y')-->
 									<span class="vm_rate">{$rating->star_rate}점</span>
 								<!--@end-->
+							<!--@else-->
+								<span style="background-color:{$oNickBgUtil->getNickBgColor($rating->nick_name)}; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold; border:1px solid #000; padding:3px 5px;">{mb_substr($rating->nick_name, 0, 1)}</span>
+							<!--@end-->
 							<div cond="$mo">{$rating->nick_name}</div>
 						</span>
 					<!--@else-->

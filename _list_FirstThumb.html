@@ -12,13 +12,25 @@
 
 		<!--// 프로필 -->
 		<div cond="!$mi->profile_img" class="pf">
-			{@
-			$nickBgPath = "$tpl_path/nick_bg_img.php";
-			include_once($nickBgPath);
-			$oNickBgUtil = new nickBgUtil();
-			}
+			<!--@if($mi->pname_img == '')-->
+				{@
+					$nickBgPath = "$tpl_path/nick_bg_img.php";
+					include_once($nickBgPath);
+					$oNickBgUtil = new nickBgUtil();
+				}
+			<!--@else-->
+				{@
+					$nickBgPath = "$tpl_path/nick_bg_color.php";
+					include_once($nickBgPath);
+					$oNickBgUtil = new nickBgUtil();
+				}
+			<!--@end-->
 			<img cond="$document->getProfileImage()" class="profile img" src="{$document->getProfileImage()}" alt="profile" style="width:45px; border-radius:50px; border:1px solid #fff"/>
-			<span cond="!$document->getProfileImage() && !$mi->pname == ''" class="profile img no_img" style="background:url('{$tpl_path}img/profile/{$oNickBgUtil->getNickBgColor($document->getNickName())}') 2px 2px no-repeat; width:45px; height:45px; border-radius:100%; border:0px solid #fff; font-size:12px; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold;"></span>
+			<!--@if($mi->pname_img == '')-->
+				<span cond="!$document->getProfileImage() && !$mi->pname == ''" class="profile img no_img" style="background:url('{$tpl_path}img/profile/{$oNickBgUtil->getNickBgColor($document->getNickName())}') 2px 2px no-repeat; width:45px; height:45px; border-radius:100%; border:0px solid #fff; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold;">{mb_substr($document->getNickName(), 0, 1)}</span>
+			<!--@else-->
+				<span cond="!$document->getProfileImage() && !$mi->pname == ''" class="profile img no_img"  style="background-color:{$oNickBgUtil->getNickBgColor($document->getNickName())}; color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold; border:1px solid #ddd; border-radius:50%;">{mb_substr($document->getNickName(), 0, 1)}</span>
+			<!--@end-->
 		</div>
 
 		<div class="NameDate">
