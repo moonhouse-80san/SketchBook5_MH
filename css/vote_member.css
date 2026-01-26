@@ -9,13 +9,17 @@
 #rating_detail_list table { width:100%; border-collapse:collapse; }
 #rating_detail_list .vm_tr { background:#f0f0f0; border-bottom:2px solid #ddd; }
 #rating_detail_list .vm_tr1 { border-bottom:1px solid #e0e0e0; }
+.vm_box { min-height:40px; }
 .vm_box img { width:30px; height:30px; border-radius:50%; object-fit:cover; vertical-align:middle; }
+.vm_box span { width:30px; height:30px; border-radius:50%; object-fit:cover; vertical-align:middle; }
 .vm_box .pr_tooltip { position:relative; display:inline-block; padding:5px; cursor:pointer; }
 .vm_box .tm { position:relative; display:inline-block; margin:5px; cursor:pointer; }
-.vm_rate { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold; font-size:10px; }
+.vm_rate { position:absolute; top:90%; left:55%; transform:translate(-50%, -50%); color:#fff; text-shadow:1px 1px 0 #444,1px 1px 0 #222; font-weight:bold; font-size:10px; }
 .vm_th { padding:8px; text-align:center; }
 .vm_star { color:#ffb400; font-size:16px; }
 .vm_star_rate { margin-left:5px; font-weight:bold; }
+.hoverarea img { transition:transform 0.25s ease; }
+.hoverarea:hover img { transform:scale(1.5); }
 
 /* 모바일 환경에서 vm_area 폭 제한 */
 @media screen and (max-width: 768px) {

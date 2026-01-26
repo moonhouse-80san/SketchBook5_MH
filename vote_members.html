@@ -1,9 +1,6 @@
 {@
 	$oStarPointModel = getModel('starpoint');
 	$rating_list = $oStarPointModel->getRatingList($oDocument->document_srl);
-	$oMemberModel = getModel('member');
-	$profile_image = $oMemberModel->getProfileImage($rating->member_srl);
-	$profile_url = $profile_image->src ? $profile_image->src : '$tpl_path/img/ico_default.jpg';
 }
 <!--@if($mi->pname_img == '')-->
 	{@
@@ -77,7 +74,12 @@
 				<span style="font-weight:bold;">평가 참여 :</span>
 				<!--@foreach($rating_list as $idx => $rating)-->
 					<!--@if($rating->nick_name)-->
-						<span title="{$rating->nick_name}" class="pr_tooltip" pr_color="dark" pr_position="top">
+						{@
+							$oMemberModel = getModel('member');
+							$profile_image = $oMemberModel->getProfileImage($rating->member_srl);
+							$profile_url = $profile_image->src ? $profile_image->src : '$tpl_path/img/ico_default.jpg';
+						}
+						<span title="{$rating->nick_name}" class="pr_tooltip hoverarea" pr_color="dark" pr_position="top">
 							<!--@if($mi->pname_img =='')-->
 								<img src="{$profile_url}" onerror="this.src='{$tpl_path}/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)}'" style="border:2px solid #ffb400;">
 								<!--@if($logged_info->is_admin == 'Y')-->
@@ -156,7 +158,12 @@
 				<span style="font-weight:bold;">평가 참여 :</span>
 				<!--@foreach($rating_list as $idx => $rating)-->
 					<!--@if($rating->nick_name)-->
-						<span title="{$rating->nick_name}" class="pr_tooltip" pr_color="dark" pr_position="top">
+						{@
+							$oMemberModel = getModel('member');
+							$profile_image = $oMemberModel->getProfileImage($rating->member_srl);
+							$profile_url = $profile_image->src ? $profile_image->src : '$tpl_path/img/ico_default.jpg';
+						}
+						<span title="{$rating->nick_name}" class="pr_tooltip hoverarea" pr_color="dark" pr_position="top">
 							<!--@if($mi->pname_img =='')-->
 								<img src="{$profile_url}" onerror="this.src='{$tpl_path}/img/profile/{$oNickBgUtil->getNickBgColor($rating->nick_name)}'" style="border:2px solid #ffb400;">
 								<!--@if($logged_info->is_admin == 'Y')-->
