@@ -214,14 +214,18 @@
 	</div>
 </block>
 
-<!--댓글 주소 복사-->
 <script>
-	var clipboard = new Clipboard('.copycomLink');
-		 clipboard.on('success', function(e) {
-		alert('{$lang->comment_copy}');
+	var copyLinks = document.querySelectorAll('.copycomLink');
+	if (copyLinks.length > 0) {
+		var clipboard = new ClipboardJS('.copycomLink');
+		
+		clipboard.on('success', function(e) {
+			alert('댓글 주소가 클립보드에 복사되었습니다.');
+			e.clearSelection();
 		});
 		
 		clipboard.on('error', function(e) {
-		prompt("이 댓글의 주소입니다. Ctrl+C를 눌러 클립보드로 복사하세요", e.text);
-	});
+			prompt("이 댓글의 주소입니다. Ctrl+C를 눌러 클립보드로 복사하세요", e.text);
+		});
+	}
 </script>
