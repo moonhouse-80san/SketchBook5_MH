@@ -77,7 +77,7 @@
 						{@
 							$oMemberModel = getModel('member');
 							$profile_image = $oMemberModel->getProfileImage($rating->member_srl);
-							$profile_url = $profile_image->src ? $profile_image->src : '$tpl_path/img/ico_default.jpg';
+							$profile_url = $profile_image->src ? $profile_image->src : '';
 						}
 						<span title="{$rating->nick_name}" class="pr_tooltip hoverarea" pr_color="dark" pr_position="top">
 							<!--@if($mi->pname_img =='')-->
@@ -161,7 +161,7 @@
 						{@
 							$oMemberModel = getModel('member');
 							$profile_image = $oMemberModel->getProfileImage($rating->member_srl);
-							$profile_url = $profile_image->src ? $profile_image->src : '$tpl_path/img/ico_default.jpg';
+							$profile_url = $profile_image->src ? $profile_image->src : '';
 						}
 						<span title="{$rating->nick_name}" class="pr_tooltip hoverarea" pr_color="dark" pr_position="top">
 							<!--@if($mi->pname_img =='')-->
