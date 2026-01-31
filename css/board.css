@@ -296,7 +296,7 @@ h1, h2, h3, h4, h5, h6,
 .rd_hd .board .img{width:68px;height:auto;margin:4px 0 4px 6px;padding:3px;border:1px solid #DDD;background:#FFF}
 .rd_hd .board .btm_area{position:static;border-bottom:1px solid #EEE}
 .rd_hd .board .side{display:inline-block;padding:9px}
-.rd_hd .board .side.fr{*margin-top:-34px}
+.m_no img { vertical-align: middle; }
 .rd_hd .board .btm_area span{letter-spacing:-1px}
 .rd_hd .board b{padding-left:2px;color:#666}
 .rd_hd .board .link{padding:0 8px;font-size:10px;color:#999}
