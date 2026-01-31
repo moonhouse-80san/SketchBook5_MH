@@ -3951,6 +3951,34 @@
 					<title xml:lang="en">Only Stars</title>
 				</options>
 			</var>
+			<var name="flag_user" type="radio">
+				<title xml:lang="ko">📍구충제 모듈 사용</title>
+				<title xml:lang="en">📍 Use Allbandazole Module</title>
+				<description xml:lang="ko">구충제 모듈이 설치되어 있어야 합니다. https://rhymix.org/pds/1843071</description>
+				<description xml:lang="en">Post Allbandazole module must be installed. https://rhymix.org/pds/1843071</description>
+				<options value="">
+					<title xml:lang="ko">모듈 설치 안됨(기본)</title>
+					<title xml:lang="en">Module Not Installed (Default)</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">모듈 설치</title>
+					<title xml:lang="en">Module Installed</title>
+				</options>
+			</var>	
+			<var name="flag_kr" type="radio">
+				<title xml:lang="ko">　┖ 태극기 사용</title>
+				<title xml:lang="en">　┖ Use Flag korea</title>
+				<description xml:lang="ko">한국 ip를 확인하여 태극기를 출력합니다.</description>
+				<description xml:lang="en">Check the Korean ip and print out the Korean flag.</description>
+				<options value="">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="en">Use</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">사용하지 않음</title>
+					<title xml:lang="en">Do Not Use</title>
+				</options>
+			</var>
 		</group>
 		
 		<group>
