@@ -166,7 +166,7 @@
 
 	<!--// Secret -->
 	<!--@if($oDocument->isSecret() && !$oDocument->isGranted())-->
-		<div class="rd_body">
+		<div class="read_body">
 			<form action="./" method="get" onsubmit="return procFilter(this, input_password)" class="secretMessage">
 				<input type="hidden" name="mid" value="{$mid}" />
 				<input type="hidden" name="page" value="{$page}" />
@@ -182,7 +182,7 @@
 	<!--@else-->
 
 		<!--// Body -->
-		<div class="rd_body clear">
+		<div class="read_body clear">
 			<!--// 자료실형태 -->
 			<include cond="$oDocument->hasUploadedFiles() && $mi->data_files=='Y'" target="_read_data.html" />
 

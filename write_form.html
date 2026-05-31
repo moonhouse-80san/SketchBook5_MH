@@ -43,7 +43,7 @@
 
 <include cond="$mi->wha_text" target="_writeheadarea.html" />
 
-<form cond="!$mo || $mi->m_editor==3" action="./" method="post" onsubmit="return procFilter(this, window.insert)" class="bd_wrt bd_wrt_main clear">
+<form cond="!$mo || $mi->m_editor==3" action="./" method="post" onsubmit="return procFilter(this, window.insert)" class="bd_wrt bd_wrt_main clear board_write">
 	<input type="hidden" name="mid" value="{$mid}" />
 	<!--@if(!$oDocument->getContentText() && $mi->content_default)-->
 	<input type="hidden" name="content" value="{htmlspecialchars($mi->content_default)}" />
