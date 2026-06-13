@@ -214,6 +214,35 @@
 	</div>
 </block>
 
+<!--// 별점 -->
+<style cond="$mi->rating_comment=='Y'">
+  .cmt-rv-stars { display:inline-flex; gap:1px; font-size:12px; letter-spacing:1px; vertical-align:middle; margin-left:5px; line-height:1; }
+  .cmt-rv-stars span { color:#dcdfe5; }
+  .cmt-rv-stars span.on { color:#ffb400; }
+</style>
+
+<script cond="$mi->rating_comment=='Y'">
+  jQuery(function ($) {
+    $('li[id^="comment_"]').each(function () {
+      var $content = $(this).find('.commentbox .xe_content').first();
+      if (!$content.length) return;
+      var html = $content.html();
+      var match = html.match(/\[RV:(\d)\]/);
+      if (!match) return;
+      var score = parseInt(match[1], 10);
+      if (score < 1 || score > 5) return;
+      $content.html(html.replace(/\[RV:\d\]/, ''));
+      var starsHtml = '<span class="cmt-rv-stars">';
+      for (var i = 1; i <= 5; i++) {
+        starsHtml += '<span class="' + (i <= score ? 'on' : '') + '">★</span>';
+      }
+      starsHtml += '</span>';
+      var $nick = $(this).find('.meta').find('a, b').first();
+      if ($nick.length) $nick.after(starsHtml);
+    });
+  });
+</script>
+
 <script>
 	var copyLinks = document.querySelectorAll('.copycomLink');
 	if (copyLinks.length > 0) {
@@ -229,3 +258,4 @@
 		});
 	}
 </script>
+

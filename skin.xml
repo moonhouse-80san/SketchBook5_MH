@@ -3253,6 +3253,20 @@
 					<title xml:lang="en">Display Both</title>
 				</options>
 			</var>
+			<var name="rating_comment" type="radio">
+				<title xml:lang="ko">✔댓글 등록시 평점입력</title>
+				<title xml:lang="en">✔A rating is required to submit a comment.</title>
+				<description xml:lang="ko">댓글 등록시 평점을 입력하는 별 출력</description>
+				<description xml:lang="en">Display star rating input when posting a comment</description>
+				<options value="">
+					<title xml:lang="ko">출력 안함(기본)</title>
+					<title xml:lang="en">Do Not Display (Default)</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">출력</title>
+					<title xml:lang="en">Display</title>
+				</options>
+			</var>			
 			<var name="comment_ads" type="textarea">
 				<title xml:lang="ko">✔댓글창 아래 광고 입력</title>
 				<title xml:lang="en">✔Ad Input Below Comment Window</title>

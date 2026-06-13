@@ -25,8 +25,58 @@
 </block>
 
 <div class="cmt_editor" style="margin-top:30px"|cond="$mi->cmt_wrt_position=='cmt_wrt_btm' && $oDocument->getCommentcount()">
+	<div class="cmt-title-row">
+		<label for="editor_{$oDocument->document_srl}" class="cmt_editor_tl"><em>✔</em><strong>{$lang->write_comment}</strong></label>
 
-	<label for="editor_{$oDocument->document_srl}" class="cmt_editor_tl fl"><em>✔</em><strong>{$lang->write_comment}</strong></label>
+		<!--// 별점 -->
+		<div class="cmt-rv-wrap" cond="$mi->rating_comment=='Y'">
+			<span class="ds-rev-label">이 글 평점</span>
+			<div class="ds-starpick" id="rv-stars"><span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span></div>
+			<input type="hidden" id="rv-rating" value="5" />
+		</div>
+	</div>
+
+	<style cond="$mi->rating_comment=='Y'">
+		.cmt-title-row{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+		.cmt-title-row .cmt_editor_tl{float:none;margin:0;}
+		.cmt-rv-wrap{display:flex;align-items:center;gap:6px;}
+		.ds-rev-label{color:var(--ds-sub);}
+		.ds-starpick{display:inline-flex;gap:2px;font-size:22px;color:#dcdfe5;cursor:pointer;}
+		.ds-starpick span.on{color:#ffb400;}
+	</style>
+
+	<script cond="$mi->rating_comment=='Y'">
+		jQuery(function ($) {
+			var $stars = $('#rv-stars span');
+			function paint(v) {
+				$stars.each(function () {
+					$(this).toggleClass('on', parseInt($(this).data('v'), 10) <= v);
+				});
+			}
+			$stars.on('click', function () {
+				var v = parseInt($(this).data('v'), 10);
+				$('#rv-rating').val(v);
+				paint(v);
+			});
+			paint(5);
+		});
+
+		function injectRatingIntoContent(form) {
+			var ratingVal = parseInt($('#rv-rating').val(), 10) || 5;
+			if (ratingVal < 1 || ratingVal > 5) return true;
+
+			var $textarea = $(form).find('textarea').first();
+			if (!$textarea.length) return true;
+
+			var currentVal = $textarea.val();
+			/* 이미 삽입된 경우 중복 방지 */
+			if (currentVal.indexOf('[RV:') === 0) return true;
+
+			/* 별점을 숨겨진 텍스트 마커로 저장: [RV:숫자] */
+			$textarea.val('[RV:' + ratingVal + ']' + currentVal);
+			return true;
+		}
+	</script>
 
 	<!--// 모바일 스티커모듈 -->
 	<div cond="$mi->stick=='Y' && $mi->cmt_wrt=='simple' && $mo" class="sbtn_mini sbtn-orange" style="margin-right:8px; float:right">
@@ -51,7 +101,7 @@
 	</div>
 
 	<!--@if($grant->write_comment && $oDocument->isEnableComment())-->
-		<form action="./" method="post" onsubmit="return procFilter(this, insert_comment)" class="bd_wrt cmt_wrt clear">
+		<form action="./" method="post" onsubmit="injectRatingIntoContent(this); return procFilter(this, insert_comment)" class="bd_wrt cmt_wrt clear">
 			<input type="hidden" name="mid" value="{$mid}" />
 			<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
 			<input type="hidden" name="comment_srl" value="" />
