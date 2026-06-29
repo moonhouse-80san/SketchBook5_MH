@@ -30,8 +30,9 @@
 
 		<!--// 별점 -->
 		<div class="cmt-rv-wrap" cond="$mi->rating_comment=='Y'">
-			<span class="ds-rev-label">이 글 평점</span>
+			<span class="ds-rev-label"><em>✔</em> 이 글 평점 주기</span>
 			<div class="ds-starpick" id="rv-stars"><span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span></div>
+			<span class="ds-rv-hint" id="rv-hint">5점</span>
 			<input type="hidden" id="rv-rating" value="5" />
 		</div>
 	</div>
@@ -43,36 +44,67 @@
 		.ds-rev-label{color:var(--ds-sub);}
 		.ds-starpick{display:inline-flex;gap:2px;font-size:22px;color:#dcdfe5;cursor:pointer;}
 		.ds-starpick span.on{color:#ffb400;}
+		.ds-starpick span.hover{color:#ffd966;}
+		.ds-rv-hint{color:#ffb400;min-width:24px;}
 	</style>
 
 	<script cond="$mi->rating_comment=='Y'">
 		jQuery(function ($) {
 			var $stars = $('#rv-stars span');
+			var $hint  = $('#rv-hint');
+			var labels = ['', '1점', '2점', '3점', '4점', '5점'];
+
 			function paint(v) {
 				$stars.each(function () {
 					$(this).toggleClass('on', parseInt($(this).data('v'), 10) <= v);
 				});
 			}
-			$stars.on('click', function () {
+			function paintHover(v) {
+				var selected = parseInt($('#rv-rating').val(), 10);
+				$stars.each(function () {
+					var sv = parseInt($(this).data('v'), 10);
+					$(this).removeClass('on hover');
+					if (sv <= v) $(this).addClass('hover');
+					else if (sv <= selected) $(this).addClass('on');
+				});
+			}
+
+			$stars.on('mouseenter', function () {
+				var v = parseInt($(this).data('v'), 10);
+				paintHover(v);
+				$hint.text(labels[v]);
+			}).on('mouseleave', function () {
+				var selected = parseInt($('#rv-rating').val(), 10);
+				paint(selected);
+				$hint.text(labels[selected]);
+			}).on('click', function () {
 				var v = parseInt($(this).data('v'), 10);
 				$('#rv-rating').val(v);
 				paint(v);
+				$hint.text(labels[v]);
 			});
+
 			paint(5);
+			$hint.text(labels[5]);
 		});
 
 		function injectRatingIntoContent(form) {
-			var ratingVal = parseInt($('#rv-rating').val(), 10) || 5;
-			if (ratingVal < 1 || ratingVal > 5) return true;
-
 			var $textarea = $(form).find('textarea').first();
 			if (!$textarea.length) return true;
 
+			/* 댓글 내용이 비어있으면 등록 차단 */
+			if ($.trim($textarea.val()) === '') {
+				alert('댓글 내용을 입력해 주세요.');
+				$textarea.focus();
+				return false;
+			}
+
+			var ratingVal = parseInt($('#rv-rating').val(), 10) || 5;
 			var currentVal = $textarea.val();
 			/* 이미 삽입된 경우 중복 방지 */
 			if (currentVal.indexOf('[RV:') === 0) return true;
 
-			/* 별점을 숨겨진 텍스트 마커로 저장: [RV:숫자] */
+			/* 별점을 텍스트 마커로 저장: [RV:숫자] */
 			$textarea.val('[RV:' + ratingVal + ']' + currentVal);
 			return true;
 		}
@@ -101,7 +133,7 @@
 	</div>
 
 	<!--@if($grant->write_comment && $oDocument->isEnableComment())-->
-		<form action="./" method="post" onsubmit="injectRatingIntoContent(this); return procFilter(this, insert_comment)" class="bd_wrt cmt_wrt clear">
+		<form action="./" method="post" onsubmit="return injectRatingIntoContent(this) && procFilter(this, insert_comment)" class="bd_wrt cmt_wrt clear">
 			<input type="hidden" name="mid" value="{$mid}" />
 			<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
 			<input type="hidden" name="comment_srl" value="" />

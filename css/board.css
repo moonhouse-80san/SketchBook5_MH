@@ -1302,3 +1302,7 @@ a.downimg:focus { background:url(../img/down02.png) no-repeat 0 0px; }
 
 /* 관리자에게 모듈번호 출력 */
 .m_num { z-index:1; position:relative; float:right; max-width:100px; text-align:center; font-weight:700; font-size:1em; clip-path:polygon(50% 0, 100% 0, 100% 80%, 50% 100%, 0 80%, 0 0); background-color:red; padding:5px 10px 10px 10px; color:white; cursor:pointer; }
+
+.lc-rv-stars { display:inline-flex; gap:1px; font-size:11px; vertical-align:middle; margin-right:2px; line-height:1; }
+.lc-rv-s { color:#dcdfe5; }
+.lc-rv-s.on { color:#ffb400; }

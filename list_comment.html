@@ -30,14 +30,24 @@
 					$is_image_only = !empty($img_src) && empty($trimmed_content) && !$has_video;
 					$is_video_only = $has_video && empty($trimmed_content) && empty($img_src);
 					$is_empty = empty($trimmed_content) && empty($img_src) && !$has_video;
+				
+
+				// 평점 파싱 ([RV:N] 마커 → 별점 HTML, 중괄호 블록 사용 불가)
+				$rv_m = array();
+				preg_match('/\[RV:(\d)\]/', $stripped_content, $rv_m);
+				$rv_score = isset($rv_m[1]) ? (int)$rv_m[1] : 0;
+				$rv_on   = $rv_score > 0 ? str_repeat('<span class="lc-rv-s on">★</span>', $rv_score) : '';
+				$rv_off  = $rv_score < 5 ? str_repeat('<span class="lc-rv-s">★</span>', 5 - $rv_score) : '';
+				$rv_html = $rv_score > 0 ? '<span class="lc-rv-stars">' . $rv_on . $rv_off . '</span> ' : '';
+				$content_norv = trim(preg_replace('/\[RV:\d\]/', '', $stripped_content));
 				}
-				<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}" class="pr_tooltip" pr_color="dark" pr_position="b_right" 	title="<!--@if($is_image_only)-->	<img src='{$img_src}' style='max-width:100px; max-height:100px;'><!--@elseif($is_video_only)--><!--@else-->{cut_str(strip_tags($val->content),150,'...')}<!--@end-->">
+				<a href="{getUrl('document_srl',$document->document_srl, 'comment_srl', $val->comment_srl)}#comment_{$val->comment_srl}" class="pr_tooltip" pr_color="dark" pr_position="b_right" 	title="<!--@if($is_image_only)-->	<img src='{$img_src}' style='max-width:100px; max-height:100px;'><!--@elseif($is_video_only)--><!--@else-->{cut_str($content_norv,150,'...')}<!--@end-->">
 				<!--@if($is_image_only)-->
 					<img src="img/image-line.svg" width="15" height="15"> "이미지 댓글"
 				<!--@elseif($is_video_only)-->
 					<img src="img/file-video-line.svg" width="15" height="15"> "동영상 댓글"
 				<!--@else-->
-					{cut_str(strip_tags($val->content),$mi->comment_cut_size,'...')}
+					{$rv_html|noescape}{cut_str($content_norv,$mi->comment_cut_size,'...')}
 				<!--@end-->
 				</a>
 			</div>
