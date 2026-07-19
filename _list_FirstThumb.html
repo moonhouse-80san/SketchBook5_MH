@@ -95,6 +95,31 @@
 					</span>
 					<span class="line_right" cond="!$mi->show_cate && $document->get('category_srl')" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')" style="cursor:pointer"|cond="$document->isGranted() && $use_category_update"><span>Category :</span><span style="text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_category_update"> {$category_list[$document->get('category_srl')]->title ?? ''}</span></span>
 
+					<!--// Total Downloads 수 -->
+					<block cond="!$mi->total_down==''">
+						{@ $total_downloads = 0; }
+						{@ $uploaded_files = $document->getUploadedFiles(); }
+						<!--@foreach($uploaded_files as $file)-->
+							{@
+								$ext = strtolower(pathinfo($file->source_filename, PATHINFO_EXTENSION));
+							}
+							<!--@if(!in_array($ext, array(
+								'jpg','jpeg','gif','png','svg',
+								'mpg','mpeg','avi','wmv','mp4','mov','mkv','swf','flv','ogv','webm',
+								'mp3','ogg','wma','wav','ape','flac','mid'
+							)))-->
+								<!--// 이 부분만 남기면 모든 파일 전체 다운로드 수 -->
+								{@ $total_downloads += $file->download_count; }
+							<!--@end-->
+						<!--@end-->
+						<!--@if($total_downloads > 0)-->
+							<span class="download_total">
+								<img src="./img/download-line.svg" height ="15">
+								<b>{number_format($total_downloads)}</b>
+							</span>
+						<!--@end-->
+					</block>
+
 					<!-- 여기에 평점 표시 부분 추가 -->
 					<block cond="!$mi->star_point ==''">
 						{@

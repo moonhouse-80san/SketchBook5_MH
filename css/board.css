@@ -22,8 +22,10 @@
 strong, b, 
 h1, h2, h3, h4, h5, h6,
 [style*="font-weight: bold"],
+[style*="font-weight: 500"],
 [style*="font-weight: 700"],
 [style*="font-weight:bold"],
+[style*="font-weight:500"],
 [style*="font-weight:700"] {
 	font-family: "Pretendard", sans-serif !important;
 }
@@ -923,7 +925,6 @@ body.viewer_blk{background:#222}
 /* IE8- Fix */
 .dummy_ie{display:none;*display:block;*width:1px}
 .ie8_only{display:none}
-
 
 /* Mobile */
 .m_editor{margin:12px 0 8px}

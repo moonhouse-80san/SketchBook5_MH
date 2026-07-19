@@ -85,7 +85,7 @@
 					<!--@if(preg_match('/V(\d+(?:\.\d+)*)/i', $file->source_filename, $m))-->
 						{@ $mh_ver = $m[1] }
 					<!--@end-->
-					<td class="tc"><a href="{getUrl('')}{$file->download_url}"><span><i class="ri-download-line"></i> {$mh_ver}</span></a></td>
+					<td class="tc"><a href="{getUrl('')}{$file->download_url}"><span><i class="xi-download-bottom"></i> {$mh_ver}</span></a></td>
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>

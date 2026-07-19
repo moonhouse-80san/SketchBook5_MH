@@ -1560,6 +1560,20 @@
 					<title xml:lang="en">Spacing</title>
 				</options>
 			</var>
+			<var name="total_down" type="radio">
+				<title xml:lang="ko">✔Total 다운로드</title>
+				<title xml:lang="en">✔Use Total Down Feature in Webzine Type</title>
+				<description xml:lang="ko">웹진형 리스트에 Total 다운로드 츨력하기</description>
+				<description xml:lang="en">Use Total Down feature in webzine type list</description>
+				<options value="">
+					<title xml:lang="ko">사용 안함(기본)</title>
+					<title xml:lang="en">Do Not Use (Default)</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="en">Use</title>
+				</options>
+			</var>
 			<var name="rating_output" type="radio">
 				<title xml:lang="ko">✔웹진형 별점 기능 사용(FT)</title>
 				<title xml:lang="en">✔Use Star Rating Feature in Webzine Type (FT)</title>

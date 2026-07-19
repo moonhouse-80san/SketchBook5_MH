@@ -27,13 +27,14 @@
 						$is_video_only = $has_video && empty($trimmed_content) && empty($img_src);
 						$is_empty = empty($trimmed_content) && empty($img_src) && !$has_video;
 
-						// 평점 파싱 ([RV:N] 마커 → 별점 HTML, 중괄호 블록 사용 불가)
+						<!--// 평점 파싱: 평점을 ★로 출력
 						$rv_m = array();
 						preg_match('/\[RV:(\d)\]/', $stripped_content, $rv_m);
 						$rv_score = isset($rv_m[1]) ? (int)$rv_m[1] : 0;
 						$rv_on   = $rv_score > 0 ? str_repeat('<span class="lc-rv-s on">★</span>', $rv_score) : '';
 						$rv_off  = $rv_score < 5 ? str_repeat('<span class="lc-rv-s">★</span>', 5 - $rv_score) : '';
 						$rv_html = $rv_score > 0 ? '<span class="lc-rv-stars">' . $rv_on . $rv_off . '</span> ' : '';
+						-->
 						$content_norv = trim(preg_replace('/\[RV:\d\]/', '', $stripped_content));
 					}
 
