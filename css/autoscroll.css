@@ -1,0 +1,106 @@
+/* 퀵메뉴 스타일 박스 (Top / 자동 스크롤 라벨 / Start,Stop 토글)
+   게시판 화면 상단 우측에 고정. 위치값은 여기서 직접 조절 */
+.autoscroll-quickmenu {
+  position: fixed !important;
+  top: 90px;
+  right: 16px;
+  z-index: 999999 !important;
+  width: 55px;
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  overflow: hidden;
+  text-align: center;
+  user-select: none;
+  font-size: 11px;
+}
+
+/* 1. Top 영역 */
+.aqm-top {
+  padding: 8px 0;
+  font-weight: 600;
+  color: #555555;
+  border-bottom: 1px solid #eeeeee;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.aqm-top:hover {
+  background-color: #f7f7f7;
+}
+
+/* 2. 자동 스크롤 라벨 영역 (드래그 핸들) */
+.aqm-label {
+  padding: 8px 4px;
+  color: #999999;
+  line-height: 1.4;
+  border-bottom: 1px solid #eeeeee;
+  cursor: move;
+  touch-action: none;
+}
+.aqm-label:active {
+  background-color: #f7f7f7;
+}
+
+/* 3. 스크롤 속도 다이얼 (원형 컨트롤) */
+.aqm-speed {
+  padding: 8px 0 10px;
+  border-bottom: 1px solid #eeeeee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.aqm-speed-svg {
+  width: 36px;
+  height: 36px;
+  cursor: grab;
+  touch-action: none;
+}
+.aqm-speed-svg:active {
+  cursor: grabbing;
+}
+.aqm-speed-track {
+  fill: none;
+  stroke: #eeeeee;
+  stroke-width: 5;
+}
+.aqm-speed-fill {
+  fill: none;
+  stroke: #4a90e2;
+  stroke-width: 5;
+  stroke-linecap: round;
+  transform-origin: 18px 18px;
+  transform: rotate(-90deg);
+  transition: stroke-dasharray 0.05s linear;
+}
+.aqm-speed-handle {
+  fill: #4a90e2;
+  stroke: #ffffff;
+  stroke-width: 1.5;
+}
+.aqm-speed-value {
+  font-size: 9px;
+  color: #999999;
+  font-weight: 600;
+}
+
+/* 4. Start / Stop 토글 버튼 영역 */
+.aqm-toggle {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  border: none;
+  background-color: #4a90e2;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+.aqm-toggle.active {
+  background-color: #e2445c;
+}
+.aqm-toggle:hover {
+  opacity: 0.9;
+}

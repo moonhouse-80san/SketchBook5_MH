@@ -9,10 +9,28 @@
 	$description=$oDocument->getSummary(100);
 	if(!$mi->copy) $mi->copy = 'copy';
 	if(!$mi->e_urlt) $mi->e_urlt = 'Link';
+
+	// 자동 스크롤(autoscroll) 설정값 검증 및 기본값 처리
+	$mi->autoscroll_speed = is_numeric($mi->autoscroll_speed) ? (float)$mi->autoscroll_speed : 0.9;
+	if(!trim($mi->autoscroll_target)) $mi->autoscroll_target = '#cmtPosition';
+	$mi->autoscroll_gap = is_numeric($mi->autoscroll_gap) ? (int)$mi->autoscroll_gap : 80;
+	if($mi->autoscroll_dial !== 'N') $mi->autoscroll_dial = 'Y';
+	$autoscroll_target_json = json_encode($mi->autoscroll_target);
+	$autoscroll_dial_json = json_encode($mi->autoscroll_dial);
 }
 
 <load target="css/spoiler.css" />
 <script src="js/spoiler.js"></script>
+
+<!--// 자동 스크롤(autoscroll) : addon -> 스킨 직접 이식 -->
+<load target="css/autoscroll.css" cond="$mi->autoscroll_use!=''" />
+<script cond="$mi->autoscroll_use!=''">
+	window.xe_autoscroll_speed = {$mi->autoscroll_speed};
+	window.xe_autoscroll_target = {$autoscroll_target_json};
+	window.xe_autoscroll_gap = {$mi->autoscroll_gap};
+	window.xe_autoscroll_show_speed_dial = {$autoscroll_dial_json};
+</script>
+<script src="js/autoscroll.js" cond="$mi->autoscroll_use!=''"></script>
 
 <load target="//developers.kakao.com/sdk/js/kakao.min.js" />
 <script type='text/javascript'>

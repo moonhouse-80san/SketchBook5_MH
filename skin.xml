@@ -3922,8 +3922,8 @@
 				<description xml:lang="en">Title to appear at the top (default text: 글)</description>
 			</var>
 			<var name="vote_members" type="radio">
-				<title xml:lang="ko">✔평가 회원 출력</title>
-				<title xml:lang="en">✔Output Voting Members</title>
+				<title xml:lang="ko">📍 평가 회원 출력</title>
+				<title xml:lang="en">📍 Output Voting Members</title>
 				<description xml:lang="ko">평점을 투표한 회원 출력</description>
 				<description xml:lang="en">Output members who voted on ratings</description>
 				<options value="">
@@ -3977,6 +3977,50 @@
 				<options value="star">
 					<title xml:lang="ko">별만</title>
 					<title xml:lang="en">Only Stars</title>
+				</options>
+			</var>
+			<var name="autoscroll_use" type="radio" default="">
+				<title xml:lang="ko">📍자동 스크롤 사용</title>
+				<title xml:lang="en">📍Enable Auto Scroll</title>
+				<options value="">
+					<title xml:lang="ko">사용 안 함</title>
+					<title xml:lang="en">Disable</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="en">Enable</title>
+				</options>
+			</var>
+			<var name="autoscroll_speed" type="text" default="0.9">
+				<title xml:lang="ko">　┖ 스크롤 속도</title>
+				<title xml:lang="en">　┖ Scroll Speed</title>
+				<description xml:lang="ko">매 프레임당 이동할 픽셀 소수점 수치입니다. (추천: 0.2 ~ 0.5 천천히 정독 / 0.8 ~ 1.5 조금 빠르게)</description>
+				<description xml:lang="en">Decimal pixel distance moved per frame. (Recommended: 0.2–0.5 for slow, careful reading / 0.8–1.5 for a bit faster)</description>
+			</var>
+			<var name="autoscroll_target" type="text" default="#cmtPosition">
+				<title xml:lang="ko">　┖ 스크롤 대상 선택자</title>
+				<title xml:lang="en">　┖ Scroll Target Selector</title>
+				<description xml:lang="ko">스크롤이 멈출 타겟 요소의 Id, class입니다. (본문 끝까지 #cmtPosition / 화면 끝까지는 .btm_mn)</description>
+				<description xml:lang="en">The id or class of the element where scrolling should stop. (#cmtPosition to stop at the end of the content / .btm_mn to stop at the bottom of the page)</description>
+			</var>
+			<var name="autoscroll_gap" type="text" default="80">
+				<title xml:lang="ko">　┖ 헤더 여백(px)</title>
+				<title xml:lang="en">　┖ Header Gap (px)</title>
+				<description xml:lang="ko">상단 고정 메뉴바가 있을 경우 가려지지 않도록 띄울 여백(px)입니다.</description>
+				<description xml:lang="en">Extra space (px) left at the top so a fixed header/menu bar doesn't cover the target element.</description>
+			</var>
+			<var name="autoscroll_dial" type="radio" default="Y">
+				<title xml:lang="ko">　┖ 속도 다이얼 표시</title>
+				<title xml:lang="en">　┖ Show Speed Dial</title>
+				<description xml:lang="ko">퀵메뉴 박스에 스크롤 속도를 조절하는 원형 다이얼을 표시할지 선택합니다.</description>
+				<description xml:lang="en">Choose whether to show the circular dial for adjusting scroll speed in the quick-menu box.</description>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="en">Show</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">숨김</title>
+					<title xml:lang="en">Hide</title>
 				</options>
 			</var>
 		</group>
