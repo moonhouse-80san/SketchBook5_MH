@@ -29,7 +29,7 @@
   background-color: #f7f7f7;
 }
 
-/* 2. 자동 스크롤 라벨 영역 (드래그 핸들) */
+/* 2. 자동 스크롤 라벨 영역 (드래그 핸들 + 더블클릭 시 접기/펼치기) */
 .aqm-label {
   padding: 8px 4px;
   color: #999999;
@@ -40,6 +40,17 @@
 }
 .aqm-label:active {
   background-color: #f7f7f7;
+}
+
+/* 5. 접힘 상태 (라벨 더블클릭으로 토글) - 라벨만 남기고 나머지 영역은 숨김
+   게시판 스킨 CSS가 display 속성을 덮어쓰는 경우가 있어 !important로 강제 */
+.autoscroll-quickmenu.collapsed .aqm-top,
+.autoscroll-quickmenu.collapsed .aqm-speed,
+.autoscroll-quickmenu.collapsed .aqm-toggle {
+  display: none !important;
+}
+.autoscroll-quickmenu.collapsed .aqm-label {
+  border-bottom: none !important;
 }
 
 /* 3. 스크롤 속도 다이얼 (원형 컨트롤) */

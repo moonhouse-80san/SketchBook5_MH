@@ -120,7 +120,27 @@
 			document.addEventListener('touchend', onDragEnd);
 		})();
 
-		// 설정값 읽기 (값이 없으면 기본값 우회 적용)
+		// 자동 스크롤 라벨을 더블클릭하면 퀵메뉴 박스를 접었다/펼쳤다 함
+		(function enableCollapseToggle() {
+			const handle = document.getElementById('autoscroll-drag-handle');
+			if (!handle) return;
+
+			function applyCollapsed(collapsed) {
+				$box.toggleClass('collapsed', collapsed);
+			}
+
+			// 저장된 접힘 상태 복원 (새로고침해도 유지)
+			applyCollapsed(localStorage.getItem('autoscrollCollapsed') === 'Y');
+
+			handle.addEventListener('dblclick', function(e) {
+				e.preventDefault();
+				const next = !$box.hasClass('collapsed');
+				applyCollapsed(next);
+				localStorage.setItem('autoscrollCollapsed', next ? 'Y' : 'N');
+			});
+		})();
+
+		// 라이믹스 애드온 설정값 읽기 (값이 없으면 기본값 우회 적용)
 		const target = window.xe_autoscroll_target ? window.xe_autoscroll_target : '#cmtPosition';
 		const gap = window.xe_autoscroll_gap ? window.xe_autoscroll_gap : 80;
 		let scrollSpeed = window.xe_autoscroll_speed ? window.xe_autoscroll_speed : 0.9;
