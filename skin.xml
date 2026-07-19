@@ -3997,11 +3997,29 @@
 				<description xml:lang="ko">매 프레임당 이동할 픽셀 소수점 수치입니다. (추천: 0.2 ~ 0.5 천천히 정독 / 0.8 ~ 1.5 조금 빠르게)</description>
 				<description xml:lang="en">Decimal pixel distance moved per frame. (Recommended: 0.2–0.5 for slow, careful reading / 0.8–1.5 for a bit faster)</description>
 			</var>
-			<var name="autoscroll_target" type="text" default="#cmtPosition">
+			<var name="autoscroll_target" type="radio" default="#cmtPosition">
 				<title xml:lang="ko">　┖ 스크롤 대상 선택자</title>
 				<title xml:lang="en">　┖ Scroll Target Selector</title>
-				<description xml:lang="ko">스크롤이 멈출 타겟 요소의 Id, class입니다. (본문 끝까지 #cmtPosition / 화면 끝까지는 .btm_mn)</description>
-				<description xml:lang="en">The id or class of the element where scrolling should stop. (#cmtPosition to stop at the end of the content / .btm_mn to stop at the bottom of the page)</description>
+				<description xml:lang="ko">스크롤이 멈출 타겟 요소를 선택합니다. '기타' 선택 시 아래 입력창에 CSS 선택자를 직접 입력하세요.</description>
+				<description xml:lang="en">Choose the element where scrolling should stop. If you choose "Other", enter a custom CSS selector in the field below.</description>
+				<options value="#cmtPosition">
+					<title xml:lang="ko">본문 끝까지 (#cmtPosition)</title>
+					<title xml:lang="en">To end of content (#cmtPosition)</title>
+				</options>
+				<options value=".btm_mn">
+					<title xml:lang="ko">화면 끝까지 (.btm_mn)</title>
+					<title xml:lang="en">To bottom of page (.btm_mn)</title>
+				</options>
+				<options value="custom">
+					<title xml:lang="ko">기타 (직접 입력)</title>
+					<title xml:lang="en">Other (custom)</title>
+				</options>
+			</var>
+			<var name="autoscroll_target_custom" type="text" default="">
+				<title xml:lang="ko">　　┖ 기타 선택자 직접 입력</title>
+				<title xml:lang="en">　　┖ Custom Selector</title>
+				<description xml:lang="ko">위에서 '기타'를 선택했을 때만 사용되는 CSS 선택자입니다. (예: #my_target, .my-class)</description>
+				<description xml:lang="en">Used only when "Other" is selected above. (e.g. #my_target, .my-class)</description>
 			</var>
 			<var name="autoscroll_gap" type="text" default="80">
 				<title xml:lang="ko">　┖ 헤더 여백(px)</title>
