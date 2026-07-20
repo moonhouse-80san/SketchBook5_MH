@@ -1,0 +1,54 @@
+<!--@if($mi->panel_select == 'J')-->
+	<load target="js/panel.js" />
+	<style>
+		.sk_panel {
+			background-color:{$mi->top_panel_bcolor};
+			color:{$mi->top_panel_color};
+			margin:5px 5px 10px;
+			font-size:{$mi->top_panel_size};
+			line-height:20px;
+			box-shadow:0 1px 3px rgba(0,0,0,0.1);
+		}
+		.sk_flip {
+			<!--@if($li->Menu_Position=='Y')-->margin-top:-35px;<!--@else-->margin:10px 0 0;<!--@end-->
+			margin-left:5px;
+		}
+		.sk_panel {
+			<!--@if($mi->panel_auto=='')-->display:none;<!--@end-->
+		}
+	</style>
+
+	<div cond="$mi->top_panel_btn" class="sk_flip">
+		<span class="btn">
+			<i class="fa fa-plus-square fa-lg" style="margin-right:5px;color:#ff6600;"></i>
+			{$mi->top_panel_btn}
+		</span>
+	</div>
+	<div class="sk_panel">{$mi->top_panel_text}</div>
+<!--@elseif($mi->panel_select == 'H')-->
+	<div class="folding-panel-wrapper">
+		<details class="folding-panel" <!--@if(!$mi->panel_auto =='')-->open<!--@end-->>
+			<summary class="folding-header">
+				<span>{$mi->top_panel_btn}</span>
+			</summary>
+			<div class="folding-content">{$mi->top_panel_text}</div>
+		</details>
+	</div>
+
+	<style>
+		.folding-panel-wrapper{display:flex;justify-content:left;margin:0 20px;}
+		.folding-panel{border:1px solid #ddd;border-radius:4px;background:#f8f9fa;border-bottom:1px solid #ddd;box-shadow:0 1px 3px rgba(0,0,0,.1);}
+		.folding-header{background:#f8f9fa;padding:5px 0;cursor:pointer;font-weight:bold;margin-right:15px;}
+		.folding-content{padding:10px;background:{$mi->top_panel_bcolor};color:{$mi->top_panel_color};line-height:1.6;font-size:{$mi->top_panel_size};}
+		.folding-panel-wrapper details{margin:10px 0;z-index:1;}
+		.folding-panel-wrapper details>summary{cursor:pointer;margin-left:15px;}
+		.folding-panel-wrapper details>summary.tb::before{content:"";position:absolute;border-top:.5em solid transparent;border-bottom:.5em solid transparent;border-left:.75em solid #ff6600;top:.5em;left:0;transition:.25s transform;}
+		.folding-panel-wrapper details[open]>summary:before{transform:rotateZ(450deg);}
+		.folding-panel-wrapper details[open]>summary::-webkit-details-marker{transform:rotate3d(0,0,1,180deg);}
+		.folding-panel-wrapper details[open]>summary~*{animation:reveal 2s;}
+		@keyframes reveal{
+			from{opacity:0;transform:translate3d(0,-20px,0);}
+			to{opacity:1;transform:translate3d(0,0,0);}
+		}
+	</style>
+<!--@end-->

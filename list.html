@@ -2,7 +2,6 @@
 <include target="__setting.html" />
 <load target="js/imagesloaded.pkgd.min.js" type="body" />
 <load target="js/jquery.cookie.js" type="body" />
-<load target="../../../editor/skins/xpresseditor/js/xe_textarea.min.js" type="body" />
 <load target="js/jquery.autogrowtextarea.min.js" type="body" />
 <load target="js/board.js" type="body" />
 
@@ -78,8 +77,7 @@ jQuery(function($){
 		<include cond="!$oDocument->isExists() && !$mi->wizard_setting=='N' && $grant->manager && !$mo" target="_wizardsetting.html" />
 
 		<!--// 게시판상단에 풀립 판넬 -->
-		<include cond="$mi->top_panel_text && !$document_srl && $mi->panel_select =='J'" target="top_toggleJ.html" />
-		<include cond="$mi->top_panel_text && !$document_srl && $mi->panel_select =='H'" target="top_toggleH.html" />
+		<include cond="$mi->top_panel_text && !$document_srl && in_array($mi->panel_select, array('J','H'))" target="top_toggle.html" />
 
 		<include cond="$mi->extra_map =='Y'" target="map.html" />
 

@@ -23,39 +23,40 @@
 
 		const $box = $('#autoscroll-quickmenu');
 
-		// 저장된 위치가 있으면 복원 (드래그로 옮긴 경우)
-		const savedPos = localStorage.getItem('autoscrollBoxPos');
-		if (savedPos) {
-			try {
-				const pos = JSON.parse(savedPos);
-				if (typeof pos.top === 'number' && typeof pos.left === 'number') {
-					$box.css({ top: pos.top + 'px', left: pos.left + 'px', right: 'auto' });
-				}
-			} catch (e) {}
-		}
-
-		// 게시판 본문(.rd) 바로 우측에 퀵메뉴 박스를 붙임 (드래그로 위치를 옮긴 적이 없을 때만)
-		function alignQuickMenuToContent() {
-			if (localStorage.getItem('autoscrollBoxPos')) return; // 드래그로 옮긴 위치가 우선
-
+		// 게시판 본문(.rd) 우측 끝 기준으로 퀵메뉴 박스 위치를 계산/적용
+		// 드래그로 옮긴 적이 있으면 저장된 leftOffset(본문 우측 끝에서 떨어진 거리)을 사용,
+		// 없으면 기본 간격(16px)만큼 떨어뜨려 배치 -> 창 크기가 바뀌어도 항상 본문 옆에 붙음
+		function positionQuickMenu() {
 			const wrap = document.querySelector('.rd');
-			if (!wrap) return;
+			const boxWidth = $box.outerWidth() || 55;
+
+			let leftOffset = 16; // 기본 간격(px)
+			let top = 90; // 기본 top(px, CSS 기본값과 동일)
+
+			const savedPos = localStorage.getItem('autoscrollBoxPos');
+			if (savedPos) {
+				try {
+					const pos = JSON.parse(savedPos);
+					if (typeof pos.leftOffset === 'number') leftOffset = pos.leftOffset;
+					if (typeof pos.top === 'number') top = pos.top;
+				} catch (e) {}
+			}
+
+			if (!wrap) return; // .rd를 못 찾으면 CSS 기본값(화면 우측 상단 고정)을 그대로 둠
 
 			const rect = wrap.getBoundingClientRect();
-			const boxWidth = $box.outerWidth() || 55;
-			const margin = 16; // 게시판과 박스 사이 간격(px)
-			const left = rect.right + margin;
+			const left = rect.right + leftOffset;
 
 			if (left + boxWidth > window.innerWidth) {
-				// 화면이 좁아 우측에 붙일 공간이 없으면(모바일 등) 기존처럼 화면 우측 상단에 고정
-				$box.css({ left: 'auto', right: '16px' });
+				// 화면이 좁아 우측에 붙일 공간이 없으면(모바일 등) 화면 우측 상단 고정으로 되돌림
+				$box.css({ left: 'auto', right: '16px', top: top + 'px' });
 			} else {
-				$box.css({ left: left + 'px', right: 'auto' });
+				$box.css({ left: left + 'px', right: 'auto', top: top + 'px' });
 			}
 		}
 
-		alignQuickMenuToContent();
-		$(window).on('resize', alignQuickMenuToContent);
+		positionQuickMenu();
+		$(window).on('resize', positionQuickMenu);
 
 		// 자동 스크롤 라벨(드래그 핸들)을 눌러서 박스 위치를 자유롭게 이동
 		(function enableDrag() {
@@ -105,9 +106,16 @@
 			function onDragEnd() {
 				if (!dragging) return;
 				dragging = false;
+
+				const wrap = document.querySelector('.rd');
+				const boxRect = box.getBoundingClientRect();
+				// 본문(.rd) 우측 끝에서부터 얼마나 떨어져 있는지를 기준으로 저장
+				// (본문을 못 찾으면 화면 좌측 기준 절대좌표로 대체 저장)
+				const leftOffset = wrap ? (boxRect.left - wrap.getBoundingClientRect().right) : boxRect.left;
+
 				localStorage.setItem('autoscrollBoxPos', JSON.stringify({
 					top: parseInt(box.style.top, 10),
-					left: parseInt(box.style.left, 10)
+					leftOffset: leftOffset
 				}));
 			}
 
@@ -120,7 +128,7 @@
 			document.addEventListener('touchend', onDragEnd);
 		})();
 
-		// 자동 스크롤 라벨을 더블클릭하면 퀵메뉴 박스를 접었다/펼쳤다 함
+		// 자동 스크롤 라벨을 더블클릭(PC) / 더블탭(모바일)하면 퀵메뉴 박스를 접었다/펼쳤다 함
 		(function enableCollapseToggle() {
 			const handle = document.getElementById('autoscroll-drag-handle');
 			if (!handle) return;
@@ -132,11 +140,47 @@
 			// 저장된 접힘 상태 복원 (새로고침해도 유지)
 			applyCollapsed(localStorage.getItem('autoscrollCollapsed') === 'Y');
 
-			handle.addEventListener('dblclick', function(e) {
-				e.preventDefault();
+			function toggleCollapsed() {
 				const next = !$box.hasClass('collapsed');
 				applyCollapsed(next);
 				localStorage.setItem('autoscrollCollapsed', next ? 'Y' : 'N');
+			}
+
+			// PC: 더블클릭
+			handle.addEventListener('dblclick', function(e) {
+				e.preventDefault();
+				toggleCollapsed();
+			});
+
+			// 모바일: 더블탭 (touchend 두 번을 시간/이동거리 기준으로 직접 판정)
+			let touchStartPoint = null;
+			let lastTapTime = 0;
+			const DOUBLE_TAP_DELAY = 350; // ms
+			const TAP_MOVE_TOLERANCE = 10; // px, 이보다 많이 움직이면 드래그로 간주해 탭에서 제외
+
+			handle.addEventListener('touchstart', function(e) {
+				if (e.touches && e.touches.length) {
+					touchStartPoint = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+				}
+			}, { passive: true });
+
+			handle.addEventListener('touchend', function(e) {
+				if (!touchStartPoint) return;
+				const p = e.changedTouches && e.changedTouches[0];
+				if (!p) return;
+
+				const moved = Math.hypot(p.clientX - touchStartPoint.x, p.clientY - touchStartPoint.y);
+				touchStartPoint = null;
+				if (moved > TAP_MOVE_TOLERANCE) return; // 드래그로 움직인 경우 탭으로 취급하지 않음
+
+				const now = Date.now();
+				if (now - lastTapTime < DOUBLE_TAP_DELAY) {
+					e.preventDefault();
+					toggleCollapsed();
+					lastTapTime = 0; // 연속 트리플탭 등으로 다시 토글되는 것 방지
+				} else {
+					lastTapTime = now;
+				}
 			});
 		})();
 
