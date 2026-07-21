@@ -23,11 +23,36 @@
 
 		const $box = $('#autoscroll-quickmenu');
 
-		// 게시판 본문(.rd) 우측 끝 기준으로 퀵메뉴 박스 위치를 계산/적용
+		// 게시판 본문 우측 끝 기준으로 퀵메뉴 박스 위치를 계산/적용
+		// 관리자 설정(content_selector)이 없어도, 흔히 쓰이는 본문 래퍼 후보들을 순서대로 자동 탐지한다.
+		// 관리자가 값을 입력하면 그 값을 최우선으로 먼저 시도하고, 실패하면 아래 내장 후보로 넘어간다.
+		const BUILTIN_CONTENT_SELECTORS = ['.rd', '#bd_content', '.xe_content', '#container', '.zbxe_content', '.board_content', '#content'];
+
+		function resolveContentSelectors() {
+			const custom = (window.xe_autoscroll_content_selector || '')
+				.split(',')
+				.map(function(s) { return s.trim(); })
+				.filter(function(s) { return s.length > 0; });
+			return custom.concat(BUILTIN_CONTENT_SELECTORS);
+		}
+
+		function findContentWrap() {
+			const selectors = resolveContentSelectors();
+			for (let i = 0; i < selectors.length; i++) {
+				try {
+					const el = document.querySelector(selectors[i]);
+					if (el) return el;
+				} catch (err) {
+					continue; // 잘못된 셀렉터는 건너뛰고 다음 후보 시도
+				}
+			}
+			return null;
+		}
+
 		// 드래그로 옮긴 적이 있으면 저장된 leftOffset(본문 우측 끝에서 떨어진 거리)을 사용,
 		// 없으면 기본 간격(16px)만큼 떨어뜨려 배치 -> 창 크기가 바뀌어도 항상 본문 옆에 붙음
 		function positionQuickMenu() {
-			const wrap = document.querySelector('.rd');
+			const wrap = findContentWrap();
 			const boxWidth = $box.outerWidth() || 55;
 
 			let leftOffset = 16; // 기본 간격(px)
@@ -42,7 +67,7 @@
 				} catch (e) {}
 			}
 
-			if (!wrap) return; // .rd를 못 찾으면 CSS 기본값(화면 우측 상단 고정)을 그대로 둠
+			if (!wrap) return; // 본문 요소를 하나도 못 찾으면 CSS 기본값(화면 우측 상단 고정)을 그대로 둠
 
 			const rect = wrap.getBoundingClientRect();
 			const left = rect.right + leftOffset;
@@ -107,9 +132,9 @@
 				if (!dragging) return;
 				dragging = false;
 
-				const wrap = document.querySelector('.rd');
+				const wrap = findContentWrap();
 				const boxRect = box.getBoundingClientRect();
-				// 본문(.rd) 우측 끝에서부터 얼마나 떨어져 있는지를 기준으로 저장
+				// 본문 우측 끝에서부터 얼마나 떨어져 있는지를 기준으로 저장
 				// (본문을 못 찾으면 화면 좌측 기준 절대좌표로 대체 저장)
 				const leftOffset = wrap ? (boxRect.left - wrap.getBoundingClientRect().right) : boxRect.left;
 
@@ -185,7 +210,26 @@
 		})();
 
 		// 라이믹스 애드온 설정값 읽기 (값이 없으면 기본값 우회 적용)
-		const target = window.xe_autoscroll_target ? window.xe_autoscroll_target : '#cmtPosition';
+		// target_id에 콤마(,)로 여러 셀렉터를 지정하면, 현재 페이지에 실제로 존재하는
+		// 첫 번째 셀렉터를 자동 스크롤 목적지로 사용합니다. (예: "#cmtPosition, .comment_wrap")
+		const targetList = (window.xe_autoscroll_target ? window.xe_autoscroll_target : '#cmtPosition')
+			.split(',')
+			.map(function(s) { return s.trim(); })
+			.filter(function(s) { return s.length > 0; });
+
+		function getTarget() {
+			for (let i = 0; i < targetList.length; i++) {
+				try {
+					if ($(targetList[i]).length > 0) {
+						return targetList[i];
+					}
+				} catch (err) {
+					continue;
+				}
+			}
+			return targetList[0] || '#cmtPosition';
+		}
+
 		const gap = window.xe_autoscroll_gap ? window.xe_autoscroll_gap : 80;
 		let scrollSpeed = window.xe_autoscroll_speed ? window.xe_autoscroll_speed : 0.9;
 
@@ -271,6 +315,7 @@
 		let preciseScrollY = 0;
 
 		function smoothScrollStep() {
+			const target = getTarget();
 			if (!isScrolling || $(target).length === 0) return;
 
 			const targetScrollTop = $(target).offset().top - gap;
@@ -287,23 +332,59 @@
 			animationFrameId = requestAnimationFrame(smoothScrollStep);
 		}
 
+		// 이미 끝 지점에 도달한 상태에서 다시 시작할 때, 순간이동이 아니라
+		// 위로 서서히 스크롤한 뒤(다이얼 속도와 별개로 좀 더 빠르게), 맨 위에서 잠시 멈췄다가
+		// 자연스럽게 이어서 아래로 자동 스크롤을 시작한다.
+		const SCROLL_UP_SPEED = 30.0;
+		const TOP_PAUSE_MS = 2000; // 맨 위 도달 후 대기 시간
+
+		function scrollUpToTopThenRestart() {
+			preciseScrollY = $(window).scrollTop();
+
+			function upStep() {
+				if (!isScrolling) return; // 중간에 Stop을 누르거나 사용자가 개입하면 중단
+
+				preciseScrollY -= SCROLL_UP_SPEED;
+
+				if (preciseScrollY <= 0) {
+					window.scrollTo(0, 0);
+					preciseScrollY = 0;
+					animationFrameId = null;
+					setTimeout(function() {
+						if (!isScrolling) return; // 대기 중에 정지됐으면 재시작하지 않음
+						animationFrameId = requestAnimationFrame(smoothScrollStep);
+					}, TOP_PAUSE_MS);
+					return;
+				}
+
+				window.scrollTo(0, Math.round(preciseScrollY));
+				animationFrameId = requestAnimationFrame(upStep);
+			}
+
+			animationFrameId = requestAnimationFrame(upStep);
+		}
+
 		function startAutoScroll(saveState = true) {
+			const target = getTarget();
 			if ($(target).length === 0) return;
 
 			const targetScrollTop = $(target).offset().top - gap;
 			const currentScroll = $(window).scrollTop();
-			
-			if (currentScroll >= targetScrollTop) return;
 
-			preciseScrollY = currentScroll;
 			isScrolling = true;
 			$("#scroll-toggle-btn").addClass("active").text("▣ Stop");
-			
+
 			if (saveState) {
 				localStorage.setItem("autoScrollState", "ON");
 			}
 
-			animationFrameId = requestAnimationFrame(smoothScrollStep);
+			if (currentScroll >= targetScrollTop - 1) {
+				// 이미 끝 지점에 도달해 있는 상태 -> 위로 서서히 스크롤한 뒤 다시 아래로 시작
+				scrollUpToTopThenRestart();
+			} else {
+				preciseScrollY = currentScroll;
+				animationFrameId = requestAnimationFrame(smoothScrollStep);
+			}
 		}
 
 		function stopAutoScroll(changeStorage = true) {
