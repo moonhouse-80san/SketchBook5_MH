@@ -277,7 +277,7 @@
 			const currentScroll = $(window).scrollTop();
 
 			if (currentScroll >= targetScrollTop - 1) {
-				stopAutoScroll(false);
+				stopAutoScroll(true);
 				return;
 			}
 
@@ -338,7 +338,7 @@
 
 		$(window).on("wheel DOMMouseScroll touchstart mousedown keydown", function(e) {
 			if (isScrolling && !$(e.target).closest(".autoscroll-quickmenu").length) {
-				stopAutoScroll(false); 
+				stopAutoScroll(true);
 			}
 		});
 
