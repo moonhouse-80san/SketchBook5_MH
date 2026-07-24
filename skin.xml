@@ -42,9 +42,37 @@
 					<title xml:lang="en">Disabled</title>
 				</options>
 			</var>
+			<var name="modul_num" type="radio">
+				<title xml:lang="ko">🔒 모듈번호 출력</title>
+				<title xml:lang="en">🔒 Display Module Number</title>
+				<description xml:lang="ko">관리자만 보임.</description>
+				<description xml:lang="en">Visible to administrators only.</description>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="en">Disabled</title>
+				</options>
+				<options value="">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="en">Enabled</title>
+				</options>
+			</var>
+			<var name="ver_info" type="radio">
+				<title xml:lang="ko">🔒 SketchBook5_MH 버전 정보 출력</title>
+				<title xml:lang="en">🔒 Display SketchBook5_MH Version Info</title>
+				<description xml:lang="ko">관리자만 보임</description>
+				<description xml:lang="en">Visible to administrators only</description>
+				<options value="">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="en">Disabled</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="en">Enabled</title>
+				</options>
+			</var>
 			<var name="wizard_setting" type="radio">
-				<title xml:lang="ko">　└ 위저드 설정 사용</title>
-				<title xml:lang="en">　└ Use Wizard Settings</title>
+				<title xml:lang="ko">🔒 위저드 설정 사용</title>
+				<title xml:lang="en">🔒 Use Wizard Settings</title>
 				<description xml:lang="ko">Wzard 설정 사용을 게시판 상단에 출력.</description>
 				<description xml:lang="en">Display Wizard settings at the top of the board.</description>
 				<options value="">
@@ -487,34 +515,6 @@
 				<title xml:lang="en">　└ Mouse Hover Duration</title>
 				<description xml:lang="ko">테이블에 마우스가 일정시간 머물러야 좌우 스크롤 작동(기본 1000 / 1초)</description>
 				<description xml:lang="en">Table requires mouse to hover for a certain time to activate horizontal scroll (default: 1000 / 1 second)</description>
-			</var>
-			<var name="modul_num" type="radio">
-				<title xml:lang="ko">✔모듈번호 출력</title>
-				<title xml:lang="en">✔Display Module Number</title>
-				<description xml:lang="ko">관리자만 보임.</description>
-				<description xml:lang="en">Visible to administrators only.</description>
-				<options value="N">
-					<title xml:lang="ko">사용 안함</title>
-					<title xml:lang="en">Disabled</title>
-				</options>
-				<options value="">
-					<title xml:lang="ko">사용</title>
-					<title xml:lang="en">Enabled</title>
-				</options>
-			</var>
-			<var name="ver_info" type="radio">
-				<title xml:lang="ko">✔SketchBook5_MH 버전 정보 출력</title>
-				<title xml:lang="en">✔Display SketchBook5_MH Version Info</title>
-				<description xml:lang="ko">관리자만 보임</description>
-				<description xml:lang="en">Visible to administrators only</description>
-				<options value="">
-					<title xml:lang="ko">사용 안함</title>
-					<title xml:lang="en">Disabled</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">사용</title>
-					<title xml:lang="en">Enabled</title>
-				</options>
 			</var>
 		</group>
 		
