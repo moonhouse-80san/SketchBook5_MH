@@ -6,6 +6,63 @@
 	.bd_tb .tc span:hover { background:#ea580c; color:#fff; }
 </style>
 
+<?php
+if(!function_exists('mh_get_zip_version'))
+{
+	function mh_get_zip_version($uploaded_filename, $source_filename = '')
+	{
+		$version = '';
+
+		$real_path = FileHandler::getRealPath($uploaded_filename);
+		if($real_path && is_file($real_path))
+		{
+			$zip = new ZipArchive();
+			if($zip->open($real_path) === true)
+			{
+				$candidates = array();
+				for($i = 0; $i < $zip->numFiles; $i++)
+				{
+					$entry_name = $zip->getNameIndex($i);
+					$base_name = basename($entry_name);
+					$parent_name = basename(dirname($entry_name));
+
+					if($base_name == 'info.xml' && $parent_name == 'conf')
+					{
+						$candidates[1] = $i;
+					}
+					elseif($base_name == 'skin.xml')
+					{
+						$candidates[2] = $i;
+					}
+					elseif($base_name == 'info.xml')
+					{
+						$candidates[3] = $i;
+					}
+				}
+				ksort($candidates);
+
+				if($candidates)
+				{
+					$xml_content = $zip->getFromIndex(reset($candidates));
+					if(preg_match('/<version>\s*([\d.]+)\s*<\/version>/i', $xml_content, $m))
+					{
+						$version = $m[1];
+					}
+				}
+				$zip->close();
+			}
+		}
+
+		if($version === '' && $source_filename && preg_match('/V(\d+(?:\.\d+)*)/i', $source_filename, $m))
+		{
+			$version = $m[1];
+		}
+
+		return $version;
+	}
+}
+?>
+
 <div id="files_{$oDocument->document_srl}" class="rd_fnt rd_file">
 	<table class="et_vars bd_tb cont">
 		<thead>
@@ -22,10 +79,7 @@
 		<!--@if($mi->files_reverse == '')-->{@ $re_files = array_reverse($re_files)}<!--@end-->
 		<tbody cond="!$mi->files_type">
 			<tr loop="$re_files=>$key,$file">
-				{@ $mh_ver = '' }
-				<!--@if(preg_match('/V(\d+(?:\.\d+)*)/i', $file->source_filename, $m))-->
-					{@ $mh_ver = $m[1] }
-				<!--@end-->
+				{@ $mh_ver = mh_get_zip_version($file->uploaded_filename, $file->source_filename) }
 				<td cond="!$mo" class="tc"><span>V {$mh_ver}</span></td>
 				<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 				<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
@@ -58,7 +112,6 @@
 				{@ $etc_count++ }
 			<!--@end-->
 		<!--@end-->
-		
 
 		<tbody cond="$mi->files_type">
 			<tr loop="$re_files=>$key,$file">
@@ -81,10 +134,7 @@
 					<td class="tc">{number_format($file->download_count)}</td>
 				</block>
 				<block cond="!$mi->files_etc && $file_types[$key]['is_etc']">
-					{@ $mh_ver = '' }
-					<!--@if(preg_match('/V(\d+(?:\.\d+)*)/i', $file->source_filename, $m))-->
-						{@ $mh_ver = $m[1] }
-					<!--@end-->
+					{@ $mh_ver = mh_get_zip_version($file->uploaded_filename, $file->source_filename) }
 					<td class="tc"><a href="{getUrl('')}{$file->download_url}"><span><i class="xi-download-bottom"></i> {$mh_ver}</span></a></td>
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
