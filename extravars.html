@@ -11,7 +11,7 @@
 		}
 		<!--@if(($match1 != 1 && $match2 != 1) || $grant->is_admin || $oDocument->isEditable())-->
 		<th scope="row">{$val->name}</th>
-			<td cond="$val->eid!='rating' && $val->eid!==$mi->etc_name && $val->eid!=$mi->copy && $val->eid!==$mi->e_url && $val->eid!==$mi->dhidden" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()|noescape}</span></td>
+				<td cond="$val->eid!='rating' && $val->eid!==$mi->etc_name && $val->eid!=$mi->copy && $val->eid!==$mi->e_url && $val->eid!==$mi->dhidden" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()|noescape}</span></td>
 		<!--@end-->
 
 		<!--// 확장변수값 앞뒤에 붙는 단위-->
@@ -47,26 +47,30 @@
 		</td>
 
 		<!--// 확장변수 별표 평점(rating)-->
-		<td cond="$val->eid=='rating' && $val->eid!==$mi->etc_name && $val->eid!==e_url && $val->eid!==$mi->dhidden" class="rating" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="cursor:pointer"><span class="starRating" title="{$val->getValueHTML()|noescape}{$lang->score}"><span style="width:{$val->getValueHTML()*10}%">{$val->getValueHTML()|noescape}</span></span></td>
+		<td cond="$val->eid=='rating' && $val->eid!==$mi->etc_name && $val->eid!==$mi->e_url && $val->eid!==$mi->dhidden" class="rating" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="cursor:pointer"><span class="starRating" title="{$val->getValueHTML()|noescape}{$lang->score}"><span style="width:{$val->getValueHTML()*10}%">{$val->getValueHTML()|noescape}</span></span></td>
 		{@ $etIdx++ }
 	<!--@else-->
 	<!--@end-->
 </tr>
 
 <tr loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML() && ($val->eid==$mi->work_start || $val->eid==$mi->work_stop)">
+	{@
+		$match1 = preg_match('/_rh$/is', $val->eid);
+		$match2 = preg_match('/_wrh$/is', $val->eid);
+	}
 	<!--@if(($match1 != 1 && $match2 != 1) || $grant->is_admin || $oDocument->isEditable())-->
 		<th valign="center">{$mi->work_total}</th>
 			<td valign="center" colspan="3">
 				<div loop="$oDocument->getExtraVars() => $key,$val" cond="$val->eid==$mi->work_start" style="float:left">
 					{@ $startDate = new DateTime($val->getValueHTML())}
-					{$val->name} : <span onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()|noescape}</span>
+					{$val->name} : <span onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()|noescape}</span>
 				</div>
 				<div loop="$oDocument->getExtraVars() => $key,$val" cond="$val->eid==$mi->work_stop" style="float:left">
 					{@ $stopDate = new DateTime($val->getValueHTML())}
 					{@ $today = date("Y-m-d H:i:s", time())}
 					<span style="margin:0 10px; color:#f60; font-weight:bold">|</span>
 					<!--@if($val->getValueHTML())-->
-						{$val->name} : <span onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()|noescape}</span>
+						{$val->name} : <span onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()|noescape}</span>
 					<!--@else-->
 						현재시간 : <span id="clock">{$today}</span>
 					<!--@end-->

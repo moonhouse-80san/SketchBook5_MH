@@ -11,7 +11,7 @@ function getTmpAfRandNick(){
 
 		$outArray2 = array_rand($secondNick, 2);
 		$nick .= $secondNick[$outArray2[0]];
-		if($_SESSION['afRndNick'] == "" || !$_SESSION['afRndNick'] ){
+		if(empty($_SESSION['afRndNick'])){
 			$_SESSION['afRndNick'] = $nick;
 			return $_SESSION['afRndNick'];
 		}else{

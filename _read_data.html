@@ -9,15 +9,57 @@
 <?php
 if(!function_exists('mh_get_zip_version'))
 {
-	function mh_get_zip_version($uploaded_filename, $source_filename = '')
+	function mh_get_zip_version($file)
 	{
-		$version = '';
+		$cache_key = 'mh:zip_version:' . $file->file_srl;
+		$cached = Rhymix\Framework\Cache::get($cache_key);
+		if($cached !== null && $cached !== false)
+		{
+			return $cached;
+		}
 
-		$real_path = FileHandler::getRealPath($uploaded_filename);
-		if($real_path && is_file($real_path))
+		$version = '';
+		$zip_path = '';
+		$is_temp = false;
+
+		if(class_exists('bsplus_external_storage') && !empty($file->file_srl))
+		{
+			$oModel = getModel('bsplus_external_storage');
+			$map = $oModel ? $oModel->getMapByFileSrl($file->file_srl) : null;
+
+			if($map && $map->status === 'migrated' && $map->storage_type !== 'local')
+			{
+				$config = $oModel->getConfig();
+				$driver = StorageDriverFactory::create($config, $map->storage_type, $map->storage_root);
+				if($driver)
+				{
+					$tmp = tempnam(sys_get_temp_dir(), 'mhver_');
+					if($driver->downloadToLocal($map->remote_path, $tmp))
+					{
+						$zip_path = $tmp;
+						$is_temp = true;
+					}
+					else
+					{
+						@unlink($tmp);
+					}
+				}
+			}
+		}
+
+		if($zip_path === '')
+		{
+			$real_path = FileHandler::getRealPath($file->uploaded_filename);
+			if($real_path && is_file($real_path))
+			{
+				$zip_path = $real_path;
+			}
+		}
+
+		if($zip_path !== '')
 		{
 			$zip = new ZipArchive();
-			if($zip->open($real_path) === true)
+			if($zip->open($zip_path) === true)
 			{
 				$candidates = array();
 				for($i = 0; $i < $zip->numFiles; $i++)
@@ -51,12 +93,19 @@ if(!function_exists('mh_get_zip_version'))
 				}
 				$zip->close();
 			}
+
+			if($is_temp)
+			{
+				@unlink($zip_path);
+			}
 		}
 
-		if($version === '' && $source_filename && preg_match('/V(\d+(?:\.\d+)*)/i', $source_filename, $m))
+		if($version === '' && !empty($file->source_filename) && preg_match('/V(\d+(?:\.\d+)*)/i', $file->source_filename, $m))
 		{
 			$version = $m[1];
 		}
+
+		Rhymix\Framework\Cache::set($cache_key, $version, 60 * 60 * 24 * 30);
 
 		return $version;
 	}
@@ -79,7 +128,7 @@ if(!function_exists('mh_get_zip_version'))
 		<!--@if($mi->files_reverse == '')-->{@ $re_files = array_reverse($re_files)}<!--@end-->
 		<tbody cond="!$mi->files_type">
 			<tr loop="$re_files=>$key,$file">
-				{@ $mh_ver = mh_get_zip_version($file->uploaded_filename, $file->source_filename) }
+				{@ $mh_ver = mh_get_zip_version($file) }
 				<td cond="!$mo" class="tc"><span>V {$mh_ver}</span></td>
 				<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 				<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
@@ -134,7 +183,7 @@ if(!function_exists('mh_get_zip_version'))
 					<td class="tc">{number_format($file->download_count)}</td>
 				</block>
 				<block cond="!$mi->files_etc && $file_types[$key]['is_etc']">
-					{@ $mh_ver = mh_get_zip_version($file->uploaded_filename, $file->source_filename) }
+					{@ $mh_ver = mh_get_zip_version($file) }
 					<td class="tc"><a href="{getUrl('')}{$file->download_url}"><span><i class="xi-download-bottom"></i> {$mh_ver}</span></a></td>
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>

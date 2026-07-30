@@ -18,6 +18,7 @@ public $nick_bg_array;
 
 	function hashCode( $s )
 	{
+		$s = (string)$s;
 		$h = 0;
 		$len = strlen($s);
 		for($i = 0; $i < $len; $i++)
@@ -29,6 +30,10 @@ public $nick_bg_array;
 	}
 
 	function getNickBgColor($s){
+		if (empty($s)) {
+			return "#FF4500";
+		}
+
 		$hashStr = $this->hashCode($s);
 		$c_length = count($this->nick_bg_array);
 		$hashStr = (($hashStr % $c_length) + $c_length) % $c_length;

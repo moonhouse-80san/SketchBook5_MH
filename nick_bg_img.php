@@ -34,6 +34,7 @@ class nickBgUtil {
     }
 
     private function hashCode($s) {
+        $s = (string)$s;
         $h = 0;
         $len = strlen($s);
         for($i = 0; $i < $len; $i++) {
