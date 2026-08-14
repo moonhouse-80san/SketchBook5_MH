@@ -113,10 +113,16 @@ if(!function_exists('mh_get_zip_version'))
 ?>
 
 <div id="files_{$oDocument->document_srl}" class="rd_fnt rd_file">
+	{@ $re_files = $oDocument->getUploadedFiles(); }
+	<!--@if($mi->files_reverse == '')-->{@ $re_files = array_reverse($re_files)}<!--@end-->
+	{@ $mh_has_version = false }
+	<!--@foreach($re_files as $mh_vf)-->
+		<!--@if(mh_get_zip_version($mh_vf) !== '')-->{@ $mh_has_version = true }<!--@end-->
+	<!--@end-->
 	<table class="et_vars bd_tb cont">
 		<thead>
 			<tr cond="$oDocument->hasUploadedFiles()" class="tb">
-				<th class="tc">버전</th>
+				<th cond="$mh_has_version" class="tc">버전</th>
 				<th>{$lang->uploaded_files}</th>
 				<th cond="!$mo" class="tc">{$lang->regdate}</th>
 				<th cond="!$mo" class="tc">{$lang->files}</th>
@@ -124,12 +130,10 @@ if(!function_exists('mh_get_zip_version'))
 			</tr>
 		</thead>
 
-		{@ $re_files = $oDocument->getUploadedFiles(); }
-		<!--@if($mi->files_reverse == '')-->{@ $re_files = array_reverse($re_files)}<!--@end-->
 		<tbody cond="!$mi->files_type">
 			<tr loop="$re_files=>$key,$file">
 				{@ $mh_ver = mh_get_zip_version($file) }
-				<td cond="!$mo" class="tc"><span>V {$mh_ver}</span></td>
+				<td cond="!$mo && $mh_ver" class="tc"><span>V {$mh_ver}</span></td>
 				<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 				<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 				<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
@@ -184,7 +188,7 @@ if(!function_exists('mh_get_zip_version'))
 				</block>
 				<block cond="!$mi->files_etc && $file_types[$key]['is_etc']">
 					{@ $mh_ver = mh_get_zip_version($file) }
-					<td class="tc"><a href="{getUrl('')}{$file->download_url}"><span><i class="xi-download-bottom"></i> {$mh_ver}</span></a></td>
+					<td cond="$mh_ver" class="tc"><a href="{getUrl('')}{$file->download_url}"><span><i class="xi-download-bottom"></i> {$mh_ver}</span></a></td>
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
@@ -194,7 +198,7 @@ if(!function_exists('mh_get_zip_version'))
 		</tbody>
 		<tfoot cond="$etc_count > 1">
 			<tr>
-				<td class="tr" colspan="{$mo ? '2' : '4'}">Total 다운로드</td>
+				<td class="tr" colspan="{$mo ? '2' : ($mh_has_version ? '4' : '3')}">Total 다운로드</td>
 				<td class="tc">{number_format($total_downloads)}</td>
 			</tr>
 		</tfoot>
