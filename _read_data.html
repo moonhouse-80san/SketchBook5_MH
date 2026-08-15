@@ -198,7 +198,7 @@ if(!function_exists('mh_get_zip_version'))
 		</tbody>
 		<tfoot cond="$etc_count > 1">
 			<tr>
-				<td class="tr" colspan="{$mo ? '2' : ($mh_has_version ? '4' : '3')}">Total 다운로드</td>
+				<td class="tr" colspan="{$mo ? ($mh_has_version ? '2' : '1') : ($mh_has_version ? '4' : '3')}">Total 다운로드</td>
 				<td class="tc">{number_format($total_downloads)}</td>
 			</tr>
 		</tfoot>
