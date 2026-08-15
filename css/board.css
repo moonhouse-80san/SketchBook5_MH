@@ -213,9 +213,9 @@ h1, h2, h3, h4, h5, h6,
 .bd_cnb .li2 a{color:#888}
 .bd_cnb .li2.on a,.bd_cnb .li2 a:hover,.bd_cnb .li2 a:focus{font-weight:700;color:#222}
 .bd_cnb small,.cTab small{padding-left:1px;font:10px Tahoma,AppleGothic,sans-serif;color:#777}
-.bd .cnbMore{visibility:hidden;float:right; margin-right:25px;}
-.cnbMore a{display:flex;align-items:center;justify-content:center;margin:7px 0 7px 5px;width:19px;height:19px;border:1px solid;border-color:#BBB;border-radius:4px;background:#FFF;text-align:center;color:#999;line-height:1}
-.cnbMore i{font-size:13px;line-height:1}
+.bd .cnbMore{visibility:hidden;float:right}
+.cnbMore a{margin:7px 0 7px 5px;width:19px;height:19px;border:1px solid;border-color:#BBB;border-radius:4px;background:#FFF;text-align:center;color:#999}
+.cnbMore i{font-size:13px}
 .cnbMore a:hover,.cnbMore a:focus{border-color:#999;box-shadow:0 0 2px rgba(0,0,0,.1);color:#666}
 .bd_cnb .cnb_hide{display:none}
 .bd_cnb.open .cnb_hide{display:block;visibility:visible}
@@ -841,15 +841,15 @@ h1, h2, h3, h4, h5, h6,
 .rd_blog .fdb_lst_wrp{margin-bottom:0}
 
 /* FAQ */
-.bd_faq{margin-top:24px}
+.bd_faq{margin:0 0 15px}
 .bd_faq>li{padding:14px 14px 14px 52px;border-top:1px solid #EEE;color:#666;*zoom:1}
 .bd_faq>li:hover,.bd_faq .open,.bd_faq .notice{background:#FCFCFC}
-.bd_faq .q{display:block;padding-right:20px;font-size:13px;text-decoration:none !important}
+.bd_faq .q{display:block;padding-right:20px;font-size:13px;text-decoration:none !important;position:relative}
 .bd_faq .open .q{font-weight:700}
-.bd_faq .mrk{display:block;position:absolute;top:-2px;left:-38px;width:22px;height:22px;border:1px solid #DDD;border-radius:5px;background:-webkit-gradient(linear,0% 0%,0% 100%,from(#FFF),to(#EEE));background:linear-gradient(to bottom,#FFF 0%,#EEE 100%);text-align:center;box-shadow:0 1px 1px rgba(0,0,0,.2);color:#ff8484;text-shadow:0 1px 0 #ff3d3d}
-.bd_faq .article .mrk{font:700 16px/22px Arial,Helvetica,sans-serif}
+.bd_faq .mrk{display:block;position:absolute;left:-38px;width:22px;height:22px;border:1px solid #DDD;border-radius:5px;background:-webkit-gradient(linear,0% 0%,0% 100%,from(#FFF),to(#EEE));background:linear-gradient(to bottom,#FFF 0%,#EEE 100%);text-align:center;box-shadow:0 1px 1px rgba(0,0,0,.2);color:#ff8484;text-shadow:0 1px 0 #ff3d3d}
+.bd_faq .article .mrk{font:700 16px/22px}
 .bd_faq .notice .mrk{white-space:nowrap}
-.bd_faq .mrkA{left:-39px;color:#78a3da;text-shadow:0 1px 0 #6990d1}
+.bd_faq .mrkA{left:70px;margin-top:-10px;color:#78a3da;text-shadow:0 1px 0 #6990d1}
 .bd_faq .mrk span{display:none}
 .bd_faq .cate{padding-right:12px;color:#555}
 .bd_faq .a{display:none;margin-top:14px;padding:20px;background:#FFF;border:1px solid #EEE;border-radius:5px}
@@ -857,7 +857,7 @@ h1, h2, h3, h4, h5, h6,
 .bd_faq .starRating{margin-right:16px}
 .bd_faq .q .fr{padding:0 8px}
 .bd_faq input{position:absolute !important;top:12px;right:4px}
-.bd_faq .editArea{margin:3px 0 24px;text-align:right}
+.bd_faq .editArea{margin:0 0 24px;text-align:right}
 .bd_faq .url{margin-right:8px;border-bottom:1px dotted #999;text-decoration:none;color:#666}
 .bd_faq.faq_official>li{padding:12px 0}
 .bd_faq.faq_official .mrk{display:inline-block;position:static;width:40px;border:0;background:none;box-shadow:none;*display:inline;*zoom:1}
@@ -1057,7 +1057,7 @@ body.viewer_blk{background:#222}
 .rd_blog{margin:0;padding:0;box-shadow:none}
 .bd_faq .q{font-size:15px}
 .bd_faq .q .fr{display:block;float:none;padding:0}
-.bd_faq .date, .bd_faq .nick{min-width:0;padding:0 10px 0 0;font-weight:400;opacity:.7}
+.bd_faq .date, .bd_faq .nick{opacity:0}
 .bd_faq .editArea{margin:0 0 15px}
 .bd_faq .url{display:none}
 .bd_faq_srch_wrp,.bd_faq.faq_official .a{padding:10px}
