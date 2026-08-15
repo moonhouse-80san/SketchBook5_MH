@@ -142,7 +142,7 @@
 						<ul>
 						{@
 							$val_array = explode(', ',$val->default);
-							$val_value = implode('',(array)$oDocument->getExtraEidValue($val->eid));
+							$val_value = implode('',$oDocument->getExtraEidValue($val->eid));
 						}
 							<li loop="$n=0;$n<count($val_array);$n++">
 							<!--@if($n+1!=count($val_array))-->

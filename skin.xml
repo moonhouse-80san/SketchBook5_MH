@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
-	<title xml:lang="ko">sketchbook5 MH V3.6</title>
-	<title xml:lang="en">sketchbook5 MH V3.6</title>
+	<title xml:lang="ko">sketchbook5 MH V3.7</title>
+	<title xml:lang="en">sketchbook5 MH V3.7</title>
 	<description xml:lang="ko">sketchbook5 MH Board Skin. 한국형 게시판 스타일, 여러 목록 유형 제공, 사용자 편의를 고려한 다양한 기능, 모바일까지 대응.(문하우스에서 일부 수정함)</description>
 	<description xml:lang="en">sketchbook5 MH Board Skin. Korean-style board layout, various list types, diverse features for user convenience, mobile responsive. (Partially modified by Moonhouse)</description>
-	<version>3.6</version>
-	<date>2026-07-28</date>
+	<version>3.7</version>
+	<date>2026-08-16</date>
 	<author email_address="contact@sketchbooks.co.kr" link="http://xe.sketchbook.kr/">
 		<name>sketchbook</name>
 	</author>
-	<author email_address="80san@moonhouse.co.kr" link="http://moonhouse.co.kr/">
+	<author email_address="80san@moonhouse.co.kr" link="https://moonhouse.co.kr/">
 		<name>80san</name>
 	</author>
 

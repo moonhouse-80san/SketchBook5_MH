@@ -1,5 +1,9 @@
 <caption class="blind">Extra Form</caption>
-{@ $etIdx=1 }
+{@
+	$etIdx=1;
+	$qr_eid = trim($mi->qr ?? '');
+	if($qr_eid == '') $qr_eid = 'qr';
+}
 <tr loop="$oDocument->getExtraVars() => $key,$val" cond="$val->getValueHTML() && $val->eid!='rd_preview' && $val->eid!=$mi->work_start && $val->eid!=$mi->work_stop && ($val->eid!=='f0' && $val->eid!=='f1' && $val->eid!=='f2' && $val->eid!=='f3' && $val->eid!=='f4' && $val->eid!=='f5' && $val->eid!=='f6')" class="bg{$etIdx%2}">
 	<!--// 지정게시판 -- 지정 확장변수 히든-->
 	<!--@if($val->value && ($mid !=$mi->extra_mid || ($val->name!=$mi->extra_name1 && $val->name!=$mi->extra_name2 && $val->name!=$mi->extra_name3 && $val->name!=$mi->et_logon_name && $val->name!=$mi->t_logon_name && $val->name!=$mi->g_logon_name && $val->name!=$mi->git_logon_name && $val->name!=$mi->d_logon_name || $grant->manager)))-->
@@ -11,7 +15,16 @@
 		}
 		<!--@if(($match1 != 1 && $match2 != 1) || $grant->is_admin || $oDocument->isEditable())-->
 		<th scope="row">{$val->name}</th>
-				<td cond="$val->eid!='rating' && $val->eid!==$mi->etc_name && $val->eid!=$mi->copy && $val->eid!==$mi->e_url && $val->eid!==$mi->dhidden" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()|noescape}</span></td>
+				<td cond="$val->eid!='rating' && $val->eid!==$mi->etc_name && $val->eid!=$mi->copy && $val->eid!==$mi->e_url && $val->eid!==$mi->dhidden && $val->eid!=$qr_eid" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid"><span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$oDocument->isGranted() && $use_extra_vars_update  && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$val->getValueHTML()|noescape}</span></td>
+
+		<!--// 지정 확장변수(파일업로드)를 이미지로 출력 -->
+		<td cond="$val->eid==$qr_eid">
+			{@ $qr_file = FileModel::getFile($oDocument->getExtraEidValue($qr_eid)); }
+			<a cond="$qr_file && $qr_file->uploaded_filename" href="javascript:void(0);" class="qr_extra_image" onclick="showQrPopup('{$qr_file->uploaded_filename}', event);" title="{$val->name} 크게 보기">
+				<img src="{$qr_file->uploaded_filename}" alt="{$val->name}" class="extravar_img" style="max-width:100px; height:auto; cursor:pointer;" />
+			</a>
+			<span cond="!$qr_file || !$qr_file->uploaded_filename">{$val->getValueHTML()|noescape}</span>
+		</td>
 		<!--@end-->
 
 		<!--// 확장변수값 앞뒤에 붙는 단위-->
@@ -83,6 +96,8 @@
 			</td>
 	<!--@end-->
 </tr>
+
+<include cond="$oDocument->getExtraEidValue($qr_eid)" target="qr.html" />
 
 <!--// 현재 시간 실시간 카운트
 <script> 

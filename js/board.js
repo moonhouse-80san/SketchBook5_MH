@@ -49,24 +49,23 @@ function board(bdObj){
 		});
 		cItem.find('>ul>li.on').parents('ul:first').show().prev().addClass('on');
 	    function cnbStart(){
-			// If Overflow (cnbMore 제외하고 카테고리 항목만 검사)
-			var hasOverflow = false;
-			cItem.not('.cnbMore').each(function(){
-				if($(this).offset().top != cMore.offset().top){
-					$(this).addClass('cnb_hide').nextAll().not('.cnbMore').addClass('cnb_hide');
-					hasOverflow = true;
+			// If Overflow
+			cItem.each(function(){
+				if($(this).offset().top!=cMore.offset().top){
+					$(this).addClass('cnb_hide').nextAll().addClass('cnb_hide');
+					cMore.css('visibility','visible');
 					return false;
 				} else {
-					$(this).removeClass('cnb_hide').nextAll().not('.cnbMore').removeClass('cnb_hide');
+					$(this).removeClass('cnb_hide').nextAll().removeClass('cnb_hide');
+					cMore.css('visibility','hidden');
 				};
 			});
-			cMore.css('visibility', hasOverflow ? 'visible' : 'hidden');
 			cnb.find('>.bg_f_f9').css('overflow','visible');
 		};
 		cnbStart();
 		$(window).resize(cnbStart);
 		function cnbMore(){
-			cnb.toggleClass('open').find('i.fa-solid, i.fa').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
+			cnb.toggleClass('open').find('i.fa').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
 			return false;
 		};
 		if((cnb.find('.cnb_hide a,.cnb_hide li').hasClass('on')) && !cnb.hasClass('open')) cnbMore();
@@ -284,7 +283,15 @@ if(default_style=='webzine'){
 		$.removeCookie('socialxe_content');
 	});
 	if(bd.find('form>div.wysiwyg').length){
-		if($('#re_cmt').length) editorStartTextarea(2,'content','comment_srl');
+		if($('#re_cmt').length){
+			if(typeof editorStartTextarea === 'function'){
+				editorStartTextarea(2,'content','comment_srl');
+			} else {
+				$.getScript("modules/editor/tpl/js/editor_common.min.js",function(){
+					editorStartTextarea(2,'content','comment_srl');
+				});
+			}
+		}
 	} else {
 		$.getScript("modules/editor/tpl/js/editor_common.min.js",function(){
 			if($('#re_cmt').length) editorStartTextarea(2,'content','comment_srl');
@@ -444,7 +451,13 @@ if(bd.find('div.rd').length){
 			$.removeCookie('socialxe_content');
 		});
 		if(bd.find('form>div.wysiwyg').length){
-			editorStartTextarea(2,'content','comment_srl');
+			if(typeof editorStartTextarea === 'function'){
+				editorStartTextarea(2,'content','comment_srl');
+			} else {
+				$.getScript(request_uri+'modules/editor/tpl/js/editor_common.min.js',function(){
+					editorStartTextarea(2,'content','comment_srl');
+				});
+			}
 		} else {
 			$.getScript(request_uri+'modules/editor/tpl/js/editor_common.min.js',function(){
 				editorStartTextarea(2,'content','comment_srl');
