@@ -99,16 +99,8 @@
 							$qr_file_srl = $document->getExtraEidValue($qr_eid);
 							$qr_file = FileModel::getFile($qr_file_srl);
 						}
-						<a cond="$qr_file && $qr_file->uploaded_filename"
-						   href="javascript:void(0);"
-						   class="qr_extra_image"
-						   onclick="showQrPopup('{$qr_file->uploaded_filename}', event);"
-						   title="QR 이미지 크게 보기">
-							<img src="{$qr_file->uploaded_filename}"
-								 alt="QR"
-								 class="tmb"
-								 style="cursor:pointer; margin-right:20px"
-								 width="100" />
+						<a cond="$qr_file && $qr_file->uploaded_filename" href="javascript:void(0);" class="qr_extra_image" onclick="showQrPopup('{$qr_file->uploaded_filename}', event);" title="QR 이미지 크게 보기">
+							<img src="{$qr_file->uploaded_filename}" alt="QR" class="tmb" style="cursor:pointer; margin-right:20px; width:{$mi->zine_thumb_width}px; height:{$mi->zine_thumb_type}px" />
 						</a>
 					</block>
 
@@ -118,9 +110,7 @@
 
 						<block cond="$document->thumbnailExists()">
 							<span cond="$mi->tmb_effect=='2'" class="no_img loading"></span>
-							<img class="tmb"
-								 src="{$document->getThumbnail($mi->zine_thumb_width,$mi->zine_thumb_height,$mi->zine_thumb_type)}"
-								 alt="" />
+							<img class="tmb" src="{$document->getThumbnail($mi->zine_thumb_width,$mi->zine_thumb_height,$mi->zine_thumb_type)}" alt="" />
 						</block>
 					</block>
 
