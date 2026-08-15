@@ -85,28 +85,91 @@
 		<div class="rt_area<!--@if($list_config['thumbnail'] && $document->thumbnailExists())--> is_tmb<!--@end-->">
 			<!--// 다크모드형식 적용시 링크 적용 -->
 			<div onclick="location.href='{getUrl('document_srl',$document->document_srl, 'listStyle', $listStyle, 'cpage','')}';" style="cursor:pointer; width: 100%;">
+
 				<!--// 썸네일 영역 -->
 				<div cond="$list_config['thumbnail']" class="tmb_wrp ribbon_v{$mi->ribbon_style}">
-					<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
-					<block cond="$document->thumbnailExists()"><span cond="$mi->tmb_effect=='2'" class="no_img loading"></span><img class="tmb" src="{$document->getThumbnail($mi->zine_thumb_width,$mi->zine_thumb_height,$mi->zine_thumb_type)}" alt="" /></block>
+
+					<!--// QR 확장변수가 있으면 QR 이미지를 썸네일로 사용 -->
+					{@
+						$qr_eid = trim($mi->qr ?? '');
+						if($qr_eid == '') $qr_eid = 'qr';
+					}
+					<block cond="$document->getExtraEidValue($qr_eid)">
+						{@
+							$qr_file_srl = $document->getExtraEidValue($qr_eid);
+							$qr_file = FileModel::getFile($qr_file_srl);
+						}
+						<a cond="$qr_file && $qr_file->uploaded_filename"
+						   href="javascript:void(0);"
+						   class="qr_extra_image"
+						   onclick="showQrPopup('{$qr_file->uploaded_filename}', event);"
+						   title="QR 이미지 크게 보기">
+							<img src="{$qr_file->uploaded_filename}"
+								 alt="QR"
+								 class="tmb"
+								 style="cursor:pointer; margin-right:20px"
+								 width="100" />
+						</a>
+					</block>
+
+					<!--// QR이 없을 때 기존 썸네일 출력 -->
+					<block cond="!$document->getExtraEidValue($qr_eid)">
+						<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
+
+						<block cond="$document->thumbnailExists()">
+							<span cond="$mi->tmb_effect=='2'" class="no_img loading"></span>
+							<img class="tmb"
+								 src="{$document->getThumbnail($mi->zine_thumb_width,$mi->zine_thumb_height,$mi->zine_thumb_type)}"
+								 alt="" />
+						</block>
+					</block>
+
 					<!--// 리본 -->
-					<block cond="$mi->zine_ribbon!='N'">
+					<block cond="$mi->zine_ribbon!='N' && !$document->getExtraEidValue($qr_eid)">
 						<block cond="!$mi->zine_ribbon || $mi->zine_ribbon=='new_date'">
 							<!--@if((int)($document->getRegdate('YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
 								<span class="ribbon nnu new"><i>NEW</i></span>
 							<!--@elseif((int)(zdate($document->get('last_update'),'YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
 								<span class="ribbon nnu update"><i>Update</i></span>
 							<!--@else-->
-								<span cond="$mi->zine_ribbon=='new_date'" class="ribbon"><i class="date"><b>{$document->getRegdate("d")}</b><small>{$document->getRegdate("M")}</small></i></span>
+								<span cond="$mi->zine_ribbon=='new_date'" class="ribbon">
+									<i class="date">
+										<b>{$document->getRegdate("d")}</b>
+										<small>{$document->getRegdate("M")}</small>
+									</i>
+								</span>
 							<!--@end-->
 						</block>
+
 						<span cond="$mi->zine_ribbon && $mi->zine_ribbon!='new_date'" class="ribbon">
-							<i cond="$mi->zine_ribbon=='cate' && $document->get('category_srl')" class="cate">{$category_list[$document->get('category_srl')]->title}</i>
-							<i cond="$mi->zine_ribbon=='date'" class="date"><b>{$document->getRegdate("d")}</b><small>{$document->getRegdate("M")}</small></i>
-							<i cond="$mi->zine_ribbon=='read'"><b>{$document->get('readed_count')}</b><small>Views</small></i>
-							<i cond="$mi->zine_ribbon=='vote'"><b>{$document->get('voted_count')}</b><small>Likes</small></i>
-							<i cond="$mi->zine_ribbon=='cmt'"><b>{$document->getCommentCount()}</b><small>Replies</small></i>
-							<i cond="$mi->zine_ribbon=='extra'">{$document->getExtraValueHTML($mi->extra_num)}<!--//<small>{@$extravar_list = $document->getExtraVars()}{$extravar_list[$mi->extra_num]->name}</small>--></i>
+							<i cond="$mi->zine_ribbon=='cate' && $document->get('category_srl')" class="cate">
+								{$category_list[$document->get('category_srl')]->title}
+							</i>
+
+							<i cond="$mi->zine_ribbon=='date'" class="date">
+								<b>{$document->getRegdate("d")}</b>
+								<small>{$document->getRegdate("M")}</small>
+							</i>
+
+							<i cond="$mi->zine_ribbon=='read'">
+								<b>{$document->get('readed_count')}</b>
+								<small>Views</small>
+							</i>
+
+							<i cond="$mi->zine_ribbon=='vote'">
+								<b>{$document->get('voted_count')}</b>
+								<small>Likes</small>
+							</i>
+
+							<i cond="$mi->zine_ribbon=='cmt'">
+								<b>{$document->getCommentCount()}</b>
+								<small>Replies</small>
+							</i>
+
+							<i cond="$mi->zine_ribbon=='extra'">
+								{$document->getExtraValueHTML($mi->extra_num)}
+								<!--//<small>{@$extravar_list = $document->getExtraVars()}{$extravar_list[$mi->extra_num]->name}</small>-->
+							</i>
 						</span>
 					</block>
 				</div>
@@ -231,7 +294,16 @@
 				<!--// 확장변수 -->
 				<block cond="$mi->zine_extra || $mi->link_board">
 					<block loop="$list_config=>$key,$val" cond="$val->idx!=-1">
-						<span cond="$val->eid!='rating' && $val->eid!='price' && $val->eid!==$mi->icon_url	&& $val->eid!==$mi->e_url && $document->getExtraValueHTML($val->idx)" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"|cond="$document->isGranted() && $use_extra_vars_update && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid" class="itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->">{$val->name} :<span style="cursor:pointer; text-decoration:underline; text-underline-position:under"|cond="$document->isGranted() && $use_extra_vars_update && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid">{$document->getExtraValueHTML($val->idx)}</span></span>
+						<span cond="$val->eid!='rating' && $val->eid!='price' && $val->eid!=$qr_eid && $val->eid!==$mi->icon_url && $val->eid!==$mi->e_url && $document->getExtraValueHTML($val->idx)"
+							  onclick="showUpdateExtraModal(this, {$document->document_srl}, {$val->idx})"
+							  |cond="$document->isGranted() && $use_extra_vars_update && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid"
+							  class="itm br<!--@if($val->eid=='link_url')--> link_url<!--@end-->">
+							{$val->name} :
+							<span style="cursor:pointer; text-decoration:underline; text-underline-position:under"
+								  |cond="$document->isGranted() && $use_extra_vars_update && isset($extra_keys_for_update[$val->idx]) && $val->eid === $extra_keys_for_update[$val->idx]->eid">
+								{$document->getExtraValueHTML($val->idx)}
+							</span>
+						</span>
 						<span cond="$val->eid=='rating' && $mi->rating_output == ''"><strong class="starRating"><span style="width:{(float)str_replace(',', '', strip_tags($document->getExtraValueHTML($val->idx)))*10}%">{$document->getExtraValueHTML($val->idx)}</span></strong></span>
 						<span cond="$val->eid=='price' && $document->getExtraValueHTML($val->idx)">{$val->name} :{$mi->f_name} {number_format((float)str_replace(',', '', strip_tags($document->getExtraValueHTML($val->idx))))}{$mi->b_name}</span>
 						<span cond="$val->eid==$mi->icon_url && $document->getExtraValueHTML($val->idx)" style="cursor:pointer">
@@ -331,3 +403,5 @@
 		$container.brickfolio({animation:getAnimation(), filter:getFilter(), loadTime:getLoadTime()});
 	});
 </script>
+
+<include cond="$document->getExtraEidValue($qr_eid)" target="qr.html" />

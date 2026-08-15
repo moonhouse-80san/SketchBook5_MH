@@ -1,0 +1,98 @@
+<!--// QR 이미지 팝업 -->
+<div id="qrImagePopup" class="qr-image-popup" onclick="closeQrPopup();">
+	<div class="qr-image-popup-inner" onclick="event.stopPropagation();">
+		<button type="button" class="qr-image-popup-close" onclick="closeQrPopup();">×</button>
+		<img id="qrPopupImage" src="" alt="QR 이미지">
+	</div>
+</div>
+
+<style>
+	.qr-image-popup {
+		display: none;
+		position: fixed;
+		z-index: 99999;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,.75);
+		align-items: center;
+		justify-content: center;
+	}
+
+	.qr-image-popup-inner {
+		position: relative;
+		max-width: 90vw;
+		max-height: 90vh;
+		padding: 10px;
+		background: #fff;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	.qr-image-popup-inner img {
+		display: block;
+		max-width: 80vw;
+		max-height: 80vh;
+		width: auto;
+		height: auto;
+	}
+
+	.qr-image-popup-close {
+		position: absolute;
+		right: 5px;
+		top: 5px;
+		z-index: 2;
+		width: 32px;
+		height: 32px;
+		border: 0;
+		border-radius: 50%;
+		background: #fff;
+		color: #333;
+		font-size: 25px;
+		line-height: 28px;
+		cursor: pointer;
+	}
+
+	.qr-image-popup-close:hover {
+		background: #eee;
+	}
+</style>
+
+<script>
+	function showQrPopup(src, e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		var popup = document.getElementById('qrImagePopup');
+		var image = document.getElementById('qrPopupImage');
+
+		if (!popup || !image) return false;
+
+		image.src = src;
+		popup.style.display = 'flex';
+
+		document.body.style.overflow = 'hidden';
+
+		return false;
+	}
+
+	function closeQrPopup() {
+		var popup = document.getElementById('qrImagePopup');
+
+		if (!popup) return;
+
+		popup.style.display = 'none';
+		document.getElementById('qrPopupImage').src = '';
+
+		document.body.style.overflow = '';
+	}
+
+	document.addEventListener('keydown', function(e) {
+		if (e.key === 'Escape') {
+			closeQrPopup();
+		}
+	});
+</script>

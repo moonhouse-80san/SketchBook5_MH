@@ -2948,8 +2948,8 @@
 			<var name="faq_style" type="radio">
 				<title xml:lang="ko">✔스타일 프리셋</title>
 				<title xml:lang="en">✔Style Preset</title>
-				<description xml:lang="ko">FAQ 게시판의 스타일을 설정합니다. '공식 FAQ모듈 스타일'은 공식 FAQ모듈과 유사한 스타일로 변형시킵니다.</description>
-				<description xml:lang="en">Sets the style for the FAQ board. 'Official FAQ Module Style' transforms it to a style similar to the official FAQ module.</description>
+				<description xml:lang="ko">답변 내용이 출력 될려면 ⌈ 게시판 설정 > 게시판 정보 > 목록 설정 > 표시 항목 및 순서 > 요약 ⌋ 추가 해줘야 됩니다.</description>
+				<description xml:lang="en">To display the answer content, you need to add "Summary" under 「Board Settings > Board Information > List Settings > Display Items and Order > Summary」.</description>
 				<options value="">
 					<title xml:lang="ko">기본값(기본)</title>
 					<title xml:lang="en">Default Value (Default)</title>
@@ -5049,6 +5049,12 @@
 				<description xml:lang="ko">글 작성 시나 수정 시 관리자만 보이게 수정가능한 확장변수ID(기본 확장 변수ID "admin_select") 본문에서도 관리자전용으로 보이기 위해서는 상단메뉴의 "Hidden 확장변수 입력항목"을 입력하세요. https://moonhouse.co.kr/xetip/550860</description>
 				<description xml:lang="en">Extra variable ID that is only visible and editable by administrators during writing or modification (default extra variable ID "admin_select") To also show as administrator-only in the document, enter the "Hidden Extra Variable Input Item" in the top menu. https://moonhouse.co.kr/xetip/550860</description>
 			</var>
+			<var name="qr" type="text">
+				<title xml:lang="ko">📍 게시판 리스트에 이미지 형식으로 출력할 확장변수 ID</title>
+				<title xml:lang="en">📍 Extra Variable ID for Image Format Output in Board List</title>
+				<description xml:lang="ko">게시판 리스트 목록에 확장변수중 형식이 파일 업로드를 선택했다면 이미지로 썸네일 부분에 출력할 확장변수 ID(웹진형) (기본은 qr)</description>
+				<description xml:lang="en">For the webzine layout, display the uploaded image from the extra variable (file upload type) as the thumbnail in the board list.(Webzine)</description>
+			</var>	
 			<var name="icon_url" type="text">
 				<title xml:lang="ko">📍 게시판 리스트에 버튼 형식으로 출력할 확장변수 ID</title>
 				<title xml:lang="en">📍 Extra Variable ID for Button Format Output in Board List</title>
