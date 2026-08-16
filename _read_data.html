@@ -133,7 +133,7 @@ if(!function_exists('mh_get_zip_version'))
 		<tbody cond="!$mi->files_type">
 			<tr loop="$re_files=>$key,$file">
 				{@ $mh_ver = mh_get_zip_version($file) }
-				<td cond="!$mo && $mh_ver" class="tc"><span>V {$mh_ver}</span></td>
+				<td cond="$mh_has_version" class="tc"><!--@if($mh_ver)--><span>V {$mh_ver}</span><!--@end--></td>
 				<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 				<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 				<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
@@ -169,18 +169,21 @@ if(!function_exists('mh_get_zip_version'))
 		<tbody cond="$mi->files_type">
 			<tr loop="$re_files=>$key,$file">
 				<block cond="!$mi->files_img && $file_types[$key]['ext_img']">
+					<td cond="$mh_has_version" class="tc"></td>
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
 					<td class="tc">{number_format($file->download_count)}</td>
 				</block>
 				<block cond="!$mi->files_video && $file_types[$key]['ext_video']">
+					<td cond="$mh_has_version" class="tc"></td>
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
 					<td class="tc">{number_format($file->download_count)}</td>
 				</block>
 				<block cond="!$mi->files_audio && $file_types[$key]['ext_audio']">
+					<td cond="$mh_has_version" class="tc"></td>
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
@@ -188,7 +191,7 @@ if(!function_exists('mh_get_zip_version'))
 				</block>
 				<block cond="!$mi->files_etc && $file_types[$key]['is_etc']">
 					{@ $mh_ver = mh_get_zip_version($file) }
-					<td cond="$mh_ver" class="tc"><a href="{getUrl('')}{$file->download_url}"><span><i class="xi-download-bottom"></i> {$mh_ver}</span></a></td>
+					<td cond="$mh_has_version" class="tc"><!--@if($mh_ver)--><a href="{getUrl('')}{$file->download_url}"><span><i class="xi-download-bottom"></i> {$mh_ver}</span></a><!--@end--></td>
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
