@@ -46,7 +46,8 @@ function loadStickerList(page, parent_srl, comment_srl){
 			html += '<div title="'+sticker[i].title+'">';
 			// if ends with .mp4
 			if (sticker[i].main_image.match(/\.mp4$/)) {
-				html += '<video width="30" height="30" autoplay loop muted playsinline>';
+				var poster = sticker[i].main_image.replace(/\.mp4$/, '.webp');
+				html += '<video width="30" height="30" poster="'+poster+'" preload="metadata" loading="lazy" autoplay loop muted playsinline>';
 				html += '<source src="'+sticker[i].main_image+'" type="video/mp4">';
 				html += '</video>';
 			} else {
@@ -108,7 +109,8 @@ function loadSticker(sticker_srl, parent_srl, comment_srl){
 				html += '<li>';
 				html += '<a href="javascript:;" onclick="insertSticker('+sticker_srl+', '+image.sticker_file_srl+', '+(parent_srl ? parent_srl : 'false')+', '+(comment_srl ? comment_srl : 'false')+')" title="'+image.name+'">';
 				if (image.url.match(/\.mp4$/)) {
-					html += '<video width="90" height="90" autoplay loop muted playsinline>';
+					var poster = image.url.replace(/\.mp4$/, '.webp');
+					html += '<video width="90" height="90" poster="'+poster+'" preload="metadata" loading="lazy" autoplay loop muted playsinline>';
 					html += '<source src="'+image.url+'" type="video/mp4">';
 					html += '</video>';
 				} else {
