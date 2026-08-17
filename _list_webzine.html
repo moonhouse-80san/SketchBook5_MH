@@ -89,33 +89,51 @@
 				<!--// 썸네일 영역 -->
 				<div cond="$list_config['thumbnail']" class="tmb_wrp ribbon_v{$mi->ribbon_style}">
 
-					<!--// QR 확장변수가 있으면 QR 이미지를 썸네일로 사용 -->
+					<!--// 본문에 "썸네일" 체크된 이미지가 있으면 그것을 우선 사용 / 없으면 QR 확장변수 이미지, 그것도 없으면 Club주소로 자동 생성 -->
 					{@
 						$qr_eid = trim($mi->qr ?? '');
 						if($qr_eid == '') $qr_eid = 'qr';
+
+						// "썸네일" 체크(cover_image='Y')된 첨부 이미지가 있는지 확인 (Rhymix는 체크 없어도 첫 이미지를 자동으로 썸네일 처리하므로 명시적으로 검사)
+						$has_cover_thumbnail = false;
+						if($document->hasUploadedFiles()):
+							foreach($document->getUploadedFiles() as $mh_tmb_file):
+								if($mh_tmb_file->cover_image === 'Y'):
+									$has_cover_thumbnail = true;
+									break;
+								endif;
+							endforeach;
+						endif;
 					}
-					<block cond="$document->getExtraEidValue($qr_eid)">
+
+					<!--// 본문 썸네일 지정 이미지 (글쓰기시 "썸네일" 체크한 이미지) -->
+					<block cond="$has_cover_thumbnail && $document->thumbnailExists()">
+						<span cond="$mi->tmb_effect=='2'" class="no_img loading"></span>
+						<img class="tmb" src="{$document->getThumbnail($mi->zine_thumb_width,$mi->zine_thumb_height,$mi->zine_thumb_type)}" alt="" />
+					</block>
+
+					<!--// 본문 썸네일 체크가 없고 QR 확장변수가 있으면 QR 이미지를 썸네일로 사용 / 없으면 Club주소로 자동 생성 -->
+					<block cond="!$has_cover_thumbnail && $document->getExtraEidValue($qr_eid)">
 						{@
 							$qr_file_srl = $document->getExtraEidValue($qr_eid);
 							$qr_file = FileModel::getFile($qr_file_srl);
 						}
-						<a cond="$qr_file && $qr_file->uploaded_filename" href="javascript:void(0);" class="qr_extra_image" onclick="showQrPopup('{$qr_file->uploaded_filename}', event);" title="QR 이미지 크게 보기">
-							<img src="{$qr_file->uploaded_filename}" alt="QR" class="tmb" style="cursor:pointer; margin-right:20px; width:{$mi->zine_thumb_width}px; height:{$mi->zine_thumb_type}px" />
+						<a cond="$qr_file && $qr_file->uploaded_filename" href="javascript:void(0);" class="qr_extra_image" onclick="event.stopPropagation(); showQrPopup('{$qr_file->uploaded_filename}', event);" title="QR 이미지 크게 보기">
+							<img src="{$qr_file->uploaded_filename}" alt="QR" class="tmb" style="cursor:pointer; margin-right:20px; width:{$mi->zine_thumb_width}px; height:{$mi->zine_thumb_height}px" />
 						</a>
 					</block>
 
-					<!--// QR이 없을 때 기존 썸네일 출력 -->
-					<block cond="!$document->getExtraEidValue($qr_eid)">
-						<span cond="!$document->thumbnailExists()" class="no_img tmb">No Image</span>
-
-						<block cond="$document->thumbnailExists()">
-							<span cond="$mi->tmb_effect=='2'" class="no_img loading"></span>
-							<img class="tmb" src="{$document->getThumbnail($mi->zine_thumb_width,$mi->zine_thumb_height,$mi->zine_thumb_type)}" alt="" />
-						</block>
+					<!--// 셋 다 없으면 첨부된 이미지가 있는 경우 자동으로 썸네일 사용 (Rhymix 기본 동작) -->
+					<block cond="!$has_cover_thumbnail && !$document->getExtraEidValue($qr_eid) && $document->thumbnailExists()">
+						<span cond="$mi->tmb_effect=='2'" class="no_img loading"></span>
+						<img class="tmb" src="{$document->getThumbnail($mi->zine_thumb_width,$mi->zine_thumb_height,$mi->zine_thumb_type)}" alt="" />
 					</block>
 
+					<!--// 정말 아무 이미지도 없을 때만 No Image -->
+					<span cond="!$document->getExtraEidValue($qr_eid) && !$document->thumbnailExists()" class="no_img tmb">No Image</span>
+
 					<!--// 리본 -->
-					<block cond="$mi->zine_ribbon!='N' && !$document->getExtraEidValue($qr_eid)">
+					<block cond="($mi->zine_ribbon!='N' && !$document->getExtraEidValue($qr_eid) && $document->thumbnailExists()) || ($has_cover_thumbnail && $document->thumbnailExists())">
 						<block cond="!$mi->zine_ribbon || $mi->zine_ribbon=='new_date'">
 							<!--@if((int)($document->getRegdate('YmdHis')>date("YmdHis", time()-$mi->duration_new*60*60)))-->
 								<span class="ribbon nnu new"><i>NEW</i></span>
@@ -394,4 +412,5 @@
 	});
 </script>
 
-<include cond="$document->getExtraEidValue($qr_eid)" target="qr.html" />
+<!--// QR 이미지 팝업 (리스트 어디서든 한 번만 로드) -->
+<include target="qr.html" />

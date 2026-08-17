@@ -5054,7 +5054,7 @@
 				<title xml:lang="en">📍 Extra Variable ID for Image Format Output in Board List</title>
 				<description xml:lang="ko">게시판 리스트 목록에 확장변수중 형식이 파일 업로드를 선택했다면 이미지로 썸네일 부분에 출력할 확장변수 ID(웹진형) (기본은 qr)</description>
 				<description xml:lang="en">For the webzine layout, display the uploaded image from the extra variable (file upload type) as the thumbnail in the board list.(Webzine)</description>
-			</var>	
+			</var>
 			<var name="icon_url" type="text">
 				<title xml:lang="ko">📍 게시판 리스트에 버튼 형식으로 출력할 확장변수 ID</title>
 				<title xml:lang="en">📍 Extra Variable ID for Button Format Output in Board List</title>
