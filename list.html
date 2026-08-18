@@ -106,7 +106,6 @@ jQuery(function($){
 				<!--@end-->
 				</block>
 				<block cond="!$oDocument->isExists()">
-				<a cond="!$mi->write_btn || ($mi->write_btn!=='N' && $grant->write_document)" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardWrite', 'category', $category ?? null)}"><b class="ico_16px write"></b>{$mi->write_buten}</a>
 				<span cond="$mi->font_btn=='2'" class="font_select"><a class="select tg_btn2" href="#" data-href=".bd_font_select"><b class="tx_ico_chk">T</b>{$lang->font}<i class="arrow down"></i></a></span>
 				<block cond="$grant->manager && !$mi->guest_view == ''">
 				<a href="{getUrl('', 'mid', $mid, 'act','dispBoardAdminBoardInfo')}"><b class="ico_16px setup"></b>{$lang->cmd_setup}</a>
@@ -137,6 +136,13 @@ jQuery(function($){
 			</div>
 
 			<center><div cond="$grant->manager && $mi->write_top == 'Y'" class="sbtn_small sbtn-orange" style="margin-bottom:10px"><a href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl','')}"><i class="fas fa-user-edit"></i> {$mi->write_buten}</a></div></center>
+
+			<div  class="fr"style="margin:-30px 15px 0 0">
+				<a cond="!$mi->write_btn || ($mi->write_btn!=='N' && $grant->write_document)" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardWrite', 'category', $category ?? null)}"><b class="ico_16px write"></b>{$mi->write_buten}</a>
+				<span scope="col" cond="$grant->manager && $mi->default_style!='list' && $mi->default_style!='double'" class="m_no" style="margin-left:10px">
+					<span><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true });" class="iCheck" title="Check All" /></span>
+				</span>
+			</div>
 
 			<!--// 카테고리 -->
 			<div class="cnb_n_list">

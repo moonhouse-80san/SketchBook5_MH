@@ -153,27 +153,22 @@
 							<i cond="$mi->zine_ribbon=='cate' && $document->get('category_srl')" class="cate">
 								{$category_list[$document->get('category_srl')]->title}
 							</i>
-
 							<i cond="$mi->zine_ribbon=='date'" class="date">
 								<b>{$document->getRegdate("d")}</b>
 								<small>{$document->getRegdate("M")}</small>
 							</i>
-
 							<i cond="$mi->zine_ribbon=='read'">
 								<b>{$document->get('readed_count')}</b>
 								<small>Views</small>
 							</i>
-
 							<i cond="$mi->zine_ribbon=='vote'">
 								<b>{$document->get('voted_count')}</b>
 								<small>Likes</small>
 							</i>
-
 							<i cond="$mi->zine_ribbon=='cmt'">
 								<b>{$document->getCommentCount()}</b>
 								<small>Replies</small>
 							</i>
-
 							<i cond="$mi->zine_ribbon=='extra'">
 								{$document->getExtraValueHTML($mi->extra_num)}
 								<!--//<small>{@$extravar_list = $document->getExtraVars()}{$extravar_list[$mi->extra_num]->name}</small>-->
@@ -346,7 +341,7 @@
 					</block>
 				</block>
 				<block cond="@in_array('zine',$mi->ext_img?:[])"><span class="extraimages">{$document->printExtraImages(60*60*$mi->duration_new)}</span></block>
-				<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
+				<input cond="$grant->manager" type="checkbox" name="cart" value="{$document->document_srl}" title="Check" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" style="position:absolute; top:8px; right:8px; z-index:10" />
 				<a cond="$mi->link_board && $document->isEditable()" class="link_modify" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl',$document->document_srl,'comment_srl','')}">{$lang->cmd_modify}</a>
 			</div>
 		</div>
