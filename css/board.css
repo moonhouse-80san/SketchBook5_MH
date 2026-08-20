@@ -257,6 +257,26 @@ h1, h2, h3, h4, h5, h6,
 .cnb4 .on>a,.cnb4 a:hover,.cnb4 a:focus{border-color:#333;color:#333;text-shadow:none}
 .cnb3.center{text-align:center}
 .cnb3.center li{float:none;display:inline-block;*display:inline;*zoom:1}
+/* Dril Style */
+.mh_cnb_drill{margin-bottom:15px}
+.mh_cnb_levels{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.mh_cnb_levels a.mh_cnb_flat{display:inline-block;margin:0;padding:7px 16px;border:1px solid #e2e2e2;border-radius:20px;background:#fff;box-shadow:none;color:#555;text-decoration:none;font-size:13px;font-weight:normal;line-height:normal;transition:background .15s,border-color .15s}
+.mh_cnb_levels a.mh_cnb_flat:hover{background:#f5f5f5}
+.mh_cnb_levels a.mh_cnb_flat.on{background:#555;border-color:#d7e2ee;color:#fff;font-weight:bold}
+.mh_cnb_levels a.mh_cnb_reset{display:inline-block;margin:0;padding:7px 16px;border:1px solid #e2e2e2;border-radius:20px;background:#555;box-shadow:none;color:#fff;text-decoration:none;font-size:13px;font-weight:normal;line-height:normal;transition:background .15s,border-color .15s}
+.mh_cnb_levels a.mh_cnb_reset:hover{text-decoration:underline;background:none}
+.mh_cnb_levels .mh_cnb_arrow{color:#bbb;font-size:13px}
+.mh_cnb_levels select{padding:7px 10px;border:1px solid #ddd;border-radius:6px;background:#fff;color:#333;font-size:13px;min-width:130px;max-width:220px}
+.mh_cnb_levels select:focus{outline:none;border-color:#999}							.mh_cnb_drill{margin-bottom:15px}
+.mh_cnb_levels{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.mh_cnb_levels a.mh_cnb_flat{display:inline-block;margin:0;padding:7px 16px;border:1px solid #e2e2e2;border-radius:20px;background:#fff;box-shadow:none;color:#555;text-decoration:none;font-size:13px;font-weight:normal;line-height:normal;transition:background .15s,border-color .15s}
+.mh_cnb_levels a.mh_cnb_flat:hover{background:#f5f5f5}
+.mh_cnb_levels a.mh_cnb_flat.on{background:#555;border-color:#d7e2ee;color:#fff;font-weight:bold}
+.mh_cnb_levels a.mh_cnb_reset{display:inline-block;margin:0;padding:7px 16px;border:1px solid #e2e2e2;border-radius:20px;background:#555;box-shadow:none;color:#fff;text-decoration:none;font-size:13px;font-weight:normal;line-height:normal;transition:background .15s,border-color .15s}
+.mh_cnb_levels a.mh_cnb_reset:hover{text-decoration:underline;background:none}
+.mh_cnb_levels .mh_cnb_arrow{color:#bbb;font-size:13px}
+.mh_cnb_levels select{padding:7px 10px;border:1px solid #ddd;border-radius:6px;background:#fff;color:#333;font-size:13px;min-width:130px;max-width:220px}
+.mh_cnb_levels select:focus{outline:none;border-color:#999}
 
 /* List Bottom */
 .btm_mn{position:relative;margin-top:-1px;padding:10px 10px 0;border-top:1px solid #CCC}
