@@ -112,7 +112,7 @@
 
 	<!--// 모바일 스티커모듈 -->
 	<div cond="$mi->stick=='Y' && $mi->cmt_wrt=='simple' && $mo" class="sbtn_mini sbtn-orange" style="margin-right:8px; float:right">
-		<a class="tg_btn2" href="javascript:;" onclick="loadStickerList();"><i class="fas fa-stamp"></i> {$lang->stick}</a>
+		<a class="tg_btn2" href="javascript:;" onclick="loadStickerList();" style="font-size:12px">{$lang->stick}</a>
 	</div>
 
 	<!--// Editor Select -->
@@ -125,11 +125,6 @@
 			<span class="bubble_edge"></span><button type="button" class="tg_blur2"></button>
 			<!--// ie8; --><i class="ie8_only bl"></i><i class="ie8_only br"></i>
 		</div>
-	</div>
-
-	<!--// 댓글 스티커모듈 * 자동 댓글 애드온 사용 안함-->
-	<div cond="$mi->stick=='Y' && $mi->cmt_wrt=='simple' && $mi->auto_comment==''" class="editor_select bubble fr m_no sbtn_mini sbtn-orange" style="margin-right:8px">
-		<a class="tg_btn2" href="javascript:;" onclick="loadStickerList();"><i class="fas fa-stamp"></i> {$lang->stick}</a>
 	</div>
 
 	<!--@if($grant->write_comment && $oDocument->isEnableComment())-->
@@ -198,8 +193,8 @@
 			</div>
 
 			<!--// 댓글 스티커모듈 * 자동 댓글 애드온 사용 -->
-			<div cond="$mi->stick=='Y' && $mi->cmt_wrt=='simple' && !$mi->auto_comment==''" class="editor_select bubble fr m_no sbtn_mini sbtn-orange" style="margin-top:-25px">
-				<a class="tg_btn2" href="javascript:;" onclick="loadStickerList();"><i class="fas fa-stamp"></i> {$lang->stick}</a>
+			<div cond="$is_logged && $mi->stick=='Y' && $mi->cmt_wrt=='simple' && !$mi->auto_comment==''" class="editor_select bubble fr m_no sbtn_mini sbtn-orange" style="margin-top:-25px; margin-right:10px">
+				<a class="tg_btn2" href="javascript:;" onclick="loadStickerList();" style="font-size:12px">{$lang->stick}</a>
 			</div>
 
 			<!--// 스티커모듈 -->
@@ -226,8 +221,8 @@
 			</div>
 
 			<!--// 대댓글 스티커모듈 * 자동 댓글 애드온 사용 안함 -->
-			<div cond="$mi->stick=='Y' && $mi->auto_comment==''" class="editor_select bubble fr m_no sbtn_mini sbtn-orange" style="margin-right:8px">
-				<a class="tg_btn2 reply_stk" href="javascript:;" onclick="loadStickerList(1, 'reply');"><i class="fas fa-stamp"></i> {$lang->stick}</a>
+			<div cond="$is_logged && $mi->stick=='Y' && $mi->auto_comment==''" class="editor_select bubble fr m_no sbtn_mini sbtn-orange" style="margin-right:8px">
+				<a class="tg_btn2 reply_stk" href="javascript:;" onclick="loadStickerList(1, 'reply');" style="font-size:12px">{$lang->stick}</a>
 			</div>
 
 			<form action="./" method="post" onsubmit="return procFilter(this,insert_comment)" class="bd_wrt clear">
@@ -244,8 +239,8 @@
 				</div>
 
 			<!--// 대댓글 스티커모듈 * 자동 댓글 애드온 사용 -->
-			<div cond="$mi->stick=='Y' && !$mi->auto_comment==''" class="editor_select bubble fr m_no sbtn_mini sbtn-orange" style="margin:-25px 90px 0 0">
-				<a class="tg_btn2 reply_stk" href="javascript:;" onclick="loadStickerList(1, 'reply');"><i class="fas fa-stamp"></i> {$lang->stick}</a>
+			<div cond="$is_logged && $mi->stick=='Y' && !$mi->auto_comment==''" class="editor_select bubble fr m_no sbtn_mini sbtn-orange" style="margin:-25px 90px 0 0">
+				<a class="tg_btn2 reply_stk" href="javascript:;" onclick="loadStickerList(1, 'reply');" style="font-size:12px">{$lang->stick}</a>
 			</div>
 
 				<div class="edit_opt">
