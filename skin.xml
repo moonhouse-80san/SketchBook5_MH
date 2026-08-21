@@ -630,7 +630,20 @@
 					<title xml:lang="ko">표시 안함</title>
 					<title xml:lang="en">Hide</title>
 				</options>
-
+			</var>
+			<var name="cnb_drill_preview" type="radio">
+				<title xml:lang="ko">　└ 드릴다운 1차 분류 미리보기</title>
+				<title xml:lang="en">　└ Drilldown Level-1 Hover Preview</title>
+				<description xml:lang="ko">'드릴다운 스타일'에서 1차 분류에 마우스를 올렸을 때 하위 분류를 미리 보여줍니다.</description>
+				<description xml:lang="en">In 'Drilldown Style', shows a preview of subcategories when hovering over a level-1 category.</description>
+				<options value="Y">
+					<title xml:lang="ko">사용(기본)</title>
+					<title xml:lang="en">Use (Default)</title>
+				</options>
+				<options value="">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="en">Disable</title>
+				</options>
 			</var>
 			<var name="cnb_count" type="radio">
 				<title xml:lang="ko">　└ 카테고리 게시물 수 표시</title>

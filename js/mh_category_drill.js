@@ -48,6 +48,8 @@
 			var totalCount = $wrap.attr('data-total_count') || '0';
 			var urlTpl = $wrap.attr('data-list_url_tpl') || '';
 			var currentCategory = parseInt($wrap.attr('data-current_category'), 10) || 0;
+			var previewEnabled = $wrap.attr('data-preview') === 'Y';
+			var showCount = $wrap.attr('data-show_count') === 'Y';
 
 			var $levels = $wrap.find('.mh_cnb_levels');
 			var $ajaxTarget = $('#mh_ajax_target');
@@ -70,14 +72,18 @@
 				return $('<div>').text(str == null ? '' : String(str)).html();
 			}
 
+			function labelWithCount(title, count){
+				return showCount ? (title + ' (' + count + ')') : title;
+			}
+
 			// parentSrl 밑의 자식들을 고르는 select 하나를 만든다.
 			function buildSelect(parentSrl, kids, selectedSrl){
 				var $select = $('<select></select>').attr('data-level-parent', parentSrl);
-				var totalLabel = (parentSrl === 0) ? ('전체 (' + totalCount + ')') : '전체';
+				var totalLabel = (parentSrl === 0) ? labelWithCount('전체', totalCount) : '전체';
 				$select.append($('<option></option>').attr('value', parentSrl).text(totalLabel));
 				for(var k=0; k<kids.length; k++){
 					var kid = kids[k];
-					$select.append($('<option></option>').attr('value', kid.srl).text(kid.title + ' (' + kid.count + ')'));
+					$select.append($('<option></option>').attr('value', kid.srl).text(labelWithCount(kid.title, kid.count)));
 				}
 				$select.val(selectedSrl != null ? selectedSrl : parentSrl);
 				return $select;
@@ -88,7 +94,7 @@
 				$levels.empty();
 				var $all = $('<a href="#" class="mh_cnb_flat on"></a>')
 					.attr('data-srl', 0)
-					.text('전체 (' + totalCount + ')');
+					.text(labelWithCount('전체', totalCount));
 				$levels.append($all);
 
 				var topKids = childrenOf[0] || [];
@@ -96,11 +102,27 @@
 					var tk = topKids[t];
 					var $a = $('<a href="#" class="mh_cnb_flat"></a>')
 						.attr('data-srl', tk.srl)
-						.text(tk.title + ' (' + tk.count + ')');
+						.text(labelWithCount(tk.title, tk.count));
 					if(tk.color && tk.color !== 'transparent'){
 						$a.css('color', tk.color);
 					}
-					$levels.append($a);
+
+					var grandKids = previewEnabled ? childrenOf[tk.srl] : null;
+					if(grandKids && grandKids.length){
+						var $preview = $('<div class="mh_cnb_preview"></div>');
+						for(var g=0; g<grandKids.length; g++){
+							var gk = grandKids[g];
+							$preview.append(
+								$('<a href="#"></a>')
+									.attr('data-srl', gk.srl)
+									.text(labelWithCount(gk.title, gk.count))
+							);
+						}
+						var $wrap = $('<span class="mh_cnb_flat_wrap"></span>').append($a).append($preview);
+						$levels.append($wrap);
+					}else{
+						$levels.append($a);
+					}
 				}
 			}
 

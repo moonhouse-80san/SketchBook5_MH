@@ -27,6 +27,12 @@ jQuery(function($){
 	});
 </script>
 
+<script cond="$mi->board_table==''">
+	$(function() {
+		$('.rhymix_content table').wrap('<div style="overflow-x:auto"></div>');
+	});
+</script>
+
 <!--// 뷰어로 보기 -->
 <include cond="$mi->default_style=='viewer' && $grant->view" target="_viewer.html" />
 <block cond="$mi->default_style!='viewer'">
@@ -201,7 +207,7 @@ jQuery(function($){
 							endforeach;
 							$mh_cnb_json = json_encode($mh_cnb_flat, JSON_HEX_TAG|JSON_UNESCAPED_UNICODE);
 						}
-						<div class="mh_cnb_drill" data-current_category="{$category}" data-total_count="{$total_count}" data-list_url_tpl="{getUrl('category','__MH_CATEGORY__','page','','document_srl','')}">
+						<div class="mh_cnb_drill<!--@if(!$mi->select_lst)--> mh_cnb_has_type_selector<!--@end-->" data-current_category="{$category}" data-total_count="{$total_count}" data-preview="{$mi->cnb_drill_preview}" data-show_count="{$mi->cnb_count}" data-list_url_tpl="{getUrl('category','__MH_CATEGORY__','page','','document_srl','')}">
 							<script type="application/json" class="mh_cnb_data">{$mh_cnb_json}</script>
 							<div class="mh_cnb_levels"></div>
 						</div>
