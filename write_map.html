@@ -4,13 +4,17 @@
 <block cond="!$mi->getLevel">{@ $mi->getLevel = '9'}</block>
 
 <script>
-jQuery(document).ready(function($){
-	$(".mflip").toggle(function(){
-	$(".mpanel").fadeOut(100);
-	},function(){
-	$(".mpanel").toggle()
+	jQuery(document).ready(function($){
+		var mflipOn = false;
+		$(".mflip").on("click", function(){
+			if (!mflipOn) {
+				$(".mpanel").fadeOut(100);
+			} else {
+				$(".mpanel").toggle();
+			}
+			mflipOn = !mflipOn;
+		});
 	});
-});
 </script>
 
 <div class="mflip"><span class="btn"><i class="fa fa-plus-square fa-lg" style="margin-right:5px; color:#ff6600;"></i>지도 숨김</span></div>
