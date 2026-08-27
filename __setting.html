@@ -325,7 +325,7 @@
 	.bd_zine .tmb_wrp .no_img{width:{$mi->zine_thumb_width}px;height:{$mi->zine_thumb_height}px;line-height:{$mi->zine_thumb_height}px}
 	.bd_zine .cnt { -webkit-line-clamp:{$mi->content_cut_height}; }
 	<!--@if(!isset($mi->dark_mode) || $mi->dark_mode!='Y')-->
-	.bd_zine>li>a{display:block;position:absolute;top:-1px;bottom:-1px;left:-1px;right:-1px;border:2px solid transparent;background-image:url(../img/blank.gif);text-decoration:none}
+	.bd_zine>li>a{display:block;position:absolute;top:-1px;bottom:-1px;left:-1px;right:-1px;border:2px solid transparent;text-decoration:none}
 	.bd_zine a:hover,.bd_zine a:focus,.bd_zine .select a{border-color:#{$mi->color}; border-radius:5px}
 	<!--@else-->
 	.bd_zine li,.bd_zine li{border:2px solid transparent; }
