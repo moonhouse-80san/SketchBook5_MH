@@ -288,17 +288,17 @@ if(default_style=='webzine'){
 			if(typeof editorStartTextarea === 'function'){
 				editorStartTextarea(2,'content','comment_srl');
 			} else {
-				$.getScript("modules/editor/tpl/js/editor_common.min.js",function(){
+				$.getScript("/modules/editor/tpl/js/editor_common.js",function(){
 					editorStartTextarea(2,'content','comment_srl');
 				});
 			}
 		}
 	} else {
-		$.getScript("modules/editor/tpl/js/editor_common.min.js",function(){
+		$.getScript("/modules/editor/tpl/js/editor_common.js",function(){
 			if($('#re_cmt').length) editorStartTextarea(2,'content','comment_srl');
 			var cmtWrt = bd.find('form.cmt_wrt textarea');
 			if(bd.find('form.bd_wrt_main textarea').length){
-				$.getScript('files/cache/js_filter_compiled/35d29adbe4b14641f9eac243af40093b.'+lang_type+'.compiled.js');
+				$.getScript('/files/cache/js_filter_compiled/35d29adbe4b14641f9eac243af40093b.'+lang_type+'.compiled.js');
 				editorStartTextarea(1,'content','document_srl');
 			};
 			cmtWrt.each(function(){
@@ -385,7 +385,9 @@ if(bd.find('div.rd').length){
 		$(window).scroll(function(){
 			var sT = $(this).scrollTop();
 			var o = bd.find('div.rd_nav_side .rd_nav');
-			if((sT > bd.find('div.rd_body').offset().top) && (sT < bd.find('hr.rd_end').offset().top-$(this).height())){
+			var $rdBody = bd.find('div.rd_body');
+			var $rdEnd = bd.find('hr.rd_end');
+			if($rdBody.length && $rdEnd.length && (sT > $rdBody.offset().top) && (sT < $rdEnd.offset().top-$(this).height())){
 				o.fadeIn(200);
 			} else {
 				o.fadeOut(200);
@@ -455,12 +457,12 @@ if(bd.find('div.rd').length){
 			if(typeof editorStartTextarea === 'function'){
 				editorStartTextarea(2,'content','comment_srl');
 			} else {
-				$.getScript(request_uri+'modules/editor/tpl/js/editor_common.min.js',function(){
+				$.getScript('/modules/editor/tpl/js/editor_common.js',function(){
 					editorStartTextarea(2,'content','comment_srl');
 				});
 			}
 		} else {
-			$.getScript(request_uri+'modules/editor/tpl/js/editor_common.min.js',function(){
+			$.getScript('/modules/editor/tpl/js/editor_common.js',function(){
 				editorStartTextarea(2,'content','comment_srl');
 				var cmtWrt = bd.find('form.cmt_wrt textarea');
 				if(default_style=='blog'){
