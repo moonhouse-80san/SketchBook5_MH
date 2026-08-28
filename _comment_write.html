@@ -89,24 +89,75 @@
 		});
 
 		function injectRatingIntoContent(form) {
-			var $textarea = $(form).find('textarea').first();
+			var $form = jQuery(form);
+			var $textarea = $form.find('textarea').first();
 			if (!$textarea.length) return true;
 
 			/* 댓글 내용이 비어있으면 등록 차단 */
-			if ($.trim($textarea.val()) === '') {
+			if (jQuery.trim($textarea.val()) === '') {
 				alert('댓글 내용을 입력해 주세요.');
 				$textarea.focus();
 				return false;
 			}
 
-			var ratingVal = parseInt($('#rv-rating').val(), 10) || 5;
+			var ratingVal = parseInt(jQuery('#rv-rating').val(), 10) || 5;
 			var currentVal = $textarea.val();
 			/* 이미 삽입된 경우 중복 방지 */
-			if (currentVal.indexOf('[RV:') === 0) return true;
+			if (currentVal.indexOf('[RV:') !== 0) {
+				/* 별점을 텍스트 마커로 저장: [RV:숫자] */
+				$textarea.val('[RV:' + ratingVal + ']' + currentVal);
+			}
 
-			/* 별점을 텍스트 마커로 저장: [RV:숫자] */
-			$textarea.val('[RV:' + ratingVal + ']' + currentVal);
+			/* simple 모드: textarea → hidden content 동기화 (editorStartTextarea 대체) */
+			var $content = $form.find('input[name=content]');
+			if ($content.length) {
+				$content.val($textarea.val().replace(/(\r\n|\n)/g, '<br />'));
+			}
 			return true;
+		}
+	</script>
+
+	<script>
+		/* 대댓글 등 simple textarea → content 동기화 */
+		function syncSimpleCommentContent(form) {
+			var $form = jQuery(form);
+			var $textarea = $form.find('textarea').first();
+			if (!$textarea.length) return true;
+			if (jQuery.trim($textarea.val()) === '') {
+				alert('댓글 내용을 입력해 주세요.');
+				$textarea.focus();
+				return false;
+			}
+			var $content = $form.find('input[name=content]');
+			if ($content.length) {
+				$content.val($textarea.val().replace(/(\r\n|\n)/g, '<br />'));
+			}
+			return true;
+		}
+
+		/* Rhymix 최신 버전에서 제거된 editorStartTextarea 폴리필 (board.js ReferenceError 방지) */
+		if (typeof window.editorStartTextarea !== 'function') {
+			window.editorStartTextarea = function (editor_sequence, content_key, primary_key) {
+				var textarea = document.getElementById('editor_' + editor_sequence);
+				if (!textarea) return;
+				if (typeof window.editorRelKeys === 'undefined') window.editorRelKeys = [];
+				window.editorRelKeys[editor_sequence] = {
+					primary: document.getElementsByName(primary_key)[0] || { value: '' },
+					content: document.getElementsByName(content_key)[0] || null,
+					func: function () {
+						return (textarea.value || '').replace(/(\r\n|\n)/g, '<br />');
+					}
+				};
+				var form = textarea.closest ? textarea.closest('form') : null;
+				if (form && window.editorRelKeys[editor_sequence].content) {
+					jQuery(form).off('submit.editorStartTextarea').on('submit.editorStartTextarea', function () {
+						var rel = window.editorRelKeys[editor_sequence];
+						if (rel && rel.content) {
+							rel.content.value = rel.func();
+						}
+					});
+				}
+			};
 		}
 	</script>
 
@@ -127,8 +178,13 @@
 		</div>
 	</div>
 
+	<!--// 댓글 스티커모듈 * 자동 댓글 애드온 사용 안함-->
+	<div cond="$mi->stick=='Y' && $mi->cmt_wrt=='simple' && $mi->auto_comment==''" class="editor_select bubble fr m_no sbtn_mini sbtn-orange" style="margin-right:8px">
+		<a class="tg_btn2" href="javascript:;" onclick="loadStickerList();"><i class="fas fa-stamp"></i> {$lang->stick}</a>
+	</div>
+
 	<!--@if($grant->write_comment && $oDocument->isEnableComment())-->
-		<form action="./" method="post" onsubmit="return injectRatingIntoContent(this) && procFilter(this, insert_comment)" class="bd_wrt cmt_wrt clear">
+		<form action="./" method="post" onsubmit="return (typeof injectRatingIntoContent==='function' ? injectRatingIntoContent(this) : syncSimpleCommentContent(this)) && procFilter(this, insert_comment)" class="bd_wrt cmt_wrt clear">
 			<input type="hidden" name="mid" value="{$mid}" />
 			<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
 			<input type="hidden" name="comment_srl" value="" />
@@ -225,7 +281,7 @@
 				<a class="tg_btn2 reply_stk" href="javascript:;" onclick="loadStickerList(1, 'reply');" style="font-size:12px">{$lang->stick}</a>
 			</div>
 
-			<form action="./" method="post" onsubmit="return procFilter(this,insert_comment)" class="bd_wrt clear">
+			<form action="./" method="post" onsubmit="return syncSimpleCommentContent(this) && procFilter(this,insert_comment)" class="bd_wrt clear">
 				<input type="hidden" name="mid" value="{$mid}" />
 				<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
 				<input type="hidden" name="content" value="" />
