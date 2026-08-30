@@ -985,6 +985,10 @@ body.viewer_blk{background:#222}
 .bd_cloud.no_rd a{width:212px;margin:8px}
 .bd_cloud.no_rd a:hover{-ms-transform:scale(1) !important;transform:scale(1) !important}
 .use_np .bd_cloud em{font-size:18px}
+.mh_cnb_levels{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding-bottom:6px;scrollbar-width:none}
+.mh_cnb_levels::-webkit-scrollbar{display:none}
+.mh_cnb_levels a.mh_cnb_flat,.mh_cnb_levels a.mh_cnb_reset,.mh_cnb_levels .mh_cnb_arrow,.mh_cnb_levels select,.mh_cnb_flat_wrap{flex:0 0 auto}
+.mh_cnb_levels a.mh_cnb_flat,.mh_cnb_levels a.mh_cnb_reset{white-space:nowrap}
 }
 /* android 800x480 landscape */
 @media screen and (max-width:533px){
