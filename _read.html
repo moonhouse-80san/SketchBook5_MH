@@ -517,12 +517,10 @@
 				<a class="pinterest bubble" href="#" data-type="pinterest" title="To Pinterest"><b class="ico_sns pinterest">Pinterest</b></a>
 				<!--@if($mo)-->
 				<a class="band" href="bandapp://create/post?text={$sns_title}%0A{$sns_link}"><b class="ico_sns band">Band</b></a>
-				<a class="kakaostory bubble" href="#" data-type="kakaostory"><b class="ico_sns kakaostory">KakaoStory</b></a>
 				<a class="kakao bubble" href="javascript:sendLink()" ><b class="ico_sns kakao">Kakao</b></a>
 				<a class="line" href="//line.me/R/msg/text/?{$sns_title}%0D%0A{$sns_link}"><b class="ico_sns line">Line</b></a>
 				<!--@else-->
 				<a class="band bubble" href="#" data-type="band" title="To Band"><b class="ico_sns band">Band</b></a>
-				<a class="kakaostory bubble" href="#" onclick="javascript:window.open('https://story.kakao.com/s/share?url='+encodeURIComponent(document.URL), 'kakaostorysharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=600'); return false;" target="_blank" title="To KakaoStory"><b class="ico_sns kakaostory">KakaoStory</b></a>
 				<a class="kakao bubble" href="javascript:sendLink()" data-type="kakao" title="To Kakao"><b class="ico_sns kakao">Kakao</b></a>
 				<!--@end-->
 			</div>
