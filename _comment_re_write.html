@@ -1,4 +1,7 @@
 <!--@if($grant->write_comment && $oDocument->isEnableComment())-->
+	{@
+		$sticker_installed = (bool) getController('sticker');
+	}
 	<!--// 대댓글 -->
 	<div cond="$rd_idx==0" id="re_cmt">
 		<label for="editor_2" class="cmt_editor_tl fl"><i class="fa fa-share fa-flip-vertical re"></i><strong>{$lang->write_comment}</strong></label>
@@ -50,7 +53,7 @@
 				</form>
 
 				<!--// 대댓글 스티커모듈 -->
-				<div cond="$mi->stick=='Y'" class="stk_cmt_reply">
+				<div cond="$mi->stick=='Y' && $sticker_installed" class="stk_cmt_reply">
 					<div class="stk_display display-toggle" style="width:100%">
 						<div class="stk_head">
 							<ul class="sticker_pack">

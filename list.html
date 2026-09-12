@@ -81,7 +81,7 @@ jQuery(function($){
 			<include target="_wizard.php" />
 		</block>
 		<!--// Wizard 사용 설정 -->
-		<include cond="!$oDocument->isExists() && !$mi->wizard_setting=='N' && $grant->manager && !$mo" target="_wizardsetting.html" />
+		<include cond="!$oDocument->isExists() && !$mi->wizard_setting=='' && $grant->manager && !$mo" target="_wizardsetting.html" />
 
 		<!--// 게시판상단에 풀립 판넬 -->
 		<include cond="$mi->top_panel_text && !$document_srl && in_array($mi->panel_select, array('J','H'))" target="top_toggle.html" />

@@ -164,12 +164,15 @@
 		<include cond="$mi->to_sns=='2'" target="_read_sns.html" />
 		<!--// Read Navi -->
 		<!-- 여기에 평점 표시 부분 추가 -->
-		<div cond="!$mi->star_point ==''" style="float:left; margin-top:22px">
+		<div cond="!$mi->star_user ==''" style="float:left; margin-top:22px">
 			{@
+				$total_point = null;
 				$oStarPointModel = getModel('starpoint');
-				$total_point = $oStarPointModel->getDocumentRatedTotalPoint($oDocument->document_srl);
+				if($oStarPointModel && method_exists($oStarPointModel, 'getDocumentRatedTotalPoint')):
+					$total_point = $oStarPointModel->getDocumentRatedTotalPoint($oDocument->document_srl);
+				endif;
 			}
-			<!--@if($total_point->avg > 0)-->
+			<!--@if($total_point && $total_point->avg > 0)-->
 			<span class="starpoint">
 				<span class="sp_score" style="margin-left:15px">평점 : {number_format($total_point->avg, 1)}점<span cond="!$mo"> | {$total_point->count_members}명</span></span>
 				<span cond="!$mo" class="starRating pr_tooltip" pr_color="dark" pr_position="right" title="{number_format($total_point->avg, 1)}점"><span style="width:{$total_point->avg*20}%">{number_format($total_point->avg, 1)}</span></span>
@@ -201,7 +204,7 @@
 	<!--@else-->
 
 		<!--// Body -->
-		<div class="read_body clear">
+		<div class="read_body rd_body clear">
 			<!--// 자료실형태 -->
 			<include cond="$oDocument->hasUploadedFiles() && $mi->data_files=='Y'" target="_read_data.html" />
 
@@ -266,18 +269,30 @@
 			</style>
 
 			<!--// 글 리액션 모듈 -->
-			<div cond="!$mi->reaction == ''" class="da-reaction" x-da-reaction-print x-data="daReaction('{\Rhymix\Modules\Da_reaction\Src\ReactionHelper::generateIdByItem($oDocument)}', { button: false, placement: 'append' })">
-				<button x-bind="daReactionButton" class="sbtn_small sbtn-orange pr_tooltip" pr_color="dark" pr_position="t_right" title="리엑션을 이모티콘으로 표시합니다."><i class="fa-regular fa-thumbs-up" style="color:#fff"></i> Reaction</button>
-			</div>
+			<block cond="!$mi->reaction == ''">
+				{@
+					$da_reaction_id = '';
+					if(class_exists('\Rhymix\Modules\Da_reaction\Src\ReactionHelper')):
+						$da_reaction_id = \Rhymix\Modules\Da_reaction\Src\ReactionHelper::generateIdByItem($oDocument);
+					endif;
+				}
+				<!--@if($da_reaction_id != '')-->
+					<div class="da-reaction" x-da-reaction-print x-data="daReaction('{$da_reaction_id}', { button: false, placement: 'append' })">
+						<button x-bind="daReactionButton" class="sbtn_small sbtn-orange pr_tooltip" pr_color="dark" pr_position="t_right" title="리엑션을 이모티콘으로 표시합니다."><i class="fa-regular fa-thumbs-up" style="color:#fff"></i> Reaction</button>
+					</div>
+				<!--@end-->
+			</block>
 
 			<!--// 글 별평점 모듈 -->
-			<include cond="!$mi->star_point =='' && $mi->starpoint_skin ==''" target="/modules/starpoint/skins/simple/rating.html" />
-			<include cond="!$mi->star_point =='' && $mi->starpoint_skin =='d'" target="/modules/starpoint/skins/default/rating.html" />
-			<include cond="!$mi->star_point =='' && $mi->starpoint_skin =='b_s'" target="/modules/starpoint/skins/black_simple/rating.html" />
-			<include cond="!$mi->star_point =='' && $mi->starpoint_skin =='b_d'" target="/modules/starpoint/skins/black_default/rating.html" />
+			<block cond="class_exists('Starpoint') && (!defined('Starpoint::STARPOINT_VERSION') || version_compare(Starpoint::STARPOINT_VERSION, '2.0', '<'))">
+				<include cond="!$mi->star_point =='' && $mi->starpoint_skin ==''" target="/modules/starpoint/skins/simple/rating.html" />
+				<include cond="!$mi->star_point =='' && $mi->starpoint_skin =='d'" target="/modules/starpoint/skins/default/rating.html" />
+				<include cond="!$mi->star_point =='' && $mi->starpoint_skin =='b_s'" target="/modules/starpoint/skins/black_simple/rating.html" />
+				<include cond="!$mi->star_point =='' && $mi->starpoint_skin =='b_d'" target="/modules/starpoint/skins/black_default/rating.html" />
 
-			<!-- 글 별평점 모듈 평가 회원 출력 -->
-			<include cond="!$mi->star_point =='' && ($mi->vote_members =='' || ($mi->vote_members == 'A' && $logged_info->is_admin == 'Y'))" target="vote_members.html" />
+				<!-- 글 별평점 모듈 평가 회원 출력 -->
+				<include cond="!$mi->star_point =='' && ($mi->vote_members =='' || ($mi->vote_members == 'A' && $logged_info->is_admin == 'Y'))" target="vote_members.html" />
+			</block>
 
 			<!--// 지정한 게시글의 본문에서만 출력 -->
 			<span cond="$oDocument->get('document_srl')==$mi->document_no" class="documentText">{$mi->document_no_text}</span>

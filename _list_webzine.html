@@ -319,13 +319,16 @@
 				</block>
 
 				<!-- 여기에 평점 표시 부분 추가 -->
-				<block cond="!$mi->star_point ==''">
+				<block cond="!$mi->star_user == ''">
 					{@
+						$total_point = null;
 						$oStarPointModel = getModel('starpoint');
-						$total_point = $oStarPointModel->getDocumentRatedTotalPoint($document->document_srl);
+						if($oStarPointModel && method_exists($oStarPointModel, 'getDocumentRatedTotalPoint')):
+							$total_point = $oStarPointModel->getDocumentRatedTotalPoint($document->document_srl);
+						endif;
 					}
-					<!--@if($total_point->avg > 0)-->
-						<span cond="!$mi->star_user == ''" class="starpoint">
+					<!--@if($total_point && $total_point->avg > 0)-->
+						<span class="starpoint">
 							<span>평점 :</span>
 							<span cond="$mi->star_user == 'all' || $mi->star_user == 'point'" class="sp_score">{number_format($total_point->avg, 1)}점</span>
 							<span cond="$mi->star_user == 'all' || $mi->star_user == 'star'" class="starRating pr_tooltip" pr_color="dark" pr_position="b_right" title="{number_format($total_point->avg, 1)}점">
