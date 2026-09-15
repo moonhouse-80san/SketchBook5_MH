@@ -44,7 +44,15 @@ function loadStickerList(page, parent_srl, comment_srl){
 			html += '<li class="sticker_image srl">';
 			html += '<a href="javascript:;" onclick="loadSticker('+sticker[i].sticker_srl+', '+(parent_srl ? parent_srl : 'false') +', '+(comment_srl ? comment_srl : 'false')+');">'
 			html += '<div title="'+sticker[i].title+'">';
-			html += '<img src="'+sticker[i].main_image+'" width="30" height="30">';
+			// if ends with .mp4
+			if (sticker[i].main_image.match(/\.mp4$/)) {
+				var poster = sticker[i].main_image.replace(/\.mp4$/, '.webp');
+				html += '<video width="30" height="30" poster="'+poster+'" preload="metadata" loading="lazy" autoplay loop muted playsinline>';
+				html += '<source src="'+sticker[i].main_image+'" type="video/mp4">';
+				html += '</video>';
+			} else {
+				html += '<img src="'+sticker[i].main_image+'" width="30" height="30">';
+			}
 			html += "</div>";
 			html += '</a>';
 			html += "</li>";
@@ -99,7 +107,15 @@ function loadSticker(sticker_srl, parent_srl, comment_srl){
 			for(i in stickerImage){
 				var image = stickerImage[i];
 				html += '<li>';
-				html += '<a href="javascript:;" onclick="insertSticker('+sticker_srl+', '+image.sticker_file_srl+', '+(parent_srl ? parent_srl : 'false')+', '+(comment_srl ? comment_srl : 'false')+')" style="background-image:url('+image.url+');" title="'+image.name+'">';
+				html += '<a href="javascript:;" onclick="insertSticker('+sticker_srl+', '+image.sticker_file_srl+', '+(parent_srl ? parent_srl : 'false')+', '+(comment_srl ? comment_srl : 'false')+')" title="'+image.name+'">';
+				if (image.url.match(/\.mp4$/)) {
+					var poster = image.url.replace(/\.mp4$/, '.webp');
+					html += '<video width="90" height="90" poster="'+poster+'" preload="metadata" loading="lazy" autoplay loop muted playsinline>';
+					html += '<source src="'+image.url+'" type="video/mp4">';
+					html += '</video>';
+				} else {
+					html += '<img src="'+image.url+'" width="90" height="90">';
+				}
 				html += '</a>';
 				html += '</li>';
 			}
