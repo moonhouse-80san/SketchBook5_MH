@@ -3448,6 +3448,36 @@
 					<title xml:lang="en">Chronological Order</title>
 				</options>
 			</var>
+			<var name="files_ad_position" type="radio">
+				<title xml:lang="ko">📍 첨부파일 목록 광고 삽입 위치</title>
+				<title xml:lang="en">📍 File List Ad Insertion Position</title>
+				<description xml:lang="ko">광고 문구를 어느 위치에 삽입할지 선택하세요. "매 지정 간격마다"를 선택한 경우 아래 삽입 간격 값을 사용합니다.</description>
+				<description xml:lang="en">Select where to insert the ad line. When "Every Specified Interval" is selected, the interval value below is used.</description>
+				<options value="">
+					<title xml:lang="ko">매 지정 간격마다(기본)</title>
+					<title xml:lang="en">Every Specified Interval (Default)</title>
+				</options>
+				<options value="first">
+					<title xml:lang="ko">첫째 줄만</title>
+					<title xml:lang="en">First Row Only</title>
+				</options>
+				<options value="last">
+					<title xml:lang="ko">마지막 줄만</title>
+					<title xml:lang="en">Last Row Only</title>
+				</options>
+			</var>
+			<var name="files_ad_count" type="text">
+				<title xml:lang="ko">　┖ 광고 삽입 간격</title>
+				<title xml:lang="en">　┖ Ad Insertion Interval</title>
+				<description xml:lang="ko">위에서 "매 지정 간격마다" 선택 시, 지정한 개수(줄)마다 광고 문구를 한 줄 삽입합니다. 비워두면 삽입하지 않습니다.</description>
+				<description xml:lang="en">When "Every Specified Interval" is selected above, inserts an ad line every specified number of rows. Leave empty to disable.</description>
+			</var>
+			<var name="files_ads_code" type="textarea">
+				<title xml:lang="ko">　┖ 삽입할 광고 문구/코드</title>
+				<title xml:lang="en">　┖ Ad Text/Code to Insert</title>
+				<description xml:lang="ko">위 위치/간격에 삽입할 광고 문구나 코드(HTML, 에드센스 등)를 입력하세요.</description>
+				<description xml:lang="en">Enter the ad text or code (HTML, AdSense, etc.) to insert at the position/interval above.</description>
+			</var>
 			<var name="down_mid" type="text">
 				<title xml:lang="ko">📍 파일 다운 권한 mid</title>
 				<title xml:lang="en">📍 File Download Permission mid</title>

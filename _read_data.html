@@ -4,6 +4,7 @@
 	.bd_tb tfoot tr { background-color:#f9f9f9; }
 	.bd_tb .tc span { width:auto; display:inline-block; padding:3px 10px; border-radius:999px; background:#f97316; color:#fff !important; text-decoration:none !important; transition: background .15s; font-size:12px; font-weight:700; line-height:1.5; white-space:nowrap; }
 	.bd_tb .tc span:hover { background:#ea580c; color:#fff; }
+	.bd_tb .mh_file_ad td { background:transparent; text-align:center; padding:8px 10px; }
 </style>
 
 <?php
@@ -119,6 +120,10 @@ if(!function_exists('mh_get_zip_version'))
 	<!--@foreach($re_files as $mh_vf)-->
 		<!--@if(mh_get_zip_version($mh_vf) !== '')-->{@ $mh_has_version = true }<!--@end-->
 	<!--@end-->
+	{@ $mh_ad_pos = $mi->files_ad_position ?: '' }
+	{@ $mh_ad_count = $mi->files_ad_count ? (int) $mi->files_ad_count : 0 }
+	{@ $mh_total_files = count($re_files) }
+	{@ $mh_ad_colspan = $mo ? ($mh_has_version ? '3' : '2') : ($mh_has_version ? '5' : '4') }
 	<table class="et_vars bd_tb cont">
 		<thead>
 			<tr cond="$oDocument->hasUploadedFiles()" class="tb">
@@ -131,14 +136,23 @@ if(!function_exists('mh_get_zip_version'))
 		</thead>
 
 		<tbody cond="!$mi->files_type">
-			<tr loop="$re_files=>$key,$file">
-				{@ $mh_ver = mh_get_zip_version($file) }
-				<td cond="$mh_has_version" class="tc"><!--@if($mh_ver)--><span>V {$mh_ver}</span><!--@end--></td>
-				<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
-				<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
-				<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
-				<td class="tc">{number_format($file->download_count)}</td>
-			</tr>
+			<block loop="$re_files=>$key,$file">
+				<tr cond="$mh_ad_pos == 'first' && $key == 0" class="mh_file_ad">
+					<td colspan="{$mh_ad_colspan}">{$mi->files_ads_code}</td>
+				</tr>
+				<tr>
+					{@ $mh_ver = mh_get_zip_version($file) }
+					<td cond="$mh_has_version" class="tc"><!--@if($mh_ver)--><span>V {$mh_ver}</span><!--@end--></td>
+					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
+					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
+					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
+					<td class="tc">{number_format($file->download_count)}</td>
+				</tr>
+				{@ $mh_ad_show = ($mh_ad_pos == 'last') ? (($key + 1) == $mh_total_files) : (($mh_ad_pos == '') && $mh_ad_count > 0 && (($key + 1) % $mh_ad_count == 0) && ($key + 1) < $mh_total_files) }
+				<tr cond="$mh_ad_show" class="mh_file_ad">
+					<td colspan="{$mh_ad_colspan}">{$mi->files_ads_code}</td>
+				</tr>
+			</block>
 		</tbody>
 
 		{@ $total_downloads = 0 }
@@ -167,7 +181,11 @@ if(!function_exists('mh_get_zip_version'))
 		<!--@end-->
 
 		<tbody cond="$mi->files_type">
-			<tr loop="$re_files=>$key,$file">
+			<block loop="$re_files=>$key,$file">
+			<tr cond="$mh_ad_pos == 'first' && $key == 0" class="mh_file_ad">
+				<td colspan="{$mh_ad_colspan}">{$mi->files_ads_code}</td>
+			</tr>
+			<tr>
 				<block cond="!$mi->files_img && $file_types[$key]['ext_img']">
 					<td cond="$mh_has_version" class="tc"></td>
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
@@ -198,6 +216,11 @@ if(!function_exists('mh_get_zip_version'))
 					<td class="tc">{number_format($file->download_count)}</td>
 				</block>
 			</tr>
+			{@ $mh_ad_show = ($mh_ad_pos == 'last') ? (($key + 1) == $mh_total_files) : (($mh_ad_pos == '') && $mh_ad_count > 0 && (($key + 1) % $mh_ad_count == 0) && ($key + 1) < $mh_total_files) }
+			<tr cond="$mh_ad_show" class="mh_file_ad">
+				<td colspan="{$mh_ad_colspan}">{$mi->files_ads_code}</td>
+			</tr>
+			</block>
 		</tbody>
 		<tfoot cond="$etc_count > 1">
 			<tr>
