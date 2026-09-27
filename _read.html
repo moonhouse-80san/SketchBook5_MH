@@ -345,7 +345,7 @@
 			<div cond="$tag_list" class="rd_t_f rd_tag css3pie clear">
 				<div class="bg_f_color border_color">TAG &bull;</div>
 				<ul>
-					<!--@for($i=0;$i<count($tag_list);$i++)-->
+					<!--@for($i=0;$i<(is_countable($tag_list) ? count($tag_list) : 0);$i++)-->
 						{@ $tag=$tag_list[$i]; }
 						<a href="{getUrl('', 'mid', $mid, 'search_target', 'tag', 'search_keyword', $tag)}" class="tag" rel="tag">{escape($tag, false)}</a><span>,</span>
 					<!--@end-->

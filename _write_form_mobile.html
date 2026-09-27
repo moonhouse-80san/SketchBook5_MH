@@ -93,7 +93,7 @@
 		위와 같이 입력할 수 있습니다.
 	</div>
 
-	<table cond="count($extra_keys)" class="et_vars exForm bd_tb">
+	<table cond="is_countable($extra_keys) && count($extra_keys) > 0" class="et_vars exForm bd_tb">
 		<caption><strong><em>*</em></strong> <small>: {$lang->is_required}</small></caption>
 		<caption cond="$mi->extra_map =='Y'"><strong><em>*</em></strong> 주소 직접 입력시 지도 클릭은 하지 마세요. 둘 다 선택시 [주소 칸 입력]이 우선합니다.</caption>
 		<tr loop="$extra_keys=>$key,$val">
@@ -109,8 +109,8 @@
 						</style>
 						<ul>
 						{@
-							$val_array = explode(', ',$val->default);
-							$val_value = implode('',$oDocument->getExtraEidValue($val->eid));
+							$val_array = array_filter(array_map('trim', explode(',', (string)($val->default ?? ''))), 'strlen');
+							$val_value = implode('', (array)$oDocument->getExtraEidValue($val->eid));
 						}
 							<li loop="$n=0;$n<count($val_array);$n++">
 							<!--@if($n+1!=count($val_array))-->
@@ -190,7 +190,7 @@
 			<label for="allow_trackback">{$lang->allow_trackback}</label>
 		</div>
 		<div cond="$is_logged" class="sk_section">
-			<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify() || (!$oDocument->useNotify() && @in_array('notify',$mi->wrt_opt ?? [])" id="notify_message" />
+			<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify() || (!$oDocument->useNotify() && @in_array('notify',$mi->wrt_opt ?? []))" id="notify_message" />
 			<label for="notify_message">{$lang->notify}</label>
 		</div>
 		<div cond="is_array($status_list ?? null)" class="sk_section">

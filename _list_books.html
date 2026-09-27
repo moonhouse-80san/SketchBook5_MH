@@ -92,7 +92,7 @@
 				<td cond="!$mi->show_cate && $mi->use_category=='Y'" onclick="showUpdateExtraModal(this, {$document->document_srl}, {$document->get('category_srl')}, 'category')"|cond="$grant->manager && $use_category_update" class="cate"><span style="color:{$category_list[$document->get('category_srl')]->color}"|cond="$category_list[$document->get('category_srl')]->color!='transparent'">{$category_list[$document->get('category_srl')]->title ?? ''}</span></td>
 				<td class="title <!--@if($mi->sticky_select == 't')-->t_fixed<!--@end-->" style="min-width:{$mi->subject_w_size}px;">
 					<!--// 제목 -->
-					<!--@if(!$mi->preview || @!in_array('tx',$mi->preview?:[] && !$document->thumbnailExists()))-->
+					<!--@if(!$mi->preview || (!in_array('tx', $mi->preview ?? []) && !$document->thumbnailExists()))-->
 					<a style="color:orange; font-weight:bold; text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; overflow:hidden" <!--@if(!$mi->link_board)-->href="{getUrl('document_srl',$document->document_srl,'listStyle',$listStyle,'cpage','')}"<!--@else-->href="{$document->getExtraEidValue('link_url')}" target="_blank"<!--@end--> class="hx" data-viewer="{getUrl('document_srl',$document->document_srl,'listStyle','viewer','page','')}">
 						<include target="d_day.html" />
 						<include target="title.html" />

@@ -8,8 +8,11 @@ class nickBgUtil {
         $profile_dir = __DIR__ . '/img/profile';
         
         // PNG 파일 목록 가져오기
-        $png_files = glob($profile_dir . '/*.png');
-        
+		$png_files = glob($profile_dir . '/*.png');
+		if(!is_array($png_files)){
+			$png_files = array();
+		}
+
         $data = array();
         foreach($png_files as $index => $file) {
             // 파일명만 추출 (경로 제외)
@@ -47,8 +50,14 @@ class nickBgUtil {
         if (empty($s)) {
             return $this->nick_bg_array[1];
         }
-        
-        $hashStr = $this->hashCode($s);
+
+		$colors = is_array($this->nick_bg_array) ? $this->nick_bg_array : array();
+		$c_length = count($colors);
+		if($c_length < 1){
+			return '';
+		}
+
+		$hashStr = $this->hashCode($s);
         $c_length = count($this->nick_bg_array);
         $index = (($hashStr % $c_length) + $c_length) % $c_length + 1;
         

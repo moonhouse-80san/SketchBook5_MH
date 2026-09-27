@@ -346,7 +346,7 @@
 					<img cond="$extImg" src="{$file->uploaded_filename}" alt="" />
 					</block>
 				</div>
-				<ul cond="count($oDocument->getUploadedFiles()) > 1" class="img_lst">
+				<ul cond="is_countable($oDocument->getUploadedFiles()) && count($oDocument->getUploadedFiles()) > 1" class="img_lst">
 					<li loop="$oDocument->getUploadedFiles()=>$key,$file">
 						{@
 						$ext=substr($file->source_filename, -4);

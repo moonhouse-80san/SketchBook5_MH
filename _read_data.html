@@ -115,7 +115,8 @@ if(!function_exists('mh_get_zip_version'))
 
 <div id="files_{$oDocument->document_srl}" class="rd_fnt rd_file">
 	{@ $re_files = $oDocument->getUploadedFiles(); }
-	<!--@if($mi->files_reverse == '')-->{@ $re_files = array_reverse($re_files)}<!--@end-->
+	{@ if(!is_array($re_files)) $re_files = array(); }
+	<!--@if($mi->files_reverse == '')-->{@ $re_files = array_reverse($re_files) }<!--@end-->
 	{@ $mh_has_version = false }
 	<!--@foreach($re_files as $mh_vf)-->
 		<!--@if(mh_get_zip_version($mh_vf) !== '')-->{@ $mh_has_version = true }<!--@end-->

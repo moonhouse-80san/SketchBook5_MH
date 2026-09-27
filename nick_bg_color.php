@@ -5,7 +5,10 @@ public $nick_bg_data='{"orange":"#FF4500","brownishorange":"#DAA520","darkgreen"
 public $nick_bg_array;
 
 	function __construct(){
-		$this->nick_bg_array = json_decode($this->nick_bg_data,true);
+		$this->nick_bg_array = json_decode($this->nick_bg_data, true);
+		if(!is_array($this->nick_bg_array) || !$this->nick_bg_array){
+			$this->nick_bg_array = array('#FF4500');
+		}
 	}
 
 	function overflow32($v)
@@ -34,18 +37,14 @@ public $nick_bg_array;
 			return "#FF4500";
 		}
 
-		$hashStr = $this->hashCode($s);
-		$c_length = count($this->nick_bg_array);
-		$hashStr = (($hashStr % $c_length) + $c_length) % $c_length;
-		$i=0;
-		foreach($this->nick_bg_array as $cl){
-			if($i == $hashStr){
-				return $cl;
-			}
-			$i++;
+		$colors = is_array($this->nick_bg_array) ? array_values($this->nick_bg_array) : array();
+		$c_length = count($colors);
+		if($c_length < 1){
+			return "#FF4500";
 		}
 
-		return "#FF4500";
+		$hashStr = (($this->hashCode($s) % $c_length) + $c_length) % $c_length;
+		return $colors[$hashStr] ?? "#FF4500";
 	}
 
 }

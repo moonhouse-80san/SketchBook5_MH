@@ -17,7 +17,7 @@
 <!--@end-->
 
 <load target="css/vote_member.css" />
-<!--@if($rating_list && count($rating_list) > 0)-->
+<!--@if(is_countable($rating_list) && count($rating_list) > 0)-->
 	<!--@if($mi->vm_form =='D')-->
 		<div class="vm_area1" style="display:flex; <!--@if($mi->starpoint_skin =='' || $mi->starpoint_skin =='b_s')-->justify-content:center;<!--@elseif($mi->starpoint_skin =='d' || $mi->starpoint_skin =='b_d')-->justify-content:flex-end; margin-right:10px;<!--@end-->">
 			<div class="vm_body">
@@ -26,7 +26,7 @@
 				</div>
 				<div class="vm_top" onclick="jQuery('#rating_detail_list').slideToggle();">
 					<h4>
-						평가 참여 회원 ({count($rating_list)}명)
+						평가 참여 회원 ({is_countable($rating_list) ? count($rating_list) : 0}명)
 					</h4>
 					<span class="vm_folding"><font color="#ffb400">▼</font> 클릭하여 펼치기/접기</span>
 				</div>
@@ -108,7 +108,7 @@
 						</div>
 						<div class="vm_top" onclick="jQuery('#rating_detail_list').slideToggle();">
 							<h4>
-								평가 참여 회원 ({count($rating_list)}명)
+								평가 참여 회원 ({is_countable($rating_list) ? count($rating_list) : 0}명)
 							</h4>
 							<span class="vm_folding"><font color="#ffb400">▼</font> 클릭하여 펼치기/접기</span>
 						</div>
