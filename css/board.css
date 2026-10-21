@@ -39,6 +39,7 @@ h1, h2, h3, h4, h5, h6,
 .bd_btn.blue{font-weight:700;color:#FFF;text-shadow:0 1px 0 #000;border-color:#669 !important;box-shadow:0 1px 1px rgba(0,0,0,.1);-webkit-gradient(linear,0% 0%,0% 100%,from(#77C),to(#55B));background:linear-gradient(to bottom,#77C 0%,#55B 100%)}
 .bd_btn:hover,.bd_btn:focus,.btn_img:hover,.btn_img:focus{border-color:#AAA;box-shadow:0 1px 4px rgba(0,0,0,.2)}
 .bd_btn[disabled=disabled]{box-shadow:none !important}
+.bd .regist input[type="submit"].bd_btn {display:inline-block; align-items:normal; justify-content:normal;}
 .bd .itx,.bd select{display:inline-block;margin:0;padding:3px 6px;background:#FAFAFA;border-radius:3px;border:1px solid;border-color:#BBB #DDD #DDD #BBB;*display:inline;*zoom:1}
 .bd .itx{height:28px}
 .bd .itx_wrp{position:relative}
