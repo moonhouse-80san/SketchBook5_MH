@@ -60,7 +60,7 @@
 		</td>
 
 		<!--// 확장변수 별표 평점(rating)-->
-		<td cond="$val->eid=='rating' && $val->eid!==$mi->etc_name && $val->eid!==$mi->e_url && $val->eid!==$mi->dhidden" class="rating" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="cursor:pointer"><span class="starRating" title="{$val->getValueHTML()|noescape}{$lang->score}"><span style="width:{$val->getValueHTML()*10}%">{$val->getValueHTML()|noescape}</span></span></td>
+		<td cond="$val->eid=='rating' && $val->eid!==$mi->etc_name && $val->eid!==$mi->e_url && $val->eid!==$mi->dhidden" class="rating" onclick="showUpdateExtraModal(this, {$oDocument->document_srl}, {$val->idx})"|cond="$oDocument->isGranted() && $use_extra_vars_update && in_array($val->eid, array('rating'))" style="cursor:pointer"><span class="starRating" title="{$val->getValueHTML()|noescape}{$lang->score}"><span style="width:{min(100, max(0, (float)strip_tags($val->getValueHTML()) * 10))}%">{$val->getValueHTML()|noescape}</span></span></td>
 		{@ $etIdx++ }
 	<!--@else-->
 	<!--@end-->
