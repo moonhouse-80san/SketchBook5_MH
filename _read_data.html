@@ -5,6 +5,8 @@
 	.bd_tb .tc span { width:auto; display:inline-block; padding:3px 10px; border-radius:999px; background:#f97316; color:#fff !important; text-decoration:none !important; transition: background .15s; font-size:12px; font-weight:700; line-height:1.5; white-space:nowrap; }
 	.bd_tb .tc span:hover { background:#ea580c; color:#fff; }
 	.bd_tb .mh_file_ad td { background:transparent; text-align:center; padding:8px 10px; }
+	.bd_tb .mh_file_del { margin-left:6px; padding:1px 7px; border:1px solid #d9534f; border-radius:3px; background:#fff; color:#d9534f; font-size:11px; line-height:1.6; cursor:pointer; vertical-align:middle; }
+	.bd_tb .mh_file_del:hover { background:#d9534f; color:#fff; }
 </style>
 
 <?php
@@ -124,6 +126,8 @@ if(!function_exists('mh_get_zip_version'))
 	{@ $mh_ad_pos = $mi->files_ad_position ?: '' }
 	{@ $mh_ad_count = $mi->files_ad_count ? (int) $mi->files_ad_count : 0 }
 	{@ $mh_total_files = count($re_files) }
+	{@ $mh_is_admin = ($logged_info && $logged_info->is_admin == 'Y' && $mh_total_files > 0) }
+	{@ $mh_del_seq = $mh_is_admin ? FileController::setUploadInfo(0, $oDocument->document_srl, $oDocument->get('module_srl')) : 0 }
 	{@ $mh_ad_colspan = $mo ? ($mh_has_version ? '3' : '2') : ($mh_has_version ? '5' : '4') }
 	<table class="et_vars bd_tb cont">
 		<thead>
@@ -147,7 +151,7 @@ if(!function_exists('mh_get_zip_version'))
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
-					<td class="tc">{number_format($file->download_count)}</td>
+					<td class="tc">{number_format($file->download_count)}<button cond="$mh_is_admin" type="button" class="mh_file_del" data-file-srl="{$file->file_srl}" data-seq="{$mh_del_seq}" title="첨부파일 삭제">삭제</button></td>
 				</tr>
 				{@ $mh_ad_show = ($mh_ad_pos == 'last') ? (($key + 1) == $mh_total_files) : (($mh_ad_pos == '') && $mh_ad_count > 0 && (($key + 1) % $mh_ad_count == 0) && ($key + 1) < $mh_total_files) }
 				<tr cond="$mh_ad_show" class="mh_file_ad">
@@ -192,21 +196,21 @@ if(!function_exists('mh_get_zip_version'))
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
-					<td class="tc">{number_format($file->download_count)}</td>
+					<td class="tc">{number_format($file->download_count)}<button cond="$mh_is_admin" type="button" class="mh_file_del" data-file-srl="{$file->file_srl}" data-seq="{$mh_del_seq}" title="첨부파일 삭제">삭제</button></td>
 				</block>
 				<block cond="!$mi->files_video && $file_types[$key]['ext_video']">
 					<td cond="$mh_has_version" class="tc"></td>
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
-					<td class="tc">{number_format($file->download_count)}</td>
+					<td class="tc">{number_format($file->download_count)}<button cond="$mh_is_admin" type="button" class="mh_file_del" data-file-srl="{$file->file_srl}" data-seq="{$mh_del_seq}" title="첨부파일 삭제">삭제</button></td>
 				</block>
 				<block cond="!$mi->files_audio && $file_types[$key]['ext_audio']">
 					<td cond="$mh_has_version" class="tc"></td>
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
-					<td class="tc">{number_format($file->download_count)}</td>
+					<td class="tc">{number_format($file->download_count)}<button cond="$mh_is_admin" type="button" class="mh_file_del" data-file-srl="{$file->file_srl}" data-seq="{$mh_del_seq}" title="첨부파일 삭제">삭제</button></td>
 				</block>
 				<block cond="!$mi->files_etc && $file_types[$key]['is_etc']">
 					{@ $mh_ver = mh_get_zip_version($file) }
@@ -214,7 +218,7 @@ if(!function_exists('mh_get_zip_version'))
 					<td><a href="{getUrl('')}{$file->download_url}">{$file->source_filename}</a></td>
 					<td cond="!$mo" class="tc">{zdate($file->regdate, 'Y.m.d')}</td>
 					<td cond="!$mo" class="tc">{FileHandler::filesize($file->file_size)}</td>
-					<td class="tc">{number_format($file->download_count)}</td>
+					<td class="tc">{number_format($file->download_count)}<button cond="$mh_is_admin" type="button" class="mh_file_del" data-file-srl="{$file->file_srl}" data-seq="{$mh_del_seq}" title="첨부파일 삭제">삭제</button></td>
 				</block>
 			</tr>
 			{@ $mh_ad_show = ($mh_ad_pos == 'last') ? (($key + 1) == $mh_total_files) : (($mh_ad_pos == '') && $mh_ad_count > 0 && (($key + 1) % $mh_ad_count == 0) && ($key + 1) < $mh_total_files) }
@@ -230,4 +234,21 @@ if(!function_exists('mh_get_zip_version'))
 			</tr>
 		</tfoot>
 	</table>
+	<script cond="$mh_is_admin">
+	jQuery(function($) {
+		$('#files_{$oDocument->document_srl}').on('click', '.mh_file_del', function() {
+			var $btn = $(this);
+			if (!confirm('이 첨부파일을 삭제하시겠습니까?\n삭제 후에는 복구할 수 없습니다.')) return;
+			$btn.prop('disabled', true);
+			exec_json('file.procFileDelete', {
+				editor_sequence: $btn.data('seq'),
+				file_srl: $btn.data('file-srl')
+			}, function() {
+				location.reload();
+			}, function() {
+				$btn.prop('disabled', false);
+			});
+		});
+	});
+	</script>
 </div>
