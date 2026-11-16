@@ -255,6 +255,13 @@
 				</block>
 			</div>
 
+			{@
+				$mh_ib_w = max(0, min(20, (int)implode('', (array)$oDocument->getExtraEidValue('img_border_w'))));
+				$mh_ib_c = implode('', (array)$oDocument->getExtraEidValue('img_border_c'));
+				$mh_ib_c = preg_match('/^#[0-9a-fA-F]+$/', $mh_ib_c) && strlen($mh_ib_c) > 3 && strlen($mh_ib_c) < 10 ? $mh_ib_c : '#ffaa56';
+				$mh_ib_css = ($mh_ib_w > 0 ? 'border:'.$mh_ib_w.'px solid '.$mh_ib_c.';' : '') . (strpos(implode('', (array)$oDocument->getExtraEidValue('img_shadow')), 'Y') !== false ? 'box-shadow:0 2px 8px rgba(0,0,0,.35);' : '');
+			}
+			<style cond="$mh_ib_css">.urllink [class*="document_{$oDocument->document_srl}_"] img { {$mh_ib_css} }</style>
 			<article class="urllink">
 				<!--@if($oDocument->get('content') !== '.')-->
 					{$oDocument->getContent(false)}

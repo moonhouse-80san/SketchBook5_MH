@@ -1,0 +1,95 @@
+<!--// 본문 이미지 테두리 옵션 (확장변수 ID: img_border_w=굵기, img_border_c=색상) -->
+{@
+	$mh_ib_idx_w = 0;
+	$mh_ib_idx_c = 0;
+	$mh_ib_idx_s = 0;
+	foreach((array)$extra_keys as $mh_ib_key):
+		if($mh_ib_key->eid == 'img_border_w') $mh_ib_idx_w = $mh_ib_key->idx;
+		if($mh_ib_key->eid == 'img_border_c') $mh_ib_idx_c = $mh_ib_key->idx;
+		if($mh_ib_key->eid == 'img_shadow') $mh_ib_idx_s = $mh_ib_key->idx;
+	endforeach;
+	$mh_ib_s_val = implode('', (array)$oDocument->getExtraEidValue('img_shadow'));
+	$mh_ib_s_on = strpos($mh_ib_s_val, 'Y') !== false;
+	$mh_ib_w_val = (int)implode('', (array)$oDocument->getExtraEidValue('img_border_w'));
+	$mh_ib_c_val = implode('', (array)$oDocument->getExtraEidValue('img_border_c'));
+	$mh_ib_c_val = preg_match('/^#[0-9a-fA-F]+$/', $mh_ib_c_val) && strlen($mh_ib_c_val) > 3 && strlen($mh_ib_c_val) < 10 ? $mh_ib_c_val : '#ffaa56';
+}
+<style cond="$mh_ib_idx_w && $mh_ib_idx_c">
+	.mh_ib_box { margin:10px 0; padding:12px 14px; border:1px solid #e5e5e5; border-radius:8px; background:#fafafa; }
+	.mh_ib_box .mh_ib_row { margin:0 0 12px; }
+	.mh_ib_box .mh_ib_row:last-child { margin-bottom:0; }
+	.mh_ib_box label { display:block; margin-bottom:6px; font-weight:700; }
+	.mh_ib_box input[type=number], .mh_ib_box input[type=text] { height:34px; padding:0 10px; border:1px solid #ccc; border-radius:6px; background:#fff; box-sizing:border-box; }
+	.mh_ib_box input[type=number] { width:90px; }
+	.mh_ib_box input[type=text] { width:140px; }
+	.mh_ib_box .mh_ib_color { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+	.mh_ib_box input[type=color] { width:34px; height:34px; padding:0; border:1px solid #ccc; border-radius:6px; background:#fff; cursor:pointer; }
+	.mh_ib_box .mh_ib_chips { display:flex; flex-wrap:wrap; gap:6px; }
+	.mh_ib_box .mh_ib_chip { width:22px; height:22px; padding:0; border:1px solid #ccc; border-radius:50%; cursor:pointer; }
+	.mh_ib_box .mh_ib_chip.on { outline:2px solid #444; outline-offset:1px; }
+	.mh_ib_box label.mh_ib_chk { display:inline-block; margin:0; font-weight:400; cursor:pointer; }
+	.mh_ib_box small { display:block; margin-top:6px; color:#888; }
+</style>
+<div cond="$mh_ib_idx_w && $mh_ib_idx_c" class="mh_ib_box">
+	<div class="mh_ib_row">
+		<label for="mh_ib_w">본문 이미지 테두리 굵기</label>
+		<input type="number" id="mh_ib_w" name="extra_vars{$mh_ib_idx_w}" min="0" max="20" step="1" value="{$mh_ib_w_val}" /> px
+		<small>본문에 넣은 이미지의 테두리 굵기입니다. (0 = 테두리 없음, 최대 20)</small>
+	</div>
+	<div class="mh_ib_row">
+		<label for="mh_ib_c">본문 이미지 테두리 색상</label>
+		<div class="mh_ib_color">
+			<input type="text" id="mh_ib_c" name="extra_vars{$mh_ib_idx_c}" maxlength="9" placeholder="#ffaa56" value="{$mh_ib_c_val}" />
+			<input type="color" id="mh_ib_cp" value="{$mh_ib_c_val}" title="색상 선택" />
+			<span class="mh_ib_chips">
+				<button type="button" class="mh_ib_chip" data-color="#ffb3b3" style="background:#ffb3b3" title="#ffb3b3"></button>
+				<button type="button" class="mh_ib_chip" data-color="#ffd3a8" style="background:#ffd3a8" title="#ffd3a8"></button>
+				<button type="button" class="mh_ib_chip" data-color="#fff3a8" style="background:#fff3a8" title="#fff3a8"></button>
+				<button type="button" class="mh_ib_chip" data-color="#c4e8c8" style="background:#c4e8c8" title="#c4e8c8"></button>
+				<button type="button" class="mh_ib_chip" data-color="#bbdcff" style="background:#bbdcff" title="#bbdcff"></button>
+				<button type="button" class="mh_ib_chip" data-color="#a8b4e8" style="background:#a8b4e8" title="#a8b4e8"></button>
+				<button type="button" class="mh_ib_chip" data-color="#dbbcff" style="background:#dbbcff" title="#dbbcff"></button>
+				<button type="button" class="mh_ib_chip" data-color="#222222" style="background:#222222" title="#222222"></button>
+				<button type="button" class="mh_ib_chip" data-color="#ffffff" style="background:#ffffff" title="#ffffff"></button>
+			</span>
+		</div>
+		<small>색상표에서 고르거나 #ffffff 처럼 직접 입력합니다. (기본 #ffaa56)</small>
+	</div>
+	<div cond="$mh_ib_idx_s" class="mh_ib_row">
+		<label for="mh_ib_s">본문 이미지 그림자</label>
+		<input type="hidden" id="mh_ib_sv" name="extra_vars{$mh_ib_idx_s}" value="{$mh_ib_s_on ? 'Y' : 'N'}" />
+		<label class="mh_ib_chk"><input type="checkbox" id="mh_ib_s" checked="checked"|cond="$mh_ib_s_on" /> 그림자 출력</label>
+		<small>체크하면 본문 이미지에 은은한 그림자가 생깁니다. (테두리 굵기 0이어도 적용)</small>
+	</div>
+</div>
+<script cond="$mh_ib_idx_w && $mh_ib_idx_c">
+	jQuery(function($) {
+		var $w = $('#mh_ib_w'), $c = $('#mh_ib_c'), $p = $('#mh_ib_cp'), $chips = $('.mh_ib_chip');
+		function isHex(v) { return /^#[0-9a-f]+$/i.test(v) && (v.length === 4 || v.length === 7 || v.length === 9); }
+		function setColor(v) {
+			$c.val(v);
+			if (/^#[0-9a-f]{6}$/i.test(v)) $p.val(v.toLowerCase());
+			$chips.removeClass('on').filter(function() { return $(this).data('color').toLowerCase() === v.toLowerCase(); }).addClass('on');
+		}
+		function normalize() {
+			var v = $.trim($c.val());
+			if (v && v.charAt(0) !== '#') v = '#' + v;
+			if (!isHex(v)) v = '#ffaa56';
+			setColor(v);
+		}
+		$w.on('change blur', function() {
+			var n = parseInt($w.val(), 10);
+			if (isNaN(n) || n < 0) n = 0;
+			if (n > 20) n = 20;
+			$w.val(n);
+		});
+		$c.on('input', function() {
+			var v = $.trim($c.val());
+			if (isHex(v)) setColor(v);
+		}).on('blur', normalize);
+		$p.on('input change', function() { setColor($p.val()); });
+		$('#mh_ib_s').on('change', function() { $('#mh_ib_sv').val(this.checked ? 'Y' : 'N'); });
+		$chips.on('click', function() { setColor($(this).data('color')); });
+		normalize();
+	});
+</script>

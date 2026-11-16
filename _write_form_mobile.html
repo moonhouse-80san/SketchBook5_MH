@@ -93,10 +93,16 @@
 		위와 같이 입력할 수 있습니다.
 	</div>
 
-	<table cond="is_countable($extra_keys) && count($extra_keys) > 0" class="et_vars exForm bd_tb">
+	{@
+		$mh_ex_visible = 0;
+		foreach((array)$extra_keys as $mh_ex_key):
+			if($mh_ex_key->eid != 'img_border_w' && $mh_ex_key->eid != 'img_border_c' && $mh_ex_key->eid != 'img_shadow') $mh_ex_visible++;
+		endforeach;
+	}
+	<table cond="$mh_ex_visible > 0" class="et_vars exForm bd_tb">
 		<caption><strong><em>*</em></strong> <small>: {$lang->is_required}</small></caption>
 		<caption cond="$mi->extra_map =='Y'"><strong><em>*</em></strong> 주소 직접 입력시 지도 클릭은 하지 마세요. 둘 다 선택시 [주소 칸 입력]이 우선합니다.</caption>
-		<tr loop="$extra_keys=>$key,$val">
+		<tr loop="$extra_keys=>$key,$val" cond="$val->eid!=='img_border_w' && $val->eid!=='img_border_c' && $val->eid!=='img_shadow'">
 			<!--// admin_select로 확장 변수ID 생성시 관리자에게만 출력  -->
 			<!--@if($val->eid!==$mi->admin_extra)-->
 				<th cond="" scope="row"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
@@ -139,6 +145,8 @@
 	<include cond="$mi->extra_map =='Y'" target="write_map.html" />
 
 	<div class="editor" cond="$mi->display_content_writer!=='N'">{$oDocument->getEditor()}</div>
+
+	<include target="_write_img_border.html" />
 
 	<!--// 태그 -->
 	<div class="tag itx_wrp" cond="$mi->tag_view!=='N'">
