@@ -115,23 +115,23 @@ jQuery(function($){
 				<block cond="!$oDocument->isExists()">
 					<span cond="$mi->font_btn=='2'" class="font_select"><a class="select tg_btn2" href="#" data-href=".bd_font_select"><b class="tx_ico_chk">T</b>{$lang->font}<i class="arrow down"></i></a></span>
 					<div cond="!$mo && $mi->top_btn==''" class="rd_nav_style2">
-						<div class="rd_nav img_tx fr m_btn_wrp" style="padding:3px 10px 3px 0">
+						<div class="rd_nav<!--@if($mi->rd_nav_tx)--> rd_nav_tx<!--@end--> img_tx fr m_btn_wrp">
 							<!--// 관리자이면 설정 버튼 출력 -->
 							<!--@if($grant->manager && $mi->display_setup_button != 'N')-->
-							<a class="edit" href="{getUrl('act','dispBoardAdminBoardInfo')}"><i class="fa fa-cog" style="font-size:11px"></i> {$lang->cmd_setup}</a>
+							<a class="bubble" href="{getUrl('act','dispBoardAdminBoardInfo')}" title="{$lang->cmd_setup}"><i class="fa fa-cog"></i><b class="tx">{$lang->cmd_setup}</b></a>
 							<!--@end-->
 							<!--// 최고관리자이면 관리자 페이지 버튼 출력 -->
 							<!--@if($logged_info->is_admin == 'Y' && $mi->display_setup_button != 'N')-->
-							<a class="edit" href="{getUrl('','module','admin','act','dispBoardAdminContent')}" onclick="window.open(this.href); return false;"><i class="fa fa-lock" style="font-size:11px"></i> {$lang->cmd_management}</a>
+							<a class="bubble" href="{getUrl('','module','admin','act','dispBoardAdminContent')}" onclick="window.open(this.href); return false;" title="{$lang->cmd_management}"><i class="fa fa-lock"></i><b class="tx">{$lang->cmd_management}</b></a>
 							<!--@end-->
 							<!--// 회원정보 / 로그인·로그아웃 버튼 출력 -->
 							<!--@if($mi->display_login_info != 'N')-->
 								<!--@if($is_logged)-->
-								<a class="edit" href="{getUrl('act','dispMemberInfo')}"><i class="fa fa-user" style="font-size:11px"></i> {$lang->cmd_view_member_info}</a>
-								<a class="edit" href="{getUrl('act','dispMemberLogout')}"><i class="fa fa-sign-out-alt" style="font-size:11px"></i> {$lang->cmd_logout}</a>
+								<a class="bubble" href="{getUrl('act','dispMemberInfo')}" title="{$lang->cmd_view_member_info}"><i class="fa fa-user"></i><b class="tx">{$lang->cmd_view_member_info}</b></a>
+								<a class="bubble" href="{getUrl('act','dispMemberLogout')}" title="{$lang->cmd_logout}"><i class="fa fa-sign-out-alt"></i><b class="tx">{$lang->cmd_logout}</b></a>
 								<!--@else-->
-								<a class="edit" href="{getUrl('act','dispMemberSignUpForm')}"><i class="fa fa-user" style="font-size:11px"></i> {$lang->cmd_signup}</a>
-								<a class="edit" href="{getUrl('act','dispMemberLoginForm')}"><i class="fa fa-sign-in-alt" style="font-size:11px"></i> {$lang->cmd_login}</a>
+								<a class="bubble" href="{getUrl('act','dispMemberSignUpForm')}" title="{$lang->cmd_signup}"><i class="fa fa-user"></i><b class="tx">{$lang->cmd_signup}</b></a>
+								<a class="bubble" href="{getUrl('act','dispMemberLoginForm')}" title="{$lang->cmd_login}"><i class="fa fa-sign-in-alt"></i><b class="tx">{$lang->cmd_login}</b></a>
 								<!--@end-->
 							<!--@end-->
 							<a cond="$grant->write_document" class="edit m_no" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardWrite', 'category', $category ?? null)}"><b class="ico_16px write"></b>{$mi->write_buten}</a>
