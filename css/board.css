@@ -379,6 +379,7 @@ h1, h2, h3, h4, h5, h6,
 .bd_hd .rd_nav_style2 .rd_nav .tg_btn2{padding:6px 1px 6px 5px}
 .bd_hd .rd_nav_style2 .rd_nav{display:flex;align-items:center}
 .bd_hd .rd_nav_style2 .rd_nav .iCheck{margin:0 6px}
+.bd_hd .rd_nav_style2 .rd_nav .fa{font-size:12px}
 .bd_hd .rd_nav .help .wrp{top:100%;left:auto;right:auto;margin:8px 0 0 -34px}
 .bd_hd .rd_nav .help .bubble_edge{top:-6px;right:auto;left:50%;width:9px;height:6px;margin-top:0;background-position:0 -64px}
 #viewer .rd_nav_side .rd_nav{display:block !important;right:12px}
