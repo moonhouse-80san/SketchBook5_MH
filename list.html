@@ -134,6 +134,7 @@ jQuery(function($){
 								<a class="edit" href="{getUrl('act','dispMemberLoginForm')}"><i class="fa fa-sign-in-alt"></i> {$lang->cmd_login}</a>
 								<!--@end-->
 							<!--@end-->
+							<a cond="$grant->write_document" class="edit m_no" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardWrite', 'category', $category ?? null)}"><b class="ico_16px write"></b>{$mi->write_buten}</a>
 							<a cond="$grant->manager" class="edit m_no" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" onclick="popopen(this.href,'manageDocument');return false"><i class="fa fa-check"></i> {$lang->cmd_manage_document}</a>
 							<input cond="$grant->manager && $mi->default_style!='list'" type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true });" class="iCheck" title="Check All" />
 						</div>
@@ -162,10 +163,6 @@ jQuery(function($){
 			</div>
 
 			<center><div cond="$grant->manager && $mi->write_top == 'Y'" class="sbtn_small sbtn-orange" style="margin-bottom:10px"><a href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl','')}"><i class="fas fa-user-edit"></i> {$mi->write_buten}</a></div></center>
-
-			<div  class="rd_nav img_tx fr m_btn_wrp"style="margin:-30px 0 0 0">
-				<a cond="!$mi->write_btn || ($mi->write_btn!=='N' && $grant->write_document)" href="{getUrl('', 'mid', $mid, 'act', 'dispBoardWrite', 'category', $category ?? null)}"><b class="ico_16px write"></b>{$mi->write_buten}</a>
-			</div>
 
 			<!--// 카테고리 -->
 			<div class="cnb_n_list">
