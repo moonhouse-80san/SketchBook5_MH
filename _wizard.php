@@ -31,13 +31,24 @@
 		}, 1500);
 		v.find('form>.section').eq(0).remove();
 		v.find('form>.section').eq(0).hide();
-		v.find('form>.section').eq(1).addClass('on');
+
+		// 저장된 탭 복원 (없으면 기본 1번)
+		var $sections = v.find('form>.section');
+		var savedIdx = parseInt(jQuery.cookie('bd_wizard_section'), 10);
+		if(isNaN(savedIdx) || savedIdx < 0 || savedIdx >= $sections.length){
+			savedIdx = 1;
+		}
+		$sections.eq(savedIdx).addClass('on');
+
 		v.find('form>.section>h2').click(function(){
 			var p = $(this).parent();
 			if(p.hasClass('on')){
 				p.removeClass('on');
+				jQuery.removeCookie('bd_wizard_section');
 			} else {
 				p.addClass('on').siblings().removeClass('on');
+				var idx = $sections.index(p);
+				jQuery.cookie('bd_wizard_section', idx);
 			}
 		});
 		v.find('a.x_icon-question-sign').click(function(){
@@ -60,5 +71,12 @@
 				$form.trigger('submit');
 			});
 		}
+		// 제출 직전 현재 열린 탭 저장
+		$form.on('submit', function(){
+			var $open = $sections.filter('.on').first();
+			if($open.length){
+				jQuery.cookie('bd_wizard_section', $sections.index($open));
+			}
+		});
 	});
 </script>
