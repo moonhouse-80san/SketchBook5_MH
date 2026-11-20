@@ -33,4 +33,23 @@
 	<a class="edit" href="{getUrl('', 'mid', $mid, 'act','dispBoardWrite','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px write"></i>{$lang->cmd_modify}</a>
 	<a class="edit" href="{getUrl('', 'mid', $mid, 'act','dispBoardDelete','document_srl',$oDocument->document_srl,'comment_srl','')}"><i class="ico_16px delete"></i>{$lang->cmd_delete} </a>
 	</block>
+
+	<!--// 관리자이면 설정 버튼 출력 -->
+	<!--@if($grant->manager && $mi->display_setup_button != 'N')-->
+	<a class="edit" href="{getUrl('act','dispBoardAdminBoardInfo')}"><i class="fa fa-cog"></i> {$lang->cmd_setup}</a>
+	<!--@end-->
+	<!--// 최고관리자이면 관리자 페이지 버튼 출력 -->
+	<!--@if($logged_info->is_admin == 'Y' && $mi->display_setup_button != 'N')-->
+	<a class="edit" href="{getUrl('','module','admin','act','dispBoardAdminContent')}" onclick="window.open(this.href); return false;"><i class="fa fa-lock"></i> {$lang->cmd_management}</a>
+	<!--@end-->
+	<!--// 회원정보 / 로그인·로그아웃 버튼 출력 -->
+	<!--@if($mi->display_login_info != 'N')-->
+		<!--@if($is_logged)-->
+		<a class="edit" href="{getUrl('act','dispMemberInfo')}"><i class="fa fa-user"></i> {$lang->cmd_view_member_info}</a>
+		<a class="edit" href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a>
+		<!--@else-->
+		<a class="edit" href="{getUrl('act','dispMemberSignUpForm')}"><i class="fa fa-user"></i> {$lang->cmd_signup}</a>
+		<a class="edit" href="{getUrl('act','dispMemberLoginForm')}">{$lang->cmd_login}</a>
+		<!--@end-->
+	<!--@end-->
 </div>
