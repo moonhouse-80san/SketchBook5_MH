@@ -5,8 +5,40 @@ p { margin-bottom:0px;}
 #bd_wizard_tg i{font-size:24px;color:#999;text-shadow:0 1px 0 rgba(0,0,0,.5)}
 #bd_wizard_tg:hover b,.open #bd_wizard_tg b{opacity:.8}
 #bd_wizard h1{margin:0;padding:12px;background:#444;font-size:14px;line-height:16px;color:#FFF}
-#bd_wizard_scroll{overflow-y:scroll;visibility:hidden;position:absolute;top:40px;bottom:0;left:0;right:0; background-color:#fff; }
+#bd_wizard_scroll{overflow-y:auto;visibility:hidden;position:absolute;top:40px;bottom:60px;left:0;right:0;background-color:#fff;}
 .open #bd_wizard_scroll{visibility:visible}
+
+#bd_wizard .bd_wizard_footer{
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	height:60px;
+	padding:10px 0;
+	background:#fff;
+	border-top:1px solid #DDD;
+	z-index:30;
+	box-sizing:border-box;
+	display:none;
+}
+#bd_wizard .bd_wizard_footer.show{display:block;}
+#bd_wizard .bd_wizard_footer .x_btn{
+	display:block;
+	width:90%;
+	margin:0 auto;
+	padding:0;
+	border:0;
+	border-radius:3px;
+	box-shadow:0 1px 1px rgba(0,0,0,.8);
+	background:#999;
+	font-weight:700;
+	font-size:15px;
+	line-height:40px;
+	color:#FFF;
+	text-shadow:0 1px 0 #000;
+	text-align:center;
+	cursor:pointer;
+}
 
 #bd_wizard .section{overflow:hidden;position:relative;height:40px;border-bottom:1px solid #DDD}
 #bd_wizard .section.on{height:auto}
@@ -27,7 +59,8 @@ p { margin-bottom:0px;}
 #bd_wizard .x_controls>p{font-family:dotum,'돋움',sans-serif;color:#555}
 #bd_wizard .x_btn{display:block;width:90%;margin:20px auto;padding:0;border:0;border-radius:3px;box-shadow:0 1px 1px rgba(0,0,0,.8);background:#999;font-weight:700;font-size:15px;line-height:40px;color:#FFF;text-shadow:0 1px 0 #000;text-align:center}
 #bd_wizard.barrier .section:after{content:"";display:block;position:absolute;top:40px;bottom:0;left:0;right:0;background:url(../img/wh_op7.png);background:rgba(255,255,255,.7)}
-#bd_wizard.barrier .x_btn{display:none}
+#bd_wizard.barrier .x_btn,
+#bd_wizard.barrier .bd_wizard_footer{display:none !important}
 
 @media screen and (max-width:640px){
 #bd_wizard{display:none}

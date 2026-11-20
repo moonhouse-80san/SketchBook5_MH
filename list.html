@@ -114,7 +114,7 @@ jQuery(function($){
 				</block>
 				<block cond="!$oDocument->isExists()">
 					<span cond="$mi->font_btn=='2'" class="font_select"><a class="select tg_btn2" href="#" data-href=".bd_font_select"><b class="tx_ico_chk">T</b>{$lang->font}<i class="arrow down"></i></a></span>
-					<div cond="!$mo" class="rd_nav_style2">
+					<div cond="!$mo && $mi->top_btn==''" class="rd_nav_style2">
 						<div class="rd_nav img_tx fr m_btn_wrp" style="padding:3px 10px 3px 0">
 							<!--// 관리자이면 설정 버튼 출력 -->
 							<!--@if($grant->manager && $mi->display_setup_button != 'N')-->

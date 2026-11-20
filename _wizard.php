@@ -3,7 +3,7 @@
 	$skin_content = $oModuleAdminModel->getModuleSkinHTML($module_info->module_srl);
 }
 
-<div id="bd_wizard" <!--@if($grant->manager)--> class="{$_COOKIE['bd_wizard_cookie'] ?? ''}"<!--@else--> class="{$_COOKIE['bd_wizard_cookie'] ?? ''}" barrier" title="관리자만 설정할 수 있습니다."<!--@end--> style="left:0"|cond="($_COOKIE['bd_wizard_cookie'] ?? '')=='open'">
+<div id="bd_wizard" <!--@if($grant->manager)--> class="{$_COOKIE['bd_wizard_cookie']}"<!--@else--> class="{$_COOKIE['bd_wizard_cookie']} barrier" title="관리자만 설정할 수 있습니다."<!--@end--> style="left:0"|cond="$_COOKIE['bd_wizard_cookie']=='open'">
 	<button type="button" id="bd_wizard_tg" class="ngeb bd_btn" title="{$lang->cmd_setup} {$lang->cmd_open}/{$lang->cmd_close}"><i class="fa fa-cog"></i><b class="blind">Open/Close</b></button>
 	<h1 class="ui_font">게시판 설정</h1>
 	<div id="bd_wizard_scroll">
@@ -45,5 +45,20 @@
 			$(this).next('p').show();
 			return false;
 		});
+
+		// 등록 버튼을 스크롤 영역 밖 하단에 고정
+		var $form = v.find('form');
+		var $btn = $form.find('.x_btn').last();
+		if($btn.length){
+			var $footer = $('<div class="bd_wizard_footer show"></div>');
+			var $fixedBtn = $btn.clone(true);
+			$btn.hide();
+			$footer.append($fixedBtn);
+			v.append($footer);
+			$fixedBtn.on('click', function(e){
+				e.preventDefault();
+				$form.trigger('submit');
+			});
+		}
 	});
 </script>

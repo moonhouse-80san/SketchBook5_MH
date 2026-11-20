@@ -571,6 +571,20 @@
 					<title xml:lang="en">Hide</title>
 				</options>
 			</var>
+			<var name="top_btn" type="radio" default="">
+				<title xml:lang="ko">✔ 상단 설정 메뉴</title>
+				<title xml:lang="en">✔ Top Settings Men</title>
+				<description xml:lang="ko">상단에 로그인, 게시판 설정, 관리, 회원정보보기, 글 쓰기, 게시물관리 버턴 출력</description>
+				<description xml:lang="en">Display the Log In, Board Settings, Admin, View Profile, Write Post, and Manage Posts buttons at the top.</description>
+				<options value="">
+					<title xml:lang="ko">표시(기본)</title>
+					<title xml:lang="en">Display (Default)</title>
+				</options>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="en">Hide</title>
+				</options>
+			</var>
 			<var name="write_btn" type="radio">
 				<title xml:lang="ko">✔ 쓰기 버튼</title>
 				<title xml:lang="en">✔ Write Button</title>
