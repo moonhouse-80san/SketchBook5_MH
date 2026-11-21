@@ -127,7 +127,7 @@
 				</div>
 
 				<!--// 제목 밑 커스텀 위젯 등 영역 -->
-				{$mi->rd_hd_widget}
+				{html_entity_decode((string)$mi->rd_hd_widget, ENT_QUOTES, 'UTF-8')|noescape}
 			</div>
 		</div>
 
@@ -230,7 +230,7 @@
 			<include cond="$mi->extra_map =='Y'" target="_read_map.html" />
 
 			<!--// 본문상단에 표시되는 내용 -->
-			<div cond="$mi->document_top_text" class="documentText">{$mi->document_top_text}</div>
+			<div cond="$mi->document_top_text" class="documentText">{html_entity_decode((string)$mi->document_top_text, ENT_QUOTES, 'UTF-8')|noescape}</div>
 
 			<!--// 본문에 이미지 없을 때 -->
 			<p cond="$mi->no_attached_img && !$oDocument->thumbnailExists()" style="margin-bottom:30px;text-align:center"><img src="{$mi->no_attached_img}" alt="No Attached Image" /></p>
@@ -302,7 +302,7 @@
 			</block>
 
 			<!--// 지정한 게시글의 본문에서만 출력 -->
-			<span cond="$oDocument->get('document_srl')==$mi->document_no" class="documentText">{$mi->document_no_text}</span>
+			<span cond="$oDocument->get('document_srl')==$mi->document_no" class="documentText">{html_entity_decode((string)$mi->document_no_text, ENT_QUOTES, 'UTF-8')|noescape}</span>
 
 			<div cond="$mi->img_insert=='3'" class="xe_content rd_gallery">
 				<block loop="$oDocument->getUploadedFiles()=>$key,$file">
@@ -345,7 +345,7 @@
 			</table>
 
 			<!--// 본문하단에 표시되는 내용 -->
-			<div cond="$mi->document_bottom_text" class="documentText">{$mi->document_bottom_text}</div>
+			<div cond="$mi->document_bottom_text" class="documentText">{html_entity_decode((string)$mi->document_bottom_text, ENT_QUOTES, 'UTF-8')|noescape}</div>
 
 			<!--// Tag -->
 			{@ $tag_list=$oDocument->get('tag_list') }
@@ -531,7 +531,7 @@
 				<a class="kakao bubble" href="javascript:sendLink()" data-type="kakao" title="To Kakao"><b class="ico_sns kakao">Kakao</b></a>
 				<!--@end-->
 			</div>
-			<div cond="$mi->to_sns=='4' && $mi->to_sns_content" class="to_sns small clear">{$mi->to_sns_content}</div>
+			<div cond="$mi->to_sns=='4' && $mi->to_sns_content" class="to_sns small clear">{html_entity_decode((string)$mi->to_sns_content, ENT_QUOTES, 'UTF-8')|noescape}</div>
 			<!--// Files -->
 			<include cond="$oDocument->hasUploadedFiles() && (!$mi->show_files || $mi->show_files==2)" target="_read_files.html" />
 

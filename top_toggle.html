@@ -24,14 +24,14 @@
 			{$mi->top_panel_btn}
 		</span>
 	</div>
-	<div class="sk_panel">{$mi->top_panel_text}</div>
+	<div class="sk_panel">{html_entity_decode((string)$mi->top_panel_text, ENT_QUOTES, 'UTF-8')|noescape}</div>
 <!--@elseif($mi->panel_select == 'H')-->
 	<div class="folding-panel-wrapper">
 		<details class="folding-panel" <!--@if(!$mi->panel_auto =='')-->open<!--@end-->>
 			<summary class="folding-header">
 				<span>{$mi->top_panel_btn}</span>
 			</summary>
-			<div class="folding-content">{$mi->top_panel_text}</div>
+			<div class="folding-content">{html_entity_decode((string)$mi->top_panel_text, ENT_QUOTES, 'UTF-8')|noescape}</div>
 		</details>
 	</div>
 
