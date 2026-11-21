@@ -3487,10 +3487,16 @@
 				<description xml:lang="en">When "Every Specified Interval" is selected above, inserts an ad line every specified number of rows. Leave empty to disable.</description>
 			</var>
 			<var name="files_ads_code" type="textarea">
-				<title xml:lang="ko">　┖ 삽입할 광고 문구/코드</title>
-				<title xml:lang="en">　┖ Ad Text/Code to Insert</title>
-				<description xml:lang="ko">위 위치/간격에 삽입할 광고 문구나 코드(HTML, 에드센스 등)를 입력하세요.</description>
-				<description xml:lang="en">Enter the ad text or code (HTML, AdSense, etc.) to insert at the position/interval above.</description>
+				<title xml:lang="ko">　┖ 삽입할 광고 문구/코드 (PC)</title>
+				<title xml:lang="en">　┖ Ad Text/Code to Insert (PC)</title>
+				<description xml:lang="ko">일반 PC 화면에서 위 위치/간격에 삽입할 광고 문구나 코드(HTML, 에드센스 등)를 입력하세요.</description>
+				<description xml:lang="en">Enter the ad text or code (HTML, AdSense, etc.) to insert on desktop screens at the position/interval above.</description>
+			</var>
+			<var name="files_ads_code_mobile" type="textarea">
+				<title xml:lang="ko">　┖ 삽입할 광고 문구/코드 (모바일)</title>
+				<title xml:lang="en">　┖ Ad Text/Code to Insert (Mobile)</title>
+				<description xml:lang="ko">모바일 기기에서 삽입할 광고 문구나 코드(모바일용 에드센스 등)를 입력하세요. 비워두면 PC용 코드를 그대로 사용합니다.</description>
+				<description xml:lang="en">Enter the ad text or code (e.g. mobile AdSense) to insert on mobile devices. If empty, the PC code is used.</description>
 			</var>
 			<var name="down_mid" type="text">
 				<title xml:lang="ko">📍 파일 다운 권한 mid</title>
