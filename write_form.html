@@ -43,16 +43,21 @@
 
 <include cond="$mi->wha_text" target="_writeheadarea.html" />
 
+<!--// 글작성시 미리입력된글(HTML 허용)을 에디터에 반영 -->
+{@
+if (!$oDocument->isExists() && $mi->content_default) Context::set('content', $mi->content_default);
+}
 <form cond="!$mo || $mi->m_editor==3" action="./" method="post" onsubmit="return procFilter(this, window.insert)" class="bd_wrt bd_wrt_main clear board_write">
 	<input type="hidden" name="mid" value="{$mid}" />
-	<!--@if(!$oDocument->getContentText() && $mi->content_default)-->
-	<input type="hidden" name="content" value="{htmlspecialchars($mi->content_default)}" />
+	<!--@if($oDocument->getContentText())-->
+	<input type="hidden" name="content" value="{$oDocument->getContentText()}" />
+	<!--@elseif($mi->content_default)-->
+	<!--// HTML 허용: guest 폼과 동일하게 escape 없이 전달 (에디터가 val()로 HTML 해석) -->
+	<input type="hidden" name="content" value="{$mi->content_default}" />
+	<!--@elseif($mi->display_content_writer=="N")-->
+	<input type="hidden" name="content" value="." />
 	<!--@else-->
-		<!--@if($mi->display_content_writer!="N")-->
-			<input type="hidden" name="content" value="{$oDocument->getContentText()?$oDocument->getContentText():nl2br($mi->content_default)}" />
-		<!--@else-->
-			<input type="hidden" name="content" value="." />
-		<!--@end-->
+	<input type="hidden" name="content" value="" />
 	<!--@end-->
 	<input type="hidden" name="document_srl" value="{$document_srl}" />
 	<input cond="$mo" type="hidden" name="use_html" value="Y" />
@@ -114,27 +119,28 @@
 	</div>
 
 	{@
-		$mh_ex_visible = 0;
-		foreach((array)$extra_keys as $mh_ex_key):
-			if($mh_ex_key->eid != 'img_border_w' && $mh_ex_key->eid != 'img_border_c' && $mh_ex_key->eid != 'img_shadow') $mh_ex_visible++;
-		endforeach;
+		// 회원현황 제어 확장변수 ID (스킨 설정, 기본 member_stats)
+		$ms_eid = trim($mi->member_stats ?? '');
+		if($ms_eid === '' || $ms_eid === 'Y' || $ms_eid === 'N') $ms_eid = 'member_stats';
 	}
-	<table cond="$mh_ex_visible > 0" class="et_vars exForm bd_tb">
+	<table cond="count($extra_keys)" class="et_vars exForm bd_tb">
 		<caption><strong><em>*</em></strong> <small>: {$lang->is_required}</small></caption>
 		<caption cond="$mi->extra_map =='Y'"><strong><em>*</em></strong> 주소 직접 입력시 지도 클릭은 하지 마세요. 둘 다 선택시 [주소 칸 입력]이 우선합니다.</caption>
-		<tr loop="$extra_keys=>$key,$val" cond="$val->eid!=='img_border_w' && $val->eid!=='img_border_c' && $val->eid!=='img_shadow'">
+		<tr loop="$extra_keys=>$key,$val">
 			<!--// admin_select로 확장 변수ID 생성시 관리자에게만 출력  -->
 			<!--@if($val->eid!==$mi->admin_extra)-->
 
 				<!--// 확장변수명이 _wh, _wrh로 끝날때 숨김처리 하기(관리자는 예외) -->
+				<!--// 스킨 member_stats_show=N 이면 회원현황 제어 확장변수(정보 공유) 작성폼에서 숨김 -->
 				{@
 					$match1 = preg_match('/_wh$/is', $val->eid);
 					$match2 = preg_match('/_wrh$/is', $val->eid);
+					$hide_member_stats = (($mi->member_stats_show ?? '') === 'N' && $val->eid === $ms_eid);
 				}
-				<!--@if(($match1 != 1 && $match2 != 1) || $grant->is_admin)-->
+				<!--@if(!$hide_member_stats && (($match1 != 1 && $match2 != 1) || $grant->is_admin))-->
 					<th scope="row"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
 					<td cond="$val->eid!==$mi->etc_name">{$val->getFormHTML()}</td>
-				<!--@else-->
+				<!--@elseif(!$hide_member_stats)-->
 					<th scope="row" style="display:none"><em cond="$val->is_required=='Y'">*</em> {$val->name}</th>
 					<td cond="$val->eid!==$mi->etc_name" style="display:none">{$val->getFormHTML()}</td>
 				<!--@end-->
@@ -147,8 +153,8 @@
 						</style>
 						<ul>
 						{@
-							$val_array = array_filter(array_map('trim', explode(',', (string)($val->default ?? ''))), 'strlen');
-							$val_value = implode('', (array)$oDocument->getExtraEidValue($val->eid));
+							$val_array = explode(', ',$val->default);
+							$val_value = implode('',$oDocument->getExtraEidValue($val->eid));
 						}
 							<li loop="$n=0;$n<count($val_array);$n++">
 							<!--@if($n+1!=count($val_array))-->
@@ -177,8 +183,6 @@
 	<include cond="$mi->extra_map =='Y'" target="write_map.html" />
 
 	<div class="editor" cond="$mi->display_content_writer!=='N'">{$oDocument->getEditor()}</div>
-
-	<include target="_write_img_border.html" />
 
 	<!--// 태그 -->
 	<div class="tag itx_wrp" cond="$mi->tag_view!=='N'">
