@@ -1,13 +1,17 @@
 <style>
-#toggleExtraVars { border:1px dotted #fff; padding:5px; border-radius:5px; }
+#toggleExtraVars { border:1px dotted #fff; padding:5px; border-radius:5px; width:fit-content; max-width:100%; }
 #toggleExtraVars i { color:#fff; margin-right:2px; }
 #toggleExtraVars .et { color:#d2d2d2; }
 #toggleExtraVars .et span { font-size:12px; }
-.sty { cursor:pointer; background-color:#000; width:218px; }
+.sty { cursor:pointer; background-color:#000; }
+#downloadWrapper { position:relative; }
+#downloadWrapper .dcnt { position:absolute; left:131px; top:25px; padding:1px 9px; background:rgba(0,0,0,.8); border-radius:10px; color:#ffd400; font-size:11px; line-height:16px; white-space:nowrap; pointer-events:none; }
+#downloadWrapper .dcnt b { color:#fff; }
 </style>
 
 <div id="downloadWrapper">
 	<a href="#toggleExtraVars" class="downimg"></a>
+	<span class="dcnt"><b class="dcnum">0</b>회</span>
 
 	<div cond="$val->name==$mi->et_logon_name" id="toggleExtraVars" style="background-color:#747474"><i class="fas fa-download"></i>
 	{$val->getValueHTML()}<b class="et"><span cond="$mi->et_logon_t">: {$mi->et_logon_t}</span><span cond="!$mi->et_logon_t">: 클릭하면 자료가 다운로드 됩니다.</span></b>
@@ -32,6 +36,24 @@
 
 <script>
 	jQuery(function($){ 
+		var dcUrl = '{Context::getRequestUri()}{substr($tpl_path, 2)}down_count.php';
+		var dcSrl = '{$oDocument->document_srl}';
+		$.getJSON(dcUrl, { srl: dcSrl }, function(res){
+			$('#downloadWrapper .dcnum').text(res.count);
+		});
+		$('#downloadWrapper').on('click', function(e){
+			if (!$(e.target).closest('#downloadWrapper > div').length) return;
+			var token = window.getCSRFToken ? window.getCSRFToken() : '';
+			fetch(dcUrl, {
+				method: 'POST',
+				keepalive: true,
+				credentials: 'same-origin',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRF-Token': token },
+				body: 'srl=' + encodeURIComponent(dcSrl)
+			}).then(function(r){ return r.json(); }).then(function(res){
+				$('#downloadWrapper .dcnum').text(res.count);
+			}).catch(function(){});
+		});
 		$('#toggleExtraVars').hide();
 		$('#downloadWrapper').hover(
 			function(){
